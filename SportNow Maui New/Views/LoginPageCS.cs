@@ -22,7 +22,7 @@ namespace SportNow.Views
 			var mainDisplayInfo = DeviceDisplay.MainDisplayInfo;
 			Constants.ScreenWidth = mainDisplayInfo.Width;
 			Constants.ScreenHeight = mainDisplayInfo.Height;
-			Debug.Print("AQUI Login - ScreenWidth = " + Constants.ScreenWidth + " ScreenHeight = " + Constants.ScreenHeight + "mainDisplayInfo.Density = " + mainDisplayInfo.Density);
+			//Debug.Print("AQUI Login - ScreenWidth = " + Constants.ScreenWidth + " ScreenHeight = " + Constants.ScreenHeight + "mainDisplayInfo.Density = " + mainDisplayInfo.Density);
 
 			App.AdaptScreen();
 			this.initSpecificLayout();
