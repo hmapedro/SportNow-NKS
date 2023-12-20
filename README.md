@@ -1,2 +1,2 @@
-# sportnow_nksangalhos
+# SportNow-NKS
 SportNow NK Sangalhos
