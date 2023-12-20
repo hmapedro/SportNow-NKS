@@ -121,7 +121,7 @@ namespace SportNow.Views
                 }
 
 
-                if (App.member.estado == "aprovado")
+                if (App.member.estado == "pre_registo")
                 {
                     //Debug.Print("Membro aprovado mas ainda não ativo 1 " + App.member.aulanome);
 
@@ -188,7 +188,7 @@ namespace SportNow.Views
             else if (App.members.Count > 0) //veio do login ou de select member e retornou vários membros mas já preencheu o que tinha a preencher.
             {
 
-                if (App.member.estado == "aprovado")
+                if (App.member.estado == "pre_registo")
                 {
 
                    /* Debug.Print("Membro aprovado mas ainda não ativo 2 " + App.member.aulanome);

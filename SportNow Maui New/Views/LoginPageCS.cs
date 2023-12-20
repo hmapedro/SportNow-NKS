@@ -37,15 +37,6 @@ namespace SportNow.Views
 		string password = "";
 		string username = "";
 		string message = "";
-	
-		/*public void initBaseLayout() {
-
-
-			//NavigationPage.SetHasNavigationBar(this, false);
-			//Title = "Login";			
-
-			NavigationPage.SetHasNavigationBar(this, false);
-		}*/
 
 		public void initSpecificLayout()
 		{
@@ -213,7 +204,7 @@ namespace SportNow.Views
 				//UserDialogs.Instance.Alert(new AlertConfig() { Title = "Erro", message, OkText = "Ok" });
 			}
 			
-			this.initBaseLayout();
+			//this.initBaseLayout();
 			
 
 		}
