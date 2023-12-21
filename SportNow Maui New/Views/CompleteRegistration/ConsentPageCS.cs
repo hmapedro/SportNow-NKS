@@ -45,7 +45,7 @@ namespace SportNow.Views.CompleteRegistration
 
         public void initLayout()
 		{
-			Title = "CONSENTIMENTOS";
+			Title = "POLÍTICA DADOS";
 
 		}
 
@@ -66,34 +66,51 @@ namespace SportNow.Views.CompleteRegistration
 			Microsoft.Maui.Controls.Grid gridConsent = new Microsoft.Maui.Controls.Grid { Padding = 0, HorizontalOptions = LayoutOptions.FillAndExpand };
             scrollView.Content = gridConsent;
             gridConsent.RowDefinitions.Add(new RowDefinition { Height = GridLength.Star });
+            gridConsent.RowDefinitions.Add(new RowDefinition { Height = 100 * App.screenHeightAdapter });
             gridConsent.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
             gridConsent.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
-            //gridGeral.RowDefinitions.Add(new RowDefinition { Height = 1 });
             gridConsent.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto }); //GridLength.Auto 
             gridConsent.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Star }); //GridLength.Auto 
 
-
-            int y_index = (int)(20 * App.screenHeightAdapter);
-
 			Label labelRegulamentoInterno = new Label { FontFamily = "futuracondensedmedium", BackgroundColor = Colors.Transparent, VerticalTextAlignment = TextAlignment.Start, HorizontalTextAlignment = TextAlignment.Start, FontSize = App.consentFontSize, TextColor = App.normalTextColor, LineBreakMode = LineBreakMode.WordWrap };
-			labelRegulamentoInterno.Text = "Declaro que as informações e dados pessoais transmitidos são verdadeiros e atuais.\n\nAutorizo o tratamento dos meus dados pessoais e/ou do meu educando, por parte da Ippon Karate Portugal, para efeitos de processos associados a faturação, a atividades desportivas, em particular para filiação/refiliação em federações desportivas, incluindo inscrições em eventos desportivos nacionais ou internacionais, a contratação de seguros desportivos, e, bem assim, ao envio de mensagens sobre a atividade desportiva e corrente da Ippon Karate Portugal (SMS, MMS, APP e correio eletrónico).\n\nAutorizo igualmente o registo, gravação, captação de imagens e testemunhos dos treinos, competições e outros eventos de cariz desportivo, formativo e lúdico para utilização com finalidades pedagógicas e/ou promocionais. Neste âmbito, a Ippon Karate Portugal pode proceder à divulgação, total ou parcial, dessas atividades, imagens e testemunhos que lhe estão associadas através das suas páginas eletrónicas, portais ou redes sociais, incluindo plataformas e canais digitais pertencentes a órgãos de comunicação social. \n\nFace ao exposto, cedo, a título gratuito os direitos de imagem associados à minha participação e/ou do meu educando nas várias iniciativas desportivas, pedagógicas, formativas e lúdicas promovidas pela Ippon Karate Portugal. \n\nAutorizo a Ippon Karate Portugal a recolher a foto tipo passe do sócio para uso na ficha de sócio e para a emissão de credenciais de eventos. \n\nLi e concordo com o Regulamento Interno da Ippon Karate Portugal disponível em www.ippon.pt.\n";
+			labelRegulamentoInterno.Text = "O NKS na execução da atividade laboral, acede e lida, quando necessário, com os dados pessoais dos nossos atletas, sócios, parceiros e demais atores que intervém para o desenrolar na nossa atividade associativa. Esta comunicação pretende informar da forma como o NKS processa esses dados pessoais e qual a finalidade do tratamento das mesmas, assim como informar dos direitos que assistem aos titulares dos dados e da forma como os mesmos poderão exercer esses mesmos direitos.\n\nEntidade responsável pelo tratamento:\nNKS - Núcleo Karate de Sangalhos – NIF: 509 923 194\nCom morada na Rua Ivo Neves, n.º405, 3780-524 Sangalhos\nE-mail: nks@karatesangalhos.com\n\nTratamos os dados pessoais para as seguintes finalidades:\nPrestação de serviços relacionados com a nossa atividade associativa;\nCumprimento de obrigações legais;\nEfeitos de marketing e redes sociais.\n\nO NKS poderá ter de comunicar os dados pessoais recolhidos a terceiros que estejam envolvidos na prestação dos serviços por si contratados, assim como a autoridades judiciais, fiscais e regulatórias, com a finalidade do cumprimento de obrigações legais. Os dados pessoais recolhidos serão exclusivamente tratados para as finalidades acima indicadas pelo NKS e serão conservados somente durante o período necessário à concretização das finalidades que motivaram a sua recolha.";
+
+            Label rgpdLabel = new Label { FontFamily = "futuracondensedmedium", Text = "Consulta aqui a Política de Tratamento de Dados do NK Sangalhos", VerticalTextAlignment = TextAlignment.Start, HorizontalTextAlignment = TextAlignment.Center, FontSize = 13 * App.screenWidthAdapter, TextColor = App.topColor, LineBreakMode = LineBreakMode.NoWrap };
+
+            var rgpdLabel_tap = new TapGestureRecognizer();
+            rgpdLabel_tap.Tapped += async (s, e) =>
+            {
+                try
+                {
+                    await Browser.OpenAsync("https://karatesangalhos.pt/rgpd", BrowserLaunchMode.SystemPreferred);
+                }
+                catch (Exception ex)
+                {
+                    // An unexpected error occured. No browser may be installed on the device.
+                }
+            };
+            rgpdLabel.GestureRecognizers.Add(rgpdLabel_tap);
+
 
             Label labelConfirm = new Label { FontFamily = "futuracondensedmedium", BackgroundColor = Colors.Transparent, VerticalTextAlignment = TextAlignment.Center, HorizontalTextAlignment = TextAlignment.Start, FontSize = App.consentFontSize, TextColor = App.normalTextColor, LineBreakMode = LineBreakMode.WordWrap };
-            labelConfirm.Text = "CONFIRMO QUE ACEITO OS CONSENTIMENTOS APRESENTADOS.";
+            labelConfirm.Text = "CONFIRMO QUE ACEITO A POLÍTICA DE TRATAMENTO DE DADOS.";
 
 
             checkboxConfirm = new CheckBox { Color = App.topColor};
 
             gridConsent.Add(labelRegulamentoInterno, 0, 0);
-            Microsoft.Maui.Controls.Grid.SetColumnSpan(labelRegulamentoInterno, 2);
-            gridConsent.Add(checkboxConfirm, 0, 1);
-			gridConsent.Add(labelConfirm, 1, 1);
-            
+            Grid.SetColumnSpan(labelRegulamentoInterno, 2);
 
-            RoundButton confirmButton = new RoundButton("CONFIRMAR", App.screenWidth - 10 * App.screenWidthAdapter, 50 * App.screenHeightAdapter);
+            gridConsent.Add(rgpdLabel, 0, 1);
+            Grid.SetColumnSpan(rgpdLabel, 2);
+
+            gridConsent.Add(checkboxConfirm, 0, 2);
+			gridConsent.Add(labelConfirm, 1, 2);
+
+            RoundButton confirmButton = new RoundButton("CONFIRMAR", App.screenWidth - 20 * App.screenWidthAdapter, 50 * App.screenHeightAdapter);
 			confirmButton.button.Clicked += confirmConsentButtonClicked;
 
-			gridConsent.Add(confirmButton, 0, 2);
+			gridConsent.Add(confirmButton, 0, 3);
             Microsoft.Maui.Controls.Grid.SetColumnSpan(confirmButton, 2);
 
             /*absoluteLayout.Add(confirmButton);
@@ -102,7 +119,7 @@ namespace SportNow.Views.CompleteRegistration
 
         }
 
-		public ConsentPageCS()
+        public ConsentPageCS()
 		{
             this.initLayout();
             this.initSpecificLayout();
@@ -119,28 +136,11 @@ namespace SportNow.Views.CompleteRegistration
             //SAVE CONSENTIMENTOS!!!!!
             showActivityIndicator();
 			MemberManager memberManager = new MemberManager();
-
-			App.member = new Member();
+			//App.member = new Member();
 			App.member.consentimento_regulamento = "1";// Convert.ToInt32(checkBoxRegulamentoInterno.IsChecked).ToString();				
-
-			//var result = await memberManager.Update_Member_Authorizations(App.member.id, App.member.consentimento_regulamento);
+            //var result = await memberManager.Update_Member_Authorizations(App.member.id, App.member.consentimento_regulamento);
             hideActivityIndicator();
-            Debug.Print("App.member.member_type = " + App.member.member_type);
-
-
-            //await Navigation.PushAsync(new CompleteRegistration_Sports_PageCS());
-            //await Navigation.PushAsync(new NewMemberPageCS());
-
-            /*if (App.member.member_type == "praticante")
-			{
-				await Navigation.PushAsync(new CompleteRegistration_Documents_PageCS());
-			}
-			else
-			{
-				await Navigation.PushAsync(new CompleteRegistration_Profile_PageCS());
-			}*/
-
-
+            await Navigation.PushAsync(new CompleteRegistration_Documents_PageCS());
         }
 	}
 

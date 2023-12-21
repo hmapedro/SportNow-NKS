@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Windows.Input;
 using Microsoft.Maui;
 
 namespace SportNow.Views
@@ -10,12 +11,72 @@ namespace SportNow.Views
         ActivityIndicator indicator;
         Image loading;
 
+        private DeviceOrientationService _deviceOrientationService;
+        private string _orientationLockState = "Unlocked";
+
+        public ICommand LockPortraitCommand { get; }
+        public ICommand LockLandscapeCommand { get; }
+        public ICommand UnlockOrientationCommand { get; }
+
+        public string OrientationLockState;/*
+        {
+            get => _orientationLockState;
+            set => SetField(ref _orientationLockState, value);
+        }*/
+
+        private void LockOrientation(DisplayOrientation? orientation)
+        {
+            if (_deviceOrientationService == null)
+            {
+                Debug.Print("_deviceOrientationService null");
+                return;
+            }
+
+
+            switch (orientation)
+            {
+                case DisplayOrientation.Portrait:
+                    Debug.Print("Locked Portrait");
+                    this.OrientationLockState = "Locked Portrait";
+                    _deviceOrientationService.LockPortraitInterface();
+                    break;
+                case DisplayOrientation.Landscape:
+                    Debug.Print("Locked Landscape");
+                    _deviceOrientationService.LockPortraitInterface();
+                    this.OrientationLockState = "Locked Landscape";
+                    break;
+                case null:
+                case DisplayOrientation.Unknown:
+                default:
+                    Debug.Print("Unlocked");
+                    _deviceOrientationService.LockPortraitInterface();
+                    this.OrientationLockState = "Unlocked";
+                    break;
+            }
+        }
+
+
         public DefaultPage()
         {
 			this.initBaseLayout();
-		}
 
-		public AbsoluteLayout absoluteLayout;
+            DeviceOrientationService deviceOrientationService = new DeviceOrientationService();
+
+            deviceOrientationService.LockPortraitInterface();
+
+#if ANDROID
+            var currentActivity = ActivityStateManager.Default.GetCurrentActivity();
+            if (currentActivity is not null)
+            {
+                currentActivity.RequestedOrientation = (Android.Content.PM.ScreenOrientation)DisplayOrientation.Portrait;
+
+            }
+#elif IOS
+            this.LockOrientation(DisplayOrientation.Portrait);
+#endif
+        }
+
+        public AbsoluteLayout absoluteLayout;
 
 		public void initBaseLayout()
 		{

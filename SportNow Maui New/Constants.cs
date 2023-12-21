@@ -9,6 +9,7 @@ namespace SportNow
     {
 
         public static string servername = "nksangalhos.ippon.pt";
+        public static string serverbase = "https://"+ servername;
         public static string server = servername;
         public static string images_URL = DeviceInfo.Platform == DevicePlatform.Android? "http://" + server + "/upload/" : "https://" + server + "/upload/";
 
@@ -175,6 +176,8 @@ namespace SportNow
         public static string RestUrl_Upload_Member_Photo = DeviceInfo.Platform == DevicePlatform.Android ? "https://" + server + "/services/service_upload_member_photo.php" : "https://" + server + "/services/service_upload_member_photo.php";
 
         public static string RestUrl_Delete_Member_Photo = DeviceInfo.Platform == DevicePlatform.Android ? "https://" + server + "/services/service_delete_member_photo.php" : "https://" + server + "/services/service_delete_member_photo.php";
+
+        public static string RestUrl_Upload_Member_Document = Device.RuntimePlatform == Device.Android ? "https://" + server + "/services/service_create_member_document.php" : "https://" + server + "/services/service_create_member_document.php";
 
         public static string RestUrl_Get_Members_To_Approve = DeviceInfo.Platform == DevicePlatform.Android ? "https://" + server + "/services/service_get_members_to_approve.php" : "https://" + server + "/services/service_get_members_to_approve.php";
 

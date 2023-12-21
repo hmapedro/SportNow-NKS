@@ -6,7 +6,7 @@ using System.Text.RegularExpressions;
 
 using SkiaSharp;
 
-namespace SportNow.Views.Profile
+namespace SportNow.Views.CompleteRegistration
 {
     public class NewMemberPageCS : DefaultPage
     {
@@ -716,7 +716,7 @@ namespace SportNow.Views.Profile
 
             if (result == "1")
             {
-                await Navigation.PushAsync(new NewMemberSuccessPageCS());
+                //await Navigation.PushAsync(new NewMemberSuccessPageCS());
 
             }
             else if (result == "-1")

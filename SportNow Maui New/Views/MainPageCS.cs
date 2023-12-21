@@ -769,7 +769,7 @@ namespace SportNow.Views
 
 
 				absoluteLayout.Add(currentFeeLabel);
-                absoluteLayout.SetLayoutBounds(currentFeeLabel, new Rect(0, feesOrQuoteY, App.screenWidth, 50 * App.screenHeightAdapter));
+                absoluteLayout.SetLayoutBounds(currentFeeLabel, new Rect(0, feesOrQuoteY, App.screenWidth, 60 * App.screenHeightAdapter));
 			}
 		}
 

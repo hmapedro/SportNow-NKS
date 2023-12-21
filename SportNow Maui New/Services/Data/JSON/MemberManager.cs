@@ -131,7 +131,7 @@ namespace SportNow.Services.Data.JSON
 
 		public async Task<List<Member>> GetMembers(User user)
 		{
-			Debug.WriteLine("GetMembers "+ user.Username);
+			Debug.WriteLine("GetMembers "+ Constants.RestUrl_Get_Member_Info + "?username=" + user.Username);
 			Uri uri = new Uri(string.Format(Constants.RestUrl_Get_Member_Info + "?username=" + user.Username ));
 			try
 			{
@@ -142,7 +142,7 @@ namespace SportNow.Services.Data.JSON
 				{
 					Debug.WriteLine("login ok AQUI");
 					string content = await response.Content.ReadAsStringAsync();
-					Debug.WriteLine("content = "+ content);
+					Debug.WriteLine("GetMembers content = "+ content);
 					members = JsonConvert.DeserializeObject<List<Member>>(content);
 
 				}
@@ -645,6 +645,38 @@ namespace SportNow.Services.Data.JSON
             }
         }
 
+        public async Task<int> Upload_Member_Document(Stream stream, string userid, string filename, string documentname, string status, string type, string startdate, string enddate)//Stream mfile, string fileName)
+        {
+            var url = Constants.RestUrl_Upload_Member_Document;
+            url += "?userid=" + userid + "&filename=" + filename + "&documentname=" + documentname + "&status=" + status + "&type=" + type + "&startdate=" + startdate + "&enddate=" + enddate;
+            Debug.Print("Upload_Member_Document " + url);
+            try
+            {
+                //HttpClient client = new HttpClient(new Xamarin.Android.Net.AndroidClientHandler());
+                client.BaseAddress = new Uri(Constants.serverbase);
+                //client.BaseAddress = new Uri("http://adcpncrmazure.adcpn.pt/adcpn");
+                MultipartFormDataContent form = new MultipartFormDataContent();
+
+                StreamContent content = new StreamContent(stream);
+
+                content.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                {
+                    Name = "fileToUpload",
+                    FileName = filename
+                };
+                form.Add(content);
+                var response = await client.PostAsync(url, form);
+                var result = response.Content.ReadAsStringAsync().Result;
+
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine("Exception Caught: " + e.ToString());
+                return -1;
+            }
+            return 1;
+        }
+
         public async Task<List<Member>> GetMembers_To_Approve()
         {
             Debug.WriteLine("GetMembers_To_Approve - " + Constants.RestUrl_Get_Members_To_Approve+"?userid="+App.member.id);
@@ -840,6 +872,8 @@ namespace SportNow.Services.Data.JSON
             }
 
         }
+
+
 
     }
 }

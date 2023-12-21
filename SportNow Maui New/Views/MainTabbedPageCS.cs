@@ -7,15 +7,17 @@ using SportNow.Services.Data.JSON;
 using SportNow.Views.Profile;
 using Microsoft.Maui;
 using SportNow.Views.CompleteRegistration;
+using Microsoft.Maui.Controls.PlatformConfiguration.AndroidSpecific;
 //using Xamarin.Forms.PlatformConfiguration.AndroidSpecific;
 
 namespace SportNow.Views
 {
-    public class MainTabbedPageCS : TabbedPage
+    public class MainTabbedPageCS : Microsoft.Maui.Controls.TabbedPage
     {
 
         public async void initSpecificLayout(string actiontype, string actionid) {
-
+            On<Microsoft.Maui.Controls.PlatformConfiguration.Android>().SetIsSwipePagingEnabled(false);
+            On<Microsoft.Maui.Controls.PlatformConfiguration.Android>().SetToolbarPlacement(ToolbarPlacement.Bottom);
             NavigationPage.SetBackButtonTitle(this, "");
 
             //
@@ -121,7 +123,7 @@ namespace SportNow.Views
                 }
 
 
-                if (App.member.estado == "pre_registo")
+                if (App.member.estado == "pre_inscrito")
                 {
                     //Debug.Print("Membro aprovado mas ainda não ativo 1 " + App.member.aulanome);
 
@@ -188,7 +190,7 @@ namespace SportNow.Views
             else if (App.members.Count > 0) //veio do login ou de select member e retornou vários membros mas já preencheu o que tinha a preencher.
             {
 
-                if (App.member.estado == "pre_registo")
+                if (App.member.estado == "pre_inscrito")
                 {
 
                    /* Debug.Print("Membro aprovado mas ainda não ativo 2 " + App.member.aulanome);
@@ -335,7 +337,7 @@ namespace SportNow.Views
             Event event_i = await eventManager.GetEvent_byID(memberid, eventid);
             if (event_i == null)
             {
-                Application.Current.MainPage = new NavigationPage(new LoginPageCS("Verifique a sua ligação à Internet e tente novamente."))
+                Microsoft.Maui.Controls.Application.Current.MainPage = new NavigationPage(new LoginPageCS("Verifique a sua ligação à Internet e tente novamente."))
                 {
                     BarBackgroundColor = App.backgroundColor,
                     BarTextColor = App.normalTextColor
@@ -407,7 +409,7 @@ namespace SportNow.Views
             {
                 await DisplayAlert("ATUALIZAR APP", "Para continuar a utilizar a nossa App deverá efetuar a atualização para uma versão mais recente.", "Ok");
 
-                Application.Current.MainPage = new NavigationPage(new LoginPageCS("Efetue a atualização da App para uma versão mais recente."))
+                Microsoft.Maui.Controls.Application.Current.MainPage = new NavigationPage(new LoginPageCS("Efetue a atualização da App para uma versão mais recente."))
                 {
                     BarBackgroundColor = App.backgroundColor,
                     BarTextColor = App.normalTextColor
