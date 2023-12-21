@@ -146,7 +146,7 @@ namespace SportNow.Views.CompleteRegistration
             encEducacaoButton = new MenuButton("E. EDUCAÇÃO", buttonWidth, 60);
             encEducacaoButton.button.Clicked += OnEncEducacaoButtonClicked;
 
-            stackButtons = new Microsoft.Maui.Controls.StackLayout
+            stackButtons = new StackLayout
             {
                 Spacing = 5,
                 Orientation = StackOrientation.Horizontal,
@@ -172,7 +172,7 @@ namespace SportNow.Views.CompleteRegistration
         public void CreateGridGeral()
         {
 
-            gridGeral = new Microsoft.Maui.Controls.Grid { Padding = 0, HorizontalOptions = LayoutOptions.FillAndExpand, RowSpacing = 5 * App.screenHeightAdapter};
+            gridGeral = new Grid { Padding = 0, HorizontalOptions = LayoutOptions.FillAndExpand, RowSpacing = 5 * App.screenHeightAdapter};
             gridGeral.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
             gridGeral.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
             gridGeral.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
