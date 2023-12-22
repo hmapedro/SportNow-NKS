@@ -146,7 +146,20 @@ namespace SportNow.Services.Data.JSON
 					}
 					
 				}
-			}
+
+                if (examination_technique.type == "estacao_kata")
+                {
+                    if (examination_program.estacaoKataText != null)
+                    {
+                        examination_program.estacaoKataText = examination_program.estacaoKataText + "\n" + examination_technique.order + " - " + examination_technique.name;
+                    }
+                    else
+                    {
+                        examination_program.estacaoKataText = examination_technique.order + " - " + examination_technique.name;
+                    }
+
+                }
+            }
 			return examination_program;
 		}
 

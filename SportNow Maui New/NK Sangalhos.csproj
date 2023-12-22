@@ -42,6 +42,9 @@
 	  <CodesignProvision>NK Sangalhos Production</CodesignProvision>
 	  <CodesignKey>iPhone Distribution</CodesignKey>
 	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net7.0-android|AnyCPU'">
+	  <AndroidEnableProfiledAot>true</AndroidEnableProfiledAot>
+	</PropertyGroup>
 	<ItemGroup>
 		<!-- App Icon -->
 		<!--<MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#512BD4" />-->
@@ -59,15 +62,6 @@
 
 		<!-- Raw Assets (also remove the "Resources\Raw" prefix) -->
 		<MauiAsset Include="Resources\Raw\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)" />
-		<!--<MauiSplashScreen Include="Resources\Splash\splash.svg" />-->
-		<!--<MauiIcon Include="Resources\Splash\splash.svg">
-		  <ForegroundFile>Resources\AppIcon\appiconfg.svg</ForegroundFile>
-		  <Color>#512BD4</Color>
-		</MauiIcon>-->
-		<!--<MauiIcon Include="Resources\AppIcon\appicon.svg">
-		  <Color>#000000</Color>
-		</MauiIcon>-->
-		<MauiSplashScreen Include="Resources\Splash\splash_logo.svg" />
 	</ItemGroup>
 
 	<ItemGroup>

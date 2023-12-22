@@ -19,6 +19,7 @@ namespace SportNow.Model
         public string kataText { get; set; }
         public string kumiteText { get; set; }
         public string shiaikumiteText { get; set; }
+        public string estacaoKataText { get; set; }
         public bool isExpanded { get; set; } = false;
     }
 }
