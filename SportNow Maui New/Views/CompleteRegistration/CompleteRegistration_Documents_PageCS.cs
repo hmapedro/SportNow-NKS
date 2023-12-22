@@ -147,7 +147,7 @@ namespace SportNow.Views.CompleteRegistration
 					
 
 				documentname = "Exame Médico - " + DateTime.Now.ToString("yyyy") + " - " + App.member.name;
-				string filename = documentname + ".png";
+				string filename = documentname + ".jpeg";
 				string status = "Under Review";
 				type = "atestado_medico";
 				string startdate = DateTime.Now.ToString("yyyy-MM-dd");// "2022-07-22";
