@@ -63,14 +63,16 @@ namespace SportNow.Views
 			gridDetail.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
 			gridDetail.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
 			gridDetail.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
-			gridDetail.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
-			gridDetail.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
+            gridDetail.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
+            gridDetail.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
+            gridDetail.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
+            gridDetail.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
             //gridDetail.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
             gridDetail.ColumnDefinitions.Add(new ColumnDefinition { Width = WidthRequest = App.screenWidth });
 
-			Label kihonHeaderLabel, kihonLabel, kataHeaderLabel, kataLabel, kumiteHeaderLabel, kumiteLabel, shiaikumiteHeaderLabel, shiaikumiteLabel, youtubeLabel;
+			Label kihonHeaderLabel, kihonLabel, kataHeaderLabel, kataLabel, kumiteHeaderLabel, kumiteLabel, shiaikumiteHeaderLabel, shiaikumiteLabel, estacaokataHeaderLabel, estacaokataLabel, youtubeLabel;
 
-			kihonHeaderLabel = new Label { FontFamily = "futuracondensedmedium", HorizontalTextAlignment = TextAlignment.Start, TextColor = Color.FromRgb(246, 220, 178), LineBreakMode = LineBreakMode.WordWrap, FontSize = App.itemTitleFontSize };
+			kihonHeaderLabel = new Label { FontFamily = "futuracondensedmedium", HorizontalTextAlignment = TextAlignment.Start, TextColor = App.topColor, LineBreakMode = LineBreakMode.WordWrap, FontSize = App.itemTitleFontSize };
 			kihonHeaderLabel.Text = "KIHON";
 			gridDetail.Add(kihonHeaderLabel, 0, 0);
 
@@ -78,7 +80,7 @@ namespace SportNow.Views
 			kihonLabel.Text = examination_Program.kihonText;
 			gridDetail.Add(kihonLabel, 0, 1);
 
-			kataHeaderLabel = new Label { FontFamily = "futuracondensedmedium", HorizontalTextAlignment = TextAlignment.Start, TextColor = Color.FromRgb(246, 220, 178), LineBreakMode = LineBreakMode.WordWrap, FontSize = App.itemTitleFontSize };
+			kataHeaderLabel = new Label { FontFamily = "futuracondensedmedium", HorizontalTextAlignment = TextAlignment.Start, TextColor = App.topColor, LineBreakMode = LineBreakMode.WordWrap, FontSize = App.itemTitleFontSize };
 			kataHeaderLabel.Text = "KATA";
 			gridDetail.Add(kataHeaderLabel, 0, 2);
 			Microsoft.Maui.Controls.Grid.SetColumnSpan(kataHeaderLabel, 3);
@@ -88,7 +90,7 @@ namespace SportNow.Views
 			gridDetail.Add(kataLabel, 0, 3);
 			Microsoft.Maui.Controls.Grid.SetColumnSpan(kataLabel, 3);
 
-			kumiteHeaderLabel = new Label { FontFamily = "futuracondensedmedium", HorizontalTextAlignment = TextAlignment.Start, TextColor = Color.FromRgb(246, 220, 178), LineBreakMode = LineBreakMode.WordWrap, FontSize = App.itemTitleFontSize };
+			kumiteHeaderLabel = new Label { FontFamily = "futuracondensedmedium", HorizontalTextAlignment = TextAlignment.Start, TextColor = App.topColor, LineBreakMode = LineBreakMode.WordWrap, FontSize = App.itemTitleFontSize };
 			kumiteHeaderLabel.Text = "KUMITE";
 			gridDetail.Add(kumiteHeaderLabel, 0, 4);
 			Microsoft.Maui.Controls.Grid.SetColumnSpan(kumiteHeaderLabel, 3);
@@ -99,7 +101,7 @@ namespace SportNow.Views
 			Microsoft.Maui.Controls.Grid.SetColumnSpan(kumiteLabel, 3);
 
 
-			shiaikumiteHeaderLabel = new Label { FontFamily = "futuracondensedmedium", HorizontalTextAlignment = TextAlignment.Start, TextColor = Color.FromRgb(246, 220, 178), LineBreakMode = LineBreakMode.WordWrap, FontSize = App.itemTitleFontSize };
+			shiaikumiteHeaderLabel = new Label { FontFamily = "futuracondensedmedium", HorizontalTextAlignment = TextAlignment.Start, TextColor = App.topColor, LineBreakMode = LineBreakMode.WordWrap, FontSize = App.itemTitleFontSize };
 			shiaikumiteHeaderLabel.Text = "SHIAI KUMITE";
 			gridDetail.Add(shiaikumiteHeaderLabel, 0, 6);
 			Microsoft.Maui.Controls.Grid.SetColumnSpan(shiaikumiteHeaderLabel, 3);
@@ -109,7 +111,18 @@ namespace SportNow.Views
 			gridDetail.Add(shiaikumiteLabel, 0, 7);
 			Microsoft.Maui.Controls.Grid.SetColumnSpan(shiaikumiteLabel, 3);
 
-			grid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
+
+            estacaokataHeaderLabel = new Label { FontFamily = "futuracondensedmedium", HorizontalTextAlignment = TextAlignment.Start, TextColor = App.topColor, LineBreakMode = LineBreakMode.WordWrap, FontSize = App.itemTitleFontSize };
+            estacaokataHeaderLabel.Text = "ESTAÇÃO KATA";
+            gridDetail.Add(estacaokataHeaderLabel, 0, 8);
+            Microsoft.Maui.Controls.Grid.SetColumnSpan(estacaokataHeaderLabel, 3);
+
+            estacaokataLabel = new Label { FontFamily = "futuracondensedmedium", HorizontalTextAlignment = TextAlignment.Start, TextColor = App.normalTextColor, LineBreakMode = LineBreakMode.WordWrap, FontSize = App.itemTitleFontSize };
+            estacaokataLabel.Text = examination_Program.estacaoKataText;
+            gridDetail.Add(estacaokataLabel, 0, 9);
+            Microsoft.Maui.Controls.Grid.SetColumnSpan(estacaokataLabel, 3);
+
+            grid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
 			grid.Add(gridDetail, 0, 1);
 			grid.SetColumnSpan(gridDetail, 2);
 

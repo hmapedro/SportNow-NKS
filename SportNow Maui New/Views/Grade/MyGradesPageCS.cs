@@ -279,29 +279,29 @@ namespace SportNow.Views
         {
 			var buttonWidth = (App.screenWidth) / 2;
 
-			under6OptionButton = new OptionButton("-6 ANOS", "fotomenos6anos.png", buttonWidth, 100 * App.screenHeightAdapter);
+			under6OptionButton = new OptionButton("LÚDICO", "fotomenos6anos.png", buttonWidth, 100 * App.screenHeightAdapter);
 			//minhasGraduacoesButton.button.Clicked += OnMinhasGraduacoesButtonClicked;
 			var under6OptionButton_tap = new TapGestureRecognizer();
 			under6OptionButton_tap.Tapped += (s, e) =>
 			{
-				Navigation.PushAsync(new GradeProgramPageCS("under6"));
+				Navigation.PushAsync(new GradeProgramPageCS("ludico"));
 			};
 			under6OptionButton.GestureRecognizers.Add(under6OptionButton_tap);
 
-			under12OptionButton = new OptionButton("-12 ANOS", "fotomenos12anos.png", buttonWidth, 100 * App.screenHeightAdapter);
+			under12OptionButton = new OptionButton("TRADICIONAL", "fotomenos12anos.png", buttonWidth, 100 * App.screenHeightAdapter);
 			var under12OptionButton_tap = new TapGestureRecognizer();
 			under12OptionButton_tap.Tapped += (s, e) =>
 			{
-				Navigation.PushAsync(new GradeProgramPageCS("under12"));
+				Navigation.PushAsync(new GradeProgramPageCS("tradicional"));
 			};
 			under12OptionButton.GestureRecognizers.Add(under12OptionButton_tap);
 
-			over12OptionButton = new OptionButton("+12 ANOS", "fotomais12anos.png", buttonWidth, 100 * App.screenHeightAdapter);
+			over12OptionButton = new OptionButton("COMPETIÇÃO", "fotomais12anos.png", buttonWidth, 100 * App.screenHeightAdapter);
 			//minhasGraduacoesButton.button.Clicked += OnMinhasGraduacoesButtonClicked;
 			var over12OptionButton_tap = new TapGestureRecognizer();
 			over12OptionButton_tap.Tapped += (s, e) =>
 			{
-				Navigation.PushAsync(new GradeProgramPageCS("over12"));
+				Navigation.PushAsync(new GradeProgramPageCS("competicao"));
 			};
 			over12OptionButton.GestureRecognizers.Add(over12OptionButton_tap);
 

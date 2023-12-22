@@ -19,7 +19,7 @@ namespace SportNow.Views
 			//collectionViewExaminations.SelectedItem = null;
 		}
 
-		List<Examination_Program> programasExameClean, programasExameAll, selectedProgramasExame, programasExameUnder6, programasExameUnder12, programasExameOver12;
+		List<Examination_Program> programasExameClean, programasExameAll, selectedProgramasExame, programasExameLudico, programasExameTradicional, programasExameCompeticao;
 
 		private CollectionView programasExameCollectionView;
 
@@ -27,7 +27,7 @@ namespace SportNow.Views
 
 		Microsoft.Maui.Controls.StackLayout stackButtons;
 
-		MenuButton under6Button, under12Button, over12Button;
+		MenuButton ludicoButton, tradicionalButton, competicaoButton;
 
 
 		public void initLayout()
@@ -54,17 +54,17 @@ namespace SportNow.Views
 			createProgramasExameLists();
 			CreateStackButtons(type);
 
-			if (type == "under6")
+			if (type == "ludico")
 			{
-				OnUnder6ButtonClicked(null, null);
+				OnLudicoButtonClicked(null, null);
 			}
-			else if (type == "under12")
+			else if (type == "tradicional")
 			{
-				OnUnder12ButtonClicked(null, null);
+				OnTradicionalButtonClicked(null, null);
 			}
-			else if (type == "over12")
+			else if (type == "competicao")
 			{
-				OnOver12ButtonClicked(null, null);
+				OnCompeticaoButtonClicked(null, null);
 			}
 			hideActivityIndicator();
 		}
@@ -76,9 +76,9 @@ namespace SportNow.Views
 			//bool isNextGradeLocked= false;
 
 			programasExameClean = new List<Examination_Program>();
-			programasExameUnder6 = new List<Examination_Program>();
-			programasExameUnder12 = new List<Examination_Program>();
-			programasExameOver12 = new List<Examination_Program>();
+			programasExameLudico = new List<Examination_Program>();
+			programasExameTradicional = new List<Examination_Program>();
+			programasExameCompeticao = new List<Examination_Program>();
 			
 			foreach (Examination_Program examination_program in programasExameAll)
 			{
@@ -92,17 +92,17 @@ namespace SportNow.Views
 					}
 				}
 
-				if (examination_program.type == "menos6")
+				if (examination_program.type == "ludico")
                 {
-					programasExameUnder6.Add(examination_program);
+					programasExameLudico.Add(examination_program);
                 }
-				else if (examination_program.type == "menos12")
+				else if (examination_program.type == "tradicional")
 				{
-					programasExameUnder12.Add(examination_program);
+					programasExameTradicional.Add(examination_program);
 				}
-				else if (examination_program.type == "mais12")
+				else if (examination_program.type == "competicao")
 				{
-					programasExameOver12.Add(examination_program);
+					programasExameCompeticao.Add(examination_program);
 				}
 			}
 		}
@@ -113,14 +113,14 @@ namespace SportNow.Views
 			var buttonWidth = (width-5) / 3;
 
 			
-			under6Button = new MenuButton("-6 ANOS", buttonWidth, 60);
-			under6Button.button.Clicked += OnUnder6ButtonClicked;
+			ludicoButton = new MenuButton("LÚDICO", buttonWidth, 60);
+            ludicoButton.button.Clicked += OnLudicoButtonClicked;
 
-			under12Button = new MenuButton("-12 ANOS", buttonWidth, 60);
-			under12Button.button.Clicked += OnUnder12ButtonClicked;
+			tradicionalButton = new MenuButton("TRADICIONAL", buttonWidth, 60);
+            tradicionalButton.button.Clicked += OnTradicionalButtonClicked;
 
-			over12Button = new MenuButton("+12 ANOS", buttonWidth, 60);
-			over12Button.button.Clicked += OnOver12ButtonClicked;
+			competicaoButton = new MenuButton("COMPETIÇÃO", buttonWidth, 60);
+            competicaoButton.button.Clicked += OnCompeticaoButtonClicked;
 
 			stackButtons = new Microsoft.Maui.Controls.StackLayout
 			{
@@ -133,10 +133,10 @@ namespace SportNow.Views
 				HeightRequest = 40,
 				Children =
 				{
-					under6Button,
-					under12Button,
-					over12Button
-				}
+                    ludicoButton,
+                    tradicionalButton,
+                    competicaoButton
+                }
 			};
 
 			absoluteLayout.Add(stackButtons);
@@ -361,36 +361,36 @@ namespace SportNow.Views
 		}
 		*/
 
-		 void OnUnder6ButtonClicked(object sender, EventArgs e)
+		 void OnLudicoButtonClicked(object sender, EventArgs e)
 		{
-			under6Button.activate();
-			under12Button.deactivate();
-			over12Button.deactivate();
+			ludicoButton.activate();
+			tradicionalButton.deactivate();
+			competicaoButton.deactivate();
 
-			selectedProgramasExame = programasExameUnder6;
+			selectedProgramasExame = programasExameLudico;
 			CleanProgramasExameCollectionView();
 			CreateProgramasExameColletion();
 		}
 
-		void OnUnder12ButtonClicked(object sender, EventArgs e)
+		void OnTradicionalButtonClicked(object sender, EventArgs e)
 		{
-			under6Button.deactivate();
-			under12Button.activate();
-			over12Button.deactivate();
+			ludicoButton.deactivate();
+			tradicionalButton.activate();
+			competicaoButton.deactivate();
 
-			selectedProgramasExame = programasExameUnder12;
+			selectedProgramasExame = programasExameTradicional;
 			CleanProgramasExameCollectionView();
 			CreateProgramasExameColletion();
 
 		}
 
-		void OnOver12ButtonClicked(object sender, EventArgs e)
+		void OnCompeticaoButtonClicked(object sender, EventArgs e)
 		{
-			under6Button.deactivate();
-			under12Button.deactivate();
-			over12Button.activate();
+			ludicoButton.deactivate();
+			tradicionalButton.deactivate();
+			competicaoButton.activate();
 
-			selectedProgramasExame = programasExameOver12;
+			selectedProgramasExame = programasExameCompeticao;
 			CleanProgramasExameCollectionView();
 			CreateProgramasExameColletion();
 		}
