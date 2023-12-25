@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using Microsoft.Maui;
 using Microsoft.Maui;
+using Microsoft.Maui.Controls.Shapes;
 
 namespace SportNow.CustomViews
 {
@@ -41,7 +42,7 @@ namespace SportNow.CustomViews
         }
     }*/
 
-    public class FormValueEdit : Frame
+    public class FormValueEdit : Border
     {
 
         public Entry entry;
@@ -61,15 +62,16 @@ namespace SportNow.CustomViews
         public void create_FormValueEdit(string Text, Keyboard keyboard)
         {
 
-            this.CornerRadius = 5 * (float)App.screenHeightAdapter;
-            this.IsClippedToBounds = true;
-            BorderColor = App.bottomColor;
+            StrokeShape = new RoundRectangle
+            {
+                CornerRadius = 5 * (float)App.screenHeightAdapter,
+            };
+            Stroke = App.topColor;
             BackgroundColor = Colors.Transparent;
             this.Padding = new Thickness(1, 2, 2, 2);
             //this.MinimumHeightRequest = 50;
             this.HeightRequest = 45 * App.screenHeightAdapter;
             this.VerticalOptions = LayoutOptions.Center;
-            this.HasShadow = false;
             
             entry = new Entry
             {

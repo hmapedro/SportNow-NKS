@@ -4,13 +4,14 @@ using System.Diagnostics;
 using Microsoft.Maui.Platform;
 using Microsoft.Maui.Controls;
 using Microsoft.Maui;
+using Microsoft.Maui.Controls.Shapes;
 /*--using CommunityToolkit.Maui.Behaviors;
 using CommunityToolkit.Maui.Markup;*/
 
 namespace SportNow.CustomViews
 {
    
-     public class FormValueEditCodPostal : Frame
+     public class FormValueEditCodPostal : Border
      {
 
          public Entry entry;
@@ -18,15 +19,16 @@ namespace SportNow.CustomViews
 
          public FormValueEditCodPostal(string Text) {
 
-            this.CornerRadius = 5 * (float) App.screenHeightAdapter;
-            this.IsClippedToBounds = true;
-            BorderColor = App.topColor;
+            StrokeShape = new RoundRectangle
+            {
+                CornerRadius = 5 * (float)App.screenHeightAdapter,
+            };
+            Stroke = App.topColor;
             BackgroundColor = Color.FromRgb(0,0,0);
             this.Padding = new Thickness(1, 2, 2, 2);
             //this.MinimumHeightRequest = 50;
             this.HeightRequest = 45 * App.screenHeightAdapter;
             this.VerticalOptions = LayoutOptions.Center;
-            this.HasShadow = false;
 
              entry = new Entry
              {

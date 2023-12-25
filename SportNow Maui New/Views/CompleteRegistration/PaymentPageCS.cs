@@ -28,7 +28,7 @@ namespace SportNow.Views.CompleteRegistration
 
 		FormValue valueQuotaNKS, valueMensalidadeNKS, valueTotal;
 		Picker familiaresPicker;
-		public double valorQuotaNKS;
+		public double valorQuotaNKS, monthFeeValor;
 		string paymentID;
 		Payment payment;
 
@@ -55,11 +55,10 @@ namespace SportNow.Views.CompleteRegistration
             paymentID = payment.id;
 
             PaymentManager paymentManager = new PaymentManager();
-            _ = await paymentManager.Update_Payment_Name(paymentID, App.member.id, "Inscrição - "+App.member.name);
+            _ = await paymentManager.Update_Payment(paymentID, App.member.id, App.member.dojoid, "Inscrição - "+App.member.name);
 
 
             string year = DateTime.Now.Year.ToString();
-			Debug.Print("year = " + year);
 			string month = "";
 			if (DateTime.Now.Month == 8)
 			{
@@ -70,30 +69,36 @@ namespace SportNow.Views.CompleteRegistration
 				month = DateTime.Now.Month.ToString();
 			}
 
-			MonthFeeManager monthFeeManager = new MonthFeeManager();
-			string monthFeeID = "";
-			string valor_mensalidade = "";
-			if (App.member.member_type == "praticante")
-			{
-				monthFeeID = await monthFeeManager.CreateMonthFee(App.original_member.id, App.member.id, App.member.name, valor_mensalidade, year, month, "emitida", paymentID, "0");
-				valor_mensalidade = calculateMensalidade(0).ToString("0.00").Replace(",", ".");
-				await monthFeeManager.Update_MonthFee_Value_byID(monthFeeID, valor_mensalidade);
-			}
-			hideActivityIndicator();
-
 			List<Fee> allFees = await memberManager.GetFees(App.member.id, season);
 			Fee fee = allFees[0];
 			valorQuotaNKS = fee.valor;
+			Debug.Print("fee.valor = " + fee.valor);
 
-			int y_index = CreateHeader();
+            monthFeeValor = 0;
+
+            if (App.member.member_type == "praticante")
+            {
+                MonthFeeManager monthFeeManager = new MonthFeeManager();
+                string monthFeeID = "";
+
+                monthFeeID = await monthFeeManager.CreateMonthFee(App.original_member.id, App.member.id, App.member.name, year, month, "emitida", paymentID, "0");
+                //valor_mensalidade = calculateMensalidade(0).ToString("0.00").Replace(",", ".");
+                //await monthFeeManager.Update_MonthFee_Value_byID(monthFeeID, valor_mensalidade);
+                MonthFee monthFee = await monthFeeManager.GetMonthFeebyId(monthFeeID);
+
+                monthFeeValor = double.Parse(monthFee.value, System.Globalization.CultureInfo.InvariantCulture);
+
+                Debug.Print("monthFee.value = " + monthFee.value);
+                Debug.Print("monthFeeValor = " + monthFeeValor);
+            }
+
+            int y_index = CreateHeader();
 			y_index = y_index + 10;
 
-			Label labelQuotaNKS = new Label { BackgroundColor = Colors.Transparent, VerticalTextAlignment = TextAlignment.Center, HorizontalTextAlignment = TextAlignment.Start, FontSize = App.titleFontSize, TextColor = App.normalTextColor, LineBreakMode = LineBreakMode.WordWrap };
-
+			Label labelQuotaNKS = new Label { FontFamily = "futuracondensedmedium", BackgroundColor = Colors.Transparent, VerticalTextAlignment = TextAlignment.Center, HorizontalTextAlignment = TextAlignment.Start, FontSize = App.titleFontSize, TextColor = App.normalTextColor, LineBreakMode = LineBreakMode.WordWrap };
+            labelQuotaNKS.Text = "Quota Sócio";
             absoluteLayout.Add(labelQuotaNKS);
             absoluteLayout.SetLayoutBounds(labelQuotaNKS, new Rect(20 * App.screenWidthAdapter, y_index * App.screenHeightAdapter, App.screenWidth - 120 * App.screenWidthAdapter, 30 * App.screenHeightAdapter));
-
-            labelQuotaNKS.Text = "Quota Sócio";
 
             valueQuotaNKS = new FormValue(valorQuotaNKS.ToString("0.00") + "€", App.titleFontSize, Colors.White, App.normalTextColor, TextAlignment.End);
             //valueQuotaADCPN.Text = calculateQuotaADCPN();
@@ -102,46 +107,44 @@ namespace SportNow.Views.CompleteRegistration
 
 			y_index = y_index + 35;
 
-			if (App.member.member_type == "praticante")
-			{
+            if (App.member.member_type == "praticante")
+            {
+                Label labelMensalidadeNKS = new Label { FontFamily = "futuracondensedmedium", BackgroundColor = Colors.Transparent, VerticalTextAlignment = TextAlignment.Center, HorizontalTextAlignment = TextAlignment.Start, FontSize = App.titleFontSize, TextColor = App.normalTextColor, LineBreakMode = LineBreakMode.WordWrap };
+                labelMensalidadeNKS.Text = "Mensalidade";
+                absoluteLayout.Add(labelMensalidadeNKS);
+                absoluteLayout.SetLayoutBounds(labelMensalidadeNKS, new Rect(20 * App.screenWidthAdapter, y_index * App.screenHeightAdapter, App.screenWidth - 120 * App.screenWidthAdapter, 30 * App.screenHeightAdapter));
 
-				valueMensalidadeNKS = new FormValue(calculateMensalidade(0).ToString("0.00") + "€", App.titleFontSize, App.backgroundColor, App.normalTextColor, TextAlignment.End);
-
-				valor_mensalidade = calculateMensalidade(0).ToString("0.00").Replace(",", ".");
-				await monthFeeManager.Update_MonthFee_Value_byID(monthFeeID, valor_mensalidade);
-				hideActivityIndicator();
-
-				Label labelMensalidadeNKS = new Label { BackgroundColor = Colors.Transparent, VerticalTextAlignment = TextAlignment.Center, HorizontalTextAlignment = TextAlignment.Start, FontSize = App.titleFontSize, TextColor = App.normalTextColor, LineBreakMode = LineBreakMode.WordWrap };
-				labelMensalidadeNKS.Text = "Mensalidade";
-				absoluteLayout.Add(labelMensalidadeNKS);
-				absoluteLayout.SetLayoutBounds(labelMensalidadeNKS, new Rect(20 * App.screenWidthAdapter, y_index * App.screenHeightAdapter, App.screenWidth - 120 * App.screenWidthAdapter, 30 * App.screenHeightAdapter));
-
+                valueMensalidadeNKS = new FormValue(monthFeeValor.ToString("0.00") + "€", App.titleFontSize, App.backgroundColor, App.normalTextColor, TextAlignment.End);
 				absoluteLayout.Add(valueMensalidadeNKS);
 				absoluteLayout.SetLayoutBounds(valueMensalidadeNKS, new Rect(App.screenWidth - 80 * App.screenWidthAdapter, y_index * App.screenHeightAdapter, 70 * App.screenWidthAdapter, 30 * App.screenHeightAdapter));
 			}
+
 			y_index = y_index + 45;
 
-			Label labelTotal = new Label { BackgroundColor = Colors.Transparent, VerticalTextAlignment = TextAlignment.Center, HorizontalTextAlignment = TextAlignment.Start, FontSize = App.titleFontSize, TextColor = App.normalTextColor, LineBreakMode = LineBreakMode.WordWrap };
-			labelTotal.Text = "Total";
+            hideActivityIndicator();
+            Label labelTotal = new Label { FontFamily = "futuracondensedmedium", BackgroundColor = Colors.Transparent, VerticalTextAlignment = TextAlignment.Center, HorizontalTextAlignment = TextAlignment.Start, FontSize = App.titleFontSize, TextColor = App.normalTextColor, LineBreakMode = LineBreakMode.WordWrap };
+			labelTotal.Text = "TOTAL";
             absoluteLayout.Add(labelTotal);
             absoluteLayout.SetLayoutBounds(labelTotal, new Rect(20 * App.screenWidthAdapter, y_index * App.screenHeightAdapter, App.screenWidth - 120 * App.screenWidthAdapter, 30 * App.screenHeightAdapter));
 
 
-			valueTotal = new FormValue(calculateTotal(0).ToString("0.00") + "€", App.titleFontSize, App.topColor, App.backgroundColor, TextAlignment.End);
+			valueTotal = new FormValue(calculateTotal(0).ToString("0.00") + "€", App.titleFontSize, App.backgroundColor, App.topColor, TextAlignment.End);
 
             absoluteLayout.Add(valueTotal);
             absoluteLayout.SetLayoutBounds(valueTotal, new Rect(App.screenWidth - 80 * App.screenWidthAdapter, y_index * App.screenHeightAdapter, 70 * App.screenWidthAdapter, 40 * App.screenHeightAdapter));
 
+            y_index = y_index + 50;
 
-			Label selectPaymentModeLabel = new Label
+            Label selectPaymentModeLabel = new Label
 			{
 				Text = "Escolha o modo de pagamento pretendido:",
 				VerticalTextAlignment = TextAlignment.Center,
 				HorizontalTextAlignment = TextAlignment.Center,
 				TextColor = App.normalTextColor,
 				//LineBreakMode = LineBreakMode.NoWrap,
-				FontSize = App.titleFontSize
-			};
+				FontSize = App.titleFontSize,
+                FontFamily = "futuracondensedmedium",
+            };
 
             absoluteLayout.Add(selectPaymentModeLabel);
             absoluteLayout.SetLayoutBounds(selectPaymentModeLabel, new Rect(20 * App.screenWidthAdapter, y_index * App.screenHeightAdapter, App.screenWidth - 20 * App.screenWidthAdapter, 40 * App.screenHeightAdapter));
@@ -198,7 +201,8 @@ namespace SportNow.Views.CompleteRegistration
 
 			Label nameLabel = new Label
 			{
-				Text = App.member.nickname,
+                FontFamily = "futuracondensedmedium",
+                Text = App.member.nickname,
 				VerticalTextAlignment = TextAlignment.Center,
 				HorizontalTextAlignment = TextAlignment.Center,
 				TextColor = Colors.Gray,
@@ -297,50 +301,19 @@ namespace SportNow.Views.CompleteRegistration
 
 		public double calculateTotal(double desconto)
 		{
-			return valorQuotaNKS + calculateMensalidade(0);
+			return valorQuotaNKS + monthFeeValor;
 			//return calculateQuotaADCPN() + calculateFiliacaoFPG() + calculateSeguroFPG() + calculateMensalidade();
 		}
 
 		async void OnMBButtonClicked(object sender, EventArgs e)
 		{
-			Debug.Print("member.member_type = " + App.member.member_type);
-
-			if (App.member.member_type == "praticante")
-			{
-				if (familiaresPicker.SelectedIndex == 0) //2
-				{
-					await DisplayAlert("Escolha uma Opção", "Para poder prosseguir tem de escolher uma opção de Número de familiares inscritos praticantes na Associação.", "Ok");
-				}
-				else
-				{
-					//await Navigation.PushAsync(new CompleteRegistration_PaymentMB_PageCS(paymentID));
-				}
-			}
-			else
-			{
-				//await Navigation.PushAsync(new CompleteRegistration_PaymentMB_PageCS(paymentID));
-			}
+			await Navigation.PushAsync(new PaymentMBPageCS(paymentID));
 		}
 
 
 		async void OnMBWayButtonClicked(object sender, EventArgs e)
 		{
-			if (App.member.member_type == "praticante")
-			{
-				if (familiaresPicker.SelectedIndex == 0) //2
-				{
-					await DisplayAlert("Escolha uma Opção", "Para poder prosseguir tem de escolher uma opção de Número de familiares inscritos praticantes na Associação.", "Ok");
-				}
-				else
-				{
-					//await Navigation.PushAsync(new CompleteRegistration_PaymentMBWay_PageCS(paymentID));
-				}
-			}
-			else
-			{
-				//await Navigation.PushAsync(new CompleteRegistration_PaymentMBWay_PageCS(paymentID));
-			}
-
+			await Navigation.PushAsync(new PaymentMBWayPageCS(paymentID));
 		}
 
 	}

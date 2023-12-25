@@ -144,10 +144,10 @@ namespace SportNow.Services.Data.JSON
             }
         }
 
-        public async Task<string> Update_Payment_Name(string paymentid, string memberid, string name)
+        public async Task<string> Update_Payment(string paymentid, string memberid, string dojoid, string name)
         {
-            Debug.WriteLine("Update_Payment_Name begin " + Constants.RestUrl_Update_Payment_Name + "?paymentid=" + paymentid + "&memberid=" + memberid + "&name=" + name);
-            Uri uri = new Uri(string.Format(Constants.RestUrl_Update_Payment_Name + "?paymentid=" + paymentid + "&memberid=" + memberid + "&name=" + name, string.Empty));
+            Debug.WriteLine("Update_Payment_Name begin " + Constants.RestUrl_Update_Payment + "?paymentid=" + paymentid + "&memberid=" + memberid + "&dojoid=" + dojoid + "&name=" + name);
+            Uri uri = new Uri(string.Format(Constants.RestUrl_Update_Payment + "?paymentid=" + paymentid + "&memberid=" + memberid + "&dojoid=" + dojoid + "&name=" + name, string.Empty));
             try
             {
                 HttpResponseMessage response = await client.GetAsync(uri);

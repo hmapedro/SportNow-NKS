@@ -155,7 +155,7 @@ namespace SportNow
 
         public static string RestUrl_Update_Payment_Status = DeviceInfo.Platform == DevicePlatform.Android ? "https://" + server + "/services/service_update_payment_status.php" : "https://" + server + "/services/service_update_payment_status.php";
 
-        public static string RestUrl_Update_Payment_Name = DeviceInfo.Platform == DevicePlatform.Android ? "https://" + server + "/services/service_update_payment_name.php" : "https://" + server + "/services/service_update_payment_name.php";
+        public static string RestUrl_Update_Payment = DeviceInfo.Platform == DevicePlatform.Android ? "https://" + server + "/services/service_update_payment.php" : "https://" + server + "/services/service_update_payment.php";
 
         public static string RestUrl_Get_Payment = Device.RuntimePlatform == Device.Android ? "https://" + server + "/services/service_get_payment_v2.php" : "https://" + server + "/services/service_get_payment_v2.php";
 
@@ -166,6 +166,8 @@ namespace SportNow
         public static string RestUrl_Get_MonthFees_byDojo = DeviceInfo.Platform == DevicePlatform.Android ? "https://"+server+"/services/service_get_monthfee_byDojo.php" : "https://"+server+"/services/service_get_monthfee_byDojo.php";
 
         public static string RestUrl_Get_MonthFees_byStudent = DeviceInfo.Platform == DevicePlatform.Android ? "https://"+server+"/services/service_get_monthfee_byStudent.php" : "https://"+server+"/services/service_get_monthfee_byStudent.php";
+
+        public static string RestUrl_Get_MonthFee_byId = DeviceInfo.Platform == DevicePlatform.Android ? "https://" + server + "/services/service_get_monthfee_byId.php" : "https://" + server + "/services/service_get_monthfee_byId.php";
 
         public static string RestUrl_Update_MonthFee_Status_byID = DeviceInfo.Platform == DevicePlatform.Android ? "https://"+server+"/services/service_update_monthfee_status_byID.php" : "https://"+server+"/services/service_update_monthfee_status_byID.php";
 

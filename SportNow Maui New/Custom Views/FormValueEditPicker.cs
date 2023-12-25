@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using Microsoft.Maui;
 using Microsoft.Maui;
+using Microsoft.Maui.Controls.Shapes;
 
 namespace SportNow.CustomViews
 {
     
-     public class FormValueEditPicker : Frame
+     public class FormValueEditPicker : Border
      {
 
          public Picker picker;
@@ -15,15 +16,15 @@ namespace SportNow.CustomViews
 
          public FormValueEditPicker(string selectedValue, List<string> valueList) {
 
-            this.CornerRadius = 5 * (float) App.screenHeightAdapter;
-            this.IsClippedToBounds = true;
-            BorderColor = App.bottomColor;
-            BackgroundColor = Colors.Transparent;
+            StrokeShape = new RoundRectangle
+            {
+                CornerRadius = 5 * (float)App.screenHeightAdapter,
+            };
+            Stroke = App.topColor; BackgroundColor = Colors.Transparent;
             this.Padding = new Thickness(1, 2, 2, 2);
             //this.MinimumHeightRequest = 50;
             this.HeightRequest = 45 * App.screenHeightAdapter;
             this.VerticalOptions = LayoutOptions.Center;
-            this.HasShadow = false;
 
             int selectedIndex_temp = 0;
             int selectedIndex = 0;

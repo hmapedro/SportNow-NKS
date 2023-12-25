@@ -2,11 +2,12 @@
 using System.Diagnostics;
 using Microsoft.Maui;
 using Microsoft.Maui;
+using Microsoft.Maui.Controls.Shapes;
 
 namespace SportNow.CustomViews
 {
 
-    public class FormValueEditLongText : Frame
+    public class FormValueEditLongText : Border
     {
 
         public Editor entry;
@@ -24,15 +25,16 @@ namespace SportNow.CustomViews
 
         public void createFormValueEdit(string Text, Keyboard keyboard, int height)
         {
-            this.CornerRadius = 5 * (float)App.screenHeightAdapter;
-            this.IsClippedToBounds = true;
-            BorderColor = App.topColor;
+            StrokeShape = new RoundRectangle
+            {
+                CornerRadius = 5 * (float)App.screenHeightAdapter,
+            };
+            Stroke = App.topColor;
             BackgroundColor = Colors.Transparent;
             this.Padding = new Thickness(1, 2, 2, 2);
             //this.MinimumHeightRequest = 50;
             this.HeightRequest = height * App.screenHeightAdapter;
             this.VerticalOptions = LayoutOptions.Center;
-            this.HasShadow = false;
             
             entry = new Editor
             {

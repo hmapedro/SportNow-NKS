@@ -1,10 +1,11 @@
 ﻿using System;
 using Microsoft.Maui;
+using Microsoft.Maui.Controls.Shapes;
 //using static Android.Icu.Text.ListFormatter;
 
 namespace SportNow.CustomViews
 {
-    public class FormEntry: Frame
+    public class FormEntry: Border
     {
 
         public Entry entry;
@@ -41,14 +42,14 @@ namespace SportNow.CustomViews
         {
 
             this.BackgroundColor = App.backgroundColor;
-            this.BorderColor = App.bottomColor;
-
-            this.CornerRadius = 10;
-            this.IsClippedToBounds = true;
+            StrokeShape = new RoundRectangle
+            {
+                CornerRadius = 5 * (float)App.screenHeightAdapter,
+            };
+            Stroke = App.topColor;
             this.Padding = new Thickness(2,2,2,2);
             
             this.HeightRequest = 45 * App.screenHeightAdapter;
-            this.HasShadow = false;
 
             //USERNAME ENTRY
             entry = new Entry

@@ -2,6 +2,8 @@
 using CommunityToolkit.Maui.Behaviors;*/
 
 
+using Microsoft.Maui.Controls.Shapes;
+
 namespace SportNow.CustomViews
 {
     /*public class FormValueEdit : Frame
@@ -40,7 +42,7 @@ namespace SportNow.CustomViews
         }
     }*/
 
-public class FormValueEditDate : Frame
+public class FormValueEditDate : Border
      {
 
          public Entry entry;
@@ -48,15 +50,16 @@ public class FormValueEditDate : Frame
 
          public FormValueEditDate(string Text) {
 
-            this.CornerRadius = 5 * (float) App.screenHeightAdapter;
-            this.IsClippedToBounds = true;
-            BorderColor = App.topColor;
+            StrokeShape = new RoundRectangle
+            {
+                CornerRadius = 5 * (float)App.screenHeightAdapter,
+            };
+            Stroke = App.topColor;
             BackgroundColor = Colors.Transparent;
             this.Padding = new Thickness(1, 2, 2, 2);
             //this.MinimumHeightRequest = 50;
             this.HeightRequest = 45 * App.screenHeightAdapter;
             this.VerticalOptions = LayoutOptions.Center;
-            this.HasShadow = false;
 
              entry = new Entry
              {

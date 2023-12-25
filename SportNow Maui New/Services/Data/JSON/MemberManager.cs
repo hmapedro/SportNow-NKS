@@ -381,7 +381,7 @@ namespace SportNow.Services.Data.JSON
 
         public async Task<List<Fee>> GetFees(string memberid, string season)
         {
-            Debug.WriteLine("GetFees " + Constants.RestUrl_Get_Fees + "?userid=" + memberid + "&season=" + season);
+            Debug.WriteLine("MemberManager.GetFees " + Constants.RestUrl_Get_Fees + "?userid=" + memberid + "&season=" + season);
             Uri uri = new Uri(string.Format(Constants.RestUrl_Get_Fees + "?userid=" + memberid + "&season=" + season, string.Empty));
             try
             {
@@ -391,11 +391,12 @@ namespace SportNow.Services.Data.JSON
                     //return true;
                     string content = await response.Content.ReadAsStringAsync();
                     List<Fee> feesTemp = JsonConvert.DeserializeObject<List<Fee>>(content);
+					Debug.Print("MemberManager.GetFees - content = " + content);
                     return feesTemp;
                 }
                 else
                 {
-                    Debug.WriteLine("error getting fees");
+                    Debug.WriteLine("MemberManager.GetFees - error getting fees");
                     return null;
                 }
 
@@ -403,7 +404,7 @@ namespace SportNow.Services.Data.JSON
             }
             catch (Exception e)
             {
-                Debug.WriteLine("MemberManager.GetCurrentFees http request error " + e.ToString());
+                Debug.WriteLine("MemberManager.GetFees - http request error " + e.ToString());
                 return null;
             }
         }
