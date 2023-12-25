@@ -28,7 +28,7 @@ namespace SportNow.Views
         {
             if (_deviceOrientationService == null)
             {
-                Debug.Print("_deviceOrientationService null");
+                //Debug.Print("_deviceOrientationService null");
                 return;
             }
 
@@ -36,19 +36,19 @@ namespace SportNow.Views
             switch (orientation)
             {
                 case DisplayOrientation.Portrait:
-                    Debug.Print("Locked Portrait");
+                    //Debug.Print("Locked Portrait");
                     this.OrientationLockState = "Locked Portrait";
                     _deviceOrientationService.LockPortraitInterface();
                     break;
                 case DisplayOrientation.Landscape:
-                    Debug.Print("Locked Landscape");
+                    //Debug.Print("Locked Landscape");
                     _deviceOrientationService.LockPortraitInterface();
                     this.OrientationLockState = "Locked Landscape";
                     break;
                 case null:
                 case DisplayOrientation.Unknown:
                 default:
-                    Debug.Print("Unlocked");
+                   // Debug.Print("Unlocked");
                     _deviceOrientationService.LockPortraitInterface();
                     this.OrientationLockState = "Unlocked";
                     break;

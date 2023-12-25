@@ -84,6 +84,35 @@ namespace SportNow.Services.Data.JSON
 			}
 		}
 
+        public async Task<Payment> GetPayment(string paymentid)
+        {
+            Debug.WriteLine("GetPayment " + Constants.RestUrl_Get_Payment + "?pagamentoid=" + paymentid);
+            Uri uri = new Uri(string.Format(Constants.RestUrl_Get_Payment + "?pagamentoid=" + paymentid, string.Empty));
+            try
+            {
+                HttpResponseMessage response = await client.GetAsync(uri);
+                if (response.IsSuccessStatusCode)
+                {
+                    //return true;
+                    string content = await response.Content.ReadAsStringAsync();
+                    List<Payment> paymentTemp = JsonConvert.DeserializeObject<List<Payment>>(content);
+                    return paymentTemp[0];
+                }
+                else
+                {
+                    Debug.WriteLine("error getting fees");
+                    return null;
+                }
+
+                return null;
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine("PaymentManager.GetPayment http request error " + e.ToString());
+                return null;
+            }
+        }
+
 
         public async Task<string> Update_Payment_Status(string paymentid, string status)
         {
@@ -111,6 +140,36 @@ namespace SportNow.Services.Data.JSON
             catch
             {
                 Debug.WriteLine("http request error");
+                return "-2";
+            }
+        }
+
+        public async Task<string> Update_Payment_Name(string paymentid, string memberid, string name)
+        {
+            Debug.WriteLine("Update_Payment_Name begin " + Constants.RestUrl_Update_Payment_Name + "?paymentid=" + paymentid + "&memberid=" + memberid + "&name=" + name);
+            Uri uri = new Uri(string.Format(Constants.RestUrl_Update_Payment_Name + "?paymentid=" + paymentid + "&memberid=" + memberid + "&name=" + name, string.Empty));
+            try
+            {
+                HttpResponseMessage response = await client.GetAsync(uri);
+                var result = "0";
+                if (response.IsSuccessStatusCode)
+                {
+                    //return true;
+                    string content = await response.Content.ReadAsStringAsync();
+                    Debug.WriteLine("Update_Payment_Name content=" + content);
+                    result = "1";
+                }
+                else
+                {
+                    Debug.WriteLine("Update_Payment_Name - error updating payment name");
+                    result = "-1";
+                }
+
+                return result;
+            }
+            catch
+            {
+                Debug.WriteLine("Update_Payment_Name - http request error");
                 return "-2";
             }
         }

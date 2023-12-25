@@ -32,14 +32,7 @@ namespace SportNow.Views.CompleteRegistration
 
 		//Image estadoQuotaImage;
 
-		private CollectionView collectionViewMembers;
-		List<Member> members_To_Approve;
-		Label titleLabel;
 		CheckBox checkboxConfirm;
-
-        Button confirmConsentButton;
-
-		CheckBox checkBoxAssembleiaGeral, checkBoxRegulamentoInterno, checkBoxTratamentoDados, checkBoxRegistoImagens, checkBoxFotografiaSocio, checkBoxWhatsApp;
 
         private ScrollView scrollView;
 
@@ -60,7 +53,7 @@ namespace SportNow.Views.CompleteRegistration
             scrollView = new ScrollView { Orientation = ScrollOrientation.Vertical };
 
             absoluteLayout.Add(scrollView);
-            absoluteLayout.SetLayoutBounds(scrollView, new Rect(10 * App.screenWidthAdapter, 10 * App.screenHeightAdapter, App.screenWidth - 20 * App.screenWidthAdapter, App.screenHeight - 110 * App.screenHeightAdapter));
+            absoluteLayout.SetLayoutBounds(scrollView, new Rect(10 * App.screenWidthAdapter, 10 * App.screenHeightAdapter, App.screenWidth - 20 * App.screenWidthAdapter, App.screenHeight - 120 * App.screenHeightAdapter));
 
 
 			Microsoft.Maui.Controls.Grid gridConsent = new Microsoft.Maui.Controls.Grid { Padding = 0, HorizontalOptions = LayoutOptions.FillAndExpand };
@@ -96,7 +89,7 @@ namespace SportNow.Views.CompleteRegistration
             labelConfirm.Text = "CONFIRMO QUE ACEITO A POLÍTICA DE TRATAMENTO DE DADOS.";
 
 
-            checkboxConfirm = new CheckBox { Color = App.topColor};
+            checkboxConfirm = new CheckBox { Color = App.topColor, HorizontalOptions = LayoutOptions.Start};
 
             gridConsent.Add(labelRegulamentoInterno, 0, 0);
             Grid.SetColumnSpan(labelRegulamentoInterno, 2);
@@ -140,7 +133,7 @@ namespace SportNow.Views.CompleteRegistration
 			App.member.consentimento_regulamento = "1";// Convert.ToInt32(checkBoxRegulamentoInterno.IsChecked).ToString();				
             //var result = await memberManager.Update_Member_Authorizations(App.member.id, App.member.consentimento_regulamento);
             hideActivityIndicator();
-            await Navigation.PushAsync(new CompleteRegistration_Documents_PageCS());
+            await Navigation.PushAsync(new DocumentsPageCS());
         }
 	}
 

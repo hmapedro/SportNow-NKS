@@ -46,15 +46,35 @@ namespace SportNow.Views
 			Microsoft.Maui.Controls.Grid grid = new Microsoft.Maui.Controls.Grid { Padding = 10 };
 			grid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
 			grid.ColumnDefinitions.Add(new ColumnDefinition { Width = 80 * App.screenWidthAdapter });
-			grid.ColumnDefinitions.Add(new ColumnDefinition { Width = App.screenWidth - 80 * App.screenWidthAdapter });
-			//grid.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Star });
+			grid.ColumnDefinitions.Add(new ColumnDefinition { Width = 200 * App.screenWidthAdapter });
+			grid.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Star });
 
 			Image image = new Image { Source = examination_Program.image, Aspect = Aspect.AspectFit, HeightRequest = 24, WidthRequest = 80 * App.screenWidthAdapter };
 
 			Label gradeLabel = new Label { Text = examination_Program.examinationTo_string, FontFamily = "futuracondensedmedium", HorizontalTextAlignment = TextAlignment.Start, TextColor = App.normalTextColor, TextDecorations = TextDecorations.Underline, LineBreakMode = LineBreakMode.NoWrap, FontSize = App.titleFontSize };
 
-			grid.Add(image, 0, 0);
-			grid.Add(gradeLabel, 1, 0);
+
+            /*Image youtubeImage = new Image { Aspect = Aspect.AspectFit, HeightRequest = 24, WidthRequest = 60, Source = "youtube.png" };
+            youtubeImage.SetBinding(Image.AutomationIdProperty, "video");
+
+            var youtubeImage_tap = new TapGestureRecognizer();
+            youtubeImage_tap.Tapped += async (s, e) =>
+            {
+                try
+                {
+					Debug.Print("Open Youtube video "+ ((Image)s).AutomationId);
+                    //await Browser.OpenAsync(((Image)s).AutomationId, BrowserLaunchMode.SystemPreferred);
+                    await Browser.OpenAsync("https://www.ippon.pt", BrowserLaunchMode.SystemPreferred);
+                }
+                catch (Exception ex)
+                {
+                }
+            };
+            youtubeImage.GestureRecognizers.Add(youtubeImage_tap);*/
+
+            grid.Add(image, 0, 0);
+            grid.Add(gradeLabel, 1, 0);
+            //grid.Add(youtubeImage, 2, 0);
 
             Microsoft.Maui.Controls.Grid gridDetail = new Microsoft.Maui.Controls.Grid { Padding = 10 };
 			gridDetail.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
@@ -66,17 +86,17 @@ namespace SportNow.Views
             gridDetail.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
             gridDetail.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
             gridDetail.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
-            gridDetail.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
+            
             //gridDetail.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
             gridDetail.ColumnDefinitions.Add(new ColumnDefinition { Width = WidthRequest = App.screenWidth });
 
-			Label kihonHeaderLabel, kihonLabel, kataHeaderLabel, kataLabel, kumiteHeaderLabel, kumiteLabel, shiaikumiteHeaderLabel, shiaikumiteLabel, estacaokataHeaderLabel, estacaokataLabel, youtubeLabel;
+			Label kihonHeaderLabel, kihonLabel, kataHeaderLabel, kataLabel, kumiteHeaderLabel, kumiteLabel, shiaikumiteHeaderLabel, shiaikumiteLabel, estacaokataHeaderLabel, youtubeLabel;//, estacaokataLabel;
 
 			kihonHeaderLabel = new Label { FontFamily = "futuracondensedmedium", HorizontalTextAlignment = TextAlignment.Start, TextColor = App.topColor, LineBreakMode = LineBreakMode.WordWrap, FontSize = App.itemTitleFontSize };
 			kihonHeaderLabel.Text = "KIHON";
 			gridDetail.Add(kihonHeaderLabel, 0, 0);
 
-			kihonLabel = new Label { FontFamily = "futuracondensedmedium", HorizontalTextAlignment = TextAlignment.Start, TextColor = App.normalTextColor, LineBreakMode = LineBreakMode.WordWrap, FontSize = App.itemTitleFontSize };
+            kihonLabel = new Label { FontFamily = "futuracondensedmedium", HorizontalTextAlignment = TextAlignment.Start, TextColor = App.normalTextColor, LineBreakMode = LineBreakMode.WordWrap, FontSize = App.itemTitleFontSize };
 			kihonLabel.Text = examination_Program.kihonText;
 			gridDetail.Add(kihonLabel, 0, 1);
 
@@ -117,10 +137,43 @@ namespace SportNow.Views
             gridDetail.Add(estacaokataHeaderLabel, 0, 8);
             Microsoft.Maui.Controls.Grid.SetColumnSpan(estacaokataHeaderLabel, 3);
 
-            estacaokataLabel = new Label { FontFamily = "futuracondensedmedium", HorizontalTextAlignment = TextAlignment.Start, TextColor = App.normalTextColor, LineBreakMode = LineBreakMode.WordWrap, FontSize = App.itemTitleFontSize };
+			int i = 9;
+			foreach (Examination_Technique examination_Technique in examination_Program.examination_techniques)
+			{
+				if (examination_Technique.type == "estacao_kata")
+				{
+                    gridDetail.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
+                    Label estacaokataLabel = new Label { FontFamily = "futuracondensedmedium", HorizontalTextAlignment = TextAlignment.Start, TextColor = App.normalTextColor, LineBreakMode = LineBreakMode.WordWrap, FontSize = App.itemTitleFontSize };
+                    estacaokataLabel.Text = examination_Technique.order + " - " + examination_Technique.name;
+                    gridDetail.Add(estacaokataLabel, 0, i);
+                    Microsoft.Maui.Controls.Grid.SetColumnSpan(estacaokataLabel, 2);
+
+                    Image youtubeImage = new Image { Aspect = Aspect.AspectFit, HeightRequest = 24, WidthRequest = 60, Source = "youtube.png" };
+
+                    var youtubeImage_tap = new TapGestureRecognizer();
+                    youtubeImage_tap.Tapped += async (s, e) =>
+                    {
+                        try
+                        {
+                            Debug.Print("Open Youtube video " + examination_Technique.video);
+                            await Browser.OpenAsync(examination_Technique.video, BrowserLaunchMode.SystemPreferred);
+                            //await Browser.OpenAsync("https://www.ippon.pt", BrowserLaunchMode.SystemPreferred);
+                        }
+                        catch (Exception ex)
+                        {
+                        }
+                    };
+                    estacaokataLabel.GestureRecognizers.Add(youtubeImage_tap);
+
+                    gridDetail.Add(youtubeImage, 2, i);
+                    i++;
+                }
+            }
+
+            /*estacaokataLabel = new Label { FontFamily = "futuracondensedmedium", HorizontalTextAlignment = TextAlignment.Start, TextColor = App.normalTextColor, LineBreakMode = LineBreakMode.WordWrap, FontSize = App.itemTitleFontSize };
             estacaokataLabel.Text = examination_Program.estacaoKataText;
             gridDetail.Add(estacaokataLabel, 0, 9);
-            Microsoft.Maui.Controls.Grid.SetColumnSpan(estacaokataLabel, 3);
+            Microsoft.Maui.Controls.Grid.SetColumnSpan(estacaokataLabel, 3);*/
 
             grid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
 			grid.Add(gridDetail, 0, 1);

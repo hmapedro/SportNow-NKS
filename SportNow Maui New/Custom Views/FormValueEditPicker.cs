@@ -29,6 +29,7 @@ namespace SportNow.CustomViews
             int selectedIndex = 0;
             foreach (string value in valueList)
             {
+                Debug.Print("selectedValue = " + selectedValue + " value = " + value);
                 if (value == selectedValue)
                 {
                     selectedIndex = selectedIndex_temp;

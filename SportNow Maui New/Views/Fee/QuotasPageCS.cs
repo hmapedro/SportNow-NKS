@@ -258,10 +258,10 @@ namespace SportNow.Views
 
 			if (App.member.currentFee is null) {
 
-				var result_create = 0;
+				var result_create = "0";
 				
-				result_create = await memberManager.CreateFee(member, DateTime.Now.ToString("yyyy"));
-				if (result_create == -1)
+				result_create = await memberManager.CreateFee(App.member.id, App.member.member_type, DateTime.Now.ToString("yyyy"));
+				if (result_create == "-1")
 				{
 				Application.Current.MainPage = new NavigationPage(new LoginPageCS("Verifique a sua ligação à Internet e tente novamente."))
 				{
@@ -271,7 +271,7 @@ namespace SportNow.Views
 				}
 
 				var result_get = await GetCurrentFees(member);
-				if (result_create == -1)
+				if (result_create == "-1")
 				{
 				Application.Current.MainPage = new NavigationPage(new LoginPageCS("Verifique a sua ligação à Internet e tente novamente."))
 				{

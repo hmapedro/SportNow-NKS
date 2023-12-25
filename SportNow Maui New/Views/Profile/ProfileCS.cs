@@ -914,8 +914,8 @@ namespace SportNow.Views.Profile
 
 			if (App.member.currentFee is null)
 			{
-				var result_create = await memberManager.CreateFee(App.member, DateTime.Now.ToString("yyyy"));
-				if (result_create == -1)
+				var result_create = await memberManager.CreateFee(App.member.id, App.member.member_type, DateTime.Now.ToString("yyyy"));
+				if (result_create == "-1")
 				{
 					Application.Current.MainPage = new NavigationPage(new LoginPageCS("Verifique a sua ligação à Internet e tente novamente."))
 					{

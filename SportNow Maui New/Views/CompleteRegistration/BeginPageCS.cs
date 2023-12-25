@@ -4,7 +4,7 @@ using SportNow.CustomViews;
 
 namespace SportNow.Views.CompleteRegistration
 {
-	public class CompleteRegistration_Begin_PageCS : DefaultPage
+	public class BeginPageCS : DefaultPage
 	{
 		bool dialogShowing;
 
@@ -17,10 +17,6 @@ namespace SportNow.Views.CompleteRegistration
 		{
 		}
 
-		//Image estadoQuotaImage;
-		private CollectionView collectionViewMembers;
-		List<Member> members_To_Approve;
-		Label titleLabel;
 
 		public void initLayout()
 		{
@@ -85,10 +81,11 @@ namespace SportNow.Views.CompleteRegistration
             absoluteLayout.SetLayoutBounds(confirmButton, new Rect(5 * App.screenWidthAdapter, App.screenHeight - 160 * App.screenHeightAdapter, App.screenWidth - 10 * App.screenWidthAdapter, 50 * App.screenHeightAdapter));
 		}
 
-		public CompleteRegistration_Begin_PageCS()
+		public BeginPageCS()
 		{
-			Debug.Print("CompleteRegistration_Begin_PageCS()");
-			this.initLayout();
+			Debug.Print("CompleteRegistration_Begin_PageCS() " + App.member.gender);
+            Debug.Print("CompleteRegistration_Begin_PageCS() " + App.member.member_type);
+            this.initLayout();
 			this.initSpecificLayout();
 		}
 

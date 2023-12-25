@@ -53,6 +53,8 @@ namespace SportNow
 
         public static string RestUrl_Get_MonthFeePayment = DeviceInfo.Platform == DevicePlatform.Android ? "https://" + server + "/services/service_get_monthfee_payment.php" : "https://" + server + "/services/service_get_monthfee_payment.php";
 
+        public static string RestUrl_Create_MonthFee = Device.RuntimePlatform == Device.Android ? "https://" + server + "/services/service_create_monthfee.php" : "https://" + server + "/services/service_create_monthfee.php";
+
         public static string RestUrl_Get_Invoice_byID = DeviceInfo.Platform == DevicePlatform.Android ? "https://" + server + "/services/service_get_invoice_byID.php" : "https://" + server + "/services/service_get_invoice_byID.php";
 
         public static string RestUrl_Get_Future_Competitions = DeviceInfo.Platform == DevicePlatform.Android ? "https://"+server+"/services/service_get_future_competitions.php" : "https://"+server+"/services/service_get_future_competitions.php";
@@ -152,6 +154,10 @@ namespace SportNow
         public static string RestUrl_Create_MbWay_Payment = DeviceInfo.Platform == DevicePlatform.Android ? "https://"+server+"/services/mb/service_create_payment_mbway_ifthenpay.php" : "https://"+server+"/services/mb/service_create_payment_mbway_ifthenpay.php";
 
         public static string RestUrl_Update_Payment_Status = DeviceInfo.Platform == DevicePlatform.Android ? "https://" + server + "/services/service_update_payment_status.php" : "https://" + server + "/services/service_update_payment_status.php";
+
+        public static string RestUrl_Update_Payment_Name = DeviceInfo.Platform == DevicePlatform.Android ? "https://" + server + "/services/service_update_payment_name.php" : "https://" + server + "/services/service_update_payment_name.php";
+
+        public static string RestUrl_Get_Payment = Device.RuntimePlatform == Device.Android ? "https://" + server + "/services/service_get_payment_v2.php" : "https://" + server + "/services/service_get_payment_v2.php";
 
         public static string RestUrl_Get_Dojo_Info = DeviceInfo.Platform == DevicePlatform.Android ? "https://"+server+"/services/service_get_all_dojos.php" : "https://"+server+"/services/service_get_all_dojos.php";
 
@@ -367,7 +373,7 @@ namespace SportNow
         public static Dictionary<string, string> memberTypes { get; } = new Dictionary<string, string>
         {
            {"praticante", "Praticante"},
-           {"nao_praticante", "Não Praticante"},
+           {"naopraticante", "Não Praticante"},
            {"treinador", "Treinador"}
         };
 
@@ -650,6 +656,27 @@ namespace SportNow
             "Sabias que o cinto branco é o primeiro a ser utilizado por um karateca iniciante que significa ”a pureza do iniciante”?",
             "O que importa é a jornada e não o destino.",
         };
+
+
+        public static Int32 GetAge(DateTime dateOfBirth)
+        {
+            var limitdate = DateTime.Now;
+
+            if (DateTime.Now.Month <= 8)
+            {
+
+                limitdate = DateTime.Parse(DateTime.Now.Year + "-08-31");
+            }
+            else
+            {
+                limitdate = DateTime.Parse(DateTime.Now.Year - 1 + "-08-31");
+            }
+
+            var a = (limitdate.Year * 100 + limitdate.Month) * 100 + limitdate.Day;
+            var b = (dateOfBirth.Year * 100 + dateOfBirth.Month) * 100 + dateOfBirth.Day;
+
+            return (a - b) / 10000;
+        }
 
         public static T KeyByValue<T, W>(this Dictionary<T, W> dict, W val)
         {

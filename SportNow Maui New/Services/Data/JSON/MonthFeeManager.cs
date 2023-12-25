@@ -203,5 +203,38 @@ namespace SportNow.Services.Data.JSON
 				return null;
 			}
 		}
-	}
+
+        public async Task<string> CreateMonthFee(string original_memberid, string memberid, string membername, string value, string year, string month, string status, string paymentid, string create_payment)
+        {
+            Debug.Print("CreateMonthFee begin " + Constants.RestUrl_Create_MonthFee + "?original_memberid=" + original_memberid + "&memberid=" + memberid + "&membername=" + membername + "&value=" + value + "&year=" + year + "&month=" + month + "&status=" + status + "&paymentid=" + paymentid + "&create_payment=" + create_payment);
+            Uri uri = new Uri(string.Format(Constants.RestUrl_Create_MonthFee + "?original_memberid=" + original_memberid + "&memberid=" + memberid + "&membername=" + membername + "&value=" + value + "&year=" + year + "&month=" + month + "&status=" + status + "&paymentid=" + paymentid + "&create_payment=" + create_payment, string.Empty));
+            try
+            {
+                HttpResponseMessage response = await client.GetAsync(uri);
+                string content = await response.Content.ReadAsStringAsync();
+
+                if (response.IsSuccessStatusCode)
+                {
+                    //return true;
+                    //string content = await response.Content.ReadAsStringAsync();
+                    Debug.WriteLine("content=" + content);
+                    List<Result> createResultList = JsonConvert.DeserializeObject<List<Result>>(content);
+
+                    return createResultList[0].result;
+
+                }
+                else
+                {
+                    Debug.WriteLine("error creating payment MBWay");
+                    return "-2";
+                }
+
+            }
+            catch
+            {
+                Debug.WriteLine("http request error");
+                return "-3";
+            }
+        }
+    }
 }

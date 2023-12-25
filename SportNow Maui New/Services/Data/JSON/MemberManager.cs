@@ -379,33 +379,62 @@ namespace SportNow.Services.Data.JSON
 			}
 		}
 
-		public async Task<int> CreateFee(Member member, string period)
+        public async Task<List<Fee>> GetFees(string memberid, string season)
+        {
+            Debug.WriteLine("GetFees " + Constants.RestUrl_Get_Fees + "?userid=" + memberid + "&season=" + season);
+            Uri uri = new Uri(string.Format(Constants.RestUrl_Get_Fees + "?userid=" + memberid + "&season=" + season, string.Empty));
+            try
+            {
+                HttpResponseMessage response = await client.GetAsync(uri);
+                if (response.IsSuccessStatusCode)
+                {
+                    //return true;
+                    string content = await response.Content.ReadAsStringAsync();
+                    List<Fee> feesTemp = JsonConvert.DeserializeObject<List<Fee>>(content);
+                    return feesTemp;
+                }
+                else
+                {
+                    Debug.WriteLine("error getting fees");
+                    return null;
+                }
+
+                return null;
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine("MemberManager.GetCurrentFees http request error " + e.ToString());
+                return null;
+            }
+        }
+
+        public async Task<string> CreateFee(string memberid, string member_type, string period)
 		{
-			Debug.WriteLine("CreateFee begin "+ Constants.RestUrl_Create_Fee + "?userid=" + member.id + "&period=" + period);
-			Uri uri = new Uri(string.Format(Constants.RestUrl_Create_Fee+ "?userid=" + member.id + "&period=" + period, string.Empty));
+			Debug.WriteLine("CreateFee begin "+ Constants.RestUrl_Create_Fee + "?userid=" + memberid + "&member_type=" + member_type + "&period=" + period);
+			Uri uri = new Uri(string.Format(Constants.RestUrl_Create_Fee+ "?userid=" + memberid + "&member_type=" + member_type + "&period=" + period, string.Empty));
 			try {
 				HttpResponseMessage response = await client.GetAsync(uri);
-				var result = 0;
+				var result = "0";
 				if (response.IsSuccessStatusCode)
 				{
 					//return true;
 					string content = await response.Content.ReadAsStringAsync();
 					Debug.WriteLine("content=" + content);
-					//member.fees = JsonConvert.DeserializeObject<List<Fee>>(content);
-					result = 1;
+                    List<Result> createResultList = JsonConvert.DeserializeObject<List<Result>>(content);
+                    return createResultList[0].result;
 				}
 				else
 				{
-					Debug.WriteLine("error creating fee");
-					result = -1;
+					Debug.WriteLine("CreateFee - error creating fee");
+					result = "-1";
 				}
 
 				return result;
 			}
 			catch
 			{
-				Debug.WriteLine("http request error");
-				return -1;
+				Debug.WriteLine("CreateFee - http request error");
+				return "-1";
 			}
 		}
 
@@ -568,14 +597,15 @@ namespace SportNow.Services.Data.JSON
 				{
 					//return true;
 					string content = await response.Content.ReadAsStringAsync();
-					payments = JsonConvert.DeserializeObject<List<Payment>>(content);
+                    Debug.WriteLine("GetFeePayment - content=" + content);
+                    payments = JsonConvert.DeserializeObject<List<Payment>>(content);
 				}
 
 				return payments;
 			}
 			catch
 			{
-				Debug.WriteLine("http request error");
+				Debug.WriteLine("GetFeePayment - http request error");
 				return null;
 			}
 		}

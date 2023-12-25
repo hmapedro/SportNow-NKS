@@ -8,7 +8,7 @@ using SkiaSharp;
 
 namespace SportNow.Views.CompleteRegistration
 {
-	public class CompleteRegistration_Documents_PageCS : DefaultPage
+	public class DocumentsPageCS : DefaultPage
 	{
 
 		protected async override void OnAppearing()
@@ -23,12 +23,8 @@ namespace SportNow.Views.CompleteRegistration
 		//Image estadoQuotaImage;
 
 
-		private CollectionView collectionViewMembers;
-		List<Member> members_To_Approve;
-		Label titleLabel;
 		RegisterButton confirmDocumentsButton;
 		Image loadedDocument;
-		ImageSource source;
 
 		bool documentSubmitted;
 
@@ -118,7 +114,7 @@ namespace SportNow.Views.CompleteRegistration
 		}
 
 
-		public CompleteRegistration_Documents_PageCS()
+		public DocumentsPageCS()
 		{
 			documentSubmitted = false;
 			this.initLayout();

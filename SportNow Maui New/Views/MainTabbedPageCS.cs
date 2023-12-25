@@ -135,7 +135,7 @@ namespace SportNow.Views
                         return;
                     }*/
 
-                    App.Current.MainPage = new NavigationPage(new CompleteRegistration_Begin_PageCS())
+                    App.Current.MainPage = new NavigationPage(new BeginPageCS())
                     {
                         BarBackgroundColor = App.backgroundColor,
                         BarTextColor = App.normalTextColor//FromRgb(75, 75, 75)
@@ -205,7 +205,7 @@ namespace SportNow.Views
 
 
                     Debug.Print("Membro aprovado mas ainda não ativo 2  AQUI ");
-                    await Navigation.PushAsync(new CompleteRegistration_Begin_PageCS());
+                    await Navigation.PushAsync(new BeginPageCS());
                     Navigation.RemovePage(this);
                     Debug.Print("Membro aprovado mas ainda não ativo 2  AQUI 1");
 

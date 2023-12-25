@@ -5,6 +5,7 @@ using SportNow.CustomViews;
 using System.Text.RegularExpressions;
 
 using SkiaSharp;
+using System.Net;
 
 namespace SportNow.Views.CompleteRegistration
 {
@@ -18,7 +19,7 @@ namespace SportNow.Views.CompleteRegistration
 
         protected async override void OnDisappearing()
         {
-            await UpdateMember();
+            //await UpdateMember();
         }
 
         private ScrollView scrollView;
@@ -49,16 +50,9 @@ namespace SportNow.Views.CompleteRegistration
         FormValueEdit EncEducacao1NomeValue;
         FormValueEdit EncEducacao1PhoneValue;
         FormValueEdit EncEducacao1MailValue;
-        FormValueEdit EncEducacao2NomeValue;
-        FormValueEdit EncEducacao2PhoneValue;
-        FormValueEdit EncEducacao2MailValue;
-        FormValueEdit emergencyPhoneValue;
-        FormValueEdit emergencyContactValue;
-
         FormValueEdit cc_numberValue, nifValue, fnkpValue;
         FormValueEdit jobValue;
 
-        Button activateButton;
         RoundImage memberPhotoImage;
         Stream stream;
 
@@ -113,21 +107,51 @@ namespace SportNow.Views.CompleteRegistration
 
         public void CreatePhoto()
         {
-
             imageloaded = false;
 
-            //Debug.Print("CreatePhoto " + Constants.images_URL + App.member.id + "_photo");
             memberPhotoImage = new RoundImage();
+
+            WebResponse response;
+            HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(Constants.images_URL + App.member.id + "_photo");
+            Debug.Print(Constants.images_URL + App.member.id + "_photo");
+            request.Method = "HEAD";
+            bool exists;
+            try
+            {
+                response = request.GetResponse();
+                Debug.Print("response.Headers.GetType()= " + response.Headers.GetType());
+                exists = true;
+            }
+            catch (Exception ex)
+            {
+                exists = false;
+            }
+
+            Debug.Print("Photo exists? = " + exists);
+
+            if (exists)
+            {
+                imageloaded = true;
+                memberPhotoImage.Source = new UriImageSource
+                {
+                    Uri = new Uri(Constants.images_URL + App.member.id + "_photo"),
+                    CachingEnabled = false,
+                    CacheValidity = new TimeSpan(0, 0, 0, 1)
+                };
+            }
+            else
+            {
+                memberPhotoImage.Source = "iconadicionarfoto.png";
+            }
 
             var memberPhotoImage_tap = new TapGestureRecognizer();
             memberPhotoImage_tap.Tapped += memberPhotoImageTappedAsync;
             memberPhotoImage.GestureRecognizers.Add(memberPhotoImage_tap);
-            memberPhotoImage.Source = "iconadicionarfoto.png";
+
 
             absoluteLayout.Add(memberPhotoImage);
-            absoluteLayout.SetLayoutBounds(memberPhotoImage, new Rect(((App.screenWidth / 2) - (90 * App.screenHeightAdapter)), 0, 180 * App.screenHeightAdapter, 180 * App.screenHeightAdapter));
+            absoluteLayout.SetLayoutBounds(memberPhotoImage, new Rect((App.screenWidth / 2) - (90 * App.screenHeightAdapter), 0, 180 * App.screenHeightAdapter, 180 * App.screenHeightAdapter));
         }
-
 
         public void CreateStackButtons()
         {
@@ -183,21 +207,31 @@ namespace SportNow.Views.CompleteRegistration
             FormLabel nameLabel = new FormLabel { Text = "NOME *", HorizontalTextAlignment = TextAlignment.Start };
             nameValue = new FormValueEdit(App.member.name);
 
+            string genderString = "";
             List<string> gendersList = new List<string>();
             foreach (KeyValuePair<string, string> entry in Constants.genders)
             {
                 gendersList.Add(entry.Value);
+                if (App.member.gender == entry.Key)
+                {
+                    genderString = entry.Value;
+                }
             }
             FormLabel genderLabel = new FormLabel { Text = "GÉNERO *" };
-            genderValue = new FormValueEditPicker(App.member.gender, gendersList);
+            genderValue = new FormValueEditPicker(genderString, gendersList);
 
+            string memberTypeString = "";
             List<string> memberTypeList = new List<string>();
             foreach (KeyValuePair<string, string> entry in Constants.memberTypes)
             {
                 memberTypeList.Add(entry.Value);
+                if (App.member.member_type == entry.Key)
+                {
+                    memberTypeString = entry.Value;
+                }
             }
             FormLabel memberTypeLabel = new FormLabel { Text = "TIPO SÓCIO *" };
-            memberTypeValue = new FormValueEditPicker(App.member.member_type, memberTypeList);
+            memberTypeValue = new FormValueEditPicker(memberTypeString, memberTypeList);
 
 
             FormLabel dojoLabel = new FormLabel { Text = "DOJO *" };
@@ -546,18 +580,6 @@ namespace SportNow.Views.CompleteRegistration
                 await DisplayAlert("DADOS INVÁLIDOS", "O código postal introduzido não é válido.", "Ok" );
                 return "-1";
             }
-            else if (emergencyContactValue.entry.Text == "")
-            {
-                OnMoradaButtonClicked(null, null);
-                await DisplayAlert("DADOS INVÁLIDOS", "O contacto de emergência introduzido não é válida.", "Ok" );
-                return "-1";
-            }
-            else if (emergencyPhoneValue.entry.Text == "")
-            {
-                OnMoradaButtonClicked(null, null);
-                await DisplayAlert("DADOS INVÁLIDOS", "O telefone de emergência introduzido não é válida.", "Ok" );
-                return "-1";
-            }
 
             if ((DateTime.Now.Year - DateTime.Parse(birthdateValue.entry.Text).Year) < 18)
             {
@@ -610,7 +632,7 @@ namespace SportNow.Views.CompleteRegistration
 
             if (result == "1")
             {
-                //await Navigation.PushAsync(new NewMemberSuccessPageCS());
+                await Navigation.PushAsync(new PaymentPageCS());
 
             }
             else if (result == "-1")
