@@ -29,7 +29,7 @@ namespace SportNow.Views
 		}
 
 		Label welcomeLabel;
-		Button loginButton;
+        RoundButton loginButton;
 		FormEntry usernameEntry;
 		FormEntryPassword passwordEntry;
 		Label messageLabel;
@@ -50,7 +50,7 @@ namespace SportNow.Views
 			gridLogin.RowDefinitions.Add(new RowDefinition { Height = 60 });
             gridLogin.RowDefinitions.Add(new RowDefinition { Height = 60 });
             //gridLogin.RowDefinitions.Add(new RowDefinition { Height = GridLength.Star });
-            gridLogin.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Star}); //GridLength.Auto 
+            gridLogin.ColumnDefinitions.Add(new ColumnDefinition { Width = App.screenWidth - 20 * App.screenWidthAdapter}); //GridLength.Auto 
 
 
 			welcomeLabel = new Label
@@ -92,64 +92,66 @@ namespace SportNow.Views
             //PASSWORD ENTRY
             passwordEntry = new FormEntryPassword(password, "PASSWORD", App.screenWidth - 20 * App.screenWidthAdapter);
 
-			//LOGIN BUTTON
+            //LOGIN BUTTON
+
+            loginButton = new RoundButton("LOGIN", App.screenWidth - 20 * App.screenWidthAdapter, 50);
+            loginButton.button.Clicked += OnLoginButtonClicked;
 
 
-            loginButton = new Button
-			{
-				Text = "LOGIN",
-                BackgroundColor = App.topColor,
-                TextColor = App.oppositeTextColor,
+            /*            loginButton = new Button
+                        {
+                            Text = "LOGIN",
+                            BackgroundColor = App.topColor,
+                            TextColor = App.oppositeTextColor,
+                            HorizontalOptions = LayoutOptions.Center,
+                            WidthRequest = App.screenWidth - 20 * App.screenWidthAdapter,
+                            HeightRequest = 45 * App.screenHeightAdapter,
+                            FontFamily = "futuracondensedmedium",
+                            FontSize = App.titleFontSize
+                        };
+
+
+                        Frame frame_loginButton = new Frame {
+                            BackgroundColor = App.backgroundColor,
+                            BorderColor = Colors.LightGray,
+                            CornerRadius = 10 * (float) App.screenWidthAdapter,
+                            IsClippedToBounds = true,
+                            Padding = 0,
+                            HorizontalOptions = LayoutOptions.Center,
+                            VerticalOptions = LayoutOptions.Center,
+                            WidthRequest = App.screenWidth - 20 * App.screenWidthAdapter,
+                            HeightRequest = 45 * App.screenWidthAdapter
+                        };
+
+                        frame_loginButton.Content = loginButton;
+			*/
+            messageLabel = new Label {
                 HorizontalOptions = LayoutOptions.Center,
-                WidthRequest = App.screenWidth - 20 * App.screenWidthAdapter,
-                HeightRequest = 45 * App.screenHeightAdapter,
-                FontFamily = "futuracondensedmedium",
-				FontSize = App.titleFontSize
-			};
-			loginButton.Clicked += OnLoginButtonClicked;
-
-
-			Frame frame_loginButton = new Frame {
-				BackgroundColor = App.backgroundColor,
-                BorderColor = Colors.LightGray,
-				CornerRadius = 10 * (float) App.screenWidthAdapter,
-				IsClippedToBounds = true,
-				Padding = 0,
-				HorizontalOptions = LayoutOptions.Center,
-				VerticalOptions = LayoutOptions.Center,
-				WidthRequest = App.screenWidth - 20 * App.screenWidthAdapter,
-                HeightRequest = 45 * App.screenWidthAdapter
-			};
-			
-			frame_loginButton.Content = loginButton;
-
-			messageLabel = new Label {
-				HorizontalOptions = LayoutOptions.Center,
-				VerticalOptions = LayoutOptions.End,
-				TextColor = Colors.Red,
-				FontSize = App.itemTitleFontSize,
+                VerticalOptions = LayoutOptions.End,
+                TextColor = Colors.Red,
+                FontSize = App.itemTitleFontSize,
                 FontFamily = "futuracondensedmedium",
             };
 
-			messageLabel.Text = this.message;
+            messageLabel.Text = this.message;
 
-			//RECOVER PASSWORD LABEL
-			Label recoverPasswordLabel = new Label
-			{
-				Text = "Recuperar palavra-passe",
-				TextColor = App.normalTextColor,
-				FontSize = 20,
-				HorizontalTextAlignment = TextAlignment.Center,
-				VerticalTextAlignment = TextAlignment.Center,
+            //RECOVER PASSWORD LABEL
+            Label recoverPasswordLabel = new Label
+            {
+                Text = "Recuperar palavra-passe",
+                TextColor = App.normalTextColor,
+                FontSize = 20,
+                HorizontalTextAlignment = TextAlignment.Center,
+                VerticalTextAlignment = TextAlignment.Center,
                 FontFamily = "futuracondensedmedium"
             };
-			var recoverPasswordLabel_tap = new TapGestureRecognizer();
-			recoverPasswordLabel_tap.Tapped += (s, e) =>
-			{
-				/*Navigation.InsertPageBefore(new RecoverPasswordPageCS(), this);
-				Navigation.PopAsync();*/
+            var recoverPasswordLabel_tap = new TapGestureRecognizer();
+            recoverPasswordLabel_tap.Tapped += (s, e) =>
+            {
+                /*Navigation.InsertPageBefore(new RecoverPasswordPageCS(), this);
+                Navigation.PopAsync();*/
 
-				 Navigation.PushAsync(new RecoverPasswordPageCS());
+            Navigation.PushAsync(new RecoverPasswordPageCS());
 
 			};
 			recoverPasswordLabel.GestureRecognizers.Add(recoverPasswordLabel_tap);
@@ -177,7 +179,7 @@ namespace SportNow.Views
 			gridLogin.Add(messageLabel, 0, 2);
 			gridLogin.Add(usernameEntry, 0, 3);
 			gridLogin.Add(passwordEntry, 0, 4);
-			gridLogin.Add(frame_loginButton, 0, 5);
+			gridLogin.Add(loginButton, 0, 5);
 			gridLogin.Add(recoverPasswordLabel, 0, 6);
             gridLogin.Add(newMemberLabel, 0, 7);
 

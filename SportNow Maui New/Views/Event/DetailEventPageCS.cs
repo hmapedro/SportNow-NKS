@@ -30,7 +30,7 @@ namespace SportNow.Views
 
 		private List<Payment> payments;
 
-		Button registerButton;
+        RoundButton registerButton;
 
 		private Microsoft.Maui.Controls.Grid gridEvent;
 
@@ -59,7 +59,15 @@ namespace SportNow.Views
 
 		public async void initSpecificLayout()
 		{
-			gridEvent = new Microsoft.Maui.Controls.Grid { Padding = 0, HorizontalOptions = LayoutOptions.FillAndExpand };
+
+            Image eventoImage = new Image { Aspect = Aspect.AspectFill, Opacity = 0.40 };
+            eventoImage.Source = event_v.imagemSource;
+
+            absoluteLayout.Add(eventoImage);
+            absoluteLayout.SetLayoutBounds(eventoImage, new Rect(0, 0, App.screenWidth, App.screenHeight));
+
+
+            gridEvent = new Microsoft.Maui.Controls.Grid { Padding = 0, ColumnSpacing = 2 * App.screenHeightAdapter, HorizontalOptions = LayoutOptions.FillAndExpand };
 			gridEvent.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
 			gridEvent.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
 			gridEvent.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
@@ -123,7 +131,7 @@ namespace SportNow.Views
 			bool registrationOpened = false;
 			string limitDateLabelText = "";
 
-			if ((event_v.registrationbegindate == "") | (event_v.registrationbegindate == null))
+            if ((event_v.registrationbegindate == "") | (event_v.registrationbegindate == null))
 			{
 				limitDateLabelText = "Este evento não tem inscrições ou as inscrições ainda não estão abertas.";
 			}
@@ -144,7 +152,6 @@ namespace SportNow.Views
 				}
 			}
 
-			registerButton = new Button();
 
 			if (event_v.participationconfirmed == "inscrito")
 			{
@@ -159,64 +166,34 @@ namespace SportNow.Views
 				estadoValue.label.TextColor = Colors.Red;
 
 				if (registrationOpened == true)
-                {
+				{
 
-					//registerButton = new RoundButton("INSCREVER", 100, 40);
+					registerButton = new RoundButton("INSCREVER", App.screenWidth - 20 * App.screenWidthAdapter, 50 * App.screenHeightAdapter);
 
-					registerButton = new Button
-					{
-						Text = "INSCREVER",
-						BackgroundColor = Color.FromRgb(96, 182, 89),
-						TextColor = App.normalTextColor,
-						FontSize = App.itemTitleFontSize,
-						WidthRequest = 100,
-						HeightRequest = 50 * App.screenHeightAdapter,
-						VerticalOptions = LayoutOptions.End
-					};
+					registerButton.button.Clicked += OnRegisterButtonClicked;
 
-					Frame frame_registerButton = new Frame
-					{
-						BackgroundColor = Colors.Transparent,
-						//BorderColor = Color.FromRgb(96, 182, 89),
-						WidthRequest = 100,
-						HeightRequest = 50 * App.screenHeightAdapter,
-						CornerRadius = 10,
-						IsClippedToBounds = true,
-						VerticalOptions = LayoutOptions.End,
-						Padding = 0
-					};
+                    absoluteLayout.Add(registerButton);
+                    absoluteLayout.SetLayoutBounds(registerButton, new Rect(0 * App.screenWidthAdapter, App.screenHeight - 160 * App.screenHeightAdapter, App.screenWidth, 50 * App.screenHeightAdapter));
 
-					frame_registerButton.Content = registerButton;
-					registerButton.Clicked += OnRegisterButtonClicked;
 
-					
-
-					/*gridEvent.RowDefinitions.Add(new RowDefinition { Height = GridLength.Star });
-					gridEvent.Add(frame_registerButton, 0, 7);
-					Microsoft.Maui.Controls.Grid.SetColumnSpan(frame_registerButton, 2);*/
+                    /*gridEvent.RowDefinitions.Add(new RowDefinition { Height = GridLength.Star });
+					gridEvent.Add(registerButton, 0, 7);
+					Grid.SetColumnSpan(registerButton, 2);*/
 				}
-
-				
 			}
 
 			Label limitDateLabel = new Label
 			{
 				Text = limitDateLabelText,
-				TextColor = Color.FromRgb(246, 220, 178),
-				WidthRequest = 200,
-				HeightRequest = 50,
-				FontSize = App.itemTitleFontSize,
-				HorizontalTextAlignment = TextAlignment.Center,
+				TextColor = App.topColor,
+                WidthRequest = 300 * App.screenWidthAdapter,
+                HeightRequest = 50 * App.screenHeightAdapter,
+                FontSize = App.titleFontSize,
+                HorizontalTextAlignment = TextAlignment.Center,
 				VerticalOptions = LayoutOptions.Center,
                 FontFamily = "futuracondensedmedium",
             };
 
-
-			Image eventoImage = new Image { Aspect = Aspect.AspectFill, Opacity = 0.25 };
-			eventoImage.Source = event_v.imagemSource;
-
-			absoluteLayout.Add(eventoImage);
-            absoluteLayout.SetLayoutBounds(eventoImage, new Rect(0, 0, App.screenWidth, App.screenHeight));
 
 			gridEvent.Add(dateLabel, 0, 0);
 			gridEvent.Add(dateValue, 1, 0);
@@ -240,10 +217,10 @@ namespace SportNow.Views
 			Microsoft.Maui.Controls.Grid.SetColumnSpan(limitDateLabel, 2);
 
 			absoluteLayout.Add(gridEvent);
-            absoluteLayout.SetLayoutBounds(gridEvent, new Rect(5 * App.screenWidthAdapter, 5 * App.screenHeightAdapter, App.screenWidth - 10 * App.screenWidthAdapter, App.screenHeight - 160 * App.screenHeightAdapter));
+            absoluteLayout.SetLayoutBounds(gridEvent, new Rect(0 * App.screenWidthAdapter, 5 * App.screenHeightAdapter, App.screenWidth - 20 * App.screenWidthAdapter, App.screenHeight - 160 * App.screenHeightAdapter));
 
-			absoluteLayout.Add(registerButton);
-            absoluteLayout.SetLayoutBounds(registerButton, new Rect(10 * App.screenWidthAdapter, App.screenHeight - 160 * App.screenHeightAdapter, App.screenWidth - 20 * App.screenWidthAdapter, 50 * App.screenHeightAdapter));
+			//absoluteLayout.Add(registerButton);
+            //absoluteLayout.SetLayoutBounds(registerButton, new Rect(10 * App.screenWidthAdapter, App.screenHeight - 160 * App.screenHeightAdapter, App.screenWidth - 20 * App.screenWidthAdapter, 50 * App.screenHeightAdapter));
 		}
 
 		public DetailEventPageCS(Event event_v)

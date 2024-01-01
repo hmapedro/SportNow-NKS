@@ -65,7 +65,7 @@ namespace SportNow.Views
 			absoluteLayout.Add(inscricaoOKLabel);		
 			absoluteLayout.SetLayoutBounds(inscricaoOKLabel, new Rect(0, 10 * App.screenHeightAdapter, App.screenWidth, 200 * App.screenHeightAdapter));
 
-			Image competitionImage = new Image { Aspect = Aspect.AspectFill, Opacity = 0.25 };
+			Image competitionImage = new Image { Aspect = Aspect.AspectFill, Opacity = 0.40 };
 			competitionImage.Source = competition_v.imagemSource;
 
 			absoluteLayout.Add(competitionImage);

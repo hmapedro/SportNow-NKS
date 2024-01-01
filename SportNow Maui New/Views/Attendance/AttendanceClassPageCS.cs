@@ -6,6 +6,7 @@ using SportNow.CustomViews;
 using System.Collections.ObjectModel;
 using SportNow.ViewModel;
 using SportNow.Views.Technical;
+using Microsoft.Maui.Controls.Shapes;
 
 namespace SportNow.Views
 {
@@ -107,7 +108,7 @@ namespace SportNow.Views
 				return;
 			}
 			CreateTitle();
-			CreateClassProgramButton();
+			//CreateClassProgramButton();
             CompleteClass_Attendances();
 
 			attendanceCollection = new AttendanceCollection();
@@ -128,7 +129,7 @@ namespace SportNow.Views
                 FontFamily = "futuracondensedmedium",
                 Text = this.class_schedule.name + "\n" + class_schedule.dojo + "\n" + class_schedule.date,
 				FontSize = 20,
-				TextColor = Color.FromRgb(246, 220, 178),
+				TextColor = App.topColor,
 				HorizontalTextAlignment = TextAlignment.Center,
 				VerticalTextAlignment = TextAlignment.Center
 			};
@@ -222,13 +223,15 @@ namespace SportNow.Views
 				itemabsoluteLayout.Add(nameLabel);
 				itemabsoluteLayout.SetLayoutBounds(nameLabel, new Rect(0, 0, App.screenWidth - (45 * App.screenHeightAdapter), 30 * App.screenHeightAdapter));
 
-				Frame attendanceStatus_Frame = new Frame()
+				Border attendanceStatus_Frame = new Border()
 				{
-					CornerRadius = 5,
-					IsClippedToBounds = true,
-					BorderColor = Color.FromRgb(246, 220, 178),
-					Padding = new Thickness(2, 2, 2, 2),
-					HeightRequest = 30,
+                    StrokeShape = new RoundRectangle
+                    {
+                        CornerRadius = 5 * (float)App.screenHeightAdapter,
+                    },
+                    Stroke = App.topColor,
+                    //Padding = new Thickness(2, 2, 2, 2),
+					HeightRequest = 30 * App.screenHeightAdapter,
 					VerticalOptions = LayoutOptions.Center,
                     BackgroundColor = Colors.Transparent,
                 };
@@ -243,7 +246,7 @@ namespace SportNow.Views
 				return itemabsoluteLayout;
 			});
 			absoluteLayout.Add(class_attendanceCollectionView);
-			absoluteLayout.SetLayoutBounds(class_attendanceCollectionView, new Rect(0, 150 * App.screenHeightAdapter, App.screenWidth, App.screenHeight - 360 * App.screenHeightAdapter));
+			absoluteLayout.SetLayoutBounds(class_attendanceCollectionView, new Rect(0, 100 * App.screenHeightAdapter, App.screenWidth, App.screenHeight - 360 * App.screenHeightAdapter));
 
 			gridCount = new Microsoft.Maui.Controls.Grid { Padding = 0, HorizontalOptions = LayoutOptions.FillAndExpand };
 			gridCount.RowDefinitions.Add(new RowDefinition { Height = GridLength.Star });
@@ -285,7 +288,8 @@ namespace SportNow.Views
 			gridCount.Add(confirmadosLabel, 2, 0);
 
 			absoluteLayout.Add(gridCount);
-            absoluteLayout.SetLayoutBounds(gridCount, new Rect(0, App.screenHeight - 210 * App.screenHeightAdapter, App.screenWidth, 50 * App.screenHeightAdapter));
+            absoluteLayout.SetLayoutBounds(gridCount, new Rect(0, App.screenHeight - 210 * App.screenHeightAdapter, App.screenWidth - 20 * App.screenWidthAdapter, 50 * App.screenHeightAdapter));
+            absoluteLayout.SetLayoutBounds(gridCount, new Rect(0, App.screenHeight - 210 * App.screenHeightAdapter, App.screenWidth - 20 * App.screenWidthAdapter, 50 * App.screenHeightAdapter));
 		}
 
 

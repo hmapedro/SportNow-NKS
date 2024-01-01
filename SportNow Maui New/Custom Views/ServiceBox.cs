@@ -1,21 +1,25 @@
 ﻿
+using Microsoft.Maui.Controls.Shapes;
+
 namespace SportNow.CustomViews
 {
     public class ServiceBox : AbsoluteLayout
     {
         public Label label;
-		public Frame frame;
+		public Border frame;
 
 
 		public ServiceBox(string text, double width, double height)
         {
 			this.WidthRequest = width;
 			this.HeightRequest = height;
-			frame = new Frame
+			frame = new Border
 			{
-				CornerRadius = 5,
-				IsClippedToBounds = true,
-				BorderColor = App.topColor,
+                StrokeShape = new RoundRectangle
+                {
+                    CornerRadius = 5 * (float)App.screenHeightAdapter,
+                },
+				Stroke = App.topColor,
 				BackgroundColor = Colors.Transparent,
 				Padding = new Thickness(2, 2, 2, 2),
 				HeightRequest = height,

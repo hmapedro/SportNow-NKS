@@ -12,18 +12,6 @@ namespace SportNow.Views
 		protected override void OnAppearing()
 		{
 			refreshCompetitionStatus(competition);
-			/*competition_participation = App.competition_participation;
-
-			if (competition_participation != null) { 
-
-				Debug.Print("competition_participation.estado=" + competition_participation.estado);
-
-				if ((competition_participation.estado == "confirmado") & (competition.participationconfirmed != 1))
-				{
-					competition.participationconfirmed = 1;		
-				}
-			}*/
-			//initSpecificLayout();
 		}
 
 		protected override void OnDisappearing()
@@ -75,7 +63,14 @@ namespace SportNow.Views
 
 		public async void initSpecificLayout()
 		{
-			gridCompetiton = new Microsoft.Maui.Controls.Grid { Padding = 0, HorizontalOptions = LayoutOptions.FillAndExpand };
+
+            Image eventoImage = new Image { Aspect = Aspect.AspectFill, Opacity = 0.40 };
+            eventoImage.Source = competition.imagemSource;
+
+            absoluteLayout.Add(eventoImage);
+            absoluteLayout.SetLayoutBounds(eventoImage, new Rect(0, 0, App.screenWidth, App.screenHeight));
+
+            gridCompetiton = new Microsoft.Maui.Controls.Grid { Padding = 0, ColumnSpacing = 5 * App.screenHeightAdapter, HorizontalOptions = LayoutOptions.FillAndExpand };
 			gridCompetiton.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
 			gridCompetiton.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
 			gridCompetiton.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
@@ -89,7 +84,7 @@ namespace SportNow.Views
 			gridCompetiton.ColumnDefinitions.Add(new ColumnDefinition { Width = App.screenWidth / 5 }); //GridLength.Auto
 			gridCompetiton.ColumnDefinitions.Add(new ColumnDefinition { Width = App.screenWidth / 5 * 4 }); //GridLength.Auto 
 
-			Label dateLabel = new FormLabel { Text = "DATA" };
+            Label dateLabel = new FormLabel { Text = "DATA" };
 			FormValue dateValue = new FormValue(competition.detailed_date);
 
 			FormLabel placeLabel = new FormLabel { Text = "LOCAL" };
@@ -184,7 +179,7 @@ namespace SportNow.Views
 				estadoValue.label.TextColor = Colors.Red;
 
 				if (registrationOpened == 1) {
-                    registerButton = new RegisterButton("INSCREVER", 100, 50);
+                    registerButton = new RegisterButton("INSCREVER", App.screenWidth - 20 * App.screenWidthAdapter, 50 * App.screenHeightAdapter);
                     registerButton.button.Clicked += OnRegisterButtonClicked;
 
 
@@ -192,7 +187,7 @@ namespace SportNow.Views
                     gridCompetiton.Add(registerButton, 0, 9);
 					Microsoft.Maui.Controls.Grid.SetColumnSpan(registerButton, 2);
 
-                    cancelButton = new CancelButton("NÃO POSSO IR :(", 100, 50);
+                    cancelButton = new CancelButton("NÃO POSSO IR :(", App.screenWidth - 20 * App.screenWidthAdapter, 50 * App.screenHeightAdapter);
                     cancelButton.button.Clicked += OnCancelButtonClicked;
 
                     gridCompetiton.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
@@ -208,7 +203,7 @@ namespace SportNow.Views
 
                 if (registrationOpened == 1)
                 {
-                    registerButton = new RegisterButton("INSCREVER", 100, 50);
+                    registerButton = new RegisterButton("INSCREVER", App.screenWidth - 20 * App.screenWidthAdapter, 50 * App.screenHeightAdapter);
                     registerButton.button.Clicked += OnRegisterButtonClicked;
 
 
@@ -237,10 +232,10 @@ namespace SportNow.Views
 			{
                 FontFamily = "futuracondensedmedium",
                 Text = limitDateLabelText,
-				TextColor = Color.FromRgb(246, 220, 178),
-				WidthRequest = 200,
-				HeightRequest = 30,
-				FontSize = 20,
+				TextColor = App.topColor,
+                WidthRequest = 300 * App.screenWidthAdapter,
+                HeightRequest = 50 * App.screenHeightAdapter,
+                FontSize = App.titleFontSize,
 				HorizontalTextAlignment = TextAlignment.Center
 			};
 
@@ -264,15 +259,16 @@ namespace SportNow.Views
 				Image convocatoriaImage = new Image
 				{
 					Source = "iconconvocatoria.png",
-					HorizontalOptions = LayoutOptions.End
-				};
+					HorizontalOptions = LayoutOptions.Start,
+                    HeightRequest = 50 * App.screenHeightAdapter,
+                };
 
 				Label convocatoriaLabel = new Label
 				{
                     Text = "Convocatória",
 					TextColor = App.normalTextColor,
-					FontSize = 20,
-					VerticalTextAlignment = TextAlignment.Center,
+                    FontSize = App.titleFontSize,
+                    VerticalTextAlignment = TextAlignment.Center,
 					HorizontalTextAlignment = TextAlignment.Start,
                     FontFamily = "futuracondensedmedium",
                 };
@@ -326,7 +322,7 @@ namespace SportNow.Views
 			Microsoft.Maui.Controls.Grid.SetColumnSpan(limitDateLabel, 2);
 
 
-			Image competitionImage = new Image { Aspect = Aspect.AspectFill, Opacity = 0.25 };
+			Image competitionImage = new Image { Aspect = Aspect.AspectFill, Opacity = 0.40 };
 			Debug.Print("competition image = " + competition.imagemSource);
 			competitionImage.Source = competition.imagemSource;
 
@@ -337,7 +333,7 @@ namespace SportNow.Views
             gridCompetiton.RowDefinitions.Add(new RowDefinition { Height = 10 });
 
 			absoluteLayout.Add(gridCompetiton);
-            absoluteLayout.SetLayoutBounds(gridCompetiton, new Rect(0, 0, App.screenWidth, App.screenHeight));
+            absoluteLayout.SetLayoutBounds(gridCompetiton, new Rect(0, 0, App.screenWidth, App.screenHeight - 110 * App.screenHeightAdapter));
         }
 
 
@@ -394,7 +390,7 @@ namespace SportNow.Views
 				
 				if ((competition.imagemNome == "") | (competition.imagemNome is null))
 				{
-					competition.imagemSource = "logo_aksl.png";
+					competition.imagemSource = "company_logo_square.png";
 				}
 				else
 				{
@@ -413,7 +409,7 @@ namespace SportNow.Views
 			List<Competition_Participation> futureCompetitionParticipations = await competitionManager.GetCompetitionCall(competition.id);
 			if (futureCompetitionParticipations == null)
 			{
-								Application.Current.MainPage = new NavigationPage(new LoginPageCS("Verifique a sua ligação à Internet e tente novamente."))
+				Application.Current.MainPage = new NavigationPage(new LoginPageCS("Verifique a sua ligação à Internet e tente novamente."))
 				{
 					BarBackgroundColor = App.backgroundColor,
 					BarTextColor = App.normalTextColor

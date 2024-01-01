@@ -140,7 +140,7 @@ namespace SportNow.Views
 					{
 						Children =
 							{
-								new Label { Text = "Não tem exames registados.", HorizontalTextAlignment = TextAlignment.Start, TextColor = App.normalTextColor, FontSize = App.itemTitleFontSize },
+								new Label { FontFamily = "futuracondensedmedium", Text = "Não tem exames registados.", HorizontalTextAlignment = TextAlignment.Start, TextColor = App.normalTextColor, FontSize = App.itemTitleFontSize },
 							}
 					}
 				}
@@ -188,7 +188,7 @@ namespace SportNow.Views
 				Image image = new Image { Aspect = Aspect.AspectFill }; //, HeightRequest = 60, WidthRequest = 60
 				image.SetBinding(Image.SourceProperty, "image");
 
-				Label gradeLabel = new Label { HorizontalTextAlignment = TextAlignment.Center, TextColor = App.normalTextColor, LineBreakMode = LineBreakMode.NoWrap };
+				Label gradeLabel = new Label { FontFamily = "futuracondensedmedium", HorizontalTextAlignment = TextAlignment.Center, TextColor = App.normalTextColor, LineBreakMode = LineBreakMode.NoWrap };
 				gradeLabel.SetBinding(Label.TextProperty, "grade");
 
 				//Label locationLabel = new Label { HorizontalTextAlignment = TextAlignment.Center, TextColor = App.normalTextColor, LineBreakMode = LineBreakMode.NoWrap};

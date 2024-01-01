@@ -38,9 +38,10 @@ namespace SportNow
          public static bool isToPop = false;
 
          public static Color backgroundColor = Color.FromRgb(255, 255, 255);
+         public static Color backgroundOppositeColor = Color.FromRgb(0, 0, 0);
          public static Color topColor = Color.FromRgb(24, 45, 91); 
          public static Color bottomColor = Color.FromRgb(98, 98, 98); //Color.FromRgb(100, 150, 215);
-        public static Color normalTextColor = Color.FromRgb(50, 50, 50);
+         public static Color normalTextColor = Color.FromRgb(50, 50, 50);
          public static Color oppositeTextColor = Colors.White;
 
         public static double screenWidth = (DeviceDisplay.MainDisplayInfo.Width / DeviceDisplay.MainDisplayInfo.Density) - 10 * App.screenWidthAdapter;

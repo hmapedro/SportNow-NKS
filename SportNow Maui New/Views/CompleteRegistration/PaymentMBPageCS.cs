@@ -199,7 +199,7 @@ namespace SportNow.Views.CompleteRegistration
         {
             Debug.Print("checkPaymentStatus");
             this.payment = await GetPayment(paymentID);
-            if ((payment.status == "confirmado") | (payment.status == "fechado"))
+            if ((payment.status == "confirmado") | (payment.status == "fechado") | (payment.status == "recebido"))
             {
                 App.member.estado = "activo";
                 App.original_member.estado = "activo";

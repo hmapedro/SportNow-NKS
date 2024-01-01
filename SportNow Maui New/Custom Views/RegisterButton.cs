@@ -1,9 +1,10 @@
 ﻿using System;
 using Microsoft.Maui;
+using Microsoft.Maui.Controls.Shapes;
 
 namespace SportNow.CustomViews
 {
-    public class RegisterButton: Frame
+    public class RegisterButton: Border
     {
 
         /*public double width { get; set; }
@@ -50,9 +51,12 @@ namespace SportNow.CustomViews
 
             //frame = new Frame { BackgroundColor = App.backgroundColor, BorderColor = Colors.LightGray, CornerRadius = 20, IsClippedToBounds = true, Padding = 0 };
             this.BackgroundColor = Color.FromRgb(96, 182, 89);//Color.FromRgb(25, 25, 25);
-            //this.BorderColor = Colors.LightGray;
-            this.CornerRadius = (float)(10 * screenAdaptor);
-            this.IsClippedToBounds = true;
+                                                              //this.BorderColor = Colors.LightGray;
+            StrokeShape = new RoundRectangle
+            {
+                CornerRadius = 5 * (float)App.screenHeightAdapter,
+            };
+            Stroke = App.topColor;
             this.Padding = 0;
             this.WidthRequest = width;
             this.HeightRequest = height;

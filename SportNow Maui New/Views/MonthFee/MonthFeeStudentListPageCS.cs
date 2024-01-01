@@ -2,7 +2,7 @@
 using SportNow.Services.Data.JSON;
 using System.Diagnostics;
 using System.Collections.ObjectModel;
-
+using Microsoft.Maui.Controls.Shapes;
 
 namespace SportNow.Views
 {
@@ -18,7 +18,6 @@ namespace SportNow.Views
 		{
 			this.CleanScreen();
 		}
-		private AbsoluteLayout quotasrelativeLayout;
 
 		private CollectionView monthFeesCollectionView;
 
@@ -40,9 +39,9 @@ namespace SportNow.Views
 		{
 			Debug.Print("CleanScreen");
 			//valida se os objetos já foram criados antes de os remover
-			if (quotasrelativeLayout != null)
+			if (monthFeesCollectionView != null)
 			{
-				absoluteLayout.Remove(quotasrelativeLayout);
+				absoluteLayout.Remove(monthFeesCollectionView);
 				monthFeesCollectionView = null;
 			}
 			if (stackMonthSelector != null)
@@ -80,7 +79,7 @@ namespace SportNow.Views
             {
                 Text = "<",
                 FontSize = App.titleFontSize,
-                TextColor = Color.FromRgb(246, 220, 178),
+                TextColor = App.topColor,
                 BackgroundColor = App.backgroundColor,
                 VerticalOptions = LayoutOptions.Center
             };
@@ -92,7 +91,7 @@ namespace SportNow.Views
 			{
 				Text = selectedTime.Year.ToString(),
 				FontSize = App.titleFontSize,
-				TextColor = Color.FromRgb(246, 220, 178),
+				TextColor = App.topColor,
 				WidthRequest = 150,
 				VerticalTextAlignment = TextAlignment.Center,
 				HorizontalTextAlignment = TextAlignment.Center
@@ -102,7 +101,7 @@ namespace SportNow.Views
 			{
 				Text = ">",
 				FontSize = App.titleFontSize,
-				TextColor = Color.FromRgb(246, 220, 178),
+				TextColor = App.topColor,
 				BackgroundColor = App.backgroundColor,
 				VerticalOptions = LayoutOptions.Center
 			};
@@ -127,7 +126,7 @@ namespace SportNow.Views
 			};
 
 			absoluteLayout.Add(stackMonthSelector);
-            absoluteLayout.SetLayoutBounds(stackMonthSelector, new Rect(0, 40 * App.screenHeightAdapter, App.screenWidth, 40 * App.screenHeightAdapter));
+            absoluteLayout.SetLayoutBounds(stackMonthSelector, new Rect(0, 20 * App.screenHeightAdapter, App.screenWidth, 40 * App.screenHeightAdapter));
 
 
 		}
@@ -146,7 +145,7 @@ namespace SportNow.Views
 					{
 						Children =
 							{
-								new Label { Text = "Não existem Mensalidades relativas a este ano.", HorizontalTextAlignment = TextAlignment.Center, TextColor = App.normalTextColor, FontSize = 20 },
+								new Label { FontFamily = "futuracondensedmedium", Text = "Não existem Mensalidades relativas a este ano.", HorizontalTextAlignment = TextAlignment.Center, TextColor = App.normalTextColor, FontSize = 20 },
 							}
 					}
 				}
@@ -161,12 +160,14 @@ namespace SportNow.Views
 					HeightRequest = 30 * App.screenHeightAdapter,
                 };
 
-				Frame itemFrame = new Frame
+				Border itemFrame = new Border
 				{
-					CornerRadius = 5,
-					IsClippedToBounds = true,
-					BorderColor = Color.FromRgb(182, 145, 89),
-					BackgroundColor = Colors.Transparent,
+                    StrokeShape = new RoundRectangle
+                    {
+                        CornerRadius = 5 * (float)App.screenHeightAdapter,
+                    },
+                    Stroke = App.topColor,
+                    BackgroundColor = Colors.Transparent,
 					Padding = new Thickness(2, 2, 2, 2),
 					HeightRequest = 30 * App.screenHeightAdapter,
 					VerticalOptions = LayoutOptions.Center,
@@ -206,7 +207,7 @@ namespace SportNow.Views
 			});
 
 			absoluteLayout.Add(monthFeesCollectionView);
-            absoluteLayout.SetLayoutBounds(monthFeesCollectionView, new Rect(0, 100 * App.screenHeightAdapter, App.screenWidth, App.screenHeight - 170 * App.screenHeightAdapter));
+            absoluteLayout.SetLayoutBounds(monthFeesCollectionView, new Rect(0, 80 * App.screenHeightAdapter, App.screenWidth, App.screenHeight - 170 * App.screenHeightAdapter));
 
 		}
 
@@ -275,26 +276,16 @@ namespace SportNow.Views
 			foreach (MonthFee monthFee in monthFees)
 			{
 				monthFee.selected = false;
-				monthFee.selectedColor = Colors.White;
+				monthFee.selectedColor = App.normalTextColor;
 
                 if (monthFee.status == "emitida")
                 {
-                    monthFee.selectedColor = Colors.LightBlue;
+                    monthFee.selectedColor = Colors.DarkBlue;
                     monthFee.status = "Emitida";
                 }
-				if (monthFee.status == "emitida_a_pagamento")
-				{
-					monthFee.selectedColor = Colors.LightBlue;
-					monthFee.status = "Em pagamento";
-				}
-				else if (monthFee.status == "emitida_pagamento_em_atraso")
-				{
-					monthFee.selectedColor = Colors.IndianRed;
-					monthFee.status = "Pagamento em Atraso";
-				}
 				else if (monthFee.status == "paga")
 				{
-					monthFee.selectedColor = Colors.LightGreen;
+					monthFee.selectedColor = Colors.DarkGreen;
 					monthFee.status = "Paga";
 				}
 			}

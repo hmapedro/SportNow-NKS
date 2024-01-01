@@ -83,19 +83,20 @@ namespace SportNow.Views
 		{
 			Label inscricaoOKLabel = new Label
 			{
-				Text = "A tua Inscrição no Evento \n " + event_participation.evento_name + " \n está Confirmada. \n\n BOA SORTE\n e nunca te esqueças de te divertir!",
+                FontFamily = "futuracondensedmedium",
+                Text = "A tua Inscrição no Evento \n " + event_participation.evento_name + " \n está Confirmada. \n\n BOA SORTE\n e nunca te esqueças de te divertir!",
 				VerticalTextAlignment = TextAlignment.Center,
 				HorizontalTextAlignment = TextAlignment.Center,
 				TextColor = App.normalTextColor,
 				//LineBreakMode = LineBreakMode.NoWrap,
-				HeightRequest = 300,
-				FontSize = 30
+				HeightRequest = 300 * App.screenHeightAdapter,
+				FontSize = App.bigTitleFontSize
 			};
 
 			absoluteLayout.Add(inscricaoOKLabel);
             absoluteLayout.SetLayoutBounds(inscricaoOKLabel, new Rect(0, 10 * App.screenHeightAdapter, App.screenWidth, 300 * App.screenHeightAdapter));
 
-			Image eventoImage = new Image { Aspect = Aspect.AspectFill, Opacity = 0.25 };
+			Image eventoImage = new Image { Aspect = Aspect.AspectFill, Opacity = 0.40 };
 			eventoImage.Source = event_v.imagemSource;
 
 			absoluteLayout.Add(eventoImage);
@@ -112,7 +113,8 @@ namespace SportNow.Views
 
 			Label selectPaymentModeLabel = new Label
 			{
-				Text = "Escolhe o modo de pagamento pretendido:",
+                FontFamily = "futuracondensedmedium",
+                Text = "Escolhe o modo de pagamento pretendido:",
 				VerticalTextAlignment = TextAlignment.Center,
 				HorizontalTextAlignment = TextAlignment.Center,
 				TextColor = App.normalTextColor,

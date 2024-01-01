@@ -24,7 +24,7 @@ namespace SportNow.Model
         public string classificacao { get; set; }
         public string classificacaoImagem { get; set; }
         public Color classificacaoColor { get; set; }
-        public Color estadoTextColor { get; set; } = Colors.White;
+        public Color estadoTextColor { get; set; } = App.normalTextColor;
         public string entidade { get; set; }
         public string referencia { get; set; }
         public double valor { get; set; }

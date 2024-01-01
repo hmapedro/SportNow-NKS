@@ -33,7 +33,7 @@
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net7.0-ios|AnyCPU'">
 	  <CreatePackage>false</CreatePackage>
-	  <CodesignProvision>Ippon Provision Profile Development</CodesignProvision>
+	  <CodesignProvision></CodesignProvision>
 	  <CodesignKey>iPhone Developer</CodesignKey>
 	  <MtouchDebug>true</MtouchDebug>
 	</PropertyGroup>
@@ -45,6 +45,9 @@
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net7.0-android|AnyCPU'">
 	  <AndroidEnableProfiledAot>true</AndroidEnableProfiledAot>
 	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net7.0-maccatalyst|AnyCPU'">
+	  <CreatePackage>false</CreatePackage>
+	</PropertyGroup>
 	<ItemGroup>
 		<!-- App Icon -->
 		<!--<MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#512BD4" />-->
@@ -55,7 +58,6 @@
 		
 		<!-- Images -->
 		<MauiImage Include="Resources\Images\*" />
-		<MauiImage Update="Resources\Images\dotnet_bot.svg" BaseSize="168,208" />
 
 		<!-- Custom Fonts -->
 		<MauiFont Include="Resources\Fonts\*" />
@@ -195,6 +197,7 @@
 	  <BundleResource Include="Resources\Images\fnkpikp.png" />
 	  <BundleResource Include="Resources\Images\iconlogonks.png" />
 	  <BundleResource Include="Resources\.DS_Store" />
+	  <BundleResource Include="Resources\Images\company_logo_square.png" />
 	  <BundleResource Include="Resources\Images\loading.gif" />
 	</ItemGroup>
 	<ItemGroup>
@@ -205,5 +208,7 @@
 	  <None Remove="Resources\Images\iconlogonks.png" />
 	  <None Remove="Resources\.DS_Store" />
 	  <None Remove="Resources\Images\Spinner-1s-200px-2.gif" />
+	  <None Remove="Resources\Images\company_logo_square.png" />
+	  <None Remove="Resources\Images\Spinner-1s-200px %281%29.gif" />
 	</ItemGroup>
 </Project>

@@ -38,7 +38,7 @@ namespace SportNow.Views
 
 		public async void initSpecificLayout()
 		{
-			gridEvent = new Microsoft.Maui.Controls.Grid { Padding = 0, HorizontalOptions = LayoutOptions.FillAndExpand };
+			gridEvent = new Microsoft.Maui.Controls.Grid { Padding = 0, ColumnSpacing = 2 * App.screenHeightAdapter, HorizontalOptions = LayoutOptions.FillAndExpand };
 			gridEvent.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
 			gridEvent.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
 			gridEvent.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
@@ -74,7 +74,7 @@ namespace SportNow.Views
 			});
 
 
-			Image eventoImage = new Image { Aspect = Aspect.AspectFill, Opacity = 0.25 };
+			Image eventoImage = new Image { Aspect = Aspect.AspectFill, Opacity = 0.40 };
 			eventoImage.Source = event_participation.imagemSource;
 
 			absoluteLayout.Add(eventoImage);

@@ -15,7 +15,7 @@ namespace SportNow.Model
         public string number { get; set; }
         public string image { get; set; }
         public string estado { get; set; }
-        public Color estadoTextColor { get; set; } = Colors.White;
+        public Color estadoTextColor { get; set; } = App.normalTextColor;
         public string membername { get; set; }
         public int memberage { get; set; }
         public bool selected { get; set; }

@@ -28,8 +28,8 @@ namespace SportNow.Views
 
 		public void initLayout()
 		{
-			Title = "PAGAMENTO MENSALIDADE";
-		}
+            Title = "Mensalidade - Pagamento MBWay";
+        }
 
 
 		public async void initSpecificLayout()
@@ -55,7 +55,8 @@ namespace SportNow.Views
 
 			Label eventParticipationNameLabel = new Label
 			{
-				Text = "Para efetuares o pagamento da tua " + monthFee.name + " - " + payments[0].value + "€ confirma os dados indicados em baixo.",
+                FontFamily = "futuracondensedmedium",
+                Text = "Para efetuares o pagamento da tua " + monthFee.name + " - " + payments[0].value + "€ confirma os dados indicados em baixo.",
 				VerticalTextAlignment = TextAlignment.Center,
 				HorizontalTextAlignment = TextAlignment.Center,
 				TextColor = App.normalTextColor,
@@ -75,11 +76,12 @@ namespace SportNow.Views
 			};
 
 			absoluteLayout.Add(MBWayLogoImage);
-            absoluteLayout.SetLayoutBounds(MBWayLogoImage, new Rect((App.screenWidth / 2) - ((184 * App.screenHeightAdapter) / 2), 180 * App.screenHeightAdapter, 184 * App.screenWidthAdapter, 120 * App.screenHeightAdapter));
+            absoluteLayout.SetLayoutBounds(MBWayLogoImage, new Rect((App.screenWidth / 2) - ((184 * App.screenHeightAdapter) / 2), 180 * App.screenHeightAdapter, 184 * App.screenHeightAdapter, 120 * App.screenHeightAdapter));
 
             Label phoneNumberLabel = new Label
 			{
-				Text = "Confirma o teu número de telefone",
+                FontFamily = "futuracondensedmedium",
+                Text = "Confirma o teu número de telefone",
 				VerticalTextAlignment = TextAlignment.Center,
 				HorizontalTextAlignment = TextAlignment.Center,
 				TextColor = App.normalTextColor,
@@ -99,12 +101,12 @@ namespace SportNow.Views
 			absoluteLayout.Add(phoneValueEdit);
             absoluteLayout.SetLayoutBounds(phoneValueEdit, new Rect(0, 340 * App.screenHeightAdapter, App.screenWidth - 10 * App.screenWidthAdapter, 40 * App.screenHeightAdapter));
 
-            payButton = new RegisterButton("PAGAR", 100, 50);
+            payButton = new RegisterButton("PAGAR", App.screenWidth - 20 * App.screenWidthAdapter, 50 * App.screenHeightAdapter);
 			payButton.button.Clicked += OnPayButtonClicked;
 
 
 			absoluteLayout.Add(payButton);
-            absoluteLayout.SetLayoutBounds(payButton, new Rect(0, App.screenHeight - 50 * App.screenHeightAdapter, App.screenWidth, 50 * App.screenHeightAdapter));
+            absoluteLayout.SetLayoutBounds(payButton, new Rect(0, App.screenHeight - 160 * App.screenHeightAdapter, App.screenWidth, 50 * App.screenHeightAdapter));
         }
 
 

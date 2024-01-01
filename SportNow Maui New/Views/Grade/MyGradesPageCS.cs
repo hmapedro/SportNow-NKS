@@ -195,7 +195,7 @@ namespace SportNow.Views
 					{
 						Children =
 							{
-								new Label { Text = "Não tem exames registados.", HorizontalTextAlignment = TextAlignment.Start, TextColor = App.normalTextColor, FontSize = App.itemTitleFontSize },
+								new Label { FontFamily = "futuracondensedmedium", Text = "Não tem exames registados.", HorizontalTextAlignment = TextAlignment.Start, TextColor = App.normalTextColor, FontSize = App.itemTitleFontSize },
 							}
 					}
 				}

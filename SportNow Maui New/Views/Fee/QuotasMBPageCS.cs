@@ -6,7 +6,7 @@ using SportNow.Services.Data.JSON;
 using System.Threading.Tasks;
 using System.Diagnostics;
 using SportNow.Views.Profile;
-
+using Microsoft.Maui.Controls.Shapes;
 
 namespace SportNow.Views
 {
@@ -18,7 +18,7 @@ namespace SportNow.Views
 
 		public void initLayout()
 		{
-			Title = "Quotas";
+			Title = "Quota - Pagamento MB";
 		}
 
 
@@ -34,32 +34,33 @@ namespace SportNow.Views
 		}
 
 		public void createMBPaymentLayout() {
-			gridMBPayment= new Microsoft.Maui.Controls.Grid { Padding = 10, HorizontalOptions = LayoutOptions.FillAndExpand, VerticalOptions = LayoutOptions.FillAndExpand };
-			gridMBPayment.RowDefinitions.Add(new RowDefinition { Height = 100 });
-			gridMBPayment.RowDefinitions.Add(new RowDefinition { Height = 20 });
-			gridMBPayment.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
-			gridMBPayment.RowDefinitions.Add(new RowDefinition { Height = 20 });
-			gridMBPayment.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
+            gridMBPayment = new Microsoft.Maui.Controls.Grid { Padding = 10, ColumnSpacing = 20 * App.screenHeightAdapter, HorizontalOptions = LayoutOptions.FillAndExpand, VerticalOptions = LayoutOptions.FillAndExpand };
+            gridMBPayment.RowDefinitions.Add(new RowDefinition { Height = 150 * App.screenHeightAdapter });
+            gridMBPayment.RowDefinitions.Add(new RowDefinition { Height = 20 * App.screenHeightAdapter });
+            gridMBPayment.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
+            gridMBPayment.RowDefinitions.Add(new RowDefinition { Height = 20 * App.screenHeightAdapter });
+            gridMBPayment.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
+            gridMBPayment.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
 			gridMBPayment.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Star }); //GridLength.Auto
 			gridMBPayment.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Star }); //GridLength.Auto 
 
 			Label feeYearLabel = new Label
 			{
                 FontFamily = "futuracondensedmedium",
-                Text = "QUOTA "+DateTime.Now.ToString("yyyy"),
-				VerticalTextAlignment = TextAlignment.Center,
+                Text = member.currentFee.name,
+                VerticalTextAlignment = TextAlignment.Center,
 				HorizontalTextAlignment = TextAlignment.Center,
 				TextColor = App.normalTextColor,
 				LineBreakMode = LineBreakMode.NoWrap,
-				FontSize = 50
+				FontSize = App.bigTitleFontSize
 			};
 
 			Image MBLogoImage = new Image
 			{
 				Source = "logomultibanco.png",
-				WidthRequest = 100,
-				HeightRequest = 100
-			};
+                WidthRequest = 164 * App.screenHeightAdapter,
+                HeightRequest = 142 * App.screenHeightAdapter
+            };
 
 			Label referenciaMBLabel = new Label
 			{
@@ -68,10 +69,10 @@ namespace SportNow.Views
 				VerticalTextAlignment = TextAlignment.Center,
 				HorizontalTextAlignment = TextAlignment.Center,
 				TextColor = App.normalTextColor,
-				//LineBreakMode = LineBreakMode.NoWrap,
-				HeightRequest = 100,
-				FontSize = 30
-			};
+                //LineBreakMode = LineBreakMode.NoWrap,
+                HeightRequest = 142 * App.screenHeightAdapter,
+                FontSize = App.bigTitleFontSize
+            };
 
 			/*Label feeInactiveCommentLabel = new Label
 			{
@@ -94,7 +95,7 @@ namespace SportNow.Views
 
 			*/
 
-			Microsoft.Maui.Controls.Grid gridMBDataPayment = new Microsoft.Maui.Controls.Grid { Padding = 10, HorizontalOptions = LayoutOptions.FillAndExpand, VerticalOptions = LayoutOptions.FillAndExpand };
+			Microsoft.Maui.Controls.Grid gridMBDataPayment = new Microsoft.Maui.Controls.Grid { Padding = 10 * App.screenWidthAdapter, ColumnSpacing = 5 * App.screenHeightAdapter,  HorizontalOptions = LayoutOptions.FillAndExpand, VerticalOptions = LayoutOptions.FillAndExpand };
 			gridMBDataPayment.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
 			gridMBDataPayment.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
 			gridMBDataPayment.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
@@ -108,7 +109,7 @@ namespace SportNow.Views
 				VerticalTextAlignment = TextAlignment.Center,
 				HorizontalTextAlignment = TextAlignment.Start,
 				TextColor = App.normalTextColor,
-				FontSize = 20
+				FontSize = App.titleFontSize
 			};
 			Label referenceLabel = new Label
 			{
@@ -117,8 +118,8 @@ namespace SportNow.Views
 				VerticalTextAlignment = TextAlignment.Center,
 				HorizontalTextAlignment = TextAlignment.Start,
 				TextColor = App.normalTextColor,
-				FontSize = 20
-			};
+				FontSize = App.titleFontSize
+            };
 			Label valueLabel = new Label
 			{
                 FontFamily = "futuracondensedmedium",
@@ -126,8 +127,8 @@ namespace SportNow.Views
 				VerticalTextAlignment = TextAlignment.Center,
 				HorizontalTextAlignment = TextAlignment.Start,
 				TextColor = App.normalTextColor,
-				FontSize = 20
-			};
+				FontSize = App.titleFontSize
+            };
 
 			Label entityValue = new Label
 			{
@@ -136,8 +137,8 @@ namespace SportNow.Views
 				VerticalTextAlignment = TextAlignment.Center,
 				HorizontalTextAlignment = TextAlignment.End,
 				TextColor = App.normalTextColor,
-				FontSize = 20
-			};
+				FontSize = App.titleFontSize
+            };
 			Label referenceValue = new Label
 			{
                 FontFamily = "futuracondensedmedium",
@@ -145,8 +146,8 @@ namespace SportNow.Views
 				VerticalTextAlignment = TextAlignment.Center,
 				HorizontalTextAlignment = TextAlignment.End,
 				TextColor = App.normalTextColor,
-				FontSize = 20
-			};
+				FontSize = App.titleFontSize
+            };
 			Label valueValue = new Label
 			{
                 FontFamily = "futuracondensedmedium",
@@ -154,11 +155,19 @@ namespace SportNow.Views
 				VerticalTextAlignment = TextAlignment.Center,
 				HorizontalTextAlignment = TextAlignment.End,
 				TextColor = App.normalTextColor,
-				FontSize = 20
-			};
+				FontSize = App.titleFontSize
+            };
 
-			Frame MBDataFrame= new Frame { BackgroundColor = App.backgroundColor, BorderColor = Colors.Yellow, CornerRadius = 10, IsClippedToBounds = true, Padding = 0 };
-			MBDataFrame.Content = gridMBDataPayment;
+            Border MBDataFrame = new Border
+            {
+                BackgroundColor = App.backgroundColor,
+                StrokeShape = new RoundRectangle
+                {
+                    CornerRadius = 5 * (float)App.screenHeightAdapter,
+                },
+                Stroke = App.topColor,
+            };
+            MBDataFrame.Content = gridMBDataPayment;
 
 			gridMBDataPayment.Add(entityLabel, 0, 0);
 			gridMBDataPayment.Add(entityValue, 1, 0);
@@ -166,9 +175,6 @@ namespace SportNow.Views
 			gridMBDataPayment.Add(referenceValue, 1, 1);
 			gridMBDataPayment.Add(valueLabel, 0, 2);
 			gridMBDataPayment.Add(valueValue, 1, 2);
-
-			gridMBDataPayment.Add(referenceLabel, 0, 1);
-			gridMBDataPayment.Add(valueLabel, 0, 2);
 
 			gridMBPayment.Add(feeYearLabel, 0, 0);
 			Microsoft.Maui.Controls.Grid.SetColumnSpan(feeYearLabel, 2);
@@ -178,7 +184,6 @@ namespace SportNow.Views
 
 			gridMBPayment.Add(MBDataFrame, 0, 4);
 			Microsoft.Maui.Controls.Grid.SetColumnSpan(MBDataFrame, 2);
-
 
 			absoluteLayout.Add(gridMBPayment);
             absoluteLayout.SetLayoutBounds(gridMBPayment, new Rect(0, 10 * App.screenHeightAdapter, App.screenWidth, App.screenHeight - 10 * App.screenHeightAdapter));

@@ -27,8 +27,8 @@ namespace SportNow.Views
 
 		public void initLayout()
 		{
-			Title = "QUOTA";
-		}
+            Title = "Quota - Pagamento MBWay";
+        }
 
 
 		public async void initSpecificLayout()
@@ -90,16 +90,15 @@ namespace SportNow.Views
 			absoluteLayout.Add(phoneValueEdit);
             absoluteLayout.SetLayoutBounds(phoneValueEdit, new Rect(0, 340 * App.screenHeightAdapter, App.screenWidth - 10 * App.screenWidthAdapter, 40 * App.screenHeightAdapter));
 
-			payButton = new RegisterButton("PAGAR", 100, 50);
-			payButton.button.Clicked += OnPayButtonClicked;
+			payButton = new RegisterButton("PAGAR", App.screenWidth - 20 * App.screenWidthAdapter, 50 * App.screenHeightAdapter);
+            payButton.button.Clicked += OnPayButtonClicked;
+            absoluteLayout.Add(payButton);
+            absoluteLayout.SetLayoutBounds(payButton, new Rect(0, App.screenHeight - 160 * App.screenHeightAdapter, App.screenWidth, 50 * App.screenHeightAdapter));
+
+        }
 
 
-			absoluteLayout.Add(payButton);
-            absoluteLayout.SetLayoutBounds(payButton, new Rect(0, App.screenHeight - 50 * App.screenHeightAdapter, App.screenWidth, 50 * App.screenHeightAdapter));
-		}
-
-
-		public QuotasMBWayPageCS(Member member)
+        public QuotasMBWayPageCS(Member member)
 		{
 
 			this.member = member;

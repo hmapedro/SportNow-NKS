@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.Maui;
+﻿using Microsoft.Maui.Controls.Shapes;
 
 namespace SportNow.CustomViews
 {
@@ -12,19 +11,21 @@ namespace SportNow.CustomViews
         //public Frame frame;
         public Label label;
         public Image image;
-		public Frame frame;
+		public Border frame;
 
 
 		public OptionButton(string text, string imageSource, double width, double height)
         {
             this.WidthRequest = width;
             this.HeightRequest = height;
-			frame = new Frame
+			frame = new Border
 			{
-				CornerRadius = 5,
-				IsClippedToBounds = true,
-				BorderColor = App.bottomColor,
-				BackgroundColor = Colors.Black,
+                StrokeShape = new RoundRectangle
+                {
+                    CornerRadius = 5 * (float)App.screenHeightAdapter,
+                },
+                Stroke = App.topColor,
+                BackgroundColor = App.backgroundOppositeColor,
 				Padding = new Thickness(2, 2, 2, 2),
                 WidthRequest = width,
                 HeightRequest = height,
@@ -32,7 +33,7 @@ namespace SportNow.CustomViews
                 HorizontalOptions = LayoutOptions.Center,
             };
 
-			image = new Image { Source = imageSource, Aspect = Aspect.AspectFill, Opacity = 0.4 }; //, HeightRequest = 60, WidthRequest = 60
+			image = new Image { Source = imageSource, Aspect = Aspect.AspectFill, Opacity = 0.5 }; //, HeightRequest = 60, WidthRequest = 60
 			frame.Content = image;
 
 			this.Add(frame);

@@ -2,6 +2,7 @@
 using SportNow.CustomViews;
 
 using System.Diagnostics;
+//using static Android.OS.VibrationEffect;
 
 namespace SportNow.Views
 {
@@ -39,7 +40,14 @@ namespace SportNow.Views
 
 		public async void initSpecificLayout()
 		{
-			gridCompetiton = new Microsoft.Maui.Controls.Grid { Padding = 0, HorizontalOptions = LayoutOptions.FillAndExpand };
+
+            Image eventoImage = new Image { Aspect = Aspect.AspectFill, Opacity = 0.40 };
+            eventoImage.Source = competition_participation.imagemSource;
+
+            absoluteLayout.Add(eventoImage);
+            absoluteLayout.SetLayoutBounds(eventoImage, new Rect(0, 0, App.screenWidth, App.screenHeight));
+
+            gridCompetiton = new Microsoft.Maui.Controls.Grid { Padding = 0, ColumnSpacing = 2 * App.screenHeightAdapter, HorizontalOptions = LayoutOptions.FillAndExpand };
 			gridCompetiton.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
 			gridCompetiton.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
 			gridCompetiton.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });

@@ -74,7 +74,7 @@ namespace SportNow.Views.Profile
 
 			if (App.original_member.id != App.member.id)
 			{
-				RoundButton confirmButton = new RoundButton("VOLTAR ORIGINAL", 100, 50);
+				RoundButton confirmButton = new RoundButton("VOLTAR ORIGINAL", App.screenWidth - 20 * App.screenWidthAdapter, 50 * App.screenHeightAdapter);
 				confirmButton.button.Clicked += OnVoltarOriginalButtonClicked;
 
 				absoluteLayout.Add(confirmButton);
@@ -112,37 +112,37 @@ namespace SportNow.Views.Profile
 			{
 				AbsoluteLayout itemabsoluteLayout = new AbsoluteLayout
 				{
-					HeightRequest = 30 * App.screenHeightAdapter
+					HeightRequest = 35 * App.screenHeightAdapter
 				};
 
-				FormValue numberLabel = new FormValue("", 30 * App.screenHeightAdapter);
+				FormValue numberLabel = new FormValue("", 35 * App.screenHeightAdapter);
 				numberLabel.label.SetBinding(Label.TextProperty, "number_member");
 
 
 				itemabsoluteLayout.Add(numberLabel);
-				itemabsoluteLayout.SetLayoutBounds(numberLabel, new Rect(0,0, 50 * App.screenWidthAdapter, 40 * App.screenHeightAdapter));
+				itemabsoluteLayout.SetLayoutBounds(numberLabel, new Rect(0,0, 50 * App.screenWidthAdapter, 35 * App.screenHeightAdapter));
 
-				FormValue nicknameLabel = new FormValue("", 30 * App.screenHeightAdapter);
+				FormValue nicknameLabel = new FormValue("", 35 * App.screenHeightAdapter);
 				nicknameLabel.label.SetBinding(Label.TextProperty, "nickname");
 
 
 				itemabsoluteLayout.Add(nicknameLabel);
-				itemabsoluteLayout.SetLayoutBounds(nicknameLabel, new Rect(55 * App.screenWidthAdapter, 0, ((App.screenWidth - (55 * App.screenWidthAdapter)) / 2) - (5 * App.screenWidthAdapter), 40 * App.screenHeightAdapter));
+				itemabsoluteLayout.SetLayoutBounds(nicknameLabel, new Rect(55 * App.screenWidthAdapter, 0, ((App.screenWidth - (55 * App.screenWidthAdapter)) / 2) - (5 * App.screenWidthAdapter), 35 * App.screenHeightAdapter));
 
-				FormValue dojoLabel = new FormValue("", 30 * App.screenHeightAdapter);
+				FormValue dojoLabel = new FormValue("", 35 * App.screenHeightAdapter);
 				dojoLabel.label.FontSize = App.formValueSmallFontSize;
 
                 dojoLabel.label.SetBinding(Label.TextProperty, "dojo");
 
 				itemabsoluteLayout.Add(dojoLabel);
-				itemabsoluteLayout.SetLayoutBounds(dojoLabel, new Rect((((App.screenWidth) - ((App.screenWidth - (55 * App.screenWidthAdapter)) / 2))), 0, ((App.screenWidth - (55 * App.screenWidthAdapter)) / 2) - (5 * App.screenWidthAdapter), 40 * App.screenHeightAdapter));
+				itemabsoluteLayout.SetLayoutBounds(dojoLabel, new Rect((((App.screenWidth) - ((App.screenWidth - (55 * App.screenWidthAdapter)) / 2))), 0, ((App.screenWidth - (55 * App.screenWidthAdapter)) / 2) - (5 * App.screenWidthAdapter), 35 * App.screenHeightAdapter));
 
 				return itemabsoluteLayout;
 			});
 			if (App.original_member.id != App.member.id)
 			{
 				absoluteLayout.Add(collectionViewStudents);
-                absoluteLayout.SetLayoutBounds(collectionViewStudents, new Rect(0, 50 * App.screenHeightAdapter, App.screenWidth , App.screenHeight - 110 * App.screenHeightAdapter));
+                absoluteLayout.SetLayoutBounds(collectionViewStudents, new Rect(0, 50 * App.screenHeightAdapter, App.screenWidth , App.screenHeight - 210 * App.screenHeightAdapter));
 			}
 			else
 			{

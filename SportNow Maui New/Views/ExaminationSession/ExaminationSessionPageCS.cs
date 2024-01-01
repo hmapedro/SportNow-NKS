@@ -67,7 +67,15 @@ namespace SportNow.Views
 
 		public async void initSpecificLayout()
 		{
-			gridCompetiton = new Microsoft.Maui.Controls.Grid { Padding = 0, HorizontalOptions = LayoutOptions.FillAndExpand };
+            Image eventoImage = new Image { Aspect = Aspect.AspectFill, Opacity = 0.40 };
+            eventoImage.Source = examination_session.imagemSource;
+
+			Debug.Print("examination_session.imagemSource = " + examination_session.imagemSource);
+
+            absoluteLayout.Add(eventoImage);
+            absoluteLayout.SetLayoutBounds(eventoImage, new Rect(0, 0, App.screenWidth, App.screenHeight));
+
+            gridCompetiton = new Microsoft.Maui.Controls.Grid { Padding = 0, ColumnSpacing = 2 * App.screenHeightAdapter, HorizontalOptions = LayoutOptions.FillAndExpand };
 			gridCompetiton.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
 			gridCompetiton.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
 			gridCompetiton.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
@@ -270,9 +278,9 @@ namespace SportNow.Views
 			Label limitDateLabel = new Label
 			{
 				Text = limitDateLabelText,
-				TextColor = Color.FromRgb(246, 220, 178),
-				WidthRequest = 200,
-				HeightRequest = 30,
+				TextColor = App.topColor,
+				WidthRequest = 300 * App.screenWidthAdapter,
+				HeightRequest = 50 * App.screenHeightAdapter,
 				FontSize = App.titleFontSize,
 				HorizontalTextAlignment = TextAlignment.Center
 			};
@@ -283,7 +291,8 @@ namespace SportNow.Views
             {
 				Label convocatoriaLabel = new Label
 				{
-					Text = "Ainda não existe Convocatória para esta Sessão de Exames.",
+                    FontFamily = "futuracondensedmedium",
+                    Text = "Ainda não existe Convocatória para esta Sessão de Exames.",
 					TextColor = App.normalTextColor,
 					FontSize = 20 * App.screenHeightAdapter,
 					VerticalTextAlignment = TextAlignment.Center,
@@ -296,14 +305,15 @@ namespace SportNow.Views
 			{
 				Image convocatoriaImage = new Image
 				{
-					Source = "iconconvocatoria.png",
+                    Source = "iconconvocatoria.png",
 					HorizontalOptions = LayoutOptions.Start,
 					HeightRequest = 50 * App.screenHeightAdapter,
 				};
 
 				Label convocatoriaLabel = new Label
 				{
-					Text = "Convocatória",
+                    FontFamily = "futuracondensedmedium",
+                    Text = "Convocatória",
 					TextColor = App.normalTextColor,
 					FontSize = App.titleFontSize,
 					VerticalTextAlignment = TextAlignment.Center,

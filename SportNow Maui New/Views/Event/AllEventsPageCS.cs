@@ -3,6 +3,7 @@ using SportNow.Services.Data.JSON;
 using System.Diagnostics;
 using SportNow.CustomViews;
 using SportNow.Views.Profile;
+using Microsoft.Maui.Controls.Shapes;
 
 namespace SportNow.Views
 {
@@ -119,7 +120,7 @@ namespace SportNow.Views
 				{
 					if ((event_i.imagemNome == "") | (event_i.imagemNome is null))
 					{
-						event_i.imagemSource = "logo_aksl.png";
+						event_i.imagemSource = "company_logo_square.png";
 					}
 					else
 					{
@@ -156,7 +157,7 @@ namespace SportNow.Views
 				{
 					if ((competition.imagemNome == "") | (competition.imagemNome is null))
 					{
-						competition.imagemSource = "logo_aksl.png";
+						competition.imagemSource = "company_logo_square.png";
 					}
 					else
 					{
@@ -199,7 +200,7 @@ namespace SportNow.Views
             {
 				foreach (Examination_Session examination_session in proximasSessoesExame)
 				{
-					examination_session.imagemSource = "logo_aksl.png";
+					examination_session.imagemSource = "company_logo_square.png";
 
 					if (examination_session.participationconfirmed == "confirmado")
 					{
@@ -299,19 +300,21 @@ namespace SportNow.Views
                     WidthRequest = itemWidth
                 };
 
-				Frame itemFrame = new Frame
+				Border itemFrame = new Border
 				{
-					CornerRadius = 5 * (float)App.screenHeightAdapter,
-					IsClippedToBounds = true,
-					BorderColor = App.topColor,
-					BackgroundColor = Colors.Transparent,
+                    StrokeShape = new RoundRectangle
+                    {
+                        CornerRadius = 5 * (float)App.screenHeightAdapter,
+                    },
+                    Stroke = App.topColor,
+                    BackgroundColor = App.backgroundOppositeColor,
 					Padding = new Thickness(0, 0, 0, 0),
 					HeightRequest = App.ItemHeight,
                     WidthRequest = App.ItemWidth,
                     VerticalOptions = LayoutOptions.Center,
 				};
 
-				Image eventoImage = new Image { Aspect = Aspect.AspectFill, Opacity = 0.25 }; //, HeightRequest = 60, WidthRequest = 60
+				Image eventoImage = new Image { Aspect = Aspect.AspectFill, Opacity = 0.40 }; //, HeightRequest = 60, WidthRequest = 60
 				eventoImage.SetBinding(Image.SourceProperty, "imagemSource");
 
 				itemFrame.Content = eventoImage;
@@ -319,19 +322,19 @@ namespace SportNow.Views
 				itemabsoluteLayout.Add(itemFrame);
                 itemabsoluteLayout.SetLayoutBounds(itemFrame, new Rect(0, 0, itemWidth, App.ItemHeight));
 
-				Label nameLabel = new Label { FontFamily = "futuracondensedmedium", BackgroundColor = Colors.Transparent, VerticalTextAlignment = TextAlignment.Center, HorizontalTextAlignment = TextAlignment.Center, FontSize = 15 * App.screenWidthAdapter, TextColor = App.normalTextColor, LineBreakMode = LineBreakMode.WordWrap };
+				Label nameLabel = new Label { FontFamily = "futuracondensedmedium", BackgroundColor = Colors.Transparent, VerticalTextAlignment = TextAlignment.Center, HorizontalTextAlignment = TextAlignment.Center, FontSize = 15 * App.screenWidthAdapter, TextColor = App.oppositeTextColor, LineBreakMode = LineBreakMode.WordWrap };
 				nameLabel.SetBinding(Label.TextProperty, "name");
 
 				itemabsoluteLayout.Add(nameLabel);
 				itemabsoluteLayout.SetLayoutBounds(nameLabel, new Rect(3 * App.screenWidthAdapter, 15 * App.screenHeightAdapter, App.ItemWidth - (6 * App.screenWidthAdapter), (((App.ItemHeight - (15 * App.screenHeightAdapter)) / 2))));
 
-				Label categoryLabel = new Label { FontFamily = "futuracondensedmedium", VerticalTextAlignment = TextAlignment.Start, HorizontalTextAlignment = TextAlignment.Center, FontSize = 12 * App.screenWidthAdapter, TextColor = App.normalTextColor, LineBreakMode = LineBreakMode.NoWrap };
+				Label categoryLabel = new Label { FontFamily = "futuracondensedmedium", VerticalTextAlignment = TextAlignment.Start, HorizontalTextAlignment = TextAlignment.Center, FontSize = 12 * App.screenWidthAdapter, TextColor = App.oppositeTextColor, LineBreakMode = LineBreakMode.NoWrap };
 				categoryLabel.SetBinding(Label.TextProperty, "participationcategory");
 
 				itemabsoluteLayout.Add(categoryLabel);
 				itemabsoluteLayout.SetLayoutBounds(categoryLabel, new Rect(3 * App.screenWidthAdapter, ((App.ItemHeight - (15 * App.screenHeightAdapter)) / 2), App.ItemWidth - (6 * App.screenWidthAdapter), ((App.ItemHeight - (15 * App.screenHeightAdapter)) / 4)));
 
-				Label dateLabel = new Label { FontFamily = "futuracondensedmedium", VerticalTextAlignment = TextAlignment.Start, HorizontalTextAlignment = TextAlignment.Center, FontSize = 12 * App.screenWidthAdapter, TextColor = App.normalTextColor, LineBreakMode = LineBreakMode.NoWrap };
+				Label dateLabel = new Label { FontFamily = "futuracondensedmedium", VerticalTextAlignment = TextAlignment.Start, HorizontalTextAlignment = TextAlignment.Center, FontSize = 12 * App.screenWidthAdapter, TextColor = App.oppositeTextColor, LineBreakMode = LineBreakMode.NoWrap };
 				dateLabel.SetBinding(Label.TextProperty, "detailed_date");
 
 				itemabsoluteLayout.Add(dateLabel);
@@ -374,7 +377,7 @@ namespace SportNow.Views
 
 
 			absoluteLayout.Add(dateLabel);
-            absoluteLayout.SetLayoutBounds(dateLabel, new Rect(0, App.screenHeight - 185 * App.screenHeightAdapter, App.screenWidth, 20 * App.screenHeightAdapter));
+            absoluteLayout.SetLayoutBounds(dateLabel, new Rect(0, App.screenHeight - 195 * App.screenHeightAdapter, App.screenWidth, 20 * App.screenHeightAdapter));
 		}
 
 		public AllEventsPageCS()

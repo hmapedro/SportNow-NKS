@@ -300,7 +300,7 @@ namespace SportNow.Views
 
 				if (class_schedule.imagesource == null)
 				{
-					class_schedule.imagesourceObject = "company_logo.png";
+					class_schedule.imagesourceObject = "company_logo_square.png";
 				}
 				else
 				{
@@ -355,14 +355,14 @@ namespace SportNow.Views
                         CornerRadius = 5 * (float)App.screenHeightAdapter,
                     },
                     Stroke = App.topColor,
-                    BackgroundColor = Colors.Transparent,
+                    BackgroundColor = App.backgroundOppositeColor,
 					Padding = new Thickness(0, 0, 0, 0),
 					HeightRequest = App.ItemHeight,
                     WidthRequest = App.ItemWidth,
                     VerticalOptions = LayoutOptions.Center,
 				};
 
-				Image eventoImage = new Image { Aspect = Aspect.AspectFill, Opacity = 0.5 }; //, HeightRequest = 60, WidthRequest = 60
+				Image eventoImage = new Image { Aspect = Aspect.AspectFill, Opacity = 0.40 }; //, HeightRequest = 60, WidthRequest = 60
 				eventoImage.SetBinding(Image.SourceProperty, "imagesourceObject");
 
 				itemFrame.Content = eventoImage;
@@ -377,13 +377,13 @@ namespace SportNow.Views
                 itemabsoluteLayout.Add(itemFrame);
                 itemabsoluteLayout.SetLayoutBounds(itemFrame, new Rect(0, 0, App.ItemWidth, App.ItemHeight));
 
-				Label dateLabel = new Label { VerticalTextAlignment = TextAlignment.Center, HorizontalTextAlignment = TextAlignment.Center, FontSize = App.itemTextFontSize, TextColor = App.normalTextColor, FontFamily = "futuracondensedmedium", LineBreakMode = LineBreakMode.WordWrap };
+				Label dateLabel = new Label { VerticalTextAlignment = TextAlignment.Center, HorizontalTextAlignment = TextAlignment.Center, FontSize = App.itemTextFontSize, TextColor = App.oppositeTextColor, FontFamily = "futuracondensedmedium", LineBreakMode = LineBreakMode.WordWrap };
 				dateLabel.SetBinding(Label.TextProperty, "datestring");
 
                 itemabsoluteLayout.Add(dateLabel);
                 itemabsoluteLayout.SetLayoutBounds(dateLabel, new Rect(25 * App.screenWidthAdapter, App.ItemHeight - (45 * App.screenHeightAdapter), App.ItemWidth - (50 * App.screenWidthAdapter), 40 * App.screenHeightAdapter));
 
-				Label nameLabel = new Label { BackgroundColor = Colors.Transparent, VerticalTextAlignment = TextAlignment.Start, HorizontalTextAlignment = TextAlignment.Center, FontSize = App.itemTitleFontSize, TextColor = App.normalTextColor, FontFamily = "futuracondensedmedium", LineBreakMode = LineBreakMode.WordWrap };
+				Label nameLabel = new Label { BackgroundColor = Colors.Transparent, VerticalTextAlignment = TextAlignment.Start, HorizontalTextAlignment = TextAlignment.Center, FontSize = App.itemTitleFontSize, TextColor = App.oppositeTextColor, FontFamily = "futuracondensedmedium", LineBreakMode = LineBreakMode.WordWrap };
 				nameLabel.SetBinding(Label.TextProperty, "name");
 
 
@@ -461,7 +461,7 @@ namespace SportNow.Views
 					+ class_schedule.begintime + " às " + class_schedule.endtime;
 				if (class_schedule.imagesource == null)
 				{
-					class_schedule.imagesourceObject = "company_logo.png";
+					class_schedule.imagesourceObject = "company_logo_square.png";
 				}
 				else
 				{
@@ -526,7 +526,7 @@ namespace SportNow.Views
                         CornerRadius = 5 * (float)App.screenHeightAdapter,
                     },
                     Stroke = App.topColor,
-                    BackgroundColor = Colors.Transparent,
+                    BackgroundColor = App.backgroundOppositeColor,
 					Padding = new Thickness(0, 0, 0, 0),
 					HeightRequest = App.ItemHeight,// -(10 * App.screenHeightAdapter),
 					VerticalOptions = LayoutOptions.Center,
@@ -534,7 +534,7 @@ namespace SportNow.Views
 
 				Image eventoImage = new Image {
 					Aspect = Aspect.AspectFill,
-					Opacity = 0.5,
+					Opacity = 0.40,
 				};
 				eventoImage.SetBinding(Image.SourceProperty, "imagesourceObject");
 
@@ -543,13 +543,13 @@ namespace SportNow.Views
 				itemabsoluteLayout.Add(itemFrame);
 				itemabsoluteLayout.SetLayoutBounds(itemFrame, new Rect(0, 0, App.ItemWidth, App.ItemHeight));
 
-				Label nameLabel = new Label { BackgroundColor = Colors.Transparent, VerticalTextAlignment = TextAlignment.Start, HorizontalTextAlignment = TextAlignment.Center, FontSize = App.itemTitleFontSize, TextColor = App.normalTextColor, FontFamily = "futuracondensedmedium", LineBreakMode = LineBreakMode.WordWrap };
+				Label nameLabel = new Label { BackgroundColor = Colors.Transparent, VerticalTextAlignment = TextAlignment.Start, HorizontalTextAlignment = TextAlignment.Center, FontSize = App.itemTitleFontSize, TextColor = App.oppositeTextColor, FontFamily = "futuracondensedmedium", LineBreakMode = LineBreakMode.WordWrap };
 				nameLabel.SetBinding(Label.TextProperty, "name");
 
                 itemabsoluteLayout.Add(nameLabel);
                 itemabsoluteLayout.SetLayoutBounds(nameLabel, new Rect(3 * App.screenWidthAdapter, 25 * App.screenHeightAdapter, App.ItemWidth - (6 * App.screenWidthAdapter), 50 * App.screenHeightAdapter));
 
-                Label dateLabel = new Label { VerticalTextAlignment = TextAlignment.Center, HorizontalTextAlignment = TextAlignment.Center, FontSize = App.itemTextFontSize, TextColor = App.normalTextColor, FontFamily = "futuracondensedmedium", LineBreakMode = LineBreakMode.WordWrap };
+                Label dateLabel = new Label { VerticalTextAlignment = TextAlignment.Center, HorizontalTextAlignment = TextAlignment.Center, FontSize = App.itemTextFontSize, TextColor = App.oppositeTextColor, FontFamily = "futuracondensedmedium", LineBreakMode = LineBreakMode.WordWrap };
                 dateLabel.SetBinding(Label.TextProperty, "datestring");
 
                 itemabsoluteLayout.Add(dateLabel);
@@ -577,7 +577,7 @@ namespace SportNow.Views
 			{
 				if ((event_i.imagemNome == "") | (event_i.imagemNome is null))
 				{
-					event_i.imagemSource = "company_logo.png";
+					event_i.imagemSource = "company_logo_square.png";
 				}
 				else
 				{
@@ -652,13 +652,13 @@ namespace SportNow.Views
                         CornerRadius = 5 * (float)App.screenHeightAdapter,
                     },
                     Stroke = App.topColor,
-                    BackgroundColor = Colors.Transparent,
+                    BackgroundColor = App.backgroundOppositeColor,
 					Padding = new Thickness(0, 0, 0, 0),
 					HeightRequest = (App.ItemHeight),
 					VerticalOptions = LayoutOptions.Center,
 				};
 
-				Image eventoImage = new Image { Aspect = Aspect.AspectFill, Opacity = 0.25 }; //, HeightRequest = 60, WidthRequest = 60
+				Image eventoImage = new Image { Aspect = Aspect.AspectFill, Opacity = 0.40 }; //, HeightRequest = 60, WidthRequest = 60
 				eventoImage.SetBinding(Image.SourceProperty, "imagemSource");
 
 				itemFrame.Content = eventoImage;
@@ -666,19 +666,19 @@ namespace SportNow.Views
                 itemabsoluteLayout.Add(itemFrame);
                 itemabsoluteLayout.SetLayoutBounds(itemFrame, new Rect(0, 0, App.ItemWidth, App.ItemHeight));
 
-                Label nameLabel = new Label { BackgroundColor = Colors.Transparent, VerticalTextAlignment = TextAlignment.Start, HorizontalTextAlignment = TextAlignment.Center, FontSize = App.itemTitleFontSize, TextColor = App.normalTextColor, FontFamily = "futuracondensedmedium", LineBreakMode = LineBreakMode.WordWrap };
+                Label nameLabel = new Label { BackgroundColor = Colors.Transparent, VerticalTextAlignment = TextAlignment.Start, HorizontalTextAlignment = TextAlignment.Center, FontSize = App.itemTitleFontSize, TextColor = App.oppositeTextColor, FontFamily = "futuracondensedmedium", LineBreakMode = LineBreakMode.WordWrap };
                 nameLabel.SetBinding(Label.TextProperty, "name");
 
                 itemabsoluteLayout.Add(nameLabel);
                 itemabsoluteLayout.SetLayoutBounds(nameLabel, new Rect(3 * App.screenWidthAdapter, 25 * App.screenHeightAdapter, App.ItemWidth - (6 * App.screenWidthAdapter), 50 * App.screenHeightAdapter));
 
-                Label categoryLabel = new Label { VerticalTextAlignment = TextAlignment.Center, HorizontalTextAlignment = TextAlignment.Center, FontSize = App.itemTextFontSize, TextColor = App.normalTextColor, FontFamily = "futuracondensedmedium", LineBreakMode = LineBreakMode.WordWrap };
+                Label categoryLabel = new Label { VerticalTextAlignment = TextAlignment.Center, HorizontalTextAlignment = TextAlignment.Center, FontSize = App.itemTextFontSize, TextColor = App.oppositeTextColor, FontFamily = "futuracondensedmedium", LineBreakMode = LineBreakMode.WordWrap };
                 categoryLabel.SetBinding(Label.TextProperty, "category");
 
                 itemabsoluteLayout.Add(categoryLabel);
                 itemabsoluteLayout.SetLayoutBounds(categoryLabel, new Rect(3 * App.screenWidthAdapter, ((App.ItemHeight - (15 * App.screenHeightAdapter)) / 2), App.ItemWidth - (6 * App.screenWidthAdapter), (App.ItemHeight - (15 * App.screenHeightAdapter)) / 4));
 
-                Label dateLabel = new Label { VerticalTextAlignment = TextAlignment.Center, HorizontalTextAlignment = TextAlignment.Center, FontSize = App.itemTextFontSize, TextColor = App.normalTextColor, FontFamily = "futuracondensedmedium", LineBreakMode = LineBreakMode.WordWrap };
+                Label dateLabel = new Label { VerticalTextAlignment = TextAlignment.Center, HorizontalTextAlignment = TextAlignment.Center, FontSize = App.itemTextFontSize, TextColor = App.oppositeTextColor, FontFamily = "futuracondensedmedium", LineBreakMode = LineBreakMode.WordWrap };
                 dateLabel.SetBinding(Label.TextProperty, "detailed_date");
 
                 itemabsoluteLayout.Add(dateLabel);

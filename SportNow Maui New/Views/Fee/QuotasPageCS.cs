@@ -34,7 +34,7 @@ namespace SportNow.Views
 
 		public void initLayout()
 		{
-			Title = "QUOTAS";
+			Title = "QUOTA";
 		}
 
 		public void CleanScreen()
@@ -93,12 +93,13 @@ namespace SportNow.Views
 
 			Label feeYearLabel = new Label
 			{
-				Text = DateTime.Now.ToString("yyyy"),
+                FontFamily = "futuracondensedmedium",
+                Text = DateTime.Now.ToString("yyyy"),
 				VerticalTextAlignment = TextAlignment.Center,
 				HorizontalTextAlignment = TextAlignment.Center,
 				TextColor = App.normalTextColor,
 				LineBreakMode = LineBreakMode.NoWrap,
-				FontSize = 50
+				FontSize = App.bigTitleFontSize
 			};
 
 			Image akslLogoFee = new Image
@@ -117,26 +118,30 @@ namespace SportNow.Views
 
 			Label feeInactiveLabel = new Label
 			{
-				Text = "Quotas Inativas",
+                FontFamily = "futuracondensedmedium",
+                Text = "Quotas Inativas",
 				VerticalTextAlignment = TextAlignment.Center,
 				HorizontalTextAlignment = TextAlignment.Center,
 				TextColor = Colors.Red,
 				LineBreakMode = LineBreakMode.NoWrap,
-				FontSize = 40
+				FontSize = App.bigTitleFontSize
 			};
 
 			Label feeInactiveCommentLabel = new Label
 			{
-				Text = "Atenção: Com as quotas inativas o aluno não poderá participar em eventos e não tem acesso a seguro desportivo em caso de lesão.",
+                FontFamily = "futuracondensedmedium",
+                Text = "Atenção: Com as quotas inativas o aluno não poderá participar em eventos e não tem acesso a seguro desportivo em caso de lesão.",
 				VerticalTextAlignment = TextAlignment.Center,
 				HorizontalTextAlignment = TextAlignment.Center,
 				TextColor = App.normalTextColor,
-				FontSize = 20
+				FontSize = App.titleFontSize
 			};
 
 			activateButton = new RegisterButton("ATIVAR", App.screenWidth, 50);
+			activateButton.button.Clicked += OnActivateButtonClicked;
 
-			gridInactiveFee.Add(feeYearLabel, 0, 0);
+
+            gridInactiveFee.Add(feeYearLabel, 0, 0);
 			Microsoft.Maui.Controls.Grid.SetColumnSpan(feeYearLabel, 2);
 
 			gridInactiveFee.Add(fnkpLogoFee, 0, 1);

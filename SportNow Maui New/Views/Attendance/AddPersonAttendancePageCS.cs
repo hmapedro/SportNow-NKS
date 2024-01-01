@@ -54,7 +54,7 @@ namespace SportNow.Views
 
 			showActivityIndicator();
 
-			Label titleLabel = new Label { FontFamily = "futuracondensedmedium", BackgroundColor = Colors.Transparent, VerticalTextAlignment = TextAlignment.Center, HorizontalTextAlignment = TextAlignment.Center, FontSize = App.itemTitleFontSize, TextColor = Color.FromRgb(246, 220, 178), LineBreakMode = LineBreakMode.WordWrap };
+			Label titleLabel = new Label { FontFamily = "futuracondensedmedium", BackgroundColor = Colors.Transparent, VerticalTextAlignment = TextAlignment.Center, HorizontalTextAlignment = TextAlignment.Center, FontSize = App.itemTitleFontSize, TextColor = App.topColor, LineBreakMode = LineBreakMode.WordWrap };
 			titleLabel.Text = "Escolhe o aluno para o qual pretendes adicionar uma presença:";
 
 
@@ -97,9 +97,9 @@ namespace SportNow.Views
 			{
                 FontFamily = "futuracondensedmedium",
                 Title = "",
-				TitleColor = Colors.White,
+				TitleColor = App.normalTextColor,
 				BackgroundColor = Colors.Transparent,
-				TextColor = Color.FromRgb(246, 220, 178),
+				TextColor = App.topColor,
 				HorizontalTextAlignment = TextAlignment.Center,
 				FontSize = App.titleFontSize
 
@@ -175,7 +175,7 @@ namespace SportNow.Views
                 dojoLabel.label.SetBinding(Label.TextProperty, "dojo");
 
 				itemabsoluteLayout.Add(dojoLabel);
-				itemabsoluteLayout.SetLayoutBounds(dojoLabel, new Rect((((App.screenWidth) - ((App.screenWidth - (55 * App.screenWidthAdapter)) / 2))), 0, ((App.screenWidth - (55 * App.screenWidthAdapter)) / 2) - (5 * App.screenWidthAdapter), 30 * App.screenHeightAdapter));
+				itemabsoluteLayout.SetLayoutBounds(dojoLabel, new Rect((((App.screenWidth) - ((App.screenWidth - (55 * App.screenWidthAdapter)) / 2))), 0, ((App.screenWidth - (55 * App.screenWidthAdapter)) / 2), 30 * App.screenHeightAdapter));
 
 
 				return itemabsoluteLayout;

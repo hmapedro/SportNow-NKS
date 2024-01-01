@@ -73,11 +73,11 @@ namespace SportNow.Views
 					+ class_schedule_date.Day + " "
 					+ Constants.months[class_schedule_date.Month] + "\n"
 					+ class_schedule.begintime + " às " + class_schedule.endtime;
-				//class_schedule.imagesource = "logo_aksl.png";
+				//class_schedule.imagesource = "company_logo_square.png";
 
 				if (class_schedule.imagesource == null)
 				{
-					class_schedule.imagesourceObject = "logo_aksl.png";
+					class_schedule.imagesourceObject = "company_logo_square.png";
 				}
 				else
 				{

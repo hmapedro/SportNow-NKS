@@ -59,7 +59,7 @@ namespace SportNow.Services.Data.JSON
 
 		public async Task<int> Update_MonthFee_Value_byID(string monthFeeId, string value)
 		{
-			Debug.WriteLine("MonthFeeManager.Update_MonthFee_Status_byID " + monthFeeId + " " + value);
+			Debug.WriteLine("MonthFeeManager.Update_MonthFee_Value_byID " + Constants.RestUrl_Update_MonthFee_Value_byID + "?userid=" + App.original_member.id + "&monthfeeid=" + monthFeeId + "&value=" + value);
 
 			Uri uri = new Uri(string.Format(Constants.RestUrl_Update_MonthFee_Value_byID + "?userid=" + App.original_member.id + "&monthfeeid=" + monthFeeId + "&value=" + value, string.Empty));
 			try
@@ -74,7 +74,7 @@ namespace SportNow.Services.Data.JSON
 				}
 				else
 				{
-					Debug.WriteLine("error updating class attendance");
+					Debug.WriteLine("MonthFeeManager.Update_MonthFee_Value_byID - error updating class attendance");
 					result = -1;
 				}
 
@@ -82,7 +82,7 @@ namespace SportNow.Services.Data.JSON
 			}
 			catch
 			{
-				Debug.WriteLine("http request error");
+				Debug.WriteLine("MonthFeeManager.Update_MonthFee_Value_byID - http request error");
 				return -2;
 			}
 		}
@@ -184,7 +184,7 @@ namespace SportNow.Services.Data.JSON
 
         public async Task<string> Has_MonthFeesStudent(string userid)
 		{
-			Debug.WriteLine("Get_has_MonthFeesStudent");
+			Debug.WriteLine("Get_has_MonthFeesStudent - " + Constants.RestUrl_Has_MonthFeesStudent + "?userid=" + userid);
 			Uri uri = new Uri(string.Format(Constants.RestUrl_Has_MonthFeesStudent + "?userid=" + userid));
 			try
 			{
@@ -201,7 +201,7 @@ namespace SportNow.Services.Data.JSON
 				}
 				else
 				{
-					Debug.WriteLine("error creating class attendance");
+					Debug.WriteLine("Has_MonthFeesStudent - error creating class attendance");
 					result = "-1";
 				}
 
@@ -209,15 +209,15 @@ namespace SportNow.Services.Data.JSON
 			}
 			catch
 			{
-				Debug.WriteLine("http request error");
+				Debug.WriteLine("Has_MonthFeesStudent - http request error");
 				return "-2";
 			}
 		}
 
 		public async Task<List<Payment>> GetMonthFee_Payment(string monthFeeId)
 		{
-			Debug.Print("GetMonthFee_Payment monthFeeId = "+ monthFeeId);
-			Uri uri = new Uri(string.Format(Constants.RestUrl_Get_MonthFee_Payment + "?monthfeeid=" + monthFeeId, string.Empty));
+			Debug.Print("GetMonthFee_Payment - "+Constants.RestUrl_Get_MonthFee_Payment+"?monthfeeid=" + monthFeeId);
+            Uri uri = new Uri(string.Format(Constants.RestUrl_Get_MonthFee_Payment + "?monthfeeid=" + monthFeeId, string.Empty));
 			try
 			{
 				HttpResponseMessage response = await client.GetAsync(uri);
@@ -226,14 +226,16 @@ namespace SportNow.Services.Data.JSON
 				{
 					//return true;
 					string content = await response.Content.ReadAsStringAsync();
+                    Debug.WriteLine("GetMonthFee_Payment - content=" + content);
 					payments = JsonConvert.DeserializeObject<List<Payment>>(content);
+
 				}
 
 				return payments;
 			}
 			catch
 			{
-				Debug.WriteLine("http request error");
+				Debug.WriteLine("GetMonthFee_Payment - http request error");
 				return null;
 			}
 		}

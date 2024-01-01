@@ -39,10 +39,10 @@ namespace SportNow.Views.CompleteRegistration
 		{
 
 
-			Label titleLabel = new Label { FontFamily = "futuracondensedmedium", Text = "CASO POSSUA EXAME MÉDICO DESPORTIVO PODE SUBMETER O MESMO:", VerticalTextAlignment = TextAlignment.Start, HorizontalTextAlignment = TextAlignment.Center, FontSize = App.formLabelFontSize, TextColor = Color.FromRgb(100, 100, 100), LineBreakMode = LineBreakMode.WordWrap };
+			Label titleLabel = new Label { FontFamily = "futuracondensedmedium", Text = "CASO POSSUA EXAME MÉDICO DESPORTIVO PODE SUBMETER O MESMO:", VerticalTextAlignment = TextAlignment.Start, HorizontalTextAlignment = TextAlignment.Center, FontSize = App.titleFontSize, TextColor = Color.FromRgb(100, 100, 100), LineBreakMode = LineBreakMode.WordWrap };
 
             absoluteLayout.Add(titleLabel);
-            absoluteLayout.SetLayoutBounds(titleLabel, new Rect(10 * App.screenWidthAdapter, 10 * App.screenHeightAdapter, App.screenWidth - 20 * App.screenWidthAdapter, 60 * App.screenHeightAdapter));
+            absoluteLayout.SetLayoutBounds(titleLabel, new Rect(10 * App.screenWidthAdapter, 10 * App.screenHeightAdapter, App.screenWidth - 20 * App.screenWidthAdapter, 65 * App.screenHeightAdapter));
 
 			Image imageGallery = new Image
 			{

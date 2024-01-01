@@ -253,7 +253,7 @@ namespace SportNow.Views
 
             }
 
-            Debug.Print("AQUI NOSSA!!!! " + App.member.id);
+            //Debug.Print("AQUI NOSSA!!!! " + App.member.id);
         }
 
         public async Task<int> createTabs()

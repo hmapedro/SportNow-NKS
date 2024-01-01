@@ -6,7 +6,7 @@ using SportNow.Services.Data.JSON;
 using System.Threading.Tasks;
 using System.Diagnostics;
 using SportNow.CustomViews;
-
+using Microsoft.Maui.Controls.Shapes;
 
 namespace SportNow.Views
 {
@@ -62,11 +62,11 @@ namespace SportNow.Views
 				Debug.Print("examination.estado=" + examination.estado);
 				if (examination.estado == "confirmado")
 				{
-					examination.estadoTextColor = Color.FromRgb(96, 182, 89);
+					examination.estadoTextColor = Colors.Green;
 				}
                 if (examination.estado == "cancelado")
                 {
-                    examination.estadoTextColor = Color.FromRgb(233, 93, 85);
+                    examination.estadoTextColor = Colors.Red;
                 }
                 examination.gradeLabel = Constants.grades[examination.grade];
 			}
@@ -77,7 +77,7 @@ namespace SportNow.Views
 				BackgroundColor = Colors.Transparent,
 				VerticalTextAlignment = TextAlignment.Center,
 				HorizontalTextAlignment = TextAlignment.Center,
-				FontSize = 25,
+				FontSize = App.bigTitleFontSize,
 				TextColor = App.normalTextColor
 			};
 
@@ -92,8 +92,8 @@ namespace SportNow.Views
 					BackgroundColor = Colors.Transparent,
 					VerticalTextAlignment = TextAlignment.Center,
 					HorizontalTextAlignment = TextAlignment.Start,
-					FontSize = 22,
-					TextColor = Color.FromRgb(246, 220, 178),
+					FontSize = App.titleFontSize,
+					TextColor = App.topColor,
 					LineBreakMode = LineBreakMode.WordWrap
 				};
 
@@ -106,9 +106,9 @@ namespace SportNow.Views
 					BackgroundColor = Colors.Transparent,
 					VerticalTextAlignment = TextAlignment.Center,
 					HorizontalTextAlignment = TextAlignment.Start,
-					FontSize = 22,
-					TextColor = Color.FromRgb(246, 220, 178),
-					LineBreakMode = LineBreakMode.WordWrap
+                    FontSize = App.titleFontSize,
+                    TextColor = App.topColor,
+                    LineBreakMode = LineBreakMode.WordWrap
 				};
 
 				absoluteLayout.Add(categoryTitleLabel);
@@ -145,13 +145,15 @@ namespace SportNow.Views
 				nameLabel.SetBinding(Label.TextProperty, "membername");
 				nameLabel.SetBinding(Label.TextColorProperty, "estadoTextColor");
 
-				Frame nameFrame = new Frame
+                Border nameFrame = new Border
 				{
-					BorderColor = Color.FromRgb(246, 220, 178),
 					BackgroundColor = Colors.Transparent,
-					CornerRadius = 10,
-					IsClippedToBounds = true,
-					Padding = new Thickness(5, 0, 0, 0)
+                    StrokeShape = new RoundRectangle
+                    {
+                        CornerRadius = 5 * (float)App.screenHeightAdapter,
+                    },
+                    Stroke = App.topColor,
+                    Padding = new Thickness(5, 0, 0, 0)
 				};
 				nameFrame.Content = nameLabel;
 
@@ -161,13 +163,15 @@ namespace SportNow.Views
 				Label categoryLabel = new Label { BackgroundColor = Colors.Transparent, VerticalTextAlignment = TextAlignment.Center, HorizontalTextAlignment = TextAlignment.Center, FontSize = App.formValueFontSize, TextColor = App.normalTextColor, LineBreakMode = LineBreakMode.WordWrap };
 				categoryLabel.SetBinding(Label.TextProperty, "gradeLabel");
 
-				Frame categoryFrame = new Frame
+				Border categoryFrame = new Border
 				{
-					BorderColor = Color.FromRgb(246, 220, 178),
-					BackgroundColor = Colors.Transparent,
-					CornerRadius = 10,
-					IsClippedToBounds = true,
-					Padding = new Thickness(5, 0, 0, 0)
+                    BackgroundColor = Colors.Transparent,
+                    StrokeShape = new RoundRectangle
+                    {
+                        CornerRadius = 5 * (float)App.screenHeightAdapter,
+                    },
+                    Stroke = App.topColor,
+                    Padding = new Thickness(5, 0, 0, 0)
 				};
 				categoryFrame.Content = categoryLabel;
 
@@ -203,28 +207,28 @@ namespace SportNow.Views
                 absoluteLayout.SetLayoutBounds(collectionViewExaminationSessionCall, new Rect(0, 100 * App.screenHeightAdapter, App.screenWidth, App.screenHeight - 170 * App.screenHeightAdapter));
 
 
-				registerButton = new RegisterButton("INSCREVER", 100, 50);
-				registerButton.button.Clicked += OnRegisterButtonClicked;
+				registerButton = new RegisterButton("INSCREVER", App.screenWidth - 20 * App.screenWidthAdapter, 50 * App.screenHeightAdapter);
+                registerButton.button.Clicked += OnRegisterButtonClicked;
 
 				absoluteLayout.Add(registerButton);
-                absoluteLayout.SetLayoutBounds(registerButton, new Rect(0, App.screenHeight - 112 * App.screenHeightAdapter, App.screenWidth, 50 * App.screenHeightAdapter));
+                absoluteLayout.SetLayoutBounds(registerButton, new Rect(0, App.screenHeight - 212 * App.screenHeightAdapter, App.screenWidth, 50 * App.screenHeightAdapter));
 
-				cancelButton = new CancelButton("NÃO POSSO IR :(", 100, 50);
-				cancelButton.button.Clicked += OnCancelButtonClicked;
+				cancelButton = new CancelButton("NÃO POSSO IR :(", App.screenWidth - 20 * App.screenWidthAdapter, 50 * App.screenHeightAdapter);
+                cancelButton.button.Clicked += OnCancelButtonClicked;
 
 				absoluteLayout.Add(cancelButton);
-                absoluteLayout.SetLayoutBounds(registerButton, new Rect(0, App.screenHeight - 60 * App.screenHeightAdapter, App.screenWidth, 50 * App.screenHeightAdapter));
+                absoluteLayout.SetLayoutBounds(cancelButton, new Rect(0, App.screenHeight - 160 * App.screenHeightAdapter, App.screenWidth, 50 * App.screenHeightAdapter));
 			}
 			else if (examination_session.participationconfirmed == "cancelado")
 			{
 				absoluteLayout.Add(collectionViewExaminationSessionCall);
                 absoluteLayout.SetLayoutBounds(collectionViewExaminationSessionCall, new Rect(0, 100 * App.screenHeightAdapter, App.screenWidth, App.screenHeight - 170 * App.screenHeightAdapter));
 
-				registerButton = new RegisterButton("INSCREVER", 100, 50);
-				registerButton.button.Clicked += OnRegisterButtonClicked;
+				registerButton = new RegisterButton("INSCREVER", App.screenWidth - 20 * App.screenWidthAdapter, 50 * App.screenHeightAdapter);
+                registerButton.button.Clicked += OnRegisterButtonClicked;
 
 				absoluteLayout.Add(registerButton);
-                absoluteLayout.SetLayoutBounds(registerButton, new Rect(0, App.screenHeight - 60 * App.screenHeightAdapter, App.screenWidth, 50 * App.screenHeightAdapter));
+                absoluteLayout.SetLayoutBounds(registerButton, new Rect(0, App.screenHeight - 160 * App.screenHeightAdapter, App.screenWidth, 50 * App.screenHeightAdapter));
 			}
 
 		}

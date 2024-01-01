@@ -225,7 +225,7 @@ namespace SportNow.Views.CompleteRegistration
 			paymentDetected = false;
 
 			int sleepTime = 5;
-			/*Device.StartTimer(TimeSpan.FromSeconds(sleepTime), () =>
+			Device.StartTimer(TimeSpan.FromSeconds(sleepTime), () =>
 			{
 				if ((paymentID != null) & (paymentID != ""))
 				{
@@ -240,14 +240,14 @@ namespace SportNow.Views.CompleteRegistration
 					}
 				}
 				return true;
-			});*/
+			});
 		}
 
 		async void checkPaymentStatus(string paymentID)
 		{
 			Debug.Print("checkPaymentStatus");
 			this.payment = await GetPayment(paymentID);
-			if ((payment.status == "confirmado") | (payment.status == "fechado"))
+			if ((payment.status == "confirmado") | (payment.status == "fechado") | (payment.status == "recebido"))
 			{
 				App.member.estado = "activo";
 				App.original_member.estado = "activo";

@@ -56,7 +56,7 @@ namespace SportNow.CustomViews
             };
             if (width != 0)
             {
-                entry.WidthRequest = width;
+                entry.WidthRequest = width-4;
             }
 
 

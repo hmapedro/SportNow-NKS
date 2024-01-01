@@ -2,7 +2,8 @@
 using SportNow.Services.Data.JSON;
 using System.Diagnostics;
 using System.Collections.ObjectModel;
-
+using Microsoft.Maui.Controls.Shapes;
+using SportNow.CustomViews;
 
 namespace SportNow.Views
 {
@@ -31,11 +32,11 @@ namespace SportNow.Views
 
 		Picker dojoPicker;
 
-		Button approveAllButton;
+		RoundButton approveAllButton;
 
 		public void initLayout()
 		{
-			Title = "MENSALIDADES";
+			Title = "MENSALIDADES INSTRUTOR";
 		}
 
 		public void CleanScreen()
@@ -86,9 +87,9 @@ namespace SportNow.Views
 			dojoPicker = new Picker
 			{
 				Title = "",
-				TitleColor = Colors.White,
+				TitleColor = App.normalTextColor,
 				BackgroundColor = Colors.Transparent,
-				TextColor = Color.FromRgb(246, 220, 178),
+				TextColor = App.topColor,
 				HorizontalTextAlignment = TextAlignment.Center,
 				FontSize = App.titleFontSize
 
@@ -117,7 +118,7 @@ namespace SportNow.Views
 			};
 
 			absoluteLayout.Add(dojoPicker);
-            absoluteLayout.SetLayoutBounds(dojoPicker, new Rect(0, 0, App.screenWidth, 50 * App.screenHeightAdapter));
+            absoluteLayout.SetLayoutBounds(dojoPicker, new Rect(0, 0, App.screenWidth, 40 * App.screenHeightAdapter));
 
 			return 1;
 		}
@@ -138,7 +139,7 @@ namespace SportNow.Views
                 FontFamily = "futuracondensedmedium",
                 Text = "<",
                 FontSize = App.titleFontSize,
-                TextColor = Color.FromRgb(246, 220, 178),
+                TextColor = App.topColor,
                 BackgroundColor = App.backgroundColor,
                 VerticalOptions = LayoutOptions.Center
             };
@@ -149,7 +150,7 @@ namespace SportNow.Views
                 FontFamily = "futuracondensedmedium",
                 Text = selectedTime.Year + " - " + selectedTime.Month,
 				FontSize = App.titleFontSize,
-				TextColor = Color.FromRgb(246, 220, 178),
+				TextColor = App.topColor,
 				WidthRequest = 150,
 				VerticalTextAlignment = TextAlignment.Center,
 				HorizontalTextAlignment = TextAlignment.Center
@@ -160,7 +161,7 @@ namespace SportNow.Views
                 FontFamily = "futuracondensedmedium",
                 Text = ">",
                 FontSize = App.titleFontSize,
-                TextColor = Color.FromRgb(246, 220, 178),
+                TextColor = App.topColor,
                 BackgroundColor = App.backgroundColor,
                 VerticalOptions = LayoutOptions.Center
             };
@@ -218,11 +219,13 @@ namespace SportNow.Views
                     WidthRequest = App.screenWidth
                 };
 
-                Frame itemFrame = new Frame
+                Border itemFrame = new Border
                 {
-                    CornerRadius = 5,
-                    IsClippedToBounds = true,
-                    BorderColor = Color.FromRgb(182, 145, 89),
+                    StrokeShape = new RoundRectangle
+                    {
+                        CornerRadius = 5 * (float)App.screenHeightAdapter,
+                    },
+                    Stroke = App.topColor,
                     BackgroundColor = Colors.Transparent,
                     Padding = new Thickness(2, 2, 2, 2),
                     HeightRequest = 30 * App.screenHeightAdapter,
@@ -257,12 +260,12 @@ namespace SportNow.Views
 			});
 
 			absoluteLayout.Add(monthFeesCollectionView);
-            absoluteLayout.SetLayoutBounds(monthFeesCollectionView, new Rect(0, 100 * App.screenHeightAdapter, App.screenWidth, App.screenHeight - 170 * App.screenHeightAdapter));
+            absoluteLayout.SetLayoutBounds(monthFeesCollectionView, new Rect(0, 100 * App.screenHeightAdapter, App.screenWidth, App.screenHeight - 270 * App.screenHeightAdapter));
 		}
 
 		public void createApproveButtons()
 		{
-			/*approveSelectedButton = new Button
+            /*approveSelectedButton = new Button
 			{
 				Text = "APROVAR SELECCIONADOS",
 				BackgroundColor = Color.FromRgb(96, 182, 89),
@@ -298,34 +301,16 @@ namespace SportNow.Views
 				heightConstraint: )50)
 			);*/
 
-			approveAllButton = new Button
-			{
-				Text = "APROVAR TODOS",
-				BackgroundColor = Color.FromRgb(96, 182, 89),
-				TextColor = App.normalTextColor,
-				FontSize = App.itemTitleFontSize,
-				WidthRequest = 100,
-				HeightRequest = 50
-			};
 
-			Frame frame_approveAllButton = new Frame
-			{
-				BorderColor = Color.FromRgb(96, 182, 89),
-				WidthRequest = 100,
-				HeightRequest = 50,
-				CornerRadius = 10,
-				IsClippedToBounds = true,
-				Padding = 0
-			};
+            approveAllButton = new RoundButton("APROVAR TODOS", App.screenWidth - 20 * App.screenWidthAdapter, 50);
+            approveAllButton.button.Clicked += approveAllButtonClicked;
 
-			frame_approveAllButton.Content = approveAllButton;
-			approveAllButton.Clicked += approveAllButtonClicked;
 
-			absoluteLayout.Add(frame_approveAllButton);
-            absoluteLayout.SetLayoutBounds(frame_approveAllButton, new Rect(5 * App.screenWidthAdapter, App.screenHeight - 60 * App.screenHeightAdapter, App.screenWidth - 10 * App.screenWidthAdapter, 50 * App.screenHeightAdapter));
-		}
+            absoluteLayout.Add(approveAllButton);
+            absoluteLayout.SetLayoutBounds(approveAllButton, new Rect(0, App.screenHeight - 160 * App.screenHeightAdapter, App.screenWidth, 50 * App.screenHeightAdapter));
+        }
 
-		public MonthFeeListPageCS()
+        public MonthFeeListPageCS()
 		{
 
 			this.initLayout();
@@ -404,28 +389,18 @@ namespace SportNow.Views
 
 				if (monthFee.status == "por_aprovar")
 				{
-					monthFee.selectedColor = Colors.LightYellow;
+					monthFee.selectedColor = Colors.DarkOrange;
 					monthFee.status = "Por Aprovar";
 					hasMonthFeesToApprove = true;
 				}
                 if (monthFee.status == "emitida")
                 {
-                    monthFee.selectedColor = Colors.LightBlue;
+                    monthFee.selectedColor = Colors.DarkBlue;
                     monthFee.status = "Emitida";
                 }
-                if (monthFee.status == "emitida_a_pagamento")
-                {
-                    monthFee.selectedColor = Colors.LightBlue;
-                    monthFee.status = "Em pagamento";
-                }
-                else if (monthFee.status == "emitida_pagamento_em_atraso")
-				{
-					monthFee.selectedColor = Colors.IndianRed;
-					monthFee.status = "Pagamento em Atraso";
-				}
 				else if (monthFee.status == "paga")
 				{
-					monthFee.selectedColor = Colors.LightGreen;
+					monthFee.selectedColor = Colors.DarkGreen;
 					monthFee.status = "Paga";
 				}
 			}
@@ -493,15 +468,29 @@ namespace SportNow.Views
 					new_value = new_value.Replace(c, string.Empty);
 				}
 
-				Debug.Print("O Valor da Mensalidade é " + new_value);
+                var charsToRemoveComma = new string[] { ","};
+                foreach (var c in charsToRemoveComma)
+                {
+                    new_value = new_value.Replace(c, ".");
+                }
+
+                Debug.Print("O Valor da Mensalidade é " + new_value);
+
+				if (IsDoubleRealNumber(new_value))
+				{
+					MonthFeeManager monthFeeManager = new MonthFeeManager();
+					int i = await monthFeeManager.Update_MonthFee_Value_byID(monthFee.id, new_value);
+					monthFee.value = input;
+					absoluteLayout.Remove(monthFeesCollectionView);
+					monthFeesCollectionView = null;
+					CreateMonthFeesColletion();
+				}
+				else
+				{
+                    await DisplayAlert("Valor incorreto", "O valor introduzido não é válido.", "Ok");
+                }
 
 
-				MonthFeeManager monthFeeManager = new MonthFeeManager();
-				int i = await monthFeeManager.Update_MonthFee_Value_byID(monthFee.id, new_value);
-				monthFee.value = input;
-				absoluteLayout.Remove(monthFeesCollectionView);
-				monthFeesCollectionView = null;
-				CreateMonthFeesColletion();
 				/*string global_evaluation = await UpdateExamination_Result(examination_Result.id, input.Text);
 				examination_Result.description = input.Text;*/
 			}
@@ -509,7 +498,17 @@ namespace SportNow.Views
 			hideActivityIndicator();
 		}
 
-		async void changeMonthFeeStatusPrompt(MonthFee monthFee)
+        public static bool IsDoubleRealNumber(string valueToTest)
+        {
+            if (double.TryParse(valueToTest, out double d) && !Double.IsNaN(d) && !Double.IsInfinity(d))
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        async void changeMonthFeeStatusPrompt(MonthFee monthFee)
 		{
 			showActivityIndicator();
 			var result = await DisplayAlert("Confirmas que pretendes colocar esta mensalidade como paga?", "Confirmar Pagamento", "Sim", "Não");
@@ -610,7 +609,7 @@ namespace SportNow.Views
 						monthFee.status = "Em pagamento";*/
                         int i = await monthFeeManager.Update_MonthFee_Status_byID(monthFee.id, "emitida");
                         monthFee.status = "Emitida";
-                        monthFee.selectedColor = Colors.LightBlue;
+                        monthFee.selectedColor = Colors.DarkBlue;
 					}
 				}
 			}

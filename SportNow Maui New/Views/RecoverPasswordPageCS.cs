@@ -14,7 +14,7 @@ namespace SportNow.Views
 	public class RecoverPasswordPageCS : DefaultPage
 	{
 
-		Button recoverPasswordButton;
+        RoundButton recoverPasswordButton;
         FormEntry usernameEntry;
 		Label messageLabel;
 
@@ -71,7 +71,11 @@ namespace SportNow.Views
             gradient.GradientStops.Add(new GradientStop(App.topColor, Convert.ToSingle(0)));
             gradient.GradientStops.Add(new GradientStop(App.bottomColor, Convert.ToSingle(0.5)));
 
-            recoverPasswordButton = new Button
+
+            recoverPasswordButton = new RoundButton("ENVIAR EMAIL", App.screenWidth - 20 * App.screenWidthAdapter, 50);
+            recoverPasswordButton.button.Clicked += OnrecoverPasswordButtonClicked;
+
+            /*            recoverPasswordButton = new Button
 			{
 				Text = "ENVIAR EMAIL",
 				Background = gradient,
@@ -97,7 +101,7 @@ namespace SportNow.Views
             };
 
             frame_recoverPasswordButton.Content = recoverPasswordButton;
-
+			*/
 			messageLabel = new Label {
                 FontFamily = "futuracondensedmedium",
                 HorizontalOptions = LayoutOptions.Center,
@@ -110,7 +114,7 @@ namespace SportNow.Views
 
 			gridLogin.Add(recoverPasswordLabel, 0, 0);
 			gridLogin.Add(usernameEntry, 0, 1);
-			gridLogin.Add(frame_recoverPasswordButton, 0, 2);
+			gridLogin.Add(recoverPasswordButton, 0, 2);
 			gridLogin.Add(messageLabel, 0, 3);
 
 			absoluteLayout.Add(gridLogin);

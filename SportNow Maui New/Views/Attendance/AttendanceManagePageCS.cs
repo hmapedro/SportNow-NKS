@@ -1,4 +1,5 @@
-﻿using SportNow.Model;
+﻿using Microsoft.Maui.Controls.Shapes;
+using SportNow.Model;
 using SportNow.Services.Data.JSON;
 using System.Diagnostics;
 
@@ -91,7 +92,7 @@ namespace SportNow.Views
                 FontFamily = "futuracondensedmedium",
                 Text = "<",
                 FontSize = App.titleFontSize,
-                TextColor = Color.FromRgb(246, 220, 178),
+                TextColor = App.topColor,
                 BackgroundColor = App.backgroundColor,
 				VerticalOptions = LayoutOptions.Center
             };
@@ -103,7 +104,7 @@ namespace SportNow.Views
                 FontFamily = "futuracondensedmedium",
                 Text = firstDayWeek + " - " + lastdayLastWeek,
 				FontSize = App.titleFontSize,
-				TextColor = Color.FromRgb(246, 220, 178),
+				TextColor = App.topColor,
 				WidthRequest = 150,
 				VerticalTextAlignment = TextAlignment.Center,
 				HorizontalTextAlignment = TextAlignment.Center
@@ -114,7 +115,7 @@ namespace SportNow.Views
                 FontFamily = "futuracondensedmedium",
                 Text = ">",
                 FontSize = App.titleFontSize,
-                TextColor = Color.FromRgb(246, 220, 178),
+                TextColor = App.topColor,
                 BackgroundColor = App.backgroundColor,
                 VerticalOptions = LayoutOptions.Center
             };
@@ -156,7 +157,7 @@ namespace SportNow.Views
 
 				if (class_schedule.imagesource == null)
 				{
-					class_schedule.imagesourceObject = "logo_aksl.png";
+					class_schedule.imagesourceObject = "company_logo_square.png";
 				}
 				else
 				{
@@ -201,19 +202,21 @@ namespace SportNow.Views
 					WidthRequest = App.ItemWidth
                 };
 
-				Frame itemFrame = new Frame
+				Border itemFrame = new Border
 				{
-					CornerRadius = 5 * (float)App.screenWidthAdapter,
-					IsClippedToBounds = true,
-					BorderColor = Color.FromRgb(182, 145, 89),
-					BackgroundColor = Colors.Transparent,
+                    StrokeShape = new RoundRectangle
+                    {
+                        CornerRadius = 5 * (float)App.screenHeightAdapter,
+                    },
+                    Stroke = App.topColor,
+                    BackgroundColor = App.backgroundOppositeColor,
 					Padding = new Thickness(0, 0, 0, 0),
 					HeightRequest = App.ItemHeight,
                     WidthRequest = App.ItemWidth,
                     VerticalOptions = LayoutOptions.Center,
 				};
 
-				Image eventoImage = new Image { Aspect = Aspect.AspectFill, Opacity = 0.5 }; //, HeightRequest = 60, WidthRequest = 60
+				Image eventoImage = new Image { Aspect = Aspect.AspectFill, Opacity = 0.40 }; //, HeightRequest = 60, WidthRequest = 60
 				eventoImage.SetBinding(Image.SourceProperty, "imagesourceObject");
 
 				itemFrame.Content = eventoImage;
@@ -221,13 +224,13 @@ namespace SportNow.Views
 				itemabsoluteLayout.Add(itemFrame);
 				itemabsoluteLayout.SetLayoutBounds(itemFrame, new Rect(0, 0, App.ItemWidth, App.ItemHeight));
             
-				Label dateLabel = new Label { FontFamily = "futuracondensedmedium", VerticalTextAlignment = TextAlignment.Center, HorizontalTextAlignment = TextAlignment.Center, FontSize = 15 * App.screenWidthAdapter, TextColor = App.normalTextColor };
+				Label dateLabel = new Label { FontFamily = "futuracondensedmedium", VerticalTextAlignment = TextAlignment.Center, HorizontalTextAlignment = TextAlignment.Center, FontSize = 15 * App.screenWidthAdapter, TextColor = App.oppositeTextColor };
 				dateLabel.SetBinding(Label.TextProperty, "datestring");
 
 				itemabsoluteLayout.Add(dateLabel);
 				itemabsoluteLayout.SetLayoutBounds(dateLabel, new Rect(3 * App.screenWidthAdapter, App.ItemHeight - (45 * App.screenHeightAdapter), App.ItemWidth - 6 * App.screenWidthAdapter, 40 * App.screenHeightAdapter));
 
-				Label nameLabel = new Label { FontFamily = "futuracondensedmedium", BackgroundColor = Colors.Transparent, VerticalTextAlignment = TextAlignment.Center, HorizontalTextAlignment = TextAlignment.Center, FontSize = 20 * App.screenWidthAdapter, TextColor = App.normalTextColor };
+				Label nameLabel = new Label { FontFamily = "futuracondensedmedium", BackgroundColor = Colors.Transparent, VerticalTextAlignment = TextAlignment.Center, HorizontalTextAlignment = TextAlignment.Center, FontSize = 20 * App.screenWidthAdapter, TextColor = App.oppositeTextColor };
 				nameLabel.SetBinding(Label.TextProperty, "name");
 
 				itemabsoluteLayout.Add(nameLabel);
