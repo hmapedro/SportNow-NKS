@@ -210,7 +210,7 @@ namespace SportNow.Views
 				Label nameLabel = new Label { FontFamily = "futuracondensedmedium", BackgroundColor = Colors.Transparent, VerticalTextAlignment = TextAlignment.Center, HorizontalTextAlignment = TextAlignment.Start, FontSize = App.itemTitleFontSize, TextColor = App.normalTextColor, LineBreakMode = LineBreakMode.WordWrap };
 				nameLabel.SetBinding(Label.TextProperty, "name");
 				//nameLabel.SetBinding(Label.TextColorProperty, "estadoTextColor");
-				int i;
+				
 				Border nameFrame = new Border
 				{
 					
