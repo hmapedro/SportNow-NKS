@@ -60,11 +60,10 @@ namespace SportNow.Views
             }
 
         }
-
+		
 		public async void initSpecificLayout()
 		{
-
-            Image eventoImage = new Image { Aspect = Aspect.AspectFill, Opacity = 0.40 };
+			Image eventoImage = new Image { Aspect = Aspect.AspectFill, Opacity = 0.40 };
             eventoImage.Source = competition.imagemSource;
 
             absoluteLayout.Add(eventoImage);
