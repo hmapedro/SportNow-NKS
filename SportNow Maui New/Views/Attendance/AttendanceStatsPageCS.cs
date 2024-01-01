@@ -111,7 +111,7 @@ namespace SportNow.Views
 				VerticalTextAlignment = TextAlignment.Center,
 				HorizontalTextAlignment = TextAlignment.Center,
 				FontSize = App.bigTitleFontSize,
-				TextColor = App.normalTextColor,
+				TextColor = App.topColor,
 				Text = "Escolhe o Periodo",
                 FontFamily = "futuracondensedmedium",
             };
@@ -129,7 +129,7 @@ namespace SportNow.Views
 				Title = "",
 				TitleColor = Colors.White,
 				BackgroundColor = Colors.Transparent,
-				TextColor = Color.FromRgb(246, 220, 178),
+				TextColor = App.topColor,
 				HorizontalTextAlignment = TextAlignment.Center,
 				FontSize = App.itemTitleFontSize
 
@@ -222,14 +222,14 @@ namespace SportNow.Views
 			BoxView separator = new BoxView()
 			{
 				HeightRequest = 3 * App.screenHeightAdapter,
-				BackgroundColor = Color.FromRgb(246, 220, 178),
-				Color = Color.FromRgb(246, 220, 178),
+				BackgroundColor = App.topColor,
+				Color = App.topColor,
 
                 //BackgroundColor = Colors.Green,
             };
 
             absoluteLayout.Add(separator);
-            absoluteLayout.SetLayoutBounds(separator, new Rect(10 * App.screenWidthAdapter, 75 * App.screenHeightAdapter + (App.screenHeight - 190 * App.screenHeightAdapter) * 3 / 5, App.screenWidth - 20 * App.screenWidthAdapter, 3 * App.screenHeightAdapter));
+            absoluteLayout.SetLayoutBounds(separator, new Rect(0 * App.screenWidthAdapter, 75 * App.screenHeightAdapter + (App.screenHeight - 190 * App.screenHeightAdapter) * 3 / 5, App.screenWidth - 0 * App.screenWidthAdapter, 3 * App.screenHeightAdapter));
 
 		}
 

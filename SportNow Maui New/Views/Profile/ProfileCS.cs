@@ -508,12 +508,50 @@ namespace SportNow.Views.Profile
                 y_button_left = y_button_left + 60;
             }
         }
+
+        public void createDocumentsNKSButton()
+        {
+            Image membersToApproveImage = new Image
+            {
+                Source = "iconaprovarinscricoes.png",
+                Aspect = Aspect.AspectFit
+            };
+
+            TapGestureRecognizer membersToApproveImage_tapEvent = new TapGestureRecognizer();
+            membersToApproveImage_tapEvent.Tapped += documentsImage_Clicked;
+            membersToApproveImage.GestureRecognizers.Add(membersToApproveImage_tapEvent);
+
+
+            absoluteLayout.Add(membersToApproveImage);
+            absoluteLayout.SetLayoutBounds(membersToApproveImage, new Rect((12.5 * App.screenHeightAdapter), y_button_left * App.screenHeightAdapter, 35 * App.screenHeightAdapter, 35 * App.screenHeightAdapter));
+
+            Label membersToApproveLabel = new Label
+            {
+                FontFamily = "futuracondensedmedium",
+                Text = "Documentos NKS",
+                TextColor = App.normalTextColor,
+                HorizontalTextAlignment = TextAlignment.Center,
+                VerticalTextAlignment = TextAlignment.Start,
+                FontSize = App.smallTextFontSize
+            };
+
+            absoluteLayout.Add(membersToApproveLabel);
+            absoluteLayout.SetLayoutBounds(membersToApproveLabel, new Rect(0, (y_button_left + 37) * App.screenHeightAdapter, 60 * App.screenHeightAdapter, 15 * App.screenHeightAdapter));
+
+            y_button_left = y_button_left + 60;
+        }
+
         public void CreateGridButtons()
 		{
-			createChangePasswordButton();
+			createDocumentsNKSButton();
+
+			
+            
             createChangeMemberButton();
             createChangeStudentButton();
-			createApproveStudentButton();
+			//createApproveStudentButton();
+
+            createChangePasswordButton();
             CreateObjectivesButton();
 			CreateQuotaButton();
         }
@@ -904,6 +942,19 @@ namespace SportNow.Views.Profile
         {
             Navigation.PushAsync(new ApproveRegistrationPageCS());
         }
+
+		async void documentsImage_Clicked(object sender, EventArgs e)
+        {
+            try
+            {
+                await Browser.OpenAsync("https://karatesangalhos.pt/", BrowserLaunchMode.SystemPreferred);
+            }
+            catch (Exception ex)
+            {
+            }
+        }
+
+        
 
         async void OnQuotaButtonClicked(object sender, EventArgs e)
 		{
