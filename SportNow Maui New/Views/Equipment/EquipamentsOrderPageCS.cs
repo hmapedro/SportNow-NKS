@@ -2,7 +2,7 @@
 using SportNow.Services.Data.JSON;
 using System.Diagnostics;
 using SportNow.CustomViews;
-
+using Microsoft.Maui.Controls.Shapes;
 
 namespace SportNow.Views
 {
@@ -38,13 +38,13 @@ namespace SportNow.Views
 		{
 			
 
-			Label subtypeLabel = new Label { FontFamily = "futuracondensedmedium", BackgroundColor = Colors.Transparent, VerticalTextAlignment = TextAlignment.Center, HorizontalTextAlignment = TextAlignment.Start, FontSize = App.itemTitleFontSize, TextColor = Color.FromRgb(246, 220, 178), LineBreakMode = LineBreakMode.WordWrap };
+			Label subtypeLabel = new Label { FontFamily = "futuracondensedmedium", BackgroundColor = Colors.Transparent, VerticalTextAlignment = TextAlignment.Center, HorizontalTextAlignment = TextAlignment.Start, FontSize = App.itemTitleFontSize, TextColor = App.topColor, LineBreakMode = LineBreakMode.WordWrap };
 			subtypeLabel.Text = equipment.type + " - " + equipment.subtype;
 
 			absoluteLayout.Add(subtypeLabel);
             absoluteLayout.SetLayoutBounds(subtypeLabel, new Rect(0, 0, (App.screenWidth / 5 * 4) - (10 * App.screenHeightAdapter), 30 * App.screenHeightAdapter));
 
-			Label valueTitleLabel = new Label { FontFamily = "futuracondensedmedium", Text = "VALOR", BackgroundColor = Colors.Transparent, VerticalTextAlignment = TextAlignment.Center, HorizontalTextAlignment = TextAlignment.Center, FontSize = App.itemTitleFontSize, TextColor = Color.FromRgb(246, 220, 178), LineBreakMode = LineBreakMode.WordWrap };
+			Label valueTitleLabel = new Label { FontFamily = "futuracondensedmedium", Text = "VALOR", BackgroundColor = Colors.Transparent, VerticalTextAlignment = TextAlignment.Center, HorizontalTextAlignment = TextAlignment.Center, FontSize = App.itemTitleFontSize, TextColor = App.topColor, LineBreakMode = LineBreakMode.WordWrap };
 
 			absoluteLayout.Add(valueTitleLabel);
             absoluteLayout.SetLayoutBounds(valueTitleLabel, new Rect((App.screenWidth / 5 * 4), 0, (App.screenWidth / 5) - (10 * App.screenHeightAdapter), 30 * App.screenHeightAdapter));
@@ -52,12 +52,14 @@ namespace SportNow.Views
 			Label nameLabel = new Label { FontFamily = "futuracondensedmedium", BackgroundColor = Colors.Transparent, VerticalTextAlignment = TextAlignment.Center, HorizontalTextAlignment = TextAlignment.Start, FontSize = App.itemTitleFontSize, TextColor = App.normalTextColor, LineBreakMode = LineBreakMode.WordWrap };
 			nameLabel.Text = equipment.name;
 
-			Frame nameFrame = new Frame
+			Border nameFrame = new Border
 			{
-				BorderColor = Color.FromRgb(246, 220, 178),
 				BackgroundColor = Colors.Transparent,
-				CornerRadius = 10,
-				IsClippedToBounds = true,
+                StrokeShape = new RoundRectangle
+                {
+                    CornerRadius = 5 * (float)App.screenHeightAdapter,
+                },
+				Stroke = App.topColor,
 				Padding = new Thickness(5, 0, 0, 0)
 			};
 			nameFrame.Content = nameLabel;
@@ -68,13 +70,15 @@ namespace SportNow.Views
 			Label valueLabel = new Label { FontFamily = "futuracondensedmedium", BackgroundColor = Colors.Transparent, VerticalTextAlignment = TextAlignment.Center, HorizontalTextAlignment = TextAlignment.Center, FontSize = App.itemTitleFontSize, TextColor = App.normalTextColor, LineBreakMode = LineBreakMode.WordWrap };
 			valueLabel.Text = equipment.valueFormatted;
 
-			Frame valueFrame = new Frame
+			Border valueFrame = new Border
 			{
-				BorderColor = Color.FromRgb(246, 220, 178),
 				BackgroundColor = Colors.Transparent,
-				CornerRadius = 10,
-				IsClippedToBounds = true,
-				Padding = new Thickness(5, 0, 0, 0)
+                StrokeShape = new RoundRectangle
+                {
+                    CornerRadius = 5 * (float)App.screenHeightAdapter,
+                },
+                Stroke = App.topColor,
+                Padding = new Thickness(5, 0, 0, 0)
 			};
 			valueFrame.Content = valueLabel;
 
