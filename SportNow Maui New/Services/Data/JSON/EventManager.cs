@@ -202,7 +202,7 @@ namespace SportNow.Services.Data.JSON
 
 		public async Task<List<Payment>> GetEventParticipation_Payment(string eventparticipationid)
 		{
-			Debug.Print("GetEventParticipation_Payment");
+			Debug.Print("GetEventParticipation_Payment - " + Constants.RestUrl_Get_EventParticipation_Payment + "?eventparticipationid=" + eventparticipationid);
 			Uri uri = new Uri(string.Format(Constants.RestUrl_Get_EventParticipation_Payment + "?eventparticipationid=" + eventparticipationid, string.Empty));
 			try
 			{
@@ -212,7 +212,8 @@ namespace SportNow.Services.Data.JSON
 				{
 					//return true;
 					string content = await response.Content.ReadAsStringAsync();
-					payments = JsonConvert.DeserializeObject<List<Payment>>(content);
+                    Debug.WriteLine("GetEventParticipation_Payment content=" + content);
+                    payments = JsonConvert.DeserializeObject<List<Payment>>(content);
 				}
 
 				return payments;

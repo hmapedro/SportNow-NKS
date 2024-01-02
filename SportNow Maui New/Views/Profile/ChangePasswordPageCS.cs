@@ -60,7 +60,7 @@ namespace SportNow.Views.Profile
 			FormLabel newPasswordConfirmLabel = new FormLabel { Text = "NOVA PASSWORD CONFIRMAÇÃO" };
 			newPasswordConfirmEntry = new FormEntryPassword("", "", App.screenWidth / 2 - 5 * App.screenWidthAdapter);
 
-			changePasswordButton = new RoundButton("Alterar Password", App.screenWidth, 50 * App.screenHeightAdapter);
+			changePasswordButton = new RoundButton("Alterar Password", App.screenWidth - 20 * App.screenWidthAdapter, 50 * App.screenHeightAdapter);
 			changePasswordButton.button.Clicked += OnChangePasswordButtonClicked;
 
 			messageLabel = new Label
@@ -87,7 +87,7 @@ namespace SportNow.Views.Profile
 			Microsoft.Maui.Controls.Grid.SetColumnSpan(messageLabel, 2);
 
 
-            deleteMemberButton = new CancelButton("Apagar Sócio", App.screenWidth, 50 * App.screenHeightAdapter);
+            deleteMemberButton = new CancelButton("Apagar Sócio", App.screenWidth - 20 * App.screenWidthAdapter, 50 * App.screenHeightAdapter);
             deleteMemberButton.VerticalOptions = LayoutOptions.End;
             //absoluteLayout.SetLayoutBounds(deleteMemberButton, new Rect(10 * App.screenWidthAdapter, 0 * App.screenHeightAdapter, App.screenWidth - 10 * App.screenWidthAdapter, 50 * App.screenHeightAdapter));
 
@@ -97,7 +97,7 @@ namespace SportNow.Views.Profile
             Microsoft.Maui.Controls.Grid.SetColumnSpan(deleteMemberButton, 2);
 
 			absoluteLayout.Add(grid);
-            absoluteLayout.SetLayoutBounds(grid, new Rect(10 * App.screenWidthAdapter, 0 * App.screenHeightAdapter, App.screenWidth - 10 * App.screenWidthAdapter, App.screenHeight - 130 * App.screenHeightAdapter));
+            absoluteLayout.SetLayoutBounds(grid, new Rect(10 * App.screenWidthAdapter, 0 * App.screenHeightAdapter, App.screenWidth - 10 * App.screenWidthAdapter, App.screenHeight - 110 * App.screenHeightAdapter));
 
             //OnChangePasswordButtonClicked
         }

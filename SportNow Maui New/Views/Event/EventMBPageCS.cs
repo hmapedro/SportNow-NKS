@@ -52,7 +52,7 @@ namespace SportNow.Views
 				TextColor = App.normalTextColor,
 				//LineBreakMode = LineBreakMode.NoWrap,
 				HeightRequest = 300,
-				FontSize = 30
+				FontSize = App.titleFontSize
 			};
 
 			absoluteLayout.Add(inscricaoOKLabel);
@@ -77,12 +77,12 @@ namespace SportNow.Views
 			Label competitionParticipationNameLabel = new Label
 			{
                 FontFamily = "futuracondensedmedium",
-                Text = "Para confirmares a tua presença no\n " + event_participation.evento_name + "\n efetua o pagamento no MB com os dados apresentados em baixo",
+                Text = "Para confirmares a tua presença no\n " + event_participation.evento_name + "\n efetua o pagamento no MB com os dados apresentados em baixo:",
 				VerticalTextAlignment = TextAlignment.Center,
 				HorizontalTextAlignment = TextAlignment.Center,
 				TextColor = App.normalTextColor,
 				//LineBreakMode = LineBreakMode.NoWrap,
-				FontSize = App.bigTitleFontSize
+				FontSize = App.titleFontSize
 			};
 
 			Image MBLogoImage = new Image

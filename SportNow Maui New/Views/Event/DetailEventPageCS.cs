@@ -33,8 +33,10 @@ namespace SportNow.Views
         RoundButton registerButton;
 
 		private Microsoft.Maui.Controls.Grid gridEvent;
+		Image eventoImage;
 
-		public void initLayout()
+
+        public void initLayout()
 		{
 			Title = event_v.name;
 		}
@@ -54,13 +56,18 @@ namespace SportNow.Views
 				registerButton = null;
 			}
 
-		}
+            if (eventoImage != null)
+            {
+                absoluteLayout.Remove(eventoImage);
+                eventoImage = null;
+            }
+        }
 
 
 		public async void initSpecificLayout()
 		{
 
-            Image eventoImage = new Image { Aspect = Aspect.AspectFill, Opacity = 0.40 };
+            eventoImage = new Image { Aspect = Aspect.AspectFill, Opacity = 0.40 };
             eventoImage.Source = event_v.imagemSource;
 
             absoluteLayout.Add(eventoImage);

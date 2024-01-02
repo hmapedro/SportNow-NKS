@@ -62,7 +62,7 @@ namespace SportNow.Views.Profile
                 FontFamily = "futuracondensedmedium",
             };
             absoluteLayout.Add(objetivosLabel);
-            absoluteLayout.SetLayoutBounds(objetivosLabel, new Rect(10 * App.screenWidthAdapter, 30 * App.screenHeightAdapter, App.screenWidth, 40 * App.screenHeightAdapter));
+            absoluteLayout.SetLayoutBounds(objetivosLabel, new Rect(10 * App.screenWidthAdapter, 30 * App.screenHeightAdapter, App.screenWidth - 20 * App.screenWidthAdapter, 40 * App.screenHeightAdapter));
 
             Label objetivosExplicacaoLabel = new Label
             {
@@ -76,7 +76,7 @@ namespace SportNow.Views.Profile
                 FontFamily = "futuracondensedmedium",
             };
             absoluteLayout.Add(objetivosExplicacaoLabel);
-            absoluteLayout.SetLayoutBounds(objetivosExplicacaoLabel, new Rect(0 * App.screenWidthAdapter, 70 * App.screenHeightAdapter, App.screenWidth, 130 * App.screenHeightAdapter));
+            absoluteLayout.SetLayoutBounds(objetivosExplicacaoLabel, new Rect(10 * App.screenWidthAdapter, 70 * App.screenHeightAdapter, App.screenWidth - 20 * App.screenWidthAdapter, 130 * App.screenHeightAdapter));
 
             if ((App.member.objectives != null) & (App.member.objectives.Count > 0))
             {
@@ -88,14 +88,14 @@ namespace SportNow.Views.Profile
             }
 
             absoluteLayout.Add(objetivosEntry);
-            absoluteLayout.SetLayoutBounds(objetivosEntry, new Rect(0 * App.screenWidthAdapter, 200 * App.screenHeightAdapter, App.screenWidth - (0 * App.screenHeightAdapter), 400 * App.screenHeightAdapter));
+            absoluteLayout.SetLayoutBounds(objetivosEntry, new Rect(10 * App.screenWidthAdapter, 200 * App.screenHeightAdapter, App.screenWidth - (20 * App.screenHeightAdapter), 400 * App.screenHeightAdapter));
            
-            RegisterButton confirmButton = new RegisterButton("CONFIRMAR", App.screenWidth - 10 * App.screenWidthAdapter, 50 * App.screenHeightAdapter);
+            RegisterButton confirmButton = new RegisterButton("CONFIRMAR", App.screenWidth - 20 * App.screenWidthAdapter, 50 * App.screenHeightAdapter);
             //personalClassesButton.button.BackgroundColor = App.topColor;
             confirmButton.button.Clicked += OnConfirmButtonClicked;
 
             absoluteLayout.Add(confirmButton);
-            absoluteLayout.SetLayoutBounds(confirmButton, new Rect(5 * App.screenWidthAdapter, App.screenHeight - (180 * App.screenHeightAdapter), App.screenWidth - 10 * App.screenWidthAdapter, 50 * App.screenHeightAdapter));
+            absoluteLayout.SetLayoutBounds(confirmButton, new Rect(10 * App.screenWidthAdapter, App.screenHeight - (160 * App.screenHeightAdapter), App.screenWidth - 20 * App.screenWidthAdapter, 50 * App.screenHeightAdapter));
 
             hideActivityIndicator();
         }
