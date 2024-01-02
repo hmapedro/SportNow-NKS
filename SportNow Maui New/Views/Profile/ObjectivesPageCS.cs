@@ -95,7 +95,7 @@ namespace SportNow.Views.Profile
             confirmButton.button.Clicked += OnConfirmButtonClicked;
 
             absoluteLayout.Add(confirmButton);
-            absoluteLayout.SetLayoutBounds(confirmButton, new Rect(5 * App.screenWidthAdapter, App.screenHeight - (150 * App.screenHeightAdapter), App.screenWidth - 10 * App.screenWidthAdapter, 50 * App.screenHeightAdapter));
+            absoluteLayout.SetLayoutBounds(confirmButton, new Rect(5 * App.screenWidthAdapter, App.screenHeight - (180 * App.screenHeightAdapter), App.screenWidth - 10 * App.screenWidthAdapter, 50 * App.screenHeightAdapter));
 
             hideActivityIndicator();
         }

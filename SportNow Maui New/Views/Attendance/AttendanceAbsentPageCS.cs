@@ -96,15 +96,18 @@ namespace SportNow.Views
 
 				FormValue nicknameLabel = new FormValue("", 30 * App.screenHeightAdapter);
                 nicknameLabel.label.SetBinding(Label.TextProperty, "name");
+				nicknameLabel.label.FontFamily = "futuracondensedmedium";
 
 
-				itemabsoluteLayout.Add(nicknameLabel);
+
+                itemabsoluteLayout.Add(nicknameLabel);
 
                 itemabsoluteLayout.SetLayoutBounds(nicknameLabel, new Rect(0, 0, App.screenWidth - 220 * App.screenWidthAdapter, 30 * App.screenHeightAdapter));
 
                 FormValue dojoLabel = new FormValue("", 30 * App.screenHeightAdapter);
                 dojoLabel.label.FontSize = App.smallTextFontSize;
                 dojoLabel.label.SetBinding(Label.TextProperty, "dojo");
+				dojoLabel.label.FontFamily = "futuracondensedmedium";
 
 				itemabsoluteLayout.Add(dojoLabel);
 				itemabsoluteLayout.SetLayoutBounds(dojoLabel, new Rect((App.screenWidth - (215 * App.screenWidthAdapter)), 0, 100 * App.screenWidthAdapter, 30 * App.screenHeightAdapter));
@@ -112,15 +115,17 @@ namespace SportNow.Views
                 FormValue dataUltimaAulaLabel = new FormValue("", 30 * App.screenHeightAdapter);
                 dataUltimaAulaLabel.label.FontSize = App.smallTextFontSize;
                 dataUltimaAulaLabel.label.SetBinding(Label.TextProperty, "ultima_presenca");
+				dataUltimaAulaLabel.label.FontFamily = "futuracondensedmedium";
 
-				itemabsoluteLayout.Add(dataUltimaAulaLabel);
+                itemabsoluteLayout.Add(dataUltimaAulaLabel);
 	            itemabsoluteLayout.SetLayoutBounds(dataUltimaAulaLabel, new Rect(App.screenWidth - (110 * App.screenWidthAdapter), 0, 60 * App.screenWidthAdapter, 30 * App.screenHeightAdapter));
 
                 FormValue diasUltimaAulaLabel = new FormValue("", 30 * App.screenHeightAdapter);
 				diasUltimaAulaLabel.label.FontSize = App.smallTextFontSize;
                 diasUltimaAulaLabel.label.SetBinding(Label.TextProperty, "n_dias_ultima_presenca");
+                diasUltimaAulaLabel.label.FontFamily = "futuracondensedmedium";
 
-				itemabsoluteLayout.Add(diasUltimaAulaLabel);
+                itemabsoluteLayout.Add(diasUltimaAulaLabel);
 				itemabsoluteLayout.SetLayoutBounds(diasUltimaAulaLabel, new Rect(App.screenWidth - (45 * App.screenWidthAdapter), 0, 40 * App.screenWidthAdapter, 30 * App.screenHeightAdapter));
 
                 return itemabsoluteLayout;

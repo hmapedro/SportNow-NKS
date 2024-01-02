@@ -89,18 +89,20 @@ namespace SportNow.Views.Profile
 
             deleteMemberButton = new CancelButton("Apagar Sócio", App.screenWidth, 50 * App.screenHeightAdapter);
             deleteMemberButton.VerticalOptions = LayoutOptions.End;
+            //absoluteLayout.SetLayoutBounds(deleteMemberButton, new Rect(10 * App.screenWidthAdapter, 0 * App.screenHeightAdapter, App.screenWidth - 10 * App.screenWidthAdapter, 50 * App.screenHeightAdapter));
+
             deleteMemberButton.button.Clicked += OndeleteMemberButtonClicked;
 
-            grid.Add(deleteMemberButton, 0, 6);
+            grid.Add(deleteMemberButton, 0, 5);
             Microsoft.Maui.Controls.Grid.SetColumnSpan(deleteMemberButton, 2);
 
 			absoluteLayout.Add(grid);
-            absoluteLayout.SetLayoutBounds(grid, new Rect(5 * App.screenWidthAdapter, 20 * App.screenHeightAdapter, App.screenWidth - 10 * App.screenWidthAdapter, App.screenHeight - 120 * App.screenHeightAdapter));
+            absoluteLayout.SetLayoutBounds(grid, new Rect(10 * App.screenWidthAdapter, 0 * App.screenHeightAdapter, App.screenWidth - 10 * App.screenWidthAdapter, App.screenHeight - 130 * App.screenHeightAdapter));
 
-			//OnChangePasswordButtonClicked
-		}
+            //OnChangePasswordButtonClicked
+        }
 
-		public ChangePasswordPageCS(Member member)
+        public ChangePasswordPageCS(Member member)
 		{
 			this.member = member;
 			this.initLayout();

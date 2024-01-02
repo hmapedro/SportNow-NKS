@@ -158,7 +158,7 @@ namespace SportNow.Views
 
 
 			absoluteLayout.Add(gridInactiveFee);
-            absoluteLayout.SetLayoutBounds(gridInactiveFee, new Rect(0, 10 * App.screenHeightAdapter, App.screenWidth, App.screenHeight - 120 * App.screenHeightAdapter));
+            absoluteLayout.SetLayoutBounds(gridInactiveFee, new Rect(0, 10 * App.screenHeightAdapter, App.screenWidth, App.screenHeight - 130 * App.screenHeightAdapter));
 
 		}
 
@@ -202,7 +202,7 @@ namespace SportNow.Views
 				Text = "Quotas Ativas",
 				VerticalTextAlignment = TextAlignment.Center,
 				HorizontalTextAlignment = TextAlignment.Center,
-				TextColor = Color.FromRgb(96, 182, 89),
+				TextColor = App.topColor,
 				LineBreakMode = LineBreakMode.NoWrap,
 				FontSize = 40
 			};

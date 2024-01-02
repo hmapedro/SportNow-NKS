@@ -2,7 +2,7 @@
 using SportNow.Services.Data.JSON;
 using System.Diagnostics;
 using SportNow.Views.Profile;
-
+using Microsoft.Maui.Controls.Shapes;
 
 namespace SportNow.Views
 {
@@ -80,7 +80,12 @@ namespace SportNow.Views
 			absoluteLayout.SetLayoutBounds(quotasabsoluteLayout, new Rect(0, 10 * App.screenHeightAdapter, App.screenWidth, App.screenHeight - 80 * App.screenHeightAdapter));
 		}
 
-		public async void CreateCurrentQuota()
+        public void CreateCurrentQuota()
+        {
+            CreateCurrentQuota(quotasabsoluteLayout);
+        }
+
+        public async void CreateCurrentQuota(AbsoluteLayout quotasabsoluteLayout)
 		{
 			if (App.member.currentFee == null)
 			{
@@ -98,28 +103,31 @@ namespace SportNow.Views
 				}
 			}
 
-			Frame quotasFrame = new Frame
-			{
-				CornerRadius = 5,
-				IsClippedToBounds = true,
-				BorderColor = Color.FromRgb(182, 145, 89),
-				BackgroundColor = Colors.Transparent,
+			Border quotasFrame = new Border
+            {
+                BackgroundColor = Colors.Transparent,
+
+                StrokeShape = new RoundRectangle
+                {
+                    CornerRadius = 5 * (float)App.screenHeightAdapter,
+                },
+				Stroke= App.topColor,
 				Padding = new Thickness(2, 2, 2, 2),
 				HeightRequest = 120*App.screenHeightAdapter,
 				VerticalOptions = LayoutOptions.Center,
 			};
-
+			
 			var tapGestureRecognizer_quotasFrame = new TapGestureRecognizer();
 			tapGestureRecognizer_quotasFrame.Tapped += async (s, e) => {
 				await Navigation.PushAsync(new QuotasPageCS());
 			};
 			quotasFrame.GestureRecognizers.Add(tapGestureRecognizer_quotasFrame);
 
-			/*AbsoluteLayout currentQuotasabsoluteLayout = new AbsoluteLayout
+			AbsoluteLayout currentQuotasabsoluteLayout = new AbsoluteLayout
 			{
 				Margin = new Thickness(0),
-			};*/
-			//quotasFrame.Content = currentQuotasabsoluteLayout;
+			};
+			quotasFrame.Content = currentQuotasabsoluteLayout;
 
 			string logoFeeFileName = "", estadoImageFileName = "";
 
@@ -149,11 +157,10 @@ namespace SportNow.Views
 				Source = estadoImageFileName,
 				WidthRequest = 25
 			};
-
             quotasabsoluteLayout.Add(estadoQuotaImage);
             quotasabsoluteLayout.SetLayoutBounds(estadoQuotaImage, new Rect((App.screenWidth) - 26 * App.screenHeightAdapter, 1 * App.screenHeightAdapter, 25 * App.screenHeightAdapter, 25 * App.screenHeightAdapter));
 
-            Label feeLabel = new Label { FontFamily = "futuracondensedmedium", BackgroundColor = Colors.Transparent, VerticalTextAlignment = TextAlignment.Center, HorizontalTextAlignment = TextAlignment.Center, FontSize = App.titleFontSize, TextColor = Color.FromRgb(182, 145, 89), LineBreakMode = LineBreakMode.WordWrap };
+            Label feeLabel = new Label { FontFamily = "futuracondensedmedium", BackgroundColor = Colors.Transparent, VerticalTextAlignment = TextAlignment.Center, HorizontalTextAlignment = TextAlignment.Center, FontSize = App.titleFontSize, TextColor = App.topColor, LineBreakMode = LineBreakMode.WordWrap };
             feeLabel.Text = "QUOTA";
 
             quotasabsoluteLayout.Add(feeLabel);
@@ -163,8 +170,8 @@ namespace SportNow.Views
             //quotasabsoluteLayout.SetLayoutBounds(currentQuotasabsoluteLayout, new Rect(0, 10 * App.screenHeightAdapter, App.screenWidth, 120 * App.screenHeightAdapter));
 
 
-            quotasabsoluteLayout.Add(quotasFrame);
-            quotasabsoluteLayout.SetLayoutBounds(quotasFrame, new Rect(0, 10 * App.screenHeightAdapter, App.screenWidth, 100 * App.screenHeightAdapter));
+			//quotasabsoluteLayout.Add(quotasFrame);
+			// quotasabsoluteLayout.SetLayoutBounds(quotasFrame, new Rect(0, 10 * App.screenHeightAdapter, App.screenWidth, 100 * App.screenHeightAdapter));
 
 		}
 
@@ -172,7 +179,7 @@ namespace SportNow.Views
 		{			
 			var result = await GetPastFees(App.member);
 
-			Label historicoQuotasLabel = new Label { FontFamily = "futuracondensedmedium", BackgroundColor = Colors.Transparent, VerticalTextAlignment = TextAlignment.Center, HorizontalTextAlignment = TextAlignment.Center, FontSize = App.titleFontSize, TextColor = Color.FromRgb(182, 145, 89), LineBreakMode = LineBreakMode.WordWrap };
+			Label historicoQuotasLabel = new Label { FontFamily = "futuracondensedmedium", BackgroundColor = Colors.Transparent, VerticalTextAlignment = TextAlignment.Center, HorizontalTextAlignment = TextAlignment.Center, FontSize = App.titleFontSize, TextColor = App.topColor, LineBreakMode = LineBreakMode.WordWrap };
 			historicoQuotasLabel.Text = "HISTÓRICO QUOTAS";
 
 			quotasabsoluteLayout.Add(historicoQuotasLabel);
@@ -215,12 +222,15 @@ namespace SportNow.Views
                     WidthRequest = App.screenWidth
                 };
 
-				Frame itemFrame = new Frame
-				{
-					CornerRadius = 5,
-					IsClippedToBounds = true,
-					BorderColor = Color.FromRgb(182, 145, 89),
-					BackgroundColor = Colors.Transparent,
+				Border itemFrame = new Border
+                {
+                    BackgroundColor = Colors.Transparent,
+
+                    StrokeShape = new RoundRectangle
+                    {
+                        CornerRadius = 5 * (float)App.screenHeightAdapter,
+                    },
+                    Stroke = App.topColor,
 					Padding = new Thickness(2, 2, 2, 2),
 					HeightRequest = 30 * App.screenHeightAdapter,
 					VerticalOptions = LayoutOptions.Center,
