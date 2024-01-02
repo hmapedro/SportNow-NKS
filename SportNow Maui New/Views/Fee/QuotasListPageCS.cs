@@ -3,6 +3,7 @@ using SportNow.Services.Data.JSON;
 using System.Diagnostics;
 using SportNow.Views.Profile;
 using Microsoft.Maui.Controls.Shapes;
+using System.Xml;
 
 namespace SportNow.Views
 {
@@ -130,36 +131,80 @@ namespace SportNow.Views
 			quotasFrame.Content = currentQuotasabsoluteLayout;
 
 			string logoFeeFileName = "", estadoImageFileName = "";
+			/*
 
+                        if (hasQuotaPayed == true)
+                        {
+                            logoFeeFileName = "fnkpikp.png";
+                            estadoImageFileName = "iconcheck.png";
+                        }
+                        else if (hasQuotaPayed == false)
+                        {
+                            logoFeeFileName = "fnkpikp.png";
+                            estadoImageFileName = "iconinativo.png";
+                        }
+                        /*
+                        Image LogoFee = new Image
+                        {
+                            Source = logoFeeFileName,
+                            //WidthRequest = 100,
+                            HorizontalOptions = LayoutOptions.Center
+                        };
+                        quotasabsoluteLayout.Add(LogoFee);
+                        quotasabsoluteLayout.SetLayoutBounds(LogoFee, new Rect((App.screenWidth / 2) - 70.3 * App.screenHeightAdapter, 40 * App.screenHeightAdapter, 140.6 * App.screenHeightAdapter, 60 * App.screenHeightAdapter));
+                        */
+			
+            Image LogoFee1 = new Image
+            {
+                Source = "logo_fnkp.png",
+                WidthRequest = 70 * App.screenHeightAdapter, 
+                HeightRequest = 70 * App.screenHeightAdapter,
+                HorizontalOptions = LayoutOptions.Center
+            };
 
-			if (hasQuotaPayed == true)
-			{
-				logoFeeFileName = "fnkpikp.png";
-				estadoImageFileName = "iconcheck.png";
-			}
-			else if (hasQuotaPayed == false)
-			{
-				logoFeeFileName = "fnkpikp.png";
-				estadoImageFileName = "iconinativo.png";
-			}
+            Image LogoFee2 = new Image
+            {
+                Source = "company_logo_square.png",
+                WidthRequest = 70 * App.screenHeightAdapter,
+                HeightRequest = 70 * App.screenHeightAdapter, 
+                HorizontalOptions = LayoutOptions.Center
+            };
 
-			Image LogoFee = new Image
-			{
-				Source = logoFeeFileName,
-				//WidthRequest = 100,
-				HorizontalOptions = LayoutOptions.Center
-			};
-            quotasabsoluteLayout.Add(LogoFee);
-            quotasabsoluteLayout.SetLayoutBounds(LogoFee, new Rect((App.screenWidth / 2) - 70.3 * App.screenHeightAdapter, 40 * App.screenHeightAdapter, 140.6 * App.screenHeightAdapter, 60 * App.screenHeightAdapter));
+            /*Border logosFrame = new Border
+            {
+                BackgroundColor = Colors.Transparent,
+                StrokeShape = new RoundRectangle
+                {
+                    CornerRadius = 5 * (float)App.screenHeightAdapter,
+                },
+                Stroke = App.topColor,
+                Padding = new Thickness(10, 0, 0, 0)
+            };
 
-			estadoQuotaImage = new Image
+            logosFrame.Content = new StackLayout
+            {
+                Children = { LogoFee1, LogoFee2 },
+                Orientation = StackOrientation.Horizontal // Alinha as imagens horizontalmente dentro do Frame
+            };*/
+
+            quotasabsoluteLayout.Add(LogoFee1);
+            quotasabsoluteLayout.Add(LogoFee2);
+            quotasabsoluteLayout.SetLayoutBounds(LogoFee1, new Rect((App.screenWidth / 2) - 70.3 - (70 * App.screenHeightAdapter), 40 * App.screenHeightAdapter, 140.6 * App.screenHeightAdapter, 70 * App.screenHeightAdapter));
+            quotasabsoluteLayout.SetLayoutBounds(LogoFee2, new Rect((App.screenWidth / 2) + 70.3 - (70 * App.screenHeightAdapter), 40 * App.screenHeightAdapter, 140.6 * App.screenHeightAdapter, 70 * App.screenHeightAdapter));
+           /* quotasabsoluteLayout.Add(logosFrame);
+            //quotasabsoluteLayout.SetLayoutBounds(logosFrame, new Rect((App.screenWidth / 2) - 70.3, 40 * App.screenHeightAdapter, 2 * 70.3, 60 * App.screenHeightAdapter));
+            quotasabsoluteLayout.SetLayoutBounds(logosFrame, new Rect((App.screenWidth / 2) - 70.3 * App.screenHeightAdapter
+            - 90 * App.screenHeightAdapter, 60 * App.screenHeightAdapter, 2 * (70.3 * App.screenHeightAdapter + 90 * App.screenHeightAdapter), 70 * App.screenHeightAdapter));
+		   */
+
+            estadoQuotaImage = new Image
 			{
 				Source = estadoImageFileName,
 				WidthRequest = 25
 			};
             quotasabsoluteLayout.Add(estadoQuotaImage);
             quotasabsoluteLayout.SetLayoutBounds(estadoQuotaImage, new Rect((App.screenWidth) - 26 * App.screenHeightAdapter, 1 * App.screenHeightAdapter, 25 * App.screenHeightAdapter, 25 * App.screenHeightAdapter));
-
+       
             Label feeLabel = new Label { FontFamily = "futuracondensedmedium", BackgroundColor = Colors.Transparent, VerticalTextAlignment = TextAlignment.Center, HorizontalTextAlignment = TextAlignment.Center, FontSize = App.titleFontSize, TextColor = App.topColor, LineBreakMode = LineBreakMode.WordWrap };
             feeLabel.Text = "QUOTA";
 

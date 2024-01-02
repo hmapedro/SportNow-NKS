@@ -260,7 +260,7 @@ namespace SportNow.Views
 				absoluteLayout.Add(collectionViewCompetitionCall);
                 absoluteLayout.SetLayoutBounds(collectionViewCompetitionCall, new Rect(0, 100 * App.screenHeightAdapter, App.screenWidth, App.screenHeight - 220 * App.screenHeightAdapter));
 
-				registerButton = new RegisterButton("INSCREVER", App.screenWidth - 20 * App.screenWidthAdapter, 50 * App.screenHeightAdapter);
+				registerButton = new RegisterButton("CONFIRMAR", App.screenWidth - 20 * App.screenWidthAdapter, 50 * App.screenHeightAdapter);
 				registerButton.button.Clicked += OnRegisterButtonClicked;
 
 
