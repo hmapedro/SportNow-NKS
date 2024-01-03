@@ -336,7 +336,7 @@ namespace SportNow.Views
 				
 				//BackgroundColor = Colors.Blue,
 				ItemsSource = pastEventParticipations,
-				ItemsLayout = new GridItemsLayout(2, ItemsLayoutOrientation.Vertical) { VerticalItemSpacing = 5 * App.screenHeightAdapter, HorizontalItemSpacing = 5 * App.screenWidthAdapter },
+				ItemsLayout = new GridItemsLayout(2, ItemsLayoutOrientation.Vertical) { VerticalItemSpacing = 5 * App.screenHeightAdapter, HorizontalItemSpacing = 10 * App.screenWidthAdapter },
 				EmptyView = new ContentView
 				{
 					Content = new Microsoft.Maui.Controls.StackLayout
@@ -386,7 +386,8 @@ namespace SportNow.Views
 					HeightRequest = App.ItemHeight,
                     WidthRequest = App.ItemWidth,
                     VerticalOptions = LayoutOptions.Center,
-				};
+                    
+                };
 
 				Image eventoImage = new Image { Aspect = Aspect.AspectFill, Opacity = 0.40 }; //, HeightRequest = 60, WidthRequest = 60
 				eventoImage.SetBinding(Image.SourceProperty, "imagemSource");
@@ -506,12 +507,16 @@ namespace SportNow.Views
                     HeightRequest = App.ItemHeight,
                     WidthRequest = App.ItemWidth,
                     VerticalOptions = LayoutOptions.Center,
-				};
-
+                    
+                };
+                
 				Image eventoImage = new Image { Aspect = Aspect.AspectFill, Opacity = 0.40 }; //, HeightRequest = 60, WidthRequest = 60
 				eventoImage.SetBinding(Image.SourceProperty, "imagemSource");
-
-				itemFrame.Content = eventoImage;
+				/*
+                Image eventoImage = new Image { Aspect = Aspect.AspectFill, Opacity = 0.40, HorizontalOptions = LayoutOptions.Center }; //, HeightRequest = 60, WidthRequest = 60
+                eventoImage.SetBinding(Image.SourceProperty, "imagemSource");
+                */
+                itemFrame.Content = eventoImage;
 
 				itemabsoluteLayout.Add(itemFrame);
 	            itemabsoluteLayout.SetLayoutBounds(itemFrame, new Rect(0, 0, App.ItemWidth, App.ItemHeight));
@@ -763,12 +768,13 @@ namespace SportNow.Views
             absoluteLayout.Remove(premiosrelativeLayout);
 
             absoluteLayout.Add(collectionViewParticipacoesEventos);
-            absoluteLayout.SetLayoutBounds(collectionViewParticipacoesEventos, new Rect(0 * App.screenWidthAdapter, 80 * App.screenHeightAdapter, App.screenWidth - 20 * App.screenWidthAdapter, App.screenHeight - (200 * App.screenHeightAdapter)));
+            //absoluteLayout.SetLayoutBounds(collectionViewParticipacoesEventos, new Rect(0 * App.screenWidthAdapter, 80 * App.screenHeightAdapter, App.screenWidth - 20 * App.screenWidthAdapter, App.screenHeight - (200 * App.screenHeightAdapter)));
+            absoluteLayout.SetLayoutBounds(collectionViewParticipacoesEventos, new Rect(10 * App.screenWidthAdapter, 80 * App.screenHeightAdapter, App.screenWidth - 20 * App.screenWidthAdapter, App.screenHeight - (200 * App.screenHeightAdapter)));
 
-		}
+        }
 
 
-		async void OnCollectionViewParticipacoesEventosSelectionChanged(object sender, SelectionChangedEventArgs e)
+        async void OnCollectionViewParticipacoesEventosSelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
 			Debug.WriteLine("OnCollectionViewParticipacoesEventosSelectionChanged");
 
