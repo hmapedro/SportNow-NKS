@@ -271,8 +271,8 @@ namespace SportNow.Views
 
 
 
-			absoluteLayout.Add(collectionViewExaminations);
-            absoluteLayout.SetLayoutBounds(collectionViewExaminations, new Rect(0, 80 * App.screenHeightAdapter, App.screenWidth, App.screenHeight - 320 * App.screenHeightAdapter));
+			/*absoluteLayout.Add(collectionViewExaminations);
+            absoluteLayout.SetLayoutBounds(collectionViewExaminations, new Rect(0, 80 * App.screenHeightAdapter, App.screenWidth, App.screenHeight - 320 * App.screenHeightAdapter));*/
 		}
 
 		public void CreateProgramasExame()
@@ -323,8 +323,8 @@ namespace SportNow.Views
 				}
 			};
 
-			absoluteLayout.Add(stackProgramasExameButtons);
-            absoluteLayout.SetLayoutBounds(stackProgramasExameButtons, new Rect((App.screenWidth/ 4), 0 * App.screenHeightAdapter, App.screenWidth / 2, 430 * App.screenHeightAdapter));
+			/*absoluteLayout.Add(stackProgramasExameButtons);
+            absoluteLayout.SetLayoutBounds(stackProgramasExameButtons, new Rect((App.screenWidth/ 4), 0 * App.screenHeightAdapter, App.screenWidth / 2, 430 * App.screenHeightAdapter));*/
 		}
 
 		public myGradesPageCS(string type)
@@ -416,7 +416,7 @@ namespace SportNow.Views
 			minhasGraduacoesButton.activate();
 
 			absoluteLayout.Add(collectionViewExaminations);
-            absoluteLayout.SetLayoutBounds(stackProgramasExameButtons, new Rect(0, 80 * App.screenHeightAdapter, App.screenWidth, App.screenHeight - 220 * App.screenHeightAdapter));
+            absoluteLayout.SetLayoutBounds(collectionViewExaminations, new Rect(0, 80 * App.screenHeightAdapter, App.screenWidth, App.screenHeight - 220 * App.screenHeightAdapter));
 
 			absoluteLayout.Remove(stackProgramasExameButtons);
 

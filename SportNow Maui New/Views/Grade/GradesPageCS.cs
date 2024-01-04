@@ -11,8 +11,11 @@ namespace SportNow.Views
 	{
 
 		protected override void OnDisappearing() {
-			collectionViewExaminations.SelectedItem = null;
-		}
+			if (collectionViewExaminations != null)
+			{
+				collectionViewExaminations.SelectedItem = null;
+            }
+        }
 
 		private CollectionView collectionViewExaminations;
 

@@ -13,8 +13,8 @@ namespace SportNow
         public static Member original_member;
         public static Member member;
 
-        public static string VersionNumber = "2.4.4";
-        public static string BuildNumber = "59";
+        public static string VersionNumber = "1.0";
+        public static string BuildNumber = "3";
 
         public static Competition competition;
 
@@ -27,7 +27,7 @@ namespace SportNow
          public static int ItemWidth = 0, ItemHeight = 0;
 
          //SELECTED TABS
-         public static string DO_activetab = "quotas";
+         public static string DO_activetab = "graduacoes";
          public static string EVENTOS_activetab = "estagios";
          public static string EQUIPAMENTOS_activetab = "karategis";
 

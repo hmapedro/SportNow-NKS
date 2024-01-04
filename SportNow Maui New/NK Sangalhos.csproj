@@ -19,8 +19,8 @@
 		<ApplicationIdGuid>2dc29652-0b88-4207-b1a3-293d65980583</ApplicationIdGuid>
 
 		<!-- Versions -->
-		<ApplicationDisplayVersion>1</ApplicationDisplayVersion>
-		<ApplicationVersion>1</ApplicationVersion>
+		<ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
+		<ApplicationVersion>3</ApplicationVersion>
 
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">11.0</SupportedOSPlatformVersion>
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'maccatalyst'">13.1</SupportedOSPlatformVersion>
@@ -86,6 +86,7 @@
 	  <Folder Include="Services\Data\JSON\" />
 	  <Folder Include="Resources\Images\" />
 	  <Folder Include="Views\CompleteRegistration\" />
+	  <Folder Include="Platforms\Android\Resources\drawable\" />
 	</ItemGroup>
 	<ItemGroup>
 	  <BundleResource Include="Resources\Splash\splash_logo.svg" />
@@ -210,5 +211,6 @@
 	  <None Remove="Resources\Images\Spinner-1s-200px-2.gif" />
 	  <None Remove="Resources\Images\company_logo_square.png" />
 	  <None Remove="Resources\Images\Spinner-1s-200px %281%29.gif" />
+	  <None Remove="Platforms\Android\Resources\drawable\" />
 	</ItemGroup>
 </Project>

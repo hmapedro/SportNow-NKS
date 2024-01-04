@@ -39,9 +39,14 @@ namespace SportNow.Views
 			Constants.ScreenHeight = Application.Current.MainPage.Height;
 			//Debug.Print("AQUI 0 - ScreenWidth = " + Constants.ScreenWidth + " ScreenHeight = " + Constants.ScreenHeight);
 
-			App.AdaptScreen();
+			Debug.Print("AQUI showActivityIndicator!!!");
+            showActivityIndicator();
+
+            App.AdaptScreen();
 
 			initSpecificLayout();
+
+			hideActivityIndicator();
 		}
 
 		protected override void OnDisappearing()
@@ -160,7 +165,7 @@ namespace SportNow.Views
 
 		public async void initSpecificLayout()
 		{
-			showActivityIndicator();
+			//showActivityIndicator();
 
 			var textWelcome = "";
 
@@ -233,7 +238,7 @@ namespace SportNow.Views
 
 			//createVersion();
 
-			hideActivityIndicator();
+			//hideActivityIndicator();
 		}
 
 		public async void createPersonalClasses()

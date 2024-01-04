@@ -62,19 +62,34 @@ namespace SportNow.Views
 			if (stackButtons != null)
 			{
 				absoluteLayout.Remove(stackButtons);
-				absoluteLayout.Remove(premiosrelativeLayout);
-				absoluteLayout.Remove(graduacoesrelativeLayout);
-				absoluteLayout.Remove(collectionViewParticipacoesCompeticoes);
-				absoluteLayout.Remove(palmaresrelativeLayout);
-				absoluteLayout.Remove(collectionViewParticipacoesEventos);
+                stackButtons = null;
+            }
+			if (collectionViewPremios != null)
+            {
+                absoluteLayout.Remove(collectionViewPremios);
+                collectionViewPremios = null;
+            }
+            if (graduacoesrelativeLayout != null)
+            {
+                absoluteLayout.Remove(graduacoesrelativeLayout);
+                graduacoesrelativeLayout = null;
+            }
+            if (collectionViewParticipacoesCompeticoes != null)
+            {
+                absoluteLayout.Remove(collectionViewParticipacoesCompeticoes);
+                collectionViewParticipacoesCompeticoes = null;
+            }
+            if (palmaresrelativeLayout != null)
+            {
+                absoluteLayout.Remove(palmaresrelativeLayout);
+                palmaresrelativeLayout = null;
+            }
+            if (collectionViewParticipacoesEventos != null)
+            {
+                absoluteLayout.Remove(collectionViewParticipacoesEventos);
+                collectionViewParticipacoesEventos = null;
+            }
 
-				stackButtons = null;
-				collectionViewPremios = null;
-				graduacoesrelativeLayout = null;
-				collectionViewParticipacoesCompeticoes = null;
-				palmaresrelativeLayout = null;
-				collectionViewParticipacoesEventos = null;
-			}
 			if (chart != null)
 			{
 				absoluteLayout.Remove(chart);
@@ -274,6 +289,12 @@ namespace SportNow.Views
 			};
 
 			CreateGraduacoesOptionButtons();
+
+            if (App.DO_activetab == "graduacoes")
+			{
+				OnGraduacoesButtonClicked(null, null);
+            }
+            
 
 			//absoluteLayout.Add(graduacoesrelativeLayout);
             //absoluteLayout.SetLayoutBounds(graduacoesrelativeLayout, new Rect(0, 80 * App.screenHeightAdapter, App.screenWidth, (App.screenHeight) - (80 * App.screenHeightAdapter)));
@@ -722,9 +743,11 @@ namespace SportNow.Views
             absoluteLayout.Remove(collectionViewParticipacoesEventos);
             absoluteLayout.Remove(premiosrelativeLayout);
 
-            absoluteLayout.Add(graduacoesrelativeLayout);
-			//absoluteLayout.SetLayoutBounds(graduacoesrelativeLayout, new Rect(0, 80 * App.screenHeightAdapter, App.screenWidth, App.screenHeight - (80 * App.screenHeightAdapter)));
-            absoluteLayout.SetLayoutBounds(graduacoesrelativeLayout, new Rect(0 * App.screenWidthAdapter, 80 * App.screenHeightAdapter, App.screenWidth - 20 * App.screenWidthAdapter, App.screenHeight - (200 * App.screenHeightAdapter)));
+            if (graduacoesrelativeLayout != null)
+			{
+                absoluteLayout.Add(graduacoesrelativeLayout);
+                absoluteLayout.SetLayoutBounds(graduacoesrelativeLayout, new Rect(0 * App.screenWidthAdapter, 80 * App.screenHeightAdapter, App.screenWidth - 20 * App.screenWidthAdapter, App.screenHeight - (200 * App.screenHeightAdapter)));
+            }
         }
 
 		async void OnPalmaresButtonClicked(object sender, EventArgs e)
