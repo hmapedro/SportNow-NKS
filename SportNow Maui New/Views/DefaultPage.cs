@@ -59,8 +59,11 @@ namespace SportNow.Views
         public DefaultPage()
         {
 			this.initBaseLayout();
+            App.screenWidth = (DeviceDisplay.MainDisplayInfo.Width / DeviceDisplay.MainDisplayInfo.Density) - 10 * App.screenWidthAdapter;
+            App.screenHeight = (DeviceDisplay.MainDisplayInfo.Height / DeviceDisplay.MainDisplayInfo.Density) - 10 * App.screenWidthAdapter;
 
-            DeviceOrientationService deviceOrientationService = new DeviceOrientationService();
+
+        DeviceOrientationService deviceOrientationService = new DeviceOrientationService();
 
             deviceOrientationService.LockPortraitInterface();
 

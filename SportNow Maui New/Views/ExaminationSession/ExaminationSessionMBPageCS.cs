@@ -46,7 +46,8 @@ namespace SportNow.Views
 		{
 			Label inscricaoOKLabel = new Label
 			{
-				Text = "A tua Inscrição na " + examination_session.name + " está Confirmada. \n Boa sorte e nunca te esqueças de te divertir!",
+                FontFamily = "futuracondensedmedium",
+                Text = "A tua Inscrição na " + examination_session.name + " está Confirmada. \n Boa sorte e nunca te esqueças de te divertir!",
 				VerticalTextAlignment = TextAlignment.Center,
 				HorizontalTextAlignment = TextAlignment.Center,
 				TextColor = App.normalTextColor,
@@ -78,12 +79,13 @@ namespace SportNow.Views
 
 			Label competitionParticipationNameLabel = new Label
 			{
-				Text = "Para confirmares a tua presença na\n " + examination_session.name + "\n efetua o pagamento no MB com os dados apresentados em baixo",
+                FontFamily = "futuracondensedmedium",
+                Text = "Para confirmares a tua presença na\n " + examination_session.name + "\n efetua o pagamento no MB com os dados apresentados em baixo:",
 				VerticalTextAlignment = TextAlignment.Center,
 				HorizontalTextAlignment = TextAlignment.Center,
 				TextColor = App.normalTextColor,
 				//LineBreakMode = LineBreakMode.NoWrap,
-				FontSize = 20
+				FontSize = App.titleFontSize
 			};
 
 			Image MBLogoImage = new Image
@@ -95,13 +97,14 @@ namespace SportNow.Views
 
 			Label referenciaMBLabel = new Label
 			{
-				Text = "Pagamento por\n Multibanco",
+                FontFamily = "futuracondensedmedium",
+                Text = "Pagamento por\n Multibanco",
 				VerticalTextAlignment = TextAlignment.Center,
 				HorizontalTextAlignment = TextAlignment.Center,
 				TextColor = App.normalTextColor,
                 //LineBreakMode = LineBreakMode.NoWrap,
                 HeightRequest = 142 * App.screenHeightAdapter,
-                FontSize = App.bigTitleFontSize
+                FontSize = App.titleFontSize
             };
 
 			Microsoft.Maui.Controls.Grid gridMBDataPayment = new Microsoft.Maui.Controls.Grid { Padding = 10 * App.screenWidthAdapter, ColumnSpacing = 5 * App.screenHeightAdapter, HorizontalOptions = LayoutOptions.FillAndExpand, VerticalOptions = LayoutOptions.FillAndExpand };
@@ -113,7 +116,8 @@ namespace SportNow.Views
 
 			Label entityLabel = new Label
 			{
-				Text = "Entidade:",
+                FontFamily = "futuracondensedmedium",
+                Text = "Entidade:",
 				VerticalTextAlignment = TextAlignment.Center,
 				HorizontalTextAlignment = TextAlignment.Start,
 				TextColor = App.normalTextColor,
@@ -121,7 +125,8 @@ namespace SportNow.Views
             };
 			Label referenceLabel = new Label
 			{
-				Text = "Referência:",
+                FontFamily = "futuracondensedmedium",
+                Text = "Referência:",
 				VerticalTextAlignment = TextAlignment.Center,
 				HorizontalTextAlignment = TextAlignment.Start,
 				TextColor = App.normalTextColor,
@@ -129,7 +134,8 @@ namespace SportNow.Views
             };
 			Label valueLabel = new Label
 			{
-				Text = "Valor:",
+                FontFamily = "futuracondensedmedium",
+                Text = "Valor:",
 				VerticalTextAlignment = TextAlignment.Center,
 				HorizontalTextAlignment = TextAlignment.Start,
 				TextColor = App.normalTextColor,
@@ -138,7 +144,8 @@ namespace SportNow.Views
 
 			Label entityValue = new Label
 			{
-				Text = payments[0].entity,
+                FontFamily = "futuracondensedmedium",
+                Text = payments[0].entity,
 				VerticalTextAlignment = TextAlignment.Center,
 				HorizontalTextAlignment = TextAlignment.End,
 				TextColor = App.normalTextColor,
@@ -146,7 +153,8 @@ namespace SportNow.Views
             };
 			Label referenceValue = new Label
 			{
-				Text = payments[0].reference,
+                FontFamily = "futuracondensedmedium",
+                Text = payments[0].reference,
 				VerticalTextAlignment = TextAlignment.Center,
 				HorizontalTextAlignment = TextAlignment.End,
 				TextColor = App.normalTextColor,
@@ -154,6 +162,7 @@ namespace SportNow.Views
             };
 			Label valueValue = new Label
 			{
+                FontFamily = "futuracondensedmedium",
                 Text = String.Format("{0:0.00}", payments[0].value) + "€",
 				VerticalTextAlignment = TextAlignment.Center,
 				HorizontalTextAlignment = TextAlignment.End,
@@ -161,7 +170,7 @@ namespace SportNow.Views
                 FontSize = App.titleFontSize
             };
 
-			Frame MBDataFrame= new Frame { BackgroundColor = App.backgroundColor, BorderColor = Colors.Yellow, CornerRadius = 10, IsClippedToBounds = true, Padding = 0 };
+			Frame MBDataFrame= new Frame { BackgroundColor = App.backgroundColor, BorderColor = App.topColor, CornerRadius = 10, IsClippedToBounds = true, Padding = 0 };
 			MBDataFrame.Content = gridMBDataPayment;
 
 			gridMBDataPayment.Add(entityLabel, 0, 0);

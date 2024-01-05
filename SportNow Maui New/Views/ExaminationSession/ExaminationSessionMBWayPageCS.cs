@@ -52,7 +52,8 @@ namespace SportNow.Views
 
 			Label eventParticipationNameLabel = new Label
 			{
-				Text = "Para confirmares a tua presença na " + examination_Session.name + " efetua o pagamento de " + payments[0].value+ "€.",
+                FontFamily = "futuracondensedmedium",
+                Text = "Para confirmares a tua presença na " + examination_Session.name + " efetua o pagamento de " + payments[0].value+ "€.",
 				VerticalTextAlignment = TextAlignment.Center,
 				HorizontalTextAlignment = TextAlignment.Center,
 				TextColor = App.normalTextColor,
@@ -76,13 +77,14 @@ namespace SportNow.Views
 
             Label phoneNumberLabel = new Label
 			{
-				Text = "Confirma o teu número de telefone",
+                FontFamily = "futuracondensedmedium",
+                Text = "Confirma o teu número de telefone",
 				VerticalTextAlignment = TextAlignment.Center,
 				HorizontalTextAlignment = TextAlignment.Center,
 				TextColor = App.normalTextColor,
 				//LineBreakMode = LineBreakMode.NoWrap,
 				HeightRequest = 50 * App.screenHeightAdapter,
-				FontSize = App.bigTitleFontSize
+				FontSize = App.titleFontSize
 			};
 
 			absoluteLayout.Add(phoneNumberLabel);
@@ -97,12 +99,12 @@ namespace SportNow.Views
 			absoluteLayout.Add(phoneValueEdit);
             absoluteLayout.SetLayoutBounds(phoneValueEdit, new Rect(0, 340 * App.screenHeightAdapter, App.screenWidth - 10 * App.screenWidthAdapter, 40 * App.screenHeightAdapter));
 
-            payButton = new RegisterButton("PAGAR", 100, 50);
-			payButton.button.Clicked += OnPayButtonClicked;
+            payButton = new RegisterButton("PAGAR", App.screenWidth - 20 * App.screenWidthAdapter, 50 * App.screenHeightAdapter);
+            payButton.button.Clicked += OnPayButtonClicked;
 
 
 			absoluteLayout.Add(payButton);
-			absoluteLayout.SetLayoutBounds(payButton, new Rect(0, App.screenHeight - 50 * App.screenHeightAdapter, App.screenWidth, 50 * App.screenHeightAdapter));
+			absoluteLayout.SetLayoutBounds(payButton, new Rect(0, App.screenHeight - 160 * App.screenHeightAdapter, App.screenWidth, 50 * App.screenHeightAdapter));
         }
 
 

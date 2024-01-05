@@ -73,7 +73,8 @@ namespace SportNow.Views
 
 			examinationSessionNameLabel = new Label
 			{
-				Text = examination_session.name,
+                FontFamily = "futuracondensedmedium",
+                Text = examination_session.name,
 				BackgroundColor = Colors.Transparent,
 				VerticalTextAlignment = TextAlignment.Center,
 				HorizontalTextAlignment = TextAlignment.Center,
@@ -88,7 +89,8 @@ namespace SportNow.Views
 			{
 				nameTitleLabel = new Label
 				{
-					Text = "NOME",
+                    FontFamily = "futuracondensedmedium",
+                    Text = "NOME",
 					BackgroundColor = Colors.Transparent,
 					VerticalTextAlignment = TextAlignment.Center,
 					HorizontalTextAlignment = TextAlignment.Start,
@@ -102,7 +104,8 @@ namespace SportNow.Views
 
 				categoryTitleLabel = new Label
 				{
-					Text = "EXAME PARA",
+                    FontFamily = "futuracondensedmedium",
+                    Text = "EXAME PARA",
 					BackgroundColor = Colors.Transparent,
 					VerticalTextAlignment = TextAlignment.Center,
 					HorizontalTextAlignment = TextAlignment.Start,
@@ -141,7 +144,7 @@ namespace SportNow.Views
 					Margin = new Thickness(3)
 				};
 
-				Label nameLabel = new Label { BackgroundColor = Colors.Transparent, VerticalTextAlignment = TextAlignment.Center, HorizontalTextAlignment = TextAlignment.Start, FontSize = App.formValueFontSize, TextColor = App.normalTextColor, LineBreakMode = LineBreakMode.WordWrap };
+				Label nameLabel = new Label { FontFamily = "futuracondensedmedium", BackgroundColor = Colors.Transparent, VerticalTextAlignment = TextAlignment.Center, HorizontalTextAlignment = TextAlignment.Start, FontSize = App.formValueFontSize, TextColor = App.normalTextColor, LineBreakMode = LineBreakMode.WordWrap };
 				nameLabel.SetBinding(Label.TextProperty, "membername");
 				nameLabel.SetBinding(Label.TextColorProperty, "estadoTextColor");
 
@@ -160,7 +163,7 @@ namespace SportNow.Views
 				itemabsoluteLayout.Add(nameFrame);
 				itemabsoluteLayout.SetLayoutBounds(nameFrame, new Rect(0, 0, App.screenWidth / 3 * 2 - 10 * App.screenWidthAdapter, 40 * App.screenHeightAdapter));
 
-				Label categoryLabel = new Label { BackgroundColor = Colors.Transparent, VerticalTextAlignment = TextAlignment.Center, HorizontalTextAlignment = TextAlignment.Center, FontSize = App.formValueFontSize, TextColor = App.normalTextColor, LineBreakMode = LineBreakMode.WordWrap };
+				Label categoryLabel = new Label { FontFamily = "futuracondensedmedium", BackgroundColor = Colors.Transparent, VerticalTextAlignment = TextAlignment.Center, HorizontalTextAlignment = TextAlignment.Center, FontSize = App.formValueFontSize, TextColor = App.normalTextColor, LineBreakMode = LineBreakMode.WordWrap };
 				categoryLabel.SetBinding(Label.TextProperty, "gradeLabel");
 
 				Border categoryFrame = new Border

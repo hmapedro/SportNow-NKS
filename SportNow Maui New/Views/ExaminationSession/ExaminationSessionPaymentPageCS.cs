@@ -43,7 +43,8 @@ namespace SportNow.Views
 
 			Label selectPaymentModeLabel = new Label
 			{
-				Text = "Escolhe o modo de pagamento pretendido:",
+                FontFamily = "futuracondensedmedium",
+                Text = "Escolhe o modo de pagamento pretendido:",
 				VerticalTextAlignment = TextAlignment.Center,
 				HorizontalTextAlignment = TextAlignment.Center,
 				TextColor = App.normalTextColor,

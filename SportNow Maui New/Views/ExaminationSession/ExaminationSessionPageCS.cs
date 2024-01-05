@@ -75,7 +75,7 @@ namespace SportNow.Views
             absoluteLayout.Add(eventoImage);
             absoluteLayout.SetLayoutBounds(eventoImage, new Rect(0, 0, App.screenWidth, App.screenHeight));
 
-            gridCompetiton = new Microsoft.Maui.Controls.Grid { Padding = 0, ColumnSpacing = 2 * App.screenHeightAdapter, HorizontalOptions = LayoutOptions.FillAndExpand };
+            gridCompetiton = new Microsoft.Maui.Controls.Grid { Padding = 0, ColumnSpacing = 10 * App.screenHeightAdapter, HorizontalOptions = LayoutOptions.FillAndExpand };
 			gridCompetiton.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
 			gridCompetiton.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
 			gridCompetiton.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
@@ -228,7 +228,7 @@ namespace SportNow.Views
 				if (registrationOpened == true)
 				{
 
-                    registerButton = new RegisterButton("INSCREVER", 100, 50);
+                    registerButton = new RegisterButton("INSCREVER", App.screenWidth - 20 * App.screenWidthAdapter, 50 * App.screenHeightAdapter);
                     registerButton.button.Clicked += OnRegisterButtonClicked;
 
 
@@ -236,7 +236,7 @@ namespace SportNow.Views
 					gridCompetiton.Add(registerButton, 0, 9);
 					Microsoft.Maui.Controls.Grid.SetColumnSpan(registerButton, 2);
 
-                    cancelButton = new CancelButton("NÃO POSSO IR :(", 100, 50);
+                    cancelButton = new CancelButton("NÃO POSSO IR :(", App.screenWidth - 20 * App.screenWidthAdapter, 50 * App.screenHeightAdapter);
                     cancelButton.button.Clicked += OnCancelButtonClicked;
 
                     gridCompetiton.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
@@ -252,7 +252,7 @@ namespace SportNow.Views
                 if (registrationOpened == true)
                 {
 
-                    registerButton = new RegisterButton("INSCREVER", 100, 50);
+                    registerButton = new RegisterButton("INSCREVER", App.screenWidth - 20 * App.screenWidthAdapter, 50 * App.screenHeightAdapter);
                     registerButton.button.Clicked += OnRegisterButtonClicked;
 
 
@@ -277,7 +277,8 @@ namespace SportNow.Views
 
 			Label limitDateLabel = new Label
 			{
-				Text = limitDateLabelText,
+                FontFamily = "futuracondensedmedium",
+                Text = limitDateLabelText,
 				TextColor = App.topColor,
 				WidthRequest = 300 * App.screenWidthAdapter,
 				HeightRequest = 50 * App.screenHeightAdapter,
@@ -285,8 +286,6 @@ namespace SportNow.Views
 				HorizontalTextAlignment = TextAlignment.Center
 			};
 
-
-			Debug.Print("hasCall = " + hasCall);
 			if (hasCall == false)
             {
 				Label convocatoriaLabel = new Label
@@ -409,7 +408,7 @@ namespace SportNow.Views
 
 
 			absoluteLayout.Add(gridCompetiton);
-            absoluteLayout.SetLayoutBounds(gridCompetiton, new Rect(0, 0, App.screenWidth - 10 * App.screenWidthAdapter, App.screenHeight));
+            absoluteLayout.SetLayoutBounds(gridCompetiton, new Rect(0, 0, App.screenWidth - 10 * App.screenWidthAdapter, App.screenHeight - 115 * App.screenHeightAdapter));
 
 		}
 

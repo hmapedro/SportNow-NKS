@@ -54,7 +54,7 @@
 		<MauiIcon Include="Resources\AppIcon\appicon.svg" Color="#ffffff" />
 
 		<!-- Splash Screen -->
-		<MauiSplashScreen Include="Resources\Splash\splash_logo.svg" Color="#ffffff" BaseSize="200,200" />
+		<MauiSplashScreen Include="Resources\Splash\splash_logo1.svg" Color="#ffffff" BaseSize="80,80" />
 		
 		<!-- Images -->
 		<MauiImage Include="Resources\Images\*" />
@@ -89,7 +89,7 @@
 	  <Folder Include="Platforms\Android\Resources\drawable\" />
 	</ItemGroup>
 	<ItemGroup>
-	  <BundleResource Include="Resources\Splash\splash_logo.svg" />
+	  <BundleResource Include="Resources\Splash\splash_logo_.svg" />
 	  <BundleResource Include="Resources\Images\add.png" />
 	  <BundleResource Include="Resources\Images\iconquotasativas.png" />
 	  <BundleResource Include="Resources\Images\mygrades.png" />
@@ -200,6 +200,7 @@
 	  <BundleResource Include="Resources\.DS_Store" />
 	  <BundleResource Include="Resources\Images\company_logo_square.png" />
 	  <BundleResource Include="Resources\Images\loading.gif" />
+	  <BundleResource Include="Resources\Splash\splash_logo1.svg" />
 	</ItemGroup>
 	<ItemGroup>
 	  <InterfaceDefinition Include="Resources\Images\launchscreen.storyboard" />
@@ -212,5 +213,6 @@
 	  <None Remove="Resources\Images\company_logo_square.png" />
 	  <None Remove="Resources\Images\Spinner-1s-200px %281%29.gif" />
 	  <None Remove="Platforms\Android\Resources\drawable\" />
+	  <None Remove="Resources\Splash\appicon.svg" />
 	</ItemGroup>
 </Project>
