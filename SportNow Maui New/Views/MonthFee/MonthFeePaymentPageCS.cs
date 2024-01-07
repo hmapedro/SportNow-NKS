@@ -16,8 +16,8 @@ namespace SportNow.Views
 			}
 			
 		}
-		
-		int a;
+
+		int i;
 		protected override void OnDisappearing()
 		{
 		}
