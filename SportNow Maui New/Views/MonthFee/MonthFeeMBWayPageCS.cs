@@ -28,7 +28,7 @@ namespace SportNow.Views
 
 		public void initLayout()
 		{
-            Title = "Mensalidade - Pagamento MBWay";
+            Title = "MENSALIDADE - PAGAMENTO MBWay";
         }
 
 
