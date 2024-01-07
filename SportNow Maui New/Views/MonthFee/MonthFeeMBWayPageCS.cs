@@ -37,7 +37,13 @@ namespace SportNow.Views
 
 			payments = await GetMonthFee_Payment(monthFee);
 
-			Debug.Print("payments[0].name = " + payments[0].name);
+            PaymentManager paymentManager = new PaymentManager();
+            await paymentManager.Update_Payment_Mode(payments[0].id, "mbway");
+
+            payments = await GetMonthFee_Payment(monthFee);
+
+
+            Debug.Print("payments[0].name = " + payments[0].name);
 
 			createLayoutPhoneNumber();
 			/*

@@ -34,7 +34,13 @@ namespace SportNow.Views
 
 			payments = await GetMonthFee_Payment(monthFee);
 
-			if ((payments == null) | (payments.Count == 0))
+            PaymentManager paymentManager = new PaymentManager();
+			await paymentManager.Update_Payment_Mode(payments[0].id, "mb");
+
+            payments = await GetMonthFee_Payment(monthFee);
+
+
+            if ((payments == null) | (payments.Count == 0))
 			{
 				//createRegistrationConfirmed();
 			}

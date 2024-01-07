@@ -144,6 +144,37 @@ namespace SportNow.Services.Data.JSON
             }
         }
 
+        public async Task<string> Update_Payment_Mode(string paymentid, string modo_pagamento)
+        {
+            Debug.WriteLine("Update_Payment_Status begin " + Constants.RestUrl_Update_Payment_Mode + "?paymentid=" + paymentid + "&modo_pagamento=" + modo_pagamento);
+            Uri uri = new Uri(string.Format(Constants.RestUrl_Update_Payment_Mode + "?paymentid=" + paymentid + "&modo_pagamento=" + modo_pagamento, string.Empty));
+            try
+            {
+                HttpResponseMessage response = await client.GetAsync(uri);
+                var result = "0";
+                if (response.IsSuccessStatusCode)
+                {
+                    //return true;
+                    string content = await response.Content.ReadAsStringAsync();
+                    Debug.WriteLine("content=" + content);
+                    result = "1";
+                }
+                else
+                {
+                    Debug.WriteLine("error updating payment status");
+                    result = "-1";
+                }
+
+                return result;
+            }
+            catch
+            {
+                Debug.WriteLine("http request error");
+                return "-2";
+            }
+        }
+
+
         public async Task<string> Update_Payment(string paymentid, string memberid, string dojoid, string name)
         {
             Debug.WriteLine("Update_Payment_Name begin " + Constants.RestUrl_Update_Payment + "?paymentid=" + paymentid + "&memberid=" + memberid + "&dojoid=" + dojoid + "&name=" + name);

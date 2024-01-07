@@ -1,5 +1,5 @@
 ﻿using SportNow.Model;
-
+using SportNow.Services.Data.JSON;
 
 namespace SportNow.Views
 {
@@ -103,7 +103,6 @@ namespace SportNow.Views
 
 		async void OnMBButtonClicked(object sender, EventArgs e)
 		{
-
 			await Navigation.PushAsync(new monthFeeMBPageCS(monthFee));
 		}
 

@@ -155,6 +155,8 @@ namespace SportNow
 
         public static string RestUrl_Update_Payment_Status = DeviceInfo.Platform == DevicePlatform.Android ? "https://" + server + "/services/service_update_payment_status.php" : "https://" + server + "/services/service_update_payment_status.php";
 
+        public static string RestUrl_Update_Payment_Mode = DeviceInfo.Platform == DevicePlatform.Android ? "https://" + server + "/services/service_update_payment_mode.php" : "https://" + server + "/services/service_update_payment_mode.php";
+
         public static string RestUrl_Update_Payment = DeviceInfo.Platform == DevicePlatform.Android ? "https://" + server + "/services/service_update_payment.php" : "https://" + server + "/services/service_update_payment.php";
 
         public static string RestUrl_Get_Payment = Device.RuntimePlatform == Device.Android ? "https://" + server + "/services/service_get_payment_v2.php" : "https://" + server + "/services/service_get_payment_v2.php";
