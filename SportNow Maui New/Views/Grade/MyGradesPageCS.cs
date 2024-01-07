@@ -117,7 +117,7 @@ namespace SportNow.Views
                     Margin = new Thickness(0)
                 };
 
-                Label nextExaminationLabel = new Label { FontFamily = "futuracondensedmedium", VerticalTextAlignment = TextAlignment.Start, HorizontalTextAlignment = TextAlignment.Center, FontSize = App.bigTitleFontSize, TextColor = Color.FromRgb(246, 220, 178), LineBreakMode = LineBreakMode.NoWrap };
+                Label nextExaminationLabel = new Label { FontFamily = "futuracondensedmedium", VerticalTextAlignment = TextAlignment.Start, HorizontalTextAlignment = TextAlignment.Center, FontSize = App.bigTitleFontSize, TextColor = App.topColor, LineBreakMode = LineBreakMode.NoWrap };
                 nextExaminationLabel.Text = "PRÓXIMO EXAME";
 
                 graduacaoTimingabsoluteLayout.Add(nextExaminationLabel);
