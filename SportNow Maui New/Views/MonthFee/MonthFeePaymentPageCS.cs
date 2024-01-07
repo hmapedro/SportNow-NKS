@@ -17,7 +17,7 @@ namespace SportNow.Views
 			
 		}
 
-		
+		int i;
 		protected override void OnDisappearing()
 		{
 		}
@@ -27,7 +27,7 @@ namespace SportNow.Views
 
 		private Microsoft.Maui.Controls.Grid gridPaymentOptions;
 
-        //private List<Payment> payments;
+        
 
         public void initLayout()
 		{
