@@ -2,8 +2,8 @@
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android" android:opacity="opaque">
 	<item android:drawable="@color/maui_splash_color" />
 	<item
-		android:width="308dp"
-		android:height="308dp"
+		android:width="100dp"
+		android:height="100dp"
 		android:gravity="center">
 		<bitmap
 			android:gravity="fill"

@@ -54,7 +54,7 @@
 		<MauiIcon Include="Resources\AppIcon\appicon.svg" Color="#ffffff" />
 
 		<!-- Splash Screen -->
-		<MauiSplashScreen Include="Resources\Splash\splash_logo1.svg" Color="#ffffff" BaseSize="80,80" />
+		<MauiSplashScreen Include="Resources\Splash\splash_logo.svg" Color="#ffffff" BaseSize="100,100" />
 		
 		<!-- Images -->
 		<MauiImage Include="Resources\Images\*" />
@@ -200,7 +200,6 @@
 	  <BundleResource Include="Resources\.DS_Store" />
 	  <BundleResource Include="Resources\Images\company_logo_square.png" />
 	  <BundleResource Include="Resources\Images\loading.gif" />
-	  <BundleResource Include="Resources\Splash\splash_logo1.svg" />
 	</ItemGroup>
 	<ItemGroup>
 	  <InterfaceDefinition Include="Resources\Images\launchscreen.storyboard" />

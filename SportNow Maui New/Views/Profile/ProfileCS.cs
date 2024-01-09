@@ -98,7 +98,7 @@ namespace SportNow.Views.Profile
 
 			var toolbarItem = new ToolbarItem
 			{
-				Text = "Logout"
+				IconImageSource = "exit.png",
 			};
 			toolbarItem.Clicked += OnLogoutButtonClicked;
 			ToolbarItems.Add(toolbarItem);
