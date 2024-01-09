@@ -200,7 +200,23 @@ namespace SportNow.Views
 
 			gridMBPayment.Add(MBDataFrame, 0, 4);
 			Microsoft.Maui.Controls.Grid.SetColumnSpan(MBDataFrame, 2);
-		}
+
+
+            Label Label = new Label
+            {
+                FontFamily = "futuracondensedmedium",
+                Text = "O valor total desta transação incluiu uma taxa de 1.7% e 0.22€ ",
+                VerticalTextAlignment = TextAlignment.Center,
+                HorizontalTextAlignment = TextAlignment.Start,
+                TextColor = App.normalTextColor,
+                FontSize = App.titleFontSize
+            };
+
+            absoluteLayout.Add(Label);
+            absoluteLayout.SetLayoutBounds(Label, new Rect(22, 0 * App.screenHeightAdapter, App.screenWidth, App.screenHeight - 10 * App.screenHeightAdapter));
+
+        }
+    
 
 
 		public EventMBPageCS(Event_Participation event_participation)

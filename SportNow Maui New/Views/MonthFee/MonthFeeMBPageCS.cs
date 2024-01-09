@@ -157,7 +157,7 @@ namespace SportNow.Views
 				FontSize = App.titleFontSize
             };
 
-			Border MBDataFrame= new Border {
+            Border MBDataFrame= new Border {
 				BackgroundColor = App.backgroundColor,
                 StrokeShape = new RoundRectangle
                 {
@@ -174,7 +174,7 @@ namespace SportNow.Views
 			gridMBDataPayment.Add(valueLabel, 0, 2);
 			gridMBDataPayment.Add(valueValue, 1, 2);
 
-			gridMBPayment.Add(competitionParticipationNameLabel, 0, 0);
+            gridMBPayment.Add(competitionParticipationNameLabel, 0, 0);
 			Microsoft.Maui.Controls.Grid.SetColumnSpan(competitionParticipationNameLabel, 2);
 
 			gridMBPayment.Add(MBLogoImage, 0, 2);
@@ -183,12 +183,26 @@ namespace SportNow.Views
 			gridMBPayment.Add(MBDataFrame, 0, 4);
 			Microsoft.Maui.Controls.Grid.SetColumnSpan(MBDataFrame, 2);
 
-
-			absoluteLayout.Add(gridMBPayment);
+            absoluteLayout.Add(gridMBPayment);
             absoluteLayout.SetLayoutBounds(gridMBPayment, new Rect(0, 10 * App.screenHeightAdapter, App.screenWidth, App.screenHeight - 10 * App.screenHeightAdapter));
-		}
 
-		public monthFeeMBPageCS(MonthFee monthFee)
+            Label Label = new Label
+            {
+                FontFamily = "futuracondensedmedium",
+                Text = "O valor total desta transação incluiu uma taxa de 1.7% e 0.22€ ",
+                VerticalTextAlignment = TextAlignment.Center,
+                HorizontalTextAlignment = TextAlignment.Start,
+                TextColor = App.normalTextColor,
+                FontSize = App.titleFontSize
+            };
+
+            absoluteLayout.Add(Label);
+            absoluteLayout.SetLayoutBounds(Label, new Rect(22 , 0 * App.screenHeightAdapter, App.screenWidth, App.screenHeight - 10 * App.screenHeightAdapter));
+
+        }
+
+
+        public monthFeeMBPageCS(MonthFee monthFee)
 		{
 
 			this.monthFee = monthFee;

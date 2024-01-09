@@ -79,7 +79,17 @@ namespace SportNow.Views
 				FontSize = App.bigTitleFontSize
 			};
 
-			absoluteLayout.Add(phoneNumberLabel);
+            Label Label = new Label
+            {
+                FontFamily = "futuracondensedmedium",
+                Text = "O valor total desta transação incluiu uma taxa de 0.7% e 0.07€ ",
+                VerticalTextAlignment = TextAlignment.Center,
+                HorizontalTextAlignment = TextAlignment.Start,
+                TextColor = App.normalTextColor,
+                FontSize = App.titleFontSize
+            };
+
+            absoluteLayout.Add(phoneNumberLabel);
             absoluteLayout.SetLayoutBounds(phoneNumberLabel, new Rect(0, 290 * App.screenHeightAdapter, App.screenWidth - 10 * App.screenWidthAdapter, 50 * App.screenHeightAdapter));
 
 			phoneValueEdit = new FormValueEdit(this.member.phone);
@@ -88,12 +98,15 @@ namespace SportNow.Views
 
 
 			absoluteLayout.Add(phoneValueEdit);
-            absoluteLayout.SetLayoutBounds(phoneValueEdit, new Rect(0, 340 * App.screenHeightAdapter, App.screenWidth - 10 * App.screenWidthAdapter, 40 * App.screenHeightAdapter));
+            absoluteLayout.SetLayoutBounds(phoneValueEdit, new Rect(5, 340 * App.screenHeightAdapter, App.screenWidth - 10 * App.screenWidthAdapter, 40 * App.screenHeightAdapter));
 
 			payButton = new RegisterButton("PAGAR", App.screenWidth - 20 * App.screenWidthAdapter, 50 * App.screenHeightAdapter);
             payButton.button.Clicked += OnPayButtonClicked;
             absoluteLayout.Add(payButton);
             absoluteLayout.SetLayoutBounds(payButton, new Rect(0, App.screenHeight - 160 * App.screenHeightAdapter, App.screenWidth, 50 * App.screenHeightAdapter));
+
+            absoluteLayout.Add(Label);
+            absoluteLayout.SetLayoutBounds(Label, new Rect(22, -10 * App.screenHeightAdapter, App.screenWidth, App.screenHeight - 10 * App.screenHeightAdapter));
 
         }
 

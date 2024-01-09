@@ -104,10 +104,25 @@ namespace SportNow.Views
 
 			absoluteLayout.Add(payButton);
             absoluteLayout.SetLayoutBounds(payButton, new Rect(0, App.screenHeight - 50 * App.screenHeightAdapter, App.screenWidth, 50 * App.screenHeightAdapter));
-		}
+
+            Label Label = new Label
+            {
+                FontFamily = "futuracondensedmedium",
+                Text = "O valor total desta transação incluiu uma taxa de 0.7% e 0.07€ ",
+                VerticalTextAlignment = TextAlignment.Center,
+                HorizontalTextAlignment = TextAlignment.Start,
+                TextColor = App.normalTextColor,
+                FontSize = App.titleFontSize
+            };
 
 
-		public CompetitionMBWayPageCS(Competition competition_v)
+            absoluteLayout.Add(Label);
+            absoluteLayout.SetLayoutBounds(Label, new Rect(22, -10 * App.screenHeightAdapter, App.screenWidth, App.screenHeight - 10 * App.screenHeightAdapter));
+
+        }
+
+
+        public CompetitionMBWayPageCS(Competition competition_v)
 		{
 			this.competition_v = competition_v;
 			//App.event_participation = event_participation;

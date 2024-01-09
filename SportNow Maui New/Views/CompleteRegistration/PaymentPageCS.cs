@@ -162,10 +162,25 @@ namespace SportNow.Views.CompleteRegistration
 			tapGestureRecognizerMB.Tapped += OnMBButtonClicked;
 			MBLogoImage.GestureRecognizers.Add(tapGestureRecognizerMB);
 
+
+            Label TermsPaymentMBLabel = new Label
+            {
+                FontFamily = "futuracondensedmedium",
+                Text = "Ao valor da mensalidade é acrescido 1.7% e 0.22€.", // \n Total a pagar:" + CalculateMBPayment(monthFeeValue) + "€",
+                VerticalTextAlignment = TextAlignment.Center,
+                HorizontalTextAlignment = TextAlignment.Center,
+                TextColor = App.normalTextColor,
+                FontSize = App.formLabelFontSize
+            };
+
             absoluteLayout.Add(MBLogoImage);
             absoluteLayout.SetLayoutBounds(MBLogoImage, new Rect(40 * App.screenWidthAdapter, y_index * App.screenHeightAdapter, 102 * App.screenHeightAdapter, 120 * App.screenHeightAdapter));
+            absoluteLayout.Add(TermsPaymentMBLabel);
+            absoluteLayout.SetLayoutBounds(TermsPaymentMBLabel, new Rect(0, 210 * App.screenHeightAdapter, App.screenWidth - 20 * App.screenHeightAdapter, 115 * App.screenHeightAdapter));
 
-			Image MBWayLogoImage = new Image
+
+
+            Image MBWayLogoImage = new Image
 			{
 				Source = "logombway.png",
 				MinimumHeightRequest = 120 * App.screenHeightAdapter,
@@ -176,14 +191,26 @@ namespace SportNow.Views.CompleteRegistration
 			tapGestureRecognizerMBWay.Tapped += OnMBWayButtonClicked;
 			MBWayLogoImage.GestureRecognizers.Add(tapGestureRecognizerMBWay);
 
+            Label TermsPaymentMBWayLabel = new Label
+            {
+                FontFamily = "futuracondensedmedium",
+                Text = "Ao valor da mensalidade é acrescido 0.7% e 0.07€.",
+                VerticalTextAlignment = TextAlignment.Center,
+                HorizontalTextAlignment = TextAlignment.Center,
+                TextColor = App.normalTextColor,
+                FontSize = App.formLabelFontSize
+            };
+
             absoluteLayout.Add(MBWayLogoImage);
             absoluteLayout.SetLayoutBounds(MBWayLogoImage, new Rect(App.screenWidth - 142 * App.screenWidthAdapter, y_index * App.screenHeightAdapter, 102 * App.screenHeightAdapter, 120 * App.screenHeightAdapter));
+            absoluteLayout.Add(TermsPaymentMBWayLabel);
+            absoluteLayout.SetLayoutBounds(TermsPaymentMBWayLabel, new Rect(0, 380 * App.screenHeightAdapter, App.screenWidth - 20 * App.screenHeightAdapter, 115 * App.screenHeightAdapter));
 
-		}
+        }
 
 
 
-		public double getValorQuota(List<Fee> allFees, string tipoQuota)
+        public double getValorQuota(List<Fee> allFees, string tipoQuota)
 		{
 			foreach (Fee fee in allFees)
 			{

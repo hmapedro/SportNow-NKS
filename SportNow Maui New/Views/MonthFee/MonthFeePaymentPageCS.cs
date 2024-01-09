@@ -76,7 +76,7 @@ namespace SportNow.Views
             Label TermsPaymentMBLabel = new Label
             {
                 FontFamily = "futuracondensedmedium",
-                Text = "Ao valor da mensalidade é acrescido 1.7% e 0.22€. \n Total a pagar:" + CalculateMBPayment(monthFeeValue) + "€",
+                Text = "Ao valor da mensalidade é acrescido 1.7% e 0.22€.", // \n Total a pagar:" + CalculateMBPayment(monthFeeValue) + "€",
                 VerticalTextAlignment = TextAlignment.Center,
                 HorizontalTextAlignment = TextAlignment.Center,
                 TextColor = App.normalTextColor,
@@ -104,7 +104,7 @@ namespace SportNow.Views
             Label TermsPaymentMBWayLabel = new Label
             {
                 FontFamily = "futuracondensedmedium",
-                Text = "Ao valor da mensalidade é acrescido 0.7% e 0.07€  \n Total a pagar:"+ CalculateMBWayPayment(monthFeeValue) + "€",
+                Text = "Ao valor da mensalidade é acrescido 0.7% e 0.07€.",
                 VerticalTextAlignment = TextAlignment.Center,
                 HorizontalTextAlignment = TextAlignment.Center,
                 TextColor = App.normalTextColor,
@@ -131,7 +131,7 @@ namespace SportNow.Views
 		}
 
 
-        public double CalculateMBPayment(double baseValue)
+       /* public double CalculateMBPayment(double baseValue)
         {
             double percentIncrease = 1.7 / 100;
             double fixedIncrease = 0.22;
@@ -149,7 +149,7 @@ namespace SportNow.Views
             double totalPayment = baseValue * (1 + percentIncrease) + fixedIncrease;
 
             return totalPayment;
-        }
+        }*/
 
 
         async void OnMBButtonClicked(object sender, EventArgs e)

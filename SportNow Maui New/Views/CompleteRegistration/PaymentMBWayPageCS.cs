@@ -118,10 +118,24 @@ namespace SportNow.Views.CompleteRegistration
             absoluteLayout.Add(payButton);
             absoluteLayout.SetLayoutBounds(payButton, new Rect(10 * App.screenWidthAdapter, (App.screenHeight) - (160 * App.screenHeightAdapter), (App.screenWidth - 20 * App.screenHeightAdapter), 50 * App.screenHeightAdapter));
 
-		}
+            Label Label = new Label
+            {
+                FontFamily = "futuracondensedmedium",
+                Text = "O valor total desta transação incluiu uma taxa de 0.7% e 0.07€ ",
+                VerticalTextAlignment = TextAlignment.Center,
+                HorizontalTextAlignment = TextAlignment.Start,
+                TextColor = App.normalTextColor,
+                FontSize = App.titleFontSize
+            };
+
+            absoluteLayout.Add(Label);
+            absoluteLayout.SetLayoutBounds(Label, new Rect(22, -10 * App.screenHeightAdapter, App.screenWidth, App.screenHeight - 10 * App.screenHeightAdapter));
 
 
-		public PaymentMBWayPageCS(string paymentID)
+        }
+
+
+        public PaymentMBWayPageCS(string paymentID)
 		{
 			//App.event_participation = event_participation;
 			this.paymentID = paymentID;
