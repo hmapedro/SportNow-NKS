@@ -15,6 +15,7 @@ namespace SportNow.Views
 
 		protected override void OnDisappearing()
 		{
+			int i;
 		}
 
 
@@ -129,7 +130,7 @@ namespace SportNow.Views
             absoluteLayout.SetLayoutBounds(Label, new Rect(22, -10 * App.screenHeightAdapter, App.screenWidth, App.screenHeight - 10 * App.screenHeightAdapter));
 
         }
-
+	
 
         public MonthFeeMBWayPageCS(MonthFee monthFee)
 		{

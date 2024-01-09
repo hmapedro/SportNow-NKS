@@ -13,6 +13,7 @@ namespace SportNow.Views
 			{
 				App.isToPop = false;
 				Navigation.PopAsync();
+				int i;
 			}
 			
 		}

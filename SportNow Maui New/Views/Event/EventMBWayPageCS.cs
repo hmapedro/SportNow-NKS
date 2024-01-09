@@ -89,7 +89,7 @@ namespace SportNow.Views
 			phoneValueEdit = new FormValueEdit(App.member.phone);
 			phoneValueEdit.entry.HorizontalTextAlignment = TextAlignment.Center;
 			phoneValueEdit.entry.FontSize = App.titleFontSize;
-
+			int i;
 
 			absoluteLayout.Add(phoneValueEdit);
             absoluteLayout.SetLayoutBounds(phoneValueEdit, new Rect(0, 340 * App.screenHeightAdapter, App.screenWidth - 10 * App.screenWidthAdapter, 40 * App.screenHeightAdapter));

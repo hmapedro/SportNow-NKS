@@ -17,7 +17,7 @@ namespace SportNow.Views.CompleteRegistration
 
 		protected async override void OnDisappearing()
 		{
-
+			int i;
 		}
 
 

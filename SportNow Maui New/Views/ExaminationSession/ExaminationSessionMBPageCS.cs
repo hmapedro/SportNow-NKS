@@ -11,7 +11,7 @@ namespace SportNow.Views
 		protected override void OnDisappearing()
 		{
 			//App.competition_participation = competition_participation;
-
+			int i;
 			//registerButton.IsEnabled = true;
 			//estadoValue.entry.Text = App.competition_participation.estado;
 		}

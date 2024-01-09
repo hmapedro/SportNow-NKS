@@ -20,6 +20,7 @@ namespace SportNow.Views
 		int i;
 		protected override void OnDisappearing()
 		{
+			int i;
 		}
         double monthFeeValue;
 

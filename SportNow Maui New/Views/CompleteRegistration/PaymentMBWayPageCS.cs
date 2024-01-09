@@ -4,8 +4,10 @@ using SportNow.Services.Data.JSON;
 using System.Diagnostics;
 using SportNow.CustomViews;
 
+
 namespace SportNow.Views.CompleteRegistration
 {
+
 	public class PaymentMBWayPageCS : DefaultPage
 	{
 
@@ -23,7 +25,7 @@ namespace SportNow.Views.CompleteRegistration
 
 		bool paymentDetected;
 
-
+		int i;
         public void initLayout()
 		{
 			Title = "INSCRIÇÃO";

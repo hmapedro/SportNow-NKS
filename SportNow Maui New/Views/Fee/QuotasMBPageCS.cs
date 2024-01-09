@@ -19,6 +19,7 @@ namespace SportNow.Views
 		public void initLayout()
 		{
 			Title = "Quota - Pagamento MB";
+			int i;
 		}
 
 

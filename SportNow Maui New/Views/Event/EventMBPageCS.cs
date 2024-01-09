@@ -46,18 +46,19 @@ namespace SportNow.Views
 		{
 			Label inscricaoOKLabel = new Label
 			{
-                Text = "A tua Inscrição no Evento \n " + event_participation.evento_name + " \n está Confirmada. \n\n BOA SORTE\n e nunca te esqueças de te divertir!",
+				Text = "A tua Inscrição no Evento \n " + event_participation.evento_name + " \n está Confirmada. \n\n BOA SORTE\n e nunca te esqueças de te divertir!",
 				VerticalTextAlignment = TextAlignment.Center,
 				HorizontalTextAlignment = TextAlignment.Center,
 				TextColor = App.normalTextColor,
 				//LineBreakMode = LineBreakMode.NoWrap,
 				HeightRequest = 300,
 				FontSize = App.titleFontSize
+				
 			};
 
 			absoluteLayout.Add(inscricaoOKLabel);
 			absoluteLayout.SetLayoutBounds(inscricaoOKLabel, new Rect(0, 10 * App.screenHeightAdapter, App.screenWidth, 300 * App.screenHeightAdapter));
-
+			int i;
             EventManager eventManager = new EventManager();
 
 			await eventManager.Update_Event_Participation_Status(event_participation.id, "inscrito");
@@ -197,7 +198,7 @@ namespace SportNow.Views
 
 			gridMBPayment.RowDefinitions.Add(new RowDefinition { Height = 20 * App.screenHeightAdapter });
 			gridMBPayment.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
-
+			
 			gridMBPayment.Add(MBDataFrame, 0, 4);
 			Microsoft.Maui.Controls.Grid.SetColumnSpan(MBDataFrame, 2);
 
