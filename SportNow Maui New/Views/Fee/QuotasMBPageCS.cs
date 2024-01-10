@@ -52,7 +52,7 @@ namespace SportNow.Views
                 VerticalTextAlignment = TextAlignment.Center,
 				HorizontalTextAlignment = TextAlignment.Center,
 				TextColor = App.normalTextColor,
-				LineBreakMode = LineBreakMode.NoWrap,
+				//LineBreakMode = LineBreakMode.NoWrap,
 				FontSize = App.bigTitleFontSize
 			};
 

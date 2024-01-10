@@ -112,7 +112,7 @@ namespace SportNow.Views.Personal
                 Title = "",
                 TitleColor = Colors.White,
                 BackgroundColor = Colors.Transparent,
-                TextColor = Color.FromRgb(246, 220, 178),
+                TextColor = App.topColor,
                 HorizontalTextAlignment = TextAlignment.Center,
                 FontSize = App.titleFontSize
 
