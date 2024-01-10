@@ -25,7 +25,7 @@ namespace SportNow.Views.CompleteRegistration
 
 		bool paymentDetected;
 
-		int i;
+	
         public void initLayout()
 		{
 			Title = "INSCRIÇÃO";

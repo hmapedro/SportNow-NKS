@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 using System.Diagnostics;
 using SportNow.CustomViews;
 
-int i;
 namespace SportNow.Views
 {
 	public class CompetitionMBWayPageCS : DefaultPage

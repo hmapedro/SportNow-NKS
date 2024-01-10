@@ -8,8 +8,6 @@ namespace SportNow.Views.CompleteRegistration
 	public class PaymentMBPageCS : DefaultPage
 	{
 
-		int i;
-
 		private Grid gridMBPayment;
 
 		string paymentID;

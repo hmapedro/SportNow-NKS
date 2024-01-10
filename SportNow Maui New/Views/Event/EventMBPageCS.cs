@@ -58,7 +58,7 @@ namespace SportNow.Views
 
 			absoluteLayout.Add(inscricaoOKLabel);
 			absoluteLayout.SetLayoutBounds(inscricaoOKLabel, new Rect(0, 10 * App.screenHeightAdapter, App.screenWidth, 300 * App.screenHeightAdapter));
-			int i;
+		
             EventManager eventManager = new EventManager();
 
 			await eventManager.Update_Event_Participation_Status(event_participation.id, "inscrito");

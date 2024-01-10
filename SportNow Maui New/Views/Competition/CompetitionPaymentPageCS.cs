@@ -2,7 +2,6 @@
 using SportNow.Services.Data.JSON;
 using System.Diagnostics;
 
-int i;
 namespace SportNow.Views
 {
 	public class CompetitionPaymentPageCS : DefaultPage

@@ -200,7 +200,7 @@ namespace SportNow.Views
             absoluteLayout.SetLayoutBounds(Label, new Rect(22 , 0 * App.screenHeightAdapter, App.screenWidth, App.screenHeight - 10 * App.screenHeightAdapter));
 
         }
-		int i;
+		
 
         public monthFeeMBPageCS(MonthFee monthFee)
 		{

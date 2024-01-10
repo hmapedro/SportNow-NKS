@@ -15,7 +15,6 @@ namespace SportNow.Views
 
 		protected override void OnDisappearing()
 		{
-			int i;
 		}
 
 		private Examination_Session examination_Session;
