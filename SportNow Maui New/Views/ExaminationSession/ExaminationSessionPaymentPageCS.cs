@@ -99,7 +99,7 @@ namespace SportNow.Views
 			var tapGestureRecognizerMBWay = new TapGestureRecognizer();
 			tapGestureRecognizerMBWay.Tapped += OnMBWayButtonClicked;
 			MBWayLogoImage.GestureRecognizers.Add(tapGestureRecognizerMBWay);
-
+			
             Label TermsPaymentMBWayLabel = new Label
             {
                 FontFamily = "futuracondensedmedium",

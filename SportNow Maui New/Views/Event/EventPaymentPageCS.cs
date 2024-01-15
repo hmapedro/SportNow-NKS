@@ -178,6 +178,7 @@ namespace SportNow.Views
                 TextColor = App.normalTextColor,
                 FontSize = App.formLabelFontSize
             };
+			
 
             absoluteLayout.Add(MBWayLogoImage);
 			absoluteLayout.SetLayoutBounds(MBWayLogoImage, new Rect(0, 300 * App.screenHeightAdapter, App.screenWidth - 20 * App.screenHeightAdapter, 115 * App.screenHeightAdapter));

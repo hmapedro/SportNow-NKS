@@ -186,6 +186,7 @@ namespace SportNow.Views.CompleteRegistration
 				HeightRequest = 120 * App.screenHeightAdapter
 			};
 
+
 			var tapGestureRecognizerMBWay = new TapGestureRecognizer();
 			tapGestureRecognizerMBWay.Tapped += OnMBWayButtonClicked;
 			MBWayLogoImage.GestureRecognizers.Add(tapGestureRecognizerMBWay);
