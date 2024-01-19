@@ -31,10 +31,16 @@ namespace SportNow.Views
 
 		public async void initSpecificLayout()
 		{
+            showActivityIndicator();
+            payments = await GetEventParticipationPayment(event_participation);
 
-			payments = await GetEventParticipationPayment(event_participation);
+            PaymentManager paymentManager = new PaymentManager();
+            await paymentManager.Update_Payment_Mode(payments[0].id, "mbway");
 
-			createLayoutPhoneNumber();
+            payments = await GetEventParticipationPayment(event_participation);
+			hideActivityIndicator();
+
+            createLayoutPhoneNumber();
 			/*
 			if ((payments == null) | (payments.Count == 0))
 			{
@@ -50,12 +56,13 @@ namespace SportNow.Views
 
 			Label eventParticipationNameLabel = new Label
 			{
-				Text = "Para confirmares a tua presença no(a) " + event_participation.evento_name + " efetua o pagamento de "+ event_participation.valor + "€.",
+                FontFamily = "futuracondensedmedium",
+                Text = "Para confirmares a tua presença no(a) " + event_participation.evento_name + " efetua o pagamento de "+ String.Format("{0:0.00}", payments[0].value) + "€",
 				VerticalTextAlignment = TextAlignment.Center,
 				HorizontalTextAlignment = TextAlignment.Center,
 				TextColor = App.normalTextColor,
 				//LineBreakMode = LineBreakMode.NoWrap,
-				FontSize = App.titleFontSize
+				FontSize = App.bigTitleFontSize
             };
 
 			absoluteLayout.Add(eventParticipationNameLabel);
@@ -74,7 +81,8 @@ namespace SportNow.Views
 
 			Label phoneNumberLabel = new Label
 			{
-				Text = "Confirma o teu número de telefone",
+                FontFamily = "futuracondensedmedium",
+                Text = "Confirma o teu número de telefone",
 				VerticalTextAlignment = TextAlignment.Center,
 				HorizontalTextAlignment = TextAlignment.Center,
 				TextColor = App.normalTextColor,
@@ -92,7 +100,7 @@ namespace SportNow.Views
 		
 
 			absoluteLayout.Add(phoneValueEdit);
-            absoluteLayout.SetLayoutBounds(phoneValueEdit, new Rect(0, 340 * App.screenHeightAdapter, App.screenWidth - 10 * App.screenWidthAdapter, 40 * App.screenHeightAdapter));
+            absoluteLayout.SetLayoutBounds(phoneValueEdit, new Rect(10 * App.screenWidthAdapter, 340 * App.screenHeightAdapter, App.screenWidth - 20 * App.screenWidthAdapter, 40 * App.screenHeightAdapter));
 
 
 			payButton = new RegisterButton("PAGAR", App.screenWidth - 20 * App.screenWidthAdapter, 50 * App.screenHeightAdapter);
@@ -100,21 +108,21 @@ namespace SportNow.Views
 
 
 			absoluteLayout.Add(payButton);
-            absoluteLayout.SetLayoutBounds(payButton, new Rect(0, App.screenHeight - 160 * App.screenHeightAdapter, App.screenWidth - 20 * App.screenWidthAdapter, 50 * App.screenHeightAdapter));
+            absoluteLayout.SetLayoutBounds(payButton, new Rect(10 * App.screenWidthAdapter, App.screenHeight - 160 * App.screenHeightAdapter, App.screenWidth - 20 * App.screenWidthAdapter, 50 * App.screenHeightAdapter));
 
-            Label Label = new Label
+            Label labelTax = new Label
             {
                 FontFamily = "futuracondensedmedium",
-                Text = "O valor total desta transação incluiu uma taxa de 0.7% e 0.07€ ",
+                Text = "O valor total desta transação incluiu uma taxa de "+ String.Format("{0:0.00}", payments[0].value-event_participation.valor) + "€",
                 VerticalTextAlignment = TextAlignment.Center,
-                HorizontalTextAlignment = TextAlignment.Start,
+                HorizontalTextAlignment = TextAlignment.Center,
                 TextColor = App.normalTextColor,
-                FontSize = App.titleFontSize
+                FontSize = App.itemTextFontSize
             };
 
 
-            absoluteLayout.Add(Label);
-            absoluteLayout.SetLayoutBounds(Label, new Rect(22, -10 * App.screenHeightAdapter, App.screenWidth, App.screenHeight - 10 * App.screenHeightAdapter));
+            absoluteLayout.Add(labelTax);
+            absoluteLayout.SetLayoutBounds(labelTax, new Rect(10 * App.screenWidthAdapter, 380 * App.screenHeightAdapter, App.screenWidth - 20 * App.screenWidthAdapter, 50 * App.screenHeightAdapter));
 
         }
 

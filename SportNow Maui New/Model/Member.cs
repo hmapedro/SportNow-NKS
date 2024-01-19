@@ -77,6 +77,14 @@ namespace SportNow.Model
         public string personal_cv { get; set; }
         public string disponibilidade { get; set; }
 
+
+        public string faturacao_nome { get; set; }
+        public string faturacao_morada { get; set; }
+        public string faturacao_cidade { get; set; }
+        public string faturacao_codpostal { get; set; }
+        public string faturacao_nif { get; set; }
+
+
         public object imagesourceObject { get; set; }
 
         public int students_count { get; set; }

@@ -119,7 +119,7 @@ namespace SportNow.Views
 			Label feeInactiveLabel = new Label
 			{
                 FontFamily = "futuracondensedmedium",
-                Text = "Quotas Inativas",
+                Text = "Quota Inativa",
 				VerticalTextAlignment = TextAlignment.Center,
 				HorizontalTextAlignment = TextAlignment.Center,
 				TextColor = Colors.Red,
@@ -137,7 +137,7 @@ namespace SportNow.Views
 				FontSize = App.titleFontSize
 			};
 
-			activateButton = new RegisterButton("ATIVAR", App.screenWidth, 50);
+			activateButton = new RegisterButton("ATIVAR", App.screenWidth - 20 * App.screenWidthAdapter, 50 * App.screenHeightAdapter);
 			activateButton.button.Clicked += OnActivateButtonClicked;
 
 
@@ -158,7 +158,7 @@ namespace SportNow.Views
 
 
 			absoluteLayout.Add(gridInactiveFee);
-            absoluteLayout.SetLayoutBounds(gridInactiveFee, new Rect(0, 10 * App.screenHeightAdapter, App.screenWidth, App.screenHeight - 130 * App.screenHeightAdapter));
+            absoluteLayout.SetLayoutBounds(gridInactiveFee, new Rect(10 * App.screenWidthAdapter, 10 * App.screenHeightAdapter, App.screenWidth - 20 * App.screenWidthAdapter, App.screenHeight - 110 * App.screenHeightAdapter));
 
 		}
 

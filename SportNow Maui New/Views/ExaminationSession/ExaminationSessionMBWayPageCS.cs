@@ -6,7 +6,7 @@ using SportNow.Services.Data.JSON;
 using System.Threading.Tasks;
 using System.Diagnostics;
 using SportNow.CustomViews;
-
+using System.Globalization;
 
 namespace SportNow.Views
 {
@@ -34,9 +34,16 @@ namespace SportNow.Views
 		public async void initSpecificLayout()
 		{
 
-			payments = await GetExaminationSession_Payment(examination_Session);
+			showActivityIndicator();
+            payments = await GetExaminationSession_Payment(examination_Session);
 
-			createLayoutPhoneNumber();
+            PaymentManager paymentManager = new PaymentManager();
+            await paymentManager.Update_Payment_Mode(payments[0].id, "mbway");
+
+            payments = await GetExaminationSession_Payment(examination_Session);
+            hideActivityIndicator();
+
+            createLayoutPhoneNumber();
 			/*
 			if ((payments == null) | (payments.Count == 0))
 			{
@@ -53,7 +60,7 @@ namespace SportNow.Views
 			Label eventParticipationNameLabel = new Label
 			{
                 FontFamily = "futuracondensedmedium",
-                Text = "Para confirmares a tua presença na " + examination_Session.name + " efetua o pagamento de " + payments[0].value+ "€.",
+                Text = "Para confirmares a tua presença na " + examination_Session.name + " efetua o pagamento de " + String.Format("{0:0.00}", payments[0].value) + "€",
 				VerticalTextAlignment = TextAlignment.Center,
 				HorizontalTextAlignment = TextAlignment.Center,
 				TextColor = App.normalTextColor,
@@ -106,17 +113,23 @@ namespace SportNow.Views
 			absoluteLayout.Add(payButton);
 			absoluteLayout.SetLayoutBounds(payButton, new Rect(0, App.screenHeight - 160 * App.screenHeightAdapter, App.screenWidth, 50 * App.screenHeightAdapter));
 
-            Label Label = new Label
+
+            double participationvalue_double = Double.Parse(examination_Session.participationvalue.Replace(',', '.'), CultureInfo.InvariantCulture);
+
+            Label labelTax = new Label
             {
                 FontFamily = "futuracondensedmedium",
-                Text = "O valor total desta transação incluiu uma taxa de 0.7% e 0.07€ ",
+                Text = "O valor total desta transação incluiu uma taxa de " + String.Format("{0:0.00}", payments[0].value - participationvalue_double) + "€",
                 VerticalTextAlignment = TextAlignment.Center,
-                HorizontalTextAlignment = TextAlignment.Start,
+                HorizontalTextAlignment = TextAlignment.Center,
                 TextColor = App.normalTextColor,
-                FontSize = App.titleFontSize
+                FontSize = App.itemTextFontSize
             };
-            absoluteLayout.Add(Label);
-            absoluteLayout.SetLayoutBounds(Label, new Rect(22, -10 * App.screenHeightAdapter, App.screenWidth, App.screenHeight - 10 * App.screenHeightAdapter));
+
+
+            absoluteLayout.Add(labelTax);
+            absoluteLayout.SetLayoutBounds(labelTax, new Rect(10 * App.screenWidthAdapter, 380 * App.screenHeightAdapter, App.screenWidth - 20 * App.screenWidthAdapter, 50 * App.screenHeightAdapter));
+
 
         }
 

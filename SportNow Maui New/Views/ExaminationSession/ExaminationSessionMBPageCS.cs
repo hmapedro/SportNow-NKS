@@ -1,7 +1,7 @@
 ﻿using SportNow.Model;
 using SportNow.Services.Data.JSON;
 using System.Diagnostics;
-
+using System.Globalization;
 
 namespace SportNow.Views
 {
@@ -29,10 +29,16 @@ namespace SportNow.Views
 
 		public async void initSpecificLayout()
 		{
+            showActivityIndicator();
+            payments = await GetExaminationSession_Payment(examination_session);
 
-			payments = await GetExaminationSession_Payment(examination_session);
+            PaymentManager paymentManager = new PaymentManager();
+            await paymentManager.Update_Payment_Mode(payments[0].id, "mb");
 
-			if ((payments == null) | (payments.Count == 0))
+            payments = await GetExaminationSession_Payment(examination_session);
+            hideActivityIndicator();
+
+            if ((payments == null) | (payments.Count == 0))
 			{
 				createRegistrationConfirmed();
 			}
@@ -51,9 +57,9 @@ namespace SportNow.Views
 				HorizontalTextAlignment = TextAlignment.Center,
 				TextColor = App.normalTextColor,
 				//LineBreakMode = LineBreakMode.NoWrap,
-				HeightRequest = 400,
-				FontSize = 30
-			};
+				HeightRequest = 400 * App.screenHeightAdapter,
+                FontSize = App.bigTitleFontSize
+            };
 
 			absoluteLayout.Add(inscricaoOKLabel);
             absoluteLayout.SetLayoutBounds(inscricaoOKLabel, new Rect(0, 10 * App.screenHeightAdapter, App.screenWidth, 80 * App.screenHeightAdapter));
@@ -67,7 +73,7 @@ namespace SportNow.Views
 
 		public void createMBPaymentLayout() {
             gridMBPayment = new Microsoft.Maui.Controls.Grid { Padding = 10, ColumnSpacing = 20 * App.screenHeightAdapter, HorizontalOptions = LayoutOptions.FillAndExpand, VerticalOptions = LayoutOptions.FillAndExpand };
-            gridMBPayment.RowDefinitions.Add(new RowDefinition { Height = 150 * App.screenHeightAdapter });
+            gridMBPayment.RowDefinitions.Add(new RowDefinition { Height = 160 * App.screenHeightAdapter });
             gridMBPayment.RowDefinitions.Add(new RowDefinition { Height = 20 * App.screenHeightAdapter });
             gridMBPayment.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
             gridMBPayment.RowDefinitions.Add(new RowDefinition { Height = 20 * App.screenHeightAdapter });
@@ -84,7 +90,7 @@ namespace SportNow.Views
 				HorizontalTextAlignment = TextAlignment.Center,
 				TextColor = App.normalTextColor,
 				//LineBreakMode = LineBreakMode.NoWrap,
-				FontSize = App.titleFontSize
+				FontSize = App.bigTitleFontSize
 			};
 
 			Image MBLogoImage = new Image
@@ -103,7 +109,7 @@ namespace SportNow.Views
 				TextColor = App.normalTextColor,
                 //LineBreakMode = LineBreakMode.NoWrap,
                 HeightRequest = 142 * App.screenHeightAdapter,
-                FontSize = App.titleFontSize
+                FontSize = App.bigTitleFontSize
             };
 
 			Microsoft.Maui.Controls.Grid gridMBDataPayment = new Microsoft.Maui.Controls.Grid { Padding = 10 * App.screenWidthAdapter, ColumnSpacing = 5 * App.screenHeightAdapter, HorizontalOptions = LayoutOptions.FillAndExpand, VerticalOptions = LayoutOptions.FillAndExpand };
@@ -188,22 +194,26 @@ namespace SportNow.Views
 			gridMBPayment.Add(MBDataFrame, 0, 4);
 			Microsoft.Maui.Controls.Grid.SetColumnSpan(MBDataFrame, 2);
 
+            double participationvalue_double = Double.Parse(examination_session.participationvalue.Replace(',', '.'), CultureInfo.InvariantCulture);
 
-			absoluteLayout.Add(gridMBPayment);
-            absoluteLayout.SetLayoutBounds(gridMBPayment, new Rect(0, 10 * App.screenWidthAdapter, App.screenWidth, App.screenHeight - 10 * App.screenHeightAdapter));
-
-            Label Label = new Label
+            Label labelTax = new Label
             {
                 FontFamily = "futuracondensedmedium",
-                Text = "O valor total desta transação incluiu uma taxa de 1.7% e 0.22€ ",
+                Text = "O valor total desta transação incluiu uma taxa de " + String.Format("{0:0.00}", payments[0].value - participationvalue_double) + "€",
                 VerticalTextAlignment = TextAlignment.Center,
-                HorizontalTextAlignment = TextAlignment.Start,
+                HorizontalTextAlignment = TextAlignment.Center,
                 TextColor = App.normalTextColor,
-                FontSize = App.titleFontSize
+                FontSize = App.itemTextFontSize
             };
 
-            absoluteLayout.Add(Label);
-            absoluteLayout.SetLayoutBounds(Label, new Rect(22, 0 * App.screenHeightAdapter, App.screenWidth, App.screenHeight - 10 * App.screenHeightAdapter));
+            gridMBPayment.RowDefinitions.Add(new RowDefinition { Height = 20 * App.screenHeightAdapter });
+            gridMBPayment.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
+            gridMBPayment.Add(labelTax, 0, 5);
+            Grid.SetColumnSpan(labelTax, 2);
+
+            absoluteLayout.Add(gridMBPayment);
+            absoluteLayout.SetLayoutBounds(gridMBPayment, new Rect(0, 10 * App.screenWidthAdapter, App.screenWidth, App.screenHeight - 10 * App.screenHeightAdapter));
+
 
         }
     

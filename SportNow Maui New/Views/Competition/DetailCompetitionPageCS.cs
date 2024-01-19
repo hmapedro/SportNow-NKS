@@ -169,13 +169,13 @@ namespace SportNow.Views
 
 			if (competition.participationconfirmed == "confirmado")
 			{
-				estadoValue = new FormValue("INSCRITO");
+				estadoValue = new FormValue("CONVOCADO - CONFIRMADO");
 				estadoValue.label.TextColor = Color.FromRgb(96, 182, 89);
 				limitDateLabelText = "BOA SORTE!";
 			}
 			else if (competition.participationconfirmed == "convocado")
 			{
-				estadoValue = new FormValue("NÃO INSCRITO");
+				estadoValue = new FormValue("CONVOCADO - NÃO CONFIRMADO");
 				estadoValue.label.TextColor = Colors.Red;
 
 				if (registrationOpened == 1) {
@@ -192,7 +192,7 @@ namespace SportNow.Views
                     cancelButton = new CancelButton("NÃO POSSO IR :(", App.screenWidth - 20 * App.screenWidthAdapter, 50 * App.screenHeightAdapter);
                     cancelButton.button.Clicked += OnCancelButtonClicked;
 
-                    gridCompetiton.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
+                    //gridCompetiton.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
                     gridCompetiton.Add(cancelButton, 0, 10);
                     Microsoft.Maui.Controls.Grid.SetColumnSpan(cancelButton, 2);
                 }

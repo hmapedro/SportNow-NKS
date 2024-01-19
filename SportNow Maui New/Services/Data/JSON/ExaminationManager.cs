@@ -134,28 +134,28 @@ namespace SportNow.Services.Data.JSON
 					}
 					
 				}
-				if (examination_technique.type == "shiai_kumite")
+				if (examination_technique.type == "atletico")
 				{
-					if (examination_program.shiaikumiteText != null)
+					if (examination_program.atleticoText != null)
 					{
-						examination_program.shiaikumiteText = examination_program.shiaikumiteText + "\n" + examination_technique.order + " - " + examination_technique.name;
+						examination_program.atleticoText = examination_program.atleticoText + "\n" + examination_technique.order + " - " + examination_technique.name;
 					}
 					else
 					{
-						examination_program.shiaikumiteText = examination_technique.order + " - " + examination_technique.name;
+						examination_program.atleticoText = examination_technique.order + " - " + examination_technique.name;
 					}
 					
 				}
 
-                if (examination_technique.type == "estacao_kata")
+                if (examination_technique.type == "flexibilidade")
                 {
-                    if (examination_program.estacaoKataText != null)
+                    if (examination_program.flexibilidadeText != null)
                     {
-                        examination_program.estacaoKataText = examination_program.estacaoKataText + "\n" + examination_technique.order + " - " + examination_technique.name;
+                        examination_program.flexibilidadeText = examination_program.flexibilidadeText + "\n" + examination_technique.order + " - " + examination_technique.name;
                     }
                     else
                     {
-                        examination_program.estacaoKataText = examination_technique.order + " - " + examination_technique.name;
+                        examination_program.flexibilidadeText = examination_technique.order + " - " + examination_technique.name;
                     }
 
                 }

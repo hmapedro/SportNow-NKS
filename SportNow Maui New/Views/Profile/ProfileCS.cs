@@ -543,7 +543,7 @@ namespace SportNow.Views.Profile
 
         public void CreateGridButtons()
 		{
-			createDocumentsNKSButton();
+			//createDocumentsNKSButton();
 
 			
             
@@ -575,16 +575,12 @@ namespace SportNow.Views.Profile
 			FormLabel nameLabel = new FormLabel { Text = "NOME", HorizontalTextAlignment = TextAlignment.Start };
 			nameValue = new FormValueEdit(App.member.name);
 
-			FormLabel dojoLabel = new FormLabel { Text = "DOJO"};
-			//FormValue dojoValue = new FormValue (Constants.dojos[member.dojo]);
-			FormValue dojoValue = new FormValue(App.member.dojo);
-
 			FormLabel birthdateLabel = new FormLabel { Text = "NASCIMENTO"};
             //FormValue birthdateValue = new FormValue (member.birthdate?.ToString("yyyy-MM-dd"));
             FormValue birthdateValue = new FormValue(App.member.birthdate);
 
             FormLabel registrationdateLabel = new FormLabel { Text = "INSCRIÇÃO"};
-			FormValue registrationdateValue = new FormValue (App.member.registrationdate?.ToString("yyyy-MM-dd"));
+            FormValueEditDate registrationdateValue = new FormValueEditDate(App.member.registrationdate?.ToString("yyyy-MM-dd"));
 
 			gridGeral.Add(number_memberLabel, 0, 0);
 			gridGeral.Add(number_memberValue, 1, 0);
@@ -592,14 +588,11 @@ namespace SportNow.Views.Profile
 			gridGeral.Add(nameLabel, 0, 1);
 			gridGeral.Add(nameValue, 1, 1);
 
-			gridGeral.Add(dojoLabel, 0, 2);
-			gridGeral.Add(dojoValue, 1, 2);
+			gridGeral.Add(birthdateLabel, 0, 2);
+			gridGeral.Add(birthdateValue, 1, 2);
 
-			gridGeral.Add(birthdateLabel, 0, 3);
-			gridGeral.Add(birthdateValue, 1, 3);
-
-			gridGeral.Add(registrationdateLabel, 0, 4);
-			gridGeral.Add(registrationdateValue, 1, 4);
+			gridGeral.Add(registrationdateLabel, 0, 3);
+			gridGeral.Add(registrationdateValue, 1, 3);
 			
 			/*absoluteLayout.Add(gridGeral,
 				xConstraint: )0),
@@ -1069,8 +1062,10 @@ namespace SportNow.Views.Profile
 				App.member.phone_enc2 = EncEducacao2PhoneValue.entry.Text;
 				App.member.mail_enc2 = EncEducacao2MailValue.entry.Text;
 
+                //App.member.faturacao_nome = EncEducacao2MailValue.entry.Text;
 
-				MemberManager memberManager = new MemberManager();
+
+                MemberManager memberManager = new MemberManager();
 
 				var result = await memberManager.UpdateMemberInfo(App.member);
 				if (result == "-1")

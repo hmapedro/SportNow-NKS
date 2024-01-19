@@ -76,7 +76,7 @@ namespace SportNow.Services.Data.JSON
 		
 		public async Task<List<Payment>> GetExamination_Payment(string examinationid)
 		{
-			Debug.Print("GetExamination_Payment examinationid = "+ examinationid);
+			Debug.Print("GetExamination_Payment "+ Constants.RestUrl_Get_Examination_Payment + "?examinationid=" + examinationid);
 			Uri uri = new Uri(string.Format(Constants.RestUrl_Get_Examination_Payment + "?examinationid=" + examinationid, string.Empty));
 			try {
 				HttpResponseMessage response = await client.GetAsync(uri);

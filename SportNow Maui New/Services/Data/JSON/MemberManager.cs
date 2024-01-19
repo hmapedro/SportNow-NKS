@@ -508,8 +508,8 @@ namespace SportNow.Services.Data.JSON
 				+ "&memberphone=" + member.phone + "&memberemail=" + member.email + "&memberaddress=" + member.address
 				+ "&membercity=" + member.city + "&memberpostalcode=" + member.postalcode
 				+ "&membernameenc1=" + member.name_enc1 + "&memberemailenc1=" + member.mail_enc1 + "&memberphoneenc1=" + member.phone_enc1
-				+ "&membernameenc2=" + member.name_enc2 + "&memberemailenc2=" + member.mail_enc2 + "&memberphoneenc2=" + member.phone_enc2
-				, string.Empty));
+                + "&memberfaturacao_name=" + member.faturacao_nome + "&memberfaturacao_morada=" + member.faturacao_morada + "&memberfaturacao_c=" + member.phone_enc1
+                , string.Empty));
 			try
 			{
 				HttpResponseMessage response = await client.GetAsync(uri);

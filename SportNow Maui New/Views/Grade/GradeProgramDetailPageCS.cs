@@ -43,7 +43,10 @@ namespace SportNow.Views
 		public async void CreateProgramasExameDetail()
 		{
 
-			Microsoft.Maui.Controls.Grid grid = new Microsoft.Maui.Controls.Grid { Padding = 10 };
+			int techniqueTypeIndex = 0;
+            int techniqueTypeIndexHeader = 0;
+
+            Microsoft.Maui.Controls.Grid grid = new Microsoft.Maui.Controls.Grid { Padding = 10 };
 			grid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
 			grid.ColumnDefinitions.Add(new ColumnDefinition { Width = 80 * App.screenWidthAdapter });
 			grid.ColumnDefinitions.Add(new ColumnDefinition { Width = 200 * App.screenWidthAdapter });
@@ -77,81 +80,148 @@ namespace SportNow.Views
             //grid.Add(youtubeImage, 2, 0);
 
             Microsoft.Maui.Controls.Grid gridDetail = new Microsoft.Maui.Controls.Grid { Padding = 10 };
-			gridDetail.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
-			gridDetail.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
-			gridDetail.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
-			gridDetail.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
-			gridDetail.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
-			gridDetail.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
             gridDetail.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
-            gridDetail.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
-            gridDetail.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
-            
-            //gridDetail.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
             gridDetail.ColumnDefinitions.Add(new ColumnDefinition { Width = WidthRequest = App.screenWidth });
 
-			Label kihonHeaderLabel, kihonLabel, kataHeaderLabel, kataLabel, kumiteHeaderLabel, kumiteLabel, shiaikumiteHeaderLabel, shiaikumiteLabel, estacaokataHeaderLabel, youtubeLabel;//, estacaokataLabel;
+            techniqueTypeIndex = createTechniqueLabels(gridDetail, "kihon", "KIHON", techniqueTypeIndex);
+            techniqueTypeIndex = createTechniqueLabels(gridDetail, "kata", "KATA", techniqueTypeIndex);
+            techniqueTypeIndex = createTechniqueLabels(gridDetail, "kumite", "KUMITE", techniqueTypeIndex);
+            techniqueTypeIndex = createTechniqueLabels(gridDetail, "atletico", "ATLÉTICO", techniqueTypeIndex);
+            techniqueTypeIndex = createTechniqueLabels(gridDetail, "flexibilidade", "FLEXIBILIDADE", techniqueTypeIndex);
 
-			kihonHeaderLabel = new Label { FontFamily = "futuracondensedmedium", HorizontalTextAlignment = TextAlignment.Start, TextColor = App.topColor, LineBreakMode = LineBreakMode.WordWrap, FontSize = App.itemTitleFontSize };
-			kihonHeaderLabel.Text = "KIHON";
-			gridDetail.Add(kihonHeaderLabel, 0, 0);
+            /*Label kihonHeaderLabel, kihonLabel, kataHeaderLabel, kataLabel, kumiteHeaderLabel, kumiteLabel, atleticoHeaderLabel, atleticoLabel, flexibilidadeHeaderLabel, flexibilidadeLabel, youtubeLabel;//, flexibilidadeLabel;
 
-            kihonLabel = new Label { FontFamily = "futuracondensedmedium", HorizontalTextAlignment = TextAlignment.Start, TextColor = App.normalTextColor, LineBreakMode = LineBreakMode.WordWrap, FontSize = App.itemTitleFontSize };
-			kihonLabel.Text = examination_Program.kihonText;
-			gridDetail.Add(kihonLabel, 0, 1);
-
-			kataHeaderLabel = new Label { FontFamily = "futuracondensedmedium", HorizontalTextAlignment = TextAlignment.Start, TextColor = App.topColor, LineBreakMode = LineBreakMode.WordWrap, FontSize = App.itemTitleFontSize };
-			kataHeaderLabel.Text = "KATA";
-			gridDetail.Add(kataHeaderLabel, 0, 2);
-			Microsoft.Maui.Controls.Grid.SetColumnSpan(kataHeaderLabel, 3);
-
-			kataLabel = new Label { FontFamily = "futuracondensedmedium", HorizontalTextAlignment = TextAlignment.Start, TextColor = App.normalTextColor, LineBreakMode = LineBreakMode.WordWrap, FontSize = App.itemTitleFontSize };
-            kataLabel.Text = examination_Program.kataText;
-			gridDetail.Add(kataLabel, 0, 3);
-			Microsoft.Maui.Controls.Grid.SetColumnSpan(kataLabel, 3);
-
-			kumiteHeaderLabel = new Label { FontFamily = "futuracondensedmedium", HorizontalTextAlignment = TextAlignment.Start, TextColor = App.topColor, LineBreakMode = LineBreakMode.WordWrap, FontSize = App.itemTitleFontSize };
-			kumiteHeaderLabel.Text = "KUMITE";
-			gridDetail.Add(kumiteHeaderLabel, 0, 4);
-			Microsoft.Maui.Controls.Grid.SetColumnSpan(kumiteHeaderLabel, 3);
-
-			kumiteLabel = new Label { FontFamily = "futuracondensedmedium", HorizontalTextAlignment = TextAlignment.Start, TextColor = App.normalTextColor, LineBreakMode = LineBreakMode.WordWrap, FontSize = App.itemTitleFontSize };
-            kumiteLabel.Text = examination_Program.kumiteText;
-			gridDetail.Add(kumiteLabel, 0, 5);
-			Microsoft.Maui.Controls.Grid.SetColumnSpan(kumiteLabel, 3);
-
-
-			shiaikumiteHeaderLabel = new Label { FontFamily = "futuracondensedmedium", HorizontalTextAlignment = TextAlignment.Start, TextColor = App.topColor, LineBreakMode = LineBreakMode.WordWrap, FontSize = App.itemTitleFontSize };
-			shiaikumiteHeaderLabel.Text = "SHIAI KUMITE";
-			gridDetail.Add(shiaikumiteHeaderLabel, 0, 6);
-			Microsoft.Maui.Controls.Grid.SetColumnSpan(shiaikumiteHeaderLabel, 3);
-
-			shiaikumiteLabel = new Label { FontFamily = "futuracondensedmedium", HorizontalTextAlignment = TextAlignment.Start, TextColor = App.normalTextColor, LineBreakMode = LineBreakMode.WordWrap, FontSize = App.itemTitleFontSize };
-            shiaikumiteLabel.Text = examination_Program.shiaikumiteText;
-			gridDetail.Add(shiaikumiteLabel, 0, 7);
-			Microsoft.Maui.Controls.Grid.SetColumnSpan(shiaikumiteLabel, 3);
-
-
-            estacaokataHeaderLabel = new Label { FontFamily = "futuracondensedmedium", HorizontalTextAlignment = TextAlignment.Start, TextColor = App.topColor, LineBreakMode = LineBreakMode.WordWrap, FontSize = App.itemTitleFontSize };
-            estacaokataHeaderLabel.Text = "ESTAÇÃO KATA";
-            gridDetail.Add(estacaokataHeaderLabel, 0, 8);
-            Microsoft.Maui.Controls.Grid.SetColumnSpan(estacaokataHeaderLabel, 3);
-
-			int i = 9;
-			foreach (Examination_Technique examination_Technique in examination_Program.examination_techniques)
-			{
-				if (examination_Technique.type == "estacao_kata")
-				{
+            bool existsKihon = false;
+            techniqueTypeIndexHeader = techniqueTypeIndex;
+            foreach (Examination_Technique examination_Technique in examination_Program.examination_techniques)
+            {
+                if (examination_Technique.type == "kihon")
+                {
+                    if (existsKihon == false)
+                    {
+                        existsKihon = true;
+                        techniqueTypeIndex++;
+                    }
+                    
                     gridDetail.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
-                    Label estacaokataLabel = new Label { FontFamily = "futuracondensedmedium", HorizontalTextAlignment = TextAlignment.Start, TextColor = App.normalTextColor, LineBreakMode = LineBreakMode.WordWrap, FontSize = App.itemTitleFontSize };
-                    estacaokataLabel.Text = examination_Technique.order + " - " + examination_Technique.name;
-                    gridDetail.Add(estacaokataLabel, 0, i);
-                    Microsoft.Maui.Controls.Grid.SetColumnSpan(estacaokataLabel, 2);
+                    kihonLabel = new Label { FontFamily = "futuracondensedmedium", HorizontalTextAlignment = TextAlignment.Start, TextColor = App.normalTextColor, LineBreakMode = LineBreakMode.WordWrap, FontSize = App.itemTitleFontSize };
+                    kihonLabel.Text = examination_Technique.order + " - " + examination_Technique.name;
+                    gridDetail.Add(kihonLabel, 0, techniqueTypeIndex);
+                    Microsoft.Maui.Controls.Grid.SetColumnSpan(kihonLabel, 2);
+                    techniqueTypeIndex++;
+                }
+            }
 
-                    Image youtubeImage = new Image { Aspect = Aspect.AspectFit, HeightRequest = 24, WidthRequest = 60, Source = "youtube.png" };
+            if (existsKihon == true)
+            {
+                gridDetail.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
+                kihonHeaderLabel = new Label { FontFamily = "futuracondensedmedium", HorizontalTextAlignment = TextAlignment.Start, TextColor = App.topColor, LineBreakMode = LineBreakMode.WordWrap, FontSize = App.itemTitleFontSize };
+                kihonHeaderLabel.Text = "KIHON";
+                gridDetail.Add(kihonHeaderLabel, 0, techniqueTypeIndexHeader);
+            }
 
-                    var youtubeImage_tap = new TapGestureRecognizer();
-                    youtubeImage_tap.Tapped += async (s, e) =>
+            techniqueTypeIndexHeader = techniqueTypeIndex;
+            bool existsKata = false;
+            foreach (Examination_Technique examination_Technique in examination_Program.examination_techniques)
+            {
+                if (examination_Technique.type == "kata")
+                {
+                    if (existsKata == false)
+                    {
+                        existsKata = true;
+                        techniqueTypeIndex++;
+                    }
+                    gridDetail.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
+                    kataLabel = new Label { FontFamily = "futuracondensedmedium", HorizontalTextAlignment = TextAlignment.Start, TextColor = App.normalTextColor, LineBreakMode = LineBreakMode.WordWrap, FontSize = App.itemTitleFontSize };
+                    kataLabel.Text = examination_Technique.order + " - " + examination_Technique.name;
+                    gridDetail.Add(kataLabel, 0, techniqueTypeIndex);
+                    Microsoft.Maui.Controls.Grid.SetColumnSpan(kataLabel, 2);
+                    techniqueTypeIndex++;
+                }
+            }
+
+            if (existsKata == true)
+            {
+                gridDetail.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
+                kataHeaderLabel = new Label { FontFamily = "futuracondensedmedium", HorizontalTextAlignment = TextAlignment.Start, TextColor = App.topColor, LineBreakMode = LineBreakMode.WordWrap, FontSize = App.itemTitleFontSize };
+                kataHeaderLabel.Text = "KATA";
+                gridDetail.Add(kataHeaderLabel, 0, techniqueTypeIndexHeader);
+            } 
+
+            bool existsKumite = false;
+            techniqueTypeIndexHeader = techniqueTypeIndex;
+            foreach (Examination_Technique examination_Technique in examination_Program.examination_techniques)
+            {
+                if (examination_Technique.type == "kumite")
+                {
+                    if (existsKumite == false)
+                    {
+                        existsKumite = true;
+                        techniqueTypeIndex++;
+                    };
+                    gridDetail.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
+                    kumiteLabel = new Label { FontFamily = "futuracondensedmedium", HorizontalTextAlignment = TextAlignment.Start, TextColor = App.normalTextColor, LineBreakMode = LineBreakMode.WordWrap, FontSize = App.itemTitleFontSize };
+                    kumiteLabel.Text = examination_Technique.order + " - " + examination_Technique.name;
+                    gridDetail.Add(kumiteLabel, 0, techniqueTypeIndex);
+                    Microsoft.Maui.Controls.Grid.SetColumnSpan(kumiteLabel, 2);
+                    techniqueTypeIndex++;
+                }
+            }
+
+            if (existsKumite == true)
+            {
+                gridDetail.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
+                kumiteHeaderLabel = new Label { FontFamily = "futuracondensedmedium", HorizontalTextAlignment = TextAlignment.Start, TextColor = App.topColor, LineBreakMode = LineBreakMode.WordWrap, FontSize = App.itemTitleFontSize };
+                kumiteHeaderLabel.Text = "KUMITE";
+                gridDetail.Add(kumiteHeaderLabel, 0, techniqueTypeIndexHeader);
+            }
+
+            bool existsAtletico= false;
+            techniqueTypeIndexHeader = techniqueTypeIndex;
+            foreach (Examination_Technique examination_Technique in examination_Program.examination_techniques)
+            {
+                if (examination_Technique.type == "atletico")
+                {
+                    if (existsAtletico == false)
+                    {
+                        existsAtletico = true;
+                        techniqueTypeIndex++;
+                    };
+                    gridDetail.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
+                    atleticoLabel = new Label { FontFamily = "futuracondensedmedium", HorizontalTextAlignment = TextAlignment.Start, TextColor = App.normalTextColor, LineBreakMode = LineBreakMode.WordWrap, FontSize = App.itemTitleFontSize };
+                    atleticoLabel.Text = examination_Technique.order + " - " + examination_Technique.name;
+                    gridDetail.Add(atleticoLabel, 0, techniqueTypeIndex);
+                    Microsoft.Maui.Controls.Grid.SetColumnSpan(atleticoLabel, 2);
+                    techniqueTypeIndex++;
+                }
+            }
+            if (existsAtletico == true)
+            {
+                gridDetail.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
+                atleticoHeaderLabel = new Label { FontFamily = "futuracondensedmedium", HorizontalTextAlignment = TextAlignment.Start, TextColor = App.topColor, LineBreakMode = LineBreakMode.WordWrap, FontSize = App.itemTitleFontSize };
+                atleticoHeaderLabel.Text = "ATLETICO";
+                gridDetail.Add(atleticoHeaderLabel, 0, techniqueTypeIndexHeader);
+            }
+
+            bool existsFlexibilidade = false;
+            techniqueTypeIndexHeader = techniqueTypeIndex;
+            foreach (Examination_Technique examination_Technique in examination_Program.examination_techniques)
+            {
+                if (examination_Technique.type == "flexibilidade")
+                {
+                    if (existsFlexibilidade == false)
+                    {
+                        existsFlexibilidade = true;
+                        techniqueTypeIndex++;
+                    };
+                    gridDetail.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
+                    flexibilidadeLabel = new Label { FontFamily = "futuracondensedmedium", HorizontalTextAlignment = TextAlignment.Start, TextColor = App.normalTextColor, LineBreakMode = LineBreakMode.WordWrap, FontSize = App.itemTitleFontSize };
+                    flexibilidadeLabel.Text = examination_Technique.order + " - " + examination_Technique.name;
+                    gridDetail.Add(flexibilidadeLabel, 0, techniqueTypeIndex);
+                    Microsoft.Maui.Controls.Grid.SetColumnSpan(flexibilidadeLabel, 2);
+
+                    TapGestureRecognizer flexibilidadeLabel_tap = new TapGestureRecognizer();
+                    flexibilidadeLabel_tap.Tapped += async (s, e) =>
                     {
                         try
                         {
@@ -163,17 +233,43 @@ namespace SportNow.Views
                         {
                         }
                     };
-                    estacaokataLabel.GestureRecognizers.Add(youtubeImage_tap);
+                    flexibilidadeLabel.GestureRecognizers.Add(flexibilidadeLabel_tap);
 
-                    gridDetail.Add(youtubeImage, 2, i);
-                    i++;
+                    techniqueTypeIndex++;
                 }
             }
 
-            /*estacaokataLabel = new Label { FontFamily = "futuracondensedmedium", HorizontalTextAlignment = TextAlignment.Start, TextColor = App.normalTextColor, LineBreakMode = LineBreakMode.WordWrap, FontSize = App.itemTitleFontSize };
-            estacaokataLabel.Text = examination_Program.estacaoKataText;
-            gridDetail.Add(estacaokataLabel, 0, 9);
-            Microsoft.Maui.Controls.Grid.SetColumnSpan(estacaokataLabel, 3);*/
+            if (existsFlexibilidade == true)
+            {
+                gridDetail.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
+                flexibilidadeHeaderLabel = new Label { FontFamily = "futuracondensedmedium", HorizontalTextAlignment = TextAlignment.Start, TextColor = App.topColor, LineBreakMode = LineBreakMode.WordWrap, FontSize = App.itemTitleFontSize };
+                flexibilidadeHeaderLabel.Text = "FLEXIBILIDADE";
+                gridDetail.Add(flexibilidadeHeaderLabel, 0, techniqueTypeIndexHeader);
+            }*/
+
+
+            /*Image youtubeImage = new Image { Aspect = Aspect.AspectFit, HeightRequest = 24, WidthRequest = 60, Source = "youtube.png" };
+
+                   var youtubeImage_tap = new TapGestureRecognizer();
+                   youtubeImage_tap.Tapped += async (s, e) =>
+                   {
+                       try
+                       {
+                           Debug.Print("Open Youtube video " + examination_Technique.video);
+                           await Browser.OpenAsync(examination_Technique.video, BrowserLaunchMode.SystemPreferred);
+                           //await Browser.OpenAsync("https://www.ippon.pt", BrowserLaunchMode.SystemPreferred);
+                       }
+                       catch (Exception ex)
+                       {
+                       }
+                   };
+                   flexibilidadeLabel.GestureRecognizers.Add(youtubeImage_tap);
+
+                   gridDetail.Add(youtubeImage, 2, i);*/
+            /*flexibilidadeLabel = new Label { FontFamily = "futuracondensedmedium", HorizontalTextAlignment = TextAlignment.Start, TextColor = App.normalTextColor, LineBreakMode = LineBreakMode.WordWrap, FontSize = App.itemTitleFontSize };
+            flexibilidadeLabel.Text = examination_Program.flexibilidadeText;
+            gridDetail.Add(flexibilidadeLabel, 0, 9);
+            Microsoft.Maui.Controls.Grid.SetColumnSpan(flexibilidadeLabel, 3);*/
 
             grid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
 			grid.Add(gridDetail, 0, 1);
@@ -183,6 +279,57 @@ namespace SportNow.Views
             absoluteLayout.SetLayoutBounds(grid, new Rect(0, 10 * App.screenHeightAdapter, App.screenWidth, App.screenHeight - 160 * App.screenHeightAdapter));
         }
 
+
+        public int createTechniqueLabels(Grid gridDetail, string techniqueType, string techniqueTypeText, int techniqueTypeIndex)
+        {
+
+            Label headerLabel, techniqueLabel;
+
+            bool existsFlexibilidade = false;
+            int techniqueTypeIndexHeader = techniqueTypeIndex;
+            foreach (Examination_Technique examination_Technique in examination_Program.examination_techniques)
+            {
+                if (examination_Technique.type == techniqueType)
+                {
+                    if (existsFlexibilidade == false)
+                    {
+                        existsFlexibilidade = true;
+                        techniqueTypeIndex++;
+                    };
+                    gridDetail.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
+                    techniqueLabel = new Label { FontFamily = "futuracondensedmedium", HorizontalTextAlignment = TextAlignment.Start, TextColor = App.normalTextColor, LineBreakMode = LineBreakMode.WordWrap, FontSize = App.itemTitleFontSize };
+                    techniqueLabel.Text = examination_Technique.order + " - " + examination_Technique.name;
+                    gridDetail.Add(techniqueLabel, 0, techniqueTypeIndex);
+                    Microsoft.Maui.Controls.Grid.SetColumnSpan(techniqueLabel, 2);
+
+                    TapGestureRecognizer techniqueLabel_tap = new TapGestureRecognizer();
+                    techniqueLabel_tap.Tapped += async (s, e) =>
+                    {
+                        try
+                        {
+                            Debug.Print("Open Youtube video " + examination_Technique.video);
+                            await Browser.OpenAsync(examination_Technique.video, BrowserLaunchMode.SystemPreferred);
+                            //await Browser.OpenAsync("https://www.ippon.pt", BrowserLaunchMode.SystemPreferred);
+                        }
+                        catch (Exception ex)
+                        {
+                        }
+                    };
+                    techniqueLabel.GestureRecognizers.Add(techniqueLabel_tap);
+
+                    techniqueTypeIndex++;
+                }
+            }
+
+            if (existsFlexibilidade == true)
+            {
+                gridDetail.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
+                headerLabel = new Label { FontFamily = "futuracondensedmedium", HorizontalTextAlignment = TextAlignment.Start, TextColor = App.topColor, LineBreakMode = LineBreakMode.WordWrap, FontSize = App.itemTitleFontSize };
+                headerLabel.Text = techniqueTypeText;
+                gridDetail.Add(headerLabel, 0, techniqueTypeIndexHeader);
+            }
+            return techniqueTypeIndex;
+        }
 			
 		public GradeProgramDetailPageCS(Examination_Program examination_Program)
 		{

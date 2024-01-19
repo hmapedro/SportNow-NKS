@@ -236,10 +236,11 @@ namespace SportNow.Views
 					gridCompetiton.Add(registerButton, 0, 9);
 					Microsoft.Maui.Controls.Grid.SetColumnSpan(registerButton, 2);
 
+                    gridCompetiton.RowDefinitions.Add(new RowDefinition { Height = 60 * App.screenHeightAdapter });
                     cancelButton = new CancelButton("NÃO POSSO IR :(", App.screenWidth - 20 * App.screenWidthAdapter, 50 * App.screenHeightAdapter);
                     cancelButton.button.Clicked += OnCancelButtonClicked;
 
-                    gridCompetiton.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
+                    //gridCompetiton.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
                     gridCompetiton.Add(cancelButton, 0, 10);
                     Microsoft.Maui.Controls.Grid.SetColumnSpan(cancelButton, 2);
                 }

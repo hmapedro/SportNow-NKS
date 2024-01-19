@@ -25,16 +25,32 @@ namespace SportNow.Views
 
 		FormValueEdit phoneValueEdit;
 
+		double quotaOriginalValue = 0;
+
 		public void initLayout()
 		{
-            Title = "Quota - Pagamento MBWay";
+            Title = "QUOTA - PAGAMENTO MBWAY";
         }
 
 
 		public async void initSpecificLayout()
 		{
 
-			payments = await GetFeePayment(this.member);
+            showActivityIndicator();
+            payments = await GetFeePayment(this.member);
+
+			PaymentManager paymentManager = new PaymentManager();
+            await paymentManager.Update_Payment_Mode(payments[0].id, "dinheiro");
+
+            payments = await GetFeePayment(this.member);
+			quotaOriginalValue = payments[0].value;
+
+            await paymentManager.Update_Payment_Mode(payments[0].id, "mbway");
+
+            payments = await GetFeePayment(this.member);
+            hideActivityIndicator();
+
+            
 
 			createLayoutPhoneNumber();
 		}
@@ -45,7 +61,7 @@ namespace SportNow.Views
 			Label eventParticipationNameLabel = new Label
 			{
                 FontFamily = "futuracondensedmedium",
-                Text = member.currentFee.name,
+                Text = "Para ativares a tua Quota - " + member.currentFee.name + " efetua o pagamento de " + String.Format("{0:0.00}", payments[0].value) + "€",
 				VerticalTextAlignment = TextAlignment.Center,
 				HorizontalTextAlignment = TextAlignment.Center,
 				TextColor = App.normalTextColor,
@@ -82,11 +98,11 @@ namespace SportNow.Views
             Label Label = new Label
             {
                 FontFamily = "futuracondensedmedium",
-                Text = "O valor total desta transação incluiu uma taxa de 0.7% e 0.07€ ",
+                Text = "O valor total desta transação incluiu uma taxa de " + String.Format("{0:0.00}", payments[0].value - quotaOriginalValue) + "€",
                 VerticalTextAlignment = TextAlignment.Center,
-                HorizontalTextAlignment = TextAlignment.Start,
+                HorizontalTextAlignment = TextAlignment.Center,
                 TextColor = App.normalTextColor,
-                FontSize = App.titleFontSize
+                FontSize = App.itemTextFontSize
             };
 
             absoluteLayout.Add(phoneNumberLabel);

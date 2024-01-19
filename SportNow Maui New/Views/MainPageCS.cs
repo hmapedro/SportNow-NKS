@@ -56,10 +56,7 @@ namespace SportNow.Views
 
 		public List<MainMenuItem> MainMenuItems { get; set; }
 
-		private Member member;
-
 		Label msg;
-		Button btn;
 
 		private ObservableCollection<Class_Schedule> cleanClass_Schedule, importantClass_Schedule;
 

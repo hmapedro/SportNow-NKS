@@ -3,7 +3,7 @@ using SportNow.Services.Data.JSON;
 using System.Diagnostics;
 using SportNow.Views.Profile;
 using Microsoft.Maui.Controls.Shapes;
-using System.Xml;
+using SportNow.CustomViews;
 
 namespace SportNow.Views
 {
@@ -29,7 +29,10 @@ namespace SportNow.Views
 
 		Image estadoQuotaImage;
 
-		public void initLayout()
+        private Microsoft.Maui.Controls.Grid gridInactiveFee, gridActiveFee;
+        RegisterButton activateButton;
+
+        public void initLayout()
 		{
 			Title = "QUOTAS";
 
@@ -68,23 +71,21 @@ namespace SportNow.Views
 		}
 
 
-		public void CreateQuotas() {
+		public async void CreateQuotas() {
             quotasabsoluteLayout = new AbsoluteLayout
 			{
 				Margin = new Thickness(0)
 			};
 
-			CreateCurrentQuota();
-			CreatePastQuotas();
+            _ = await CreatePastQuotas();
+			CreateCurrentQuota(quotasabsoluteLayout);
+            
+			
+			
 
 			absoluteLayout.Add(quotasabsoluteLayout);
 			absoluteLayout.SetLayoutBounds(quotasabsoluteLayout, new Rect(0, 10 * App.screenHeightAdapter, App.screenWidth, App.screenHeight - 80 * App.screenHeightAdapter));
 		}
-
-        public void CreateCurrentQuota()
-        {
-            CreateCurrentQuota(quotasabsoluteLayout);
-        }
 
         public async void CreateCurrentQuota(AbsoluteLayout quotasabsoluteLayout)
 		{
@@ -104,132 +105,200 @@ namespace SportNow.Views
 				}
 			}
 
-			Border quotasFrame = new Border
+
+            if (hasQuotaPayed)
             {
-                BackgroundColor = Colors.Transparent,
-
-                StrokeShape = new RoundRectangle
-                {
-                    CornerRadius = 5 * (float)App.screenHeightAdapter,
-                },
-				Stroke= App.topColor,
-				Padding = new Thickness(2, 2, 2, 2),
-				HeightRequest = 120*App.screenHeightAdapter,
-				VerticalOptions = LayoutOptions.Center,
-			};
-			
-			var tapGestureRecognizer_quotasFrame = new TapGestureRecognizer();
-			tapGestureRecognizer_quotasFrame.Tapped += async (s, e) => {
-				await Navigation.PushAsync(new QuotasPageCS());
-			};
-			quotasFrame.GestureRecognizers.Add(tapGestureRecognizer_quotasFrame);
-
-			AbsoluteLayout currentQuotasabsoluteLayout = new AbsoluteLayout
-			{
-				Margin = new Thickness(0),
-			};
-			quotasFrame.Content = currentQuotasabsoluteLayout;
-
-			string logoFeeFileName = "", estadoImageFileName = "";
-			/*
-
-                        if (hasQuotaPayed == true)
-                        {
-                            logoFeeFileName = "fnkpikp.png";
-                            estadoImageFileName = "iconcheck.png";
-                        }
-                        else if (hasQuotaPayed == false)
-                        {
-                            logoFeeFileName = "fnkpikp.png";
-                            estadoImageFileName = "iconinativo.png";
-                        }
-                        /*
-                        Image LogoFee = new Image
-                        {
-                            Source = logoFeeFileName,
-                            //WidthRequest = 100,
-                            HorizontalOptions = LayoutOptions.Center
-                        };
-                        quotasabsoluteLayout.Add(LogoFee);
-                        quotasabsoluteLayout.SetLayoutBounds(LogoFee, new Rect((App.screenWidth / 2) - 70.3 * App.screenHeightAdapter, 40 * App.screenHeightAdapter, 140.6 * App.screenHeightAdapter, 60 * App.screenHeightAdapter));
-                        */
-			
-            Image LogoFee1 = new Image
+                createActiveFeeLayout();
+            }
+            else
             {
-                Source = "logo_fnkp.png",
-                WidthRequest = 70 * App.screenHeightAdapter, 
-                HeightRequest = 70 * App.screenHeightAdapter,
-                HorizontalOptions = LayoutOptions.Center
-            };
-
-            Image LogoFee2 = new Image
-            {
-                Source = "company_logo_square.png",
-                WidthRequest = 70 * App.screenHeightAdapter,
-                HeightRequest = 70 * App.screenHeightAdapter, 
-                HorizontalOptions = LayoutOptions.Center
-            };
-
-            /*Border logosFrame = new Border
-            {
-                BackgroundColor = Colors.Transparent,
-                StrokeShape = new RoundRectangle
-                {
-                    CornerRadius = 5 * (float)App.screenHeightAdapter,
-                },
-                Stroke = App.topColor,
-                Padding = new Thickness(10, 0, 0, 0)
-            };
-
-            logosFrame.Content = new StackLayout
-            {
-                Children = { LogoFee1, LogoFee2 },
-                Orientation = StackOrientation.Horizontal // Alinha as imagens horizontalmente dentro do Frame
-            };*/
-
-            quotasabsoluteLayout.Add(LogoFee1);
-            quotasabsoluteLayout.Add(LogoFee2);
-            quotasabsoluteLayout.SetLayoutBounds(LogoFee1, new Rect((App.screenWidth / 2) - 70.3 - (70 * App.screenHeightAdapter), 40 * App.screenHeightAdapter, 140.6 * App.screenHeightAdapter, 70 * App.screenHeightAdapter));
-            quotasabsoluteLayout.SetLayoutBounds(LogoFee2, new Rect((App.screenWidth / 2) + 70.3 - (70 * App.screenHeightAdapter), 40 * App.screenHeightAdapter, 140.6 * App.screenHeightAdapter, 70 * App.screenHeightAdapter));
-           /* quotasabsoluteLayout.Add(logosFrame);
-            //quotasabsoluteLayout.SetLayoutBounds(logosFrame, new Rect((App.screenWidth / 2) - 70.3, 40 * App.screenHeightAdapter, 2 * 70.3, 60 * App.screenHeightAdapter));
-            quotasabsoluteLayout.SetLayoutBounds(logosFrame, new Rect((App.screenWidth / 2) - 70.3 * App.screenHeightAdapter
-            - 90 * App.screenHeightAdapter, 60 * App.screenHeightAdapter, 2 * (70.3 * App.screenHeightAdapter + 90 * App.screenHeightAdapter), 70 * App.screenHeightAdapter));
-		   */
-
-            estadoQuotaImage = new Image
-			{
-				Source = estadoImageFileName,
-				WidthRequest = 25
-			};
-            quotasabsoluteLayout.Add(estadoQuotaImage);
-            quotasabsoluteLayout.SetLayoutBounds(estadoQuotaImage, new Rect((App.screenWidth) - 26 * App.screenHeightAdapter, 1 * App.screenHeightAdapter, 25 * App.screenHeightAdapter, 25 * App.screenHeightAdapter));
-       
-            Label feeLabel = new Label { FontFamily = "futuracondensedmedium", BackgroundColor = Colors.Transparent, VerticalTextAlignment = TextAlignment.Center, HorizontalTextAlignment = TextAlignment.Center, FontSize = App.titleFontSize, TextColor = App.topColor, LineBreakMode = LineBreakMode.WordWrap };
-            feeLabel.Text = "QUOTA";
-
-            quotasabsoluteLayout.Add(feeLabel);
-            quotasabsoluteLayout.SetLayoutBounds(feeLabel, new Rect(0, 5 * App.screenHeightAdapter, App.screenWidth, 30 * App.screenHeightAdapter));
-
-            //quotasabsoluteLayout.Add(currentQuotasabsoluteLayout);
-            //quotasabsoluteLayout.SetLayoutBounds(currentQuotasabsoluteLayout, new Rect(0, 10 * App.screenHeightAdapter, App.screenWidth, 120 * App.screenHeightAdapter));
-
-
-			//quotasabsoluteLayout.Add(quotasFrame);
-			// quotasabsoluteLayout.SetLayoutBounds(quotasFrame, new Rect(0, 10 * App.screenHeightAdapter, App.screenWidth, 100 * App.screenHeightAdapter));
+                createInactiveFeeLayout();
+            }
 
 		}
 
-		public async void CreatePastQuotas()
+        public void createInactiveFeeLayout()
+        {
+            gridInactiveFee = new Microsoft.Maui.Controls.Grid { Padding = 10, HorizontalOptions = LayoutOptions.FillAndExpand, VerticalOptions = LayoutOptions.FillAndExpand, RowSpacing = 10 * App.screenHeightAdapter };
+            gridInactiveFee.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
+            gridInactiveFee.RowDefinitions.Add(new RowDefinition { Height = 100 });
+            gridInactiveFee.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
+            gridInactiveFee.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
+            gridInactiveFee.RowDefinitions.Add(new RowDefinition { Height = GridLength.Star });
+            gridInactiveFee.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
+            gridInactiveFee.RowDefinitions.Add(new RowDefinition { Height = 50 });
+            gridInactiveFee.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Star }); //
+            gridInactiveFee.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Star }); //GridLength.Auto 
+
+            Label feeYearLabel = new Label
+            {
+                FontFamily = "futuracondensedmedium",
+                Text = DateTime.Now.ToString("yyyy"),
+                VerticalTextAlignment = TextAlignment.Center,
+                HorizontalTextAlignment = TextAlignment.Center,
+                TextColor = App.normalTextColor,
+                LineBreakMode = LineBreakMode.NoWrap,
+                FontSize = App.bigTitleFontSize
+            };
+
+            Image akslLogoFee = new Image
+            {
+                Source = "company_logo.png",
+                WidthRequest = 100,
+                Opacity = 0.50
+            };
+
+            Image fnkpLogoFee = new Image
+            {
+                Source = "logo_fnkp.png",
+                WidthRequest = 100,
+                Opacity = 0.50
+            };
+
+            Label feeInactiveLabel = new Label
+            {
+                FontFamily = "futuracondensedmedium",
+                Text = "Quota Inativa",
+                VerticalTextAlignment = TextAlignment.Center,
+                HorizontalTextAlignment = TextAlignment.Center,
+                TextColor = Colors.Red,
+                LineBreakMode = LineBreakMode.NoWrap,
+                FontSize = App.bigTitleFontSize
+            };
+
+            Label feeInactiveCommentLabel = new Label
+            {
+                FontFamily = "futuracondensedmedium",
+                Text = "Atenção: Com as quotas inativas o aluno não poderá participar em eventos e não tem acesso a seguro desportivo em caso de lesão.",
+                VerticalTextAlignment = TextAlignment.Center,
+                HorizontalTextAlignment = TextAlignment.Center,
+                TextColor = App.normalTextColor,
+                FontSize = App.titleFontSize
+            };
+
+            activateButton = new RegisterButton("ATIVAR", App.screenWidth - 20 * App.screenWidthAdapter, 50 * App.screenHeightAdapter);
+            activateButton.button.Clicked += OnActivateButtonClicked;
+
+
+            gridInactiveFee.Add(feeYearLabel, 0, 0);
+            Microsoft.Maui.Controls.Grid.SetColumnSpan(feeYearLabel, 2);
+
+            gridInactiveFee.Add(fnkpLogoFee, 0, 1);
+            gridInactiveFee.Add(akslLogoFee, 1, 1);
+
+            gridInactiveFee.Add(feeInactiveLabel, 0, 2);
+            Microsoft.Maui.Controls.Grid.SetColumnSpan(feeInactiveLabel, 2);
+
+            gridInactiveFee.Add(feeInactiveCommentLabel, 0, 3);
+            Microsoft.Maui.Controls.Grid.SetColumnSpan(feeInactiveCommentLabel, 2);
+
+
+            Label historicoQuotasLabel = new Label { FontFamily = "futuracondensedmedium", BackgroundColor = Colors.Transparent, VerticalTextAlignment = TextAlignment.Center, HorizontalTextAlignment = TextAlignment.Center, FontSize = App.titleFontSize, TextColor = App.topColor, LineBreakMode = LineBreakMode.WordWrap };
+            historicoQuotasLabel.Text = "HISTÓRICO QUOTAS";
+
+            gridInactiveFee.Add(historicoQuotasLabel, 0, 4);
+            Microsoft.Maui.Controls.Grid.SetColumnSpan(historicoQuotasLabel, 2);
+
+
+            gridInactiveFee.Add(collectionViewPastQuotas, 0, 5);
+            Microsoft.Maui.Controls.Grid.SetColumnSpan(collectionViewPastQuotas, 2);
+
+            gridInactiveFee.Add(activateButton, 0, 6);
+            Microsoft.Maui.Controls.Grid.SetColumnSpan(activateButton, 2);
+
+            absoluteLayout.Add(gridInactiveFee);
+            absoluteLayout.SetLayoutBounds(gridInactiveFee, new Rect(10 * App.screenWidthAdapter, 10 * App.screenHeightAdapter, App.screenWidth - 20 * App.screenWidthAdapter, App.screenHeight - 110 * App.screenHeightAdapter));
+
+        }
+
+
+        public void createActiveFeeLayout()
+        {
+            gridActiveFee = new Microsoft.Maui.Controls.Grid { Padding = 30, HorizontalOptions = LayoutOptions.FillAndExpand, VerticalOptions = LayoutOptions.FillAndExpand };
+            gridActiveFee.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
+            gridActiveFee.RowDefinitions.Add(new RowDefinition { Height = 100 });
+            gridActiveFee.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
+            gridActiveFee.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
+            gridActiveFee.RowDefinitions.Add(new RowDefinition { Height = GridLength.Star });
+            gridActiveFee.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
+            gridActiveFee.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Star }); //GridLength.Auto
+            gridActiveFee.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Star }); //GridLength.Auto 
+
+            Label feeYearLabel = new Label
+            {
+                Text = DateTime.Now.ToString("yyyy"),
+                VerticalTextAlignment = TextAlignment.Center,
+                HorizontalTextAlignment = TextAlignment.Center,
+                TextColor = App.normalTextColor,
+                LineBreakMode = LineBreakMode.NoWrap,
+                FontSize = 50
+            };
+
+            Image akslLogoFee = new Image
+            {
+                Source = "company_logo.png",
+                WidthRequest = 100
+            };
+
+            Image fnkpLogoFee = new Image
+            {
+                Source = "logo_fnkp.png",
+                WidthRequest = 100
+
+            };
+
+            Label feeActiveLabel = new Label
+            {
+                Text = "Quotas Ativas",
+                VerticalTextAlignment = TextAlignment.Center,
+                HorizontalTextAlignment = TextAlignment.Center,
+                TextColor = App.topColor,
+                LineBreakMode = LineBreakMode.NoWrap,
+                FontSize = 40
+            };
+
+            Label feeActiveDueDateLabel = new Label
+            {
+                Text = "Válida até 31-12-" + DateTime.Now.ToString("yyyy"),
+                VerticalTextAlignment = TextAlignment.Center,
+                HorizontalTextAlignment = TextAlignment.Center,
+                TextColor = App.normalTextColor,
+                LineBreakMode = LineBreakMode.NoWrap,
+                FontSize = 35
+            };
+
+
+            gridActiveFee.Add(feeYearLabel, 0, 0);
+            Microsoft.Maui.Controls.Grid.SetColumnSpan(feeYearLabel, 2);
+
+            gridActiveFee.Add(fnkpLogoFee, 0, 1);
+            gridActiveFee.Add(akslLogoFee, 1, 1);
+
+            gridActiveFee.Add(feeActiveLabel, 0, 2);
+            Microsoft.Maui.Controls.Grid.SetColumnSpan(feeActiveLabel, 2);
+
+            gridActiveFee.Add(feeActiveDueDateLabel, 0, 3);
+            Microsoft.Maui.Controls.Grid.SetColumnSpan(feeActiveDueDateLabel, 2);
+
+
+            Label historicoQuotasLabel = new Label { FontFamily = "futuracondensedmedium", BackgroundColor = Colors.Transparent, VerticalTextAlignment = TextAlignment.Center, HorizontalTextAlignment = TextAlignment.Center, FontSize = App.titleFontSize, TextColor = App.topColor, LineBreakMode = LineBreakMode.WordWrap };
+            historicoQuotasLabel.Text = "HISTÓRICO QUOTAS";
+
+            gridActiveFee.Add(historicoQuotasLabel, 0, 4);
+            Microsoft.Maui.Controls.Grid.SetColumnSpan(collectionViewPastQuotas, 2);
+
+            gridActiveFee.Add(collectionViewPastQuotas, 0, 5);
+            Microsoft.Maui.Controls.Grid.SetColumnSpan(collectionViewPastQuotas, 2);
+
+            absoluteLayout.Add(gridActiveFee);
+            absoluteLayout.SetLayoutBounds(gridActiveFee, new Rect(0, 10 * App.screenHeightAdapter, App.screenWidth, App.screenHeight - 110 * App.screenHeightAdapter));
+
+        }
+
+        public async Task<int> CreatePastQuotas()
 		{			
 			var result = await GetPastFees(App.member);
-
-			Label historicoQuotasLabel = new Label { FontFamily = "futuracondensedmedium", BackgroundColor = Colors.Transparent, VerticalTextAlignment = TextAlignment.Center, HorizontalTextAlignment = TextAlignment.Center, FontSize = App.titleFontSize, TextColor = App.topColor, LineBreakMode = LineBreakMode.WordWrap };
-			historicoQuotasLabel.Text = "HISTÓRICO QUOTAS";
-
-			quotasabsoluteLayout.Add(historicoQuotasLabel);
-            quotasabsoluteLayout.SetLayoutBounds(historicoQuotasLabel, new Rect(0, 130 * App.screenHeightAdapter, App.screenWidth, 50 * App.screenHeightAdapter));
-
+            
 			//COLLECTION GRADUACOES
 			collectionViewPastQuotas = new CollectionView
 			{
@@ -307,8 +376,9 @@ namespace SportNow.Views
 				return itemabsoluteLayout;
 			});
 
-			quotasabsoluteLayout.Add(collectionViewPastQuotas);
-            quotasabsoluteLayout.SetLayoutBounds(collectionViewPastQuotas, new Rect(0, 170 * App.screenHeightAdapter, App.screenWidth, App.screenHeight - 170 * App.screenHeightAdapter));
+			return 0;
+			/*quotasabsoluteLayout.Add(collectionViewPastQuotas);
+            quotasabsoluteLayout.SetLayoutBounds(collectionViewPastQuotas, new Rect(0, 200 * App.screenHeightAdapter, App.screenWidth, App.screenHeight - 360 * App.screenHeightAdapter));*/
 		}
 
 
@@ -407,5 +477,45 @@ namespace SportNow.Views
 			return result[0];
 		}
 
-	}
+        async void OnActivateButtonClicked(object sender, EventArgs e)
+        {
+
+            Debug.Print("App.member.member_type = " + App.member.member_type);
+            showActivityIndicator();
+            activateButton.IsEnabled = false;
+
+            MemberManager memberManager = new MemberManager();
+
+
+            if (App.member.currentFee is null)
+            {
+
+                var result_create = "0";
+
+                result_create = await memberManager.CreateFee(App.member.id, App.member.member_type, DateTime.Now.ToString("yyyy"));
+                if (result_create == "-1")
+                {
+                    Application.Current.MainPage = new NavigationPage(new LoginPageCS("Verifique a sua ligação à Internet e tente novamente."))
+                    {
+                        BarBackgroundColor = App.backgroundColor,
+                        BarTextColor = App.normalTextColor
+                    };
+                }
+
+                var result_get = await GetCurrentFees(App.member);
+                if (result_create == "-1")
+                {
+                    Application.Current.MainPage = new NavigationPage(new LoginPageCS("Verifique a sua ligação à Internet e tente novamente."))
+                    {
+                        BarBackgroundColor = App.backgroundColor,
+                        BarTextColor = App.normalTextColor
+                    };
+                }
+            }
+
+            await Navigation.PushAsync(new QuotasPaymentPageCS(App.member));
+            hideActivityIndicator();
+        }
+
+    }
 }

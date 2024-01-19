@@ -16,9 +16,13 @@ namespace SportNow.Views
 
 		private Microsoft.Maui.Controls.Grid gridMBPayment;
 
-		public void initLayout()
+        private List<Payment> payments;
+
+        double quotaOriginalValue = 0;
+
+        public void initLayout()
 		{
-			Title = "Quota - Pagamento MB";
+			Title = "QUOTA - PAGAMENTO MB";
 			
 		}
 
@@ -28,15 +32,27 @@ namespace SportNow.Views
 
 			member = App.member;
 
-			var result = await GetFeePayment(member);
+			showActivityIndicator();
+            payments = await GetFeePayment(this.member);
 
-			
-			createMBPaymentLayout();
+            PaymentManager paymentManager = new PaymentManager();
+            await paymentManager.Update_Payment_Mode(payments[0].id, "dinheiro");
+
+            payments = await GetFeePayment(this.member);
+            quotaOriginalValue = payments[0].value;
+
+            await paymentManager.Update_Payment_Mode(payments[0].id, "mb");
+
+            payments = await GetFeePayment(this.member);
+            hideActivityIndicator();
+
+
+            createMBPaymentLayout();
 		}
 
 		public void createMBPaymentLayout() {
             gridMBPayment = new Microsoft.Maui.Controls.Grid { Padding = 10, ColumnSpacing = 20 * App.screenHeightAdapter, HorizontalOptions = LayoutOptions.FillAndExpand, VerticalOptions = LayoutOptions.FillAndExpand };
-            gridMBPayment.RowDefinitions.Add(new RowDefinition { Height = 150 * App.screenHeightAdapter });
+            gridMBPayment.RowDefinitions.Add(new RowDefinition { Height = 160 * App.screenHeightAdapter });
             gridMBPayment.RowDefinitions.Add(new RowDefinition { Height = 20 * App.screenHeightAdapter });
             gridMBPayment.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
             gridMBPayment.RowDefinitions.Add(new RowDefinition { Height = 20 * App.screenHeightAdapter });
@@ -48,7 +64,7 @@ namespace SportNow.Views
 			Label feeYearLabel = new Label
 			{
                 FontFamily = "futuracondensedmedium",
-                Text = member.currentFee.name,
+                Text = "Para ativares a tua Quota \n " + member.currentFee.name + "\n efetua o pagamento MB com os dados apresentados em baixo:",
                 VerticalTextAlignment = TextAlignment.Center,
 				HorizontalTextAlignment = TextAlignment.Center,
 				TextColor = App.normalTextColor,
@@ -74,27 +90,6 @@ namespace SportNow.Views
                 HeightRequest = 142 * App.screenHeightAdapter,
                 FontSize = App.bigTitleFontSize
             };
-
-			/*Label feeInactiveCommentLabel = new Label
-			{
-				Text = "Atenção: Com as quotas inativas o aluno não poderá participar em eventos e não terá seguro desportivo em caso de lesão.",
-				VerticalTextAlignment = TextAlignment.Center,
-				HorizontalTextAlignment = TextAlignment.Center,
-				TextColor = App.normalTextColor,
-				FontSize = 20
-			};
-
-			Button activateButton = new Button
-			{
-				Text = "ATIVAR",
-				BackgroundColor = Colors.Green,
-				TextColor = App.normalTextColor,
-				WidthRequest = 100,
-				HeightRequest = 50
-			};
-			//activateButton.Clicked += OnActivateButtonClicked;
-
-			*/
 
 			Microsoft.Maui.Controls.Grid gridMBDataPayment = new Microsoft.Maui.Controls.Grid { Padding = 10 * App.screenWidthAdapter, ColumnSpacing = 5 * App.screenHeightAdapter,  HorizontalOptions = LayoutOptions.FillAndExpand, VerticalOptions = LayoutOptions.FillAndExpand };
 			gridMBDataPayment.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
@@ -152,7 +147,7 @@ namespace SportNow.Views
 			Label valueValue = new Label
 			{
                 FontFamily = "futuracondensedmedium",
-                Text = String.Format("{0:0.00}", App.member.currentFee.valor) + "€",
+                Text = String.Format("{0:0.00}", payments[0].value) + "€",
 				VerticalTextAlignment = TextAlignment.Center,
 				HorizontalTextAlignment = TextAlignment.End,
 				TextColor = App.normalTextColor,
@@ -186,22 +181,23 @@ namespace SportNow.Views
 			gridMBPayment.Add(MBDataFrame, 0, 4);
 			Microsoft.Maui.Controls.Grid.SetColumnSpan(MBDataFrame, 2);
 
-			absoluteLayout.Add(gridMBPayment);
-            absoluteLayout.SetLayoutBounds(gridMBPayment, new Rect(0, 10 * App.screenHeightAdapter, App.screenWidth, App.screenHeight - 10 * App.screenHeightAdapter));
-
-            Label Label = new Label
+            Label labelTax = new Label
             {
                 FontFamily = "futuracondensedmedium",
-                Text = "O valor total desta transação incluiu uma taxa de 1.7% e 0.22€ ",
+                Text = "O valor total desta transação incluiu uma taxa de " + String.Format("{0:0.00}", payments[0].value - quotaOriginalValue) + "€",
                 VerticalTextAlignment = TextAlignment.Center,
-                HorizontalTextAlignment = TextAlignment.Start,
+                HorizontalTextAlignment = TextAlignment.Center,
                 TextColor = App.normalTextColor,
-                FontSize = App.titleFontSize
+                FontSize = App.itemTextFontSize
             };
 
-            absoluteLayout.Add(Label);
-            absoluteLayout.SetLayoutBounds(Label, new Rect(22, 35 * App.screenHeightAdapter, App.screenWidth, App.screenHeight - 10 * App.screenHeightAdapter));
+            gridMBPayment.RowDefinitions.Add(new RowDefinition { Height = 20 * App.screenHeightAdapter });
+            gridMBPayment.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
+            gridMBPayment.Add(labelTax, 0, 5);
+            Grid.SetColumnSpan(labelTax, 2);
 
+            absoluteLayout.Add(gridMBPayment);
+            absoluteLayout.SetLayoutBounds(gridMBPayment, new Rect(0, 10 * App.screenHeightAdapter, App.screenWidth, App.screenHeight - 10 * App.screenHeightAdapter));
         
 		}
 
@@ -221,24 +217,25 @@ namespace SportNow.Views
 		}
 
 
-		async Task<int> GetFeePayment(Member member)
-		{
-			Debug.WriteLine("GetFeePayment");
-			MemberManager memberManager = new MemberManager();
+        async Task<List<Payment>> GetFeePayment(Member member)
+        {
+            Debug.WriteLine("GetFeePayment");
+            MemberManager memberManager = new MemberManager();
 
-			var result = await memberManager.GetCurrentFees(member);
-			if (result == -1)
-			{
-								Application.Current.MainPage = new NavigationPage(new LoginPageCS("Verifique a sua ligação à Internet e tente novamente."))
-				{
-					BarBackgroundColor = App.backgroundColor,
-					BarTextColor = App.normalTextColor
-				};
-				return result;
-			}
-			return result;
-		}
+            payments = await memberManager.GetFeePayment(member.currentFee.id);
+            Debug.Print("OLA");
+            if (payments == null)
+            {
+                Application.Current.MainPage = new NavigationPage(new LoginPageCS("Verifique a sua ligação à Internet e tente novamente."))
+                {
+                    BarBackgroundColor = App.backgroundColor,
+                    BarTextColor = App.normalTextColor
+                };
+                return null;
+            }
+            return payments;
+        }
 
-	}
+    }
 }
 

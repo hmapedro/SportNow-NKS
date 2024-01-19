@@ -18,8 +18,8 @@ namespace SportNow.Model
         public string kihonText { get; set; }
         public string kataText { get; set; }
         public string kumiteText { get; set; }
-        public string shiaikumiteText { get; set; }
-        public string estacaoKataText { get; set; }
+        public string atleticoText { get; set; }
+        public string flexibilidadeText { get; set; }
         public bool isExpanded { get; set; } = false;
     }
 }

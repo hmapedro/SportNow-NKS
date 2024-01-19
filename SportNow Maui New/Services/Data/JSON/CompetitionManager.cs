@@ -221,11 +221,11 @@ namespace SportNow.Services.Data.JSON
 
 		public async Task<Payment> GetCompetitionParticipation_Payment(Competition competition)
 		{
-			Debug.Print("GetCompetitionParticipation_Payment");
-
 			var competitionString = "'" + competition.participationid + "'";
 
-			Uri uri = new Uri(string.Format(Constants.RestUrl_Get_CompetitionParticipation_Payment + "?competitionparticipationid=" + competitionString, string.Empty));
+			Debug.Print("GetCompetitionParticipation_Payment " + Constants.RestUrl_Get_CompetitionParticipation_Payment + "?competitionparticipationid=" + competitionString);
+
+            Uri uri = new Uri(string.Format(Constants.RestUrl_Get_CompetitionParticipation_Payment + "?competitionparticipationid=" + competitionString, string.Empty));
 			try
 			{
 				HttpResponseMessage response = await client.GetAsync(uri);

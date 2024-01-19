@@ -251,7 +251,7 @@ namespace SportNow.Views
 			});
 
 			absoluteLayout.Add(collectionViewEquipments);
-            absoluteLayout.SetLayoutBounds(collectionViewEquipments, new Rect(0, 80 * App.screenHeightAdapter, App.screenWidth, App.screenHeight - 80 * App.screenHeightAdapter));
+            absoluteLayout.SetLayoutBounds(collectionViewEquipments, new Rect(0, 80 * App.screenHeightAdapter, App.screenWidth, App.screenHeight - 200 * App.screenHeightAdapter));
 
 		}
 
