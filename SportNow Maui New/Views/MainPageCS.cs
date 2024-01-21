@@ -309,8 +309,8 @@ namespace SportNow.Views
 					class_schedule.imagesourceObject = new UriImageSource
 					{
 						Uri = new Uri(Constants.images_URL + class_schedule.classid + "_imagem_c"),
-						CachingEnabled = true,
-						CacheValidity = new TimeSpan(5, 0, 0, 0)
+						CachingEnabled = false,
+						CacheValidity = new TimeSpan(0, 0, 0, 0)
 					};
 				}
 			}
@@ -470,8 +470,8 @@ namespace SportNow.Views
 					class_schedule.imagesourceObject = new UriImageSource
 					{
 							Uri = new Uri(Constants.images_URL + class_schedule.classid + "_imagem_c"),
-							CachingEnabled = true,
-							CacheValidity = new TimeSpan(5, 0, 0, 0)
+							CachingEnabled = false,
+							CacheValidity = new TimeSpan(0, 0, 0, 0)
 					};
 				}
 				
@@ -703,26 +703,114 @@ namespace SportNow.Views
 
 
 
-		public void createFamousQuote()
+		public void createLinks()
 		{
-			Random random = new Random();
-			int random_number = random.Next(Constants.famousQuotes.Count);
+            Grid gridLinks = new Microsoft.Maui.Controls.Grid { Padding = 0, HorizontalOptions = LayoutOptions.FillAndExpand, RowSpacing = 5 * App.screenWidthAdapter };
+            gridLinks.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
+            gridLinks.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
+            //gridGeral.RowDefinitions.Add(new RowDefinition { Height = 1 });
+            gridLinks.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Star }); //GridLength.Auto
+            gridLinks.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Star }); //GridLength.Auto 
 
-			famousQuoteLabel = new Label
-			{
-				Text = Constants.famousQuotes[random_number],
-				TextColor = App.normalTextColor,
-				HorizontalTextAlignment = TextAlignment.Center,
-				FontSize = App.titleFontSize,
-				FontAttributes = FontAttributes.Italic,
-                FontFamily = "futuracondensedmedium",
+
+            Image grupoFacebookImage = new Image
+            {
+                Source = "facebook.png",
+                Aspect = Aspect.AspectFit,
+                HeightRequest = 35 * App.screenWidthAdapter,
+                WidthRequest = 35 * App.screenWidthAdapter
             };
 
-			absoluteLayout.Add(famousQuoteLabel);
-            absoluteLayout.SetLayoutBounds(famousQuoteLabel, new Rect(0, feesOrQuoteY, App.screenWidth, 90 * App.screenHeightAdapter));
-		}
+            TapGestureRecognizer grupoFacebook_tapEvent = new TapGestureRecognizer();
+            grupoFacebook_tapEvent.Tapped += grupoFacebookImage_Clicked;
+            grupoFacebookImage.GestureRecognizers.Add(grupoFacebook_tapEvent);
 
-		public async void createCurrentFee()
+            Label grupoFacebookLabel = new Label
+            {
+                FontFamily = "futuracondensedmedium",
+                Text = "Grupo Facebook NKS",
+                TextColor = App.normalTextColor,
+                HorizontalTextAlignment = TextAlignment.Center,
+                VerticalTextAlignment = TextAlignment.Start,
+                FontSize = App.smallTextFontSize
+            };
+            grupoFacebookLabel.GestureRecognizers.Add(grupoFacebook_tapEvent);
+
+
+            gridLinks.Add(grupoFacebookImage, 0, 0);
+            gridLinks.Add(grupoFacebookLabel, 0, 1);
+
+
+            /*absoluteLayout.Add(grupoFacebookImage);
+            absoluteLayout.SetLayoutBounds(grupoFacebookImage, new Rect(App.screenWidth / 2 - 87.5 * App.screenWidthAdapter, feesOrQuoteY, 35 * App.screenHeightAdapter, 35 * App.screenHeightAdapter));
+
+
+            absoluteLayout.Add(grupoFacebookLabel);
+            absoluteLayout.SetLayoutBounds(grupoFacebookLabel, new Rect(App.screenWidth/2 - 100 * App.screenWidthAdapter, feesOrQuoteY + 35 * App.screenHeightAdapter, 60 * App.screenWidthAdapter, 20 * App.screenHeightAdapter));
+			*/
+            Image websiteImage = new Image
+            {
+                Source = "www.png",
+                Aspect = Aspect.AspectFit,
+				HeightRequest = 35*App.screenWidthAdapter,
+                WidthRequest = 35 * App.screenWidthAdapter
+            };
+
+            TapGestureRecognizer website_tapEvent = new TapGestureRecognizer();
+            website_tapEvent.Tapped += websiteImage_Clicked;
+            websiteImage.GestureRecognizers.Add(website_tapEvent);
+
+
+
+            Label websiteLabel = new Label
+            {
+                FontFamily = "futuracondensedmedium",
+                Text = "Website NKS",
+                TextColor = App.normalTextColor,
+                HorizontalTextAlignment = TextAlignment.Center,
+                VerticalTextAlignment = TextAlignment.Start,
+                FontSize = App.smallTextFontSize
+            };
+            websiteLabel.GestureRecognizers.Add(website_tapEvent);
+
+            gridLinks.Add(websiteImage, 1, 0);
+            gridLinks.Add(websiteLabel, 1, 1);
+
+            absoluteLayout.Add(gridLinks);
+            absoluteLayout.SetLayoutBounds(gridLinks, new Rect(0, feesOrQuoteY + 20 * App.screenHeightAdapter, App.screenWidth, 80 * App.screenHeightAdapter));
+
+
+            /*absoluteLayout.Add(websiteImage);
+            absoluteLayout.SetLayoutBounds(websiteImage, new Rect(App.screenWidth / 2 + 47.5 * App.screenWidthAdapter, feesOrQuoteY, 35 * App.screenHeightAdapter, 35 * App.screenHeightAdapter));
+
+            absoluteLayout.Add(websiteLabel);
+            absoluteLayout.SetLayoutBounds(websiteLabel, new Rect(App.screenWidth / 2 + 40 * App.screenWidthAdapter, feesOrQuoteY + 35 * App.screenHeightAdapter, 60 * App.screenWidthAdapter, 20 * App.screenHeightAdapter));
+			*/
+        }
+
+        async void grupoFacebookImage_Clicked(object sender, EventArgs e)
+        {
+            try
+            {
+                await Browser.OpenAsync("https://www.facebook.com/groups/karatesangalhos", BrowserLaunchMode.SystemPreferred);
+            }
+            catch (Exception ex)
+            {
+            }
+        }
+
+        async void websiteImage_Clicked(object sender, EventArgs e)
+        {
+            try
+            {
+                await Browser.OpenAsync("https://karatesangalhos.pt/", BrowserLaunchMode.SystemPreferred);
+            }
+            catch (Exception ex)
+            {
+            }
+        }
+
+        public async void createCurrentFee()
 		{
 
 			if (App.member.currentFee == null)
@@ -738,7 +826,7 @@ namespace SportNow.Views
 				if ((App.member.currentFee.estado == "fechado") | (App.member.currentFee.estado == "recebido") | (App.member.currentFee.estado == "confirmado"))
 				{
 					hasQuotaPayed = true;
-					createFamousQuote();
+					createLinks();
 					return;
 				}
 			}

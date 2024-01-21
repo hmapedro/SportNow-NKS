@@ -200,6 +200,8 @@
 	  <BundleResource Include="Resources\.DS_Store" />
 	  <BundleResource Include="Resources\Images\company_logo_square.png" />
 	  <BundleResource Include="Resources\Images\loading.gif" />
+	  <BundleResource Include="Resources\Images\facebook.png" />
+	  <BundleResource Include="Resources\Images\www.png" />
 	</ItemGroup>
 	<ItemGroup>
 	  <InterfaceDefinition Include="Resources\Images\launchscreen.storyboard" />
@@ -213,5 +215,7 @@
 	  <None Remove="Resources\Images\Spinner-1s-200px %281%29.gif" />
 	  <None Remove="Platforms\Android\Resources\drawable\" />
 	  <None Remove="Resources\Splash\appicon.svg" />
+	  <None Remove="Resources\Images\facebook %281%29.png" />
+	  <None Remove="Resources\Images\world-wide-web.png" />
 	</ItemGroup>
 </Project>

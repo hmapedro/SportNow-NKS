@@ -167,7 +167,7 @@ namespace SportNow.Views.Personal
             absoluteLayout.Add(disponibilidadeEntry);
             absoluteLayout.SetLayoutBounds(disponibilidadeEntry, new Rect(10 * App.screenWidthAdapter, 305 * App.screenHeightAdapter, App.screenWidth - (20 * App.screenWidthAdapter), 100 * App.screenHeightAdapter));
 
-            RegisterButton personalClassesButton = new RegisterButton("ENVIAR PEDIDO", App.screenWidth, 50);
+            RegisterButton personalClassesButton = new RegisterButton("ENVIAR PEDIDO", App.screenWidth - 20 * App.screenWidthAdapter, 50 * App.screenHeightAdapter);
             //personalClassesButton.button.BackgroundColor = App.topColor;
             personalClassesButton.button.Clicked += OnPersonalClassesButtonClicked;
 

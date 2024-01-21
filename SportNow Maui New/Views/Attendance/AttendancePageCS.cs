@@ -162,8 +162,8 @@ namespace SportNow.Views
 					class_schedule.imagesourceObject = new UriImageSource
 					{
 						Uri = new Uri(Constants.images_URL + class_schedule.classid + "_imagem_c"),
-						CachingEnabled = true,
-						CacheValidity = new TimeSpan(5, 0, 0, 0)
+						CachingEnabled = false,
+						CacheValidity = new TimeSpan(0, 0, 0, 0)
 					};
 				}
 

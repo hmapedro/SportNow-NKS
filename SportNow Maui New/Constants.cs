@@ -222,19 +222,6 @@ namespace SportNow
         public const string DatabaseFilename = "SportNowSQLite.db3";
 
 
-        public static Dictionary<string, string> fee_type { get; } = new Dictionary<string, string>
-        {
-            { "nksl_fnkp_seguro", "Quota Anual Praticante c/Seguro - Renovação" },
-            { "nksl_fnkp", "Quota Anual Praticante s/Seguro - Renovação" },
-            { "inscricao_nksl_fnkp_seguro", "Quota Anual Praticante c/Seguro - Nova" },
-            { "inscricao_nksl_fnkp", "Quota Anual Praticante s/Seguro - Nova" },
-            { "treinador_nksl_fnkp_seguro", "Quota Anual Treinador c/Seguro - Renovação" },
-            { "treinador_nksl_fnkp", "Quota Anual Treinador s/Seguro - Renovação" },
-            { "treinador_inscricao_nksl_fnkp_seguro", "Quota Anual Treinador c/Seguro - Nova" },
-            { "treinador_inscricao_nksl_fnkp", "Quota Anual Treinador s/Seguro - Nova" },
-            { "nao_praticante", "Quota Anual Não Praticante" },
-        };
-
         public static Dictionary<string, string> competition_type { get; } = new Dictionary<string, string>
         {
             { "torneio_interno", "Torneio Interno" },
@@ -251,13 +238,6 @@ namespace SportNow
             { "summer_camp", "Summer Camp" },
             { "formacao", "Formação" },
             { "treino", "Treino" }
-        };
-
-        public static Dictionary<string, string> grade_type { get; } = new Dictionary<string, string>
-        {
-            { "menos6", "Até 6 anos" },
-            { "menos12", "Até 12 anos" },
-            { "mais12", "Mais 12 anos" }
         };
 
 
@@ -282,7 +262,12 @@ namespace SportNow
             { "2_Dan", "2º Dan" },
             { "3_Dan", "3º Dan" },
             { "4_Dan", "4º Dan" },
-            { "5_Dan", "5º Dan" }
+            { "5_Dan", "5º Dan" },
+            { "6_Dan", "6º Dan" },
+            { "7_Dan", "7º Dan" },
+            { "8_Dan", "8º Dan" },
+            { "9_Dan", "9º Dan" },
+            { "10_Dan", "10º Dan" },
         };
 
         public static List<Belt> belts { get; } = new List<Belt> {
@@ -305,7 +290,13 @@ namespace SportNow
             new Belt { gradecode = "2_Dan", grade = "2º Dan", image = "belt_2_Dan.png"  },
             new Belt { gradecode = "3_Dan", grade = "3º Dan", image = "belt_3_Dan.png"  },
             new Belt { gradecode = "4_Dan", grade = "4º Dan", image = "belt_4_Dan.png"  },
-            new Belt { gradecode = "5_Dan", grade = "5º Dan", image = "belt_4_Dan.png"  }
+            new Belt { gradecode = "5_Dan", grade = "5º Dan", image = "belt_4_Dan.png"  },
+            new Belt { gradecode = "6_Dan", grade = "6º Dan", image = "belt_4_Dan.png"  },
+            new Belt { gradecode = "7_Dan", grade = "7º Dan", image = "belt_4_Dan.png"  },
+            new Belt { gradecode = "8_Dan", grade = "8º Dan", image = "belt_4_Dan.png"  },
+            new Belt { gradecode = "9_Dan", grade = "9º Dan", image = "belt_4_Dan.png"  },
+            new Belt { gradecode = "10_Dan", grade = "10º Dan", image = "belt_4_Dan.png"  },
+
         };
 
         public static Dictionary<int, string> months { get; } = new Dictionary<int, string>

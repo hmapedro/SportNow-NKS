@@ -172,8 +172,8 @@ namespace SportNow.Views.Profile
                     class_detail.imagesourceObject = new UriImageSource
 					{
 						Uri = new Uri(Constants.images_URL + class_detail.id + "_imagem_c"),
-						CachingEnabled = true,
-						CacheValidity = new TimeSpan(5, 0, 0, 0)
+						CachingEnabled = false,
+						CacheValidity = new TimeSpan(0, 0, 0, 0)
 					};
 				}
 			}

@@ -124,8 +124,8 @@ namespace SportNow.Views
             gridInactiveFee.RowDefinitions.Add(new RowDefinition { Height = 100 });
             gridInactiveFee.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
             gridInactiveFee.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
-            gridInactiveFee.RowDefinitions.Add(new RowDefinition { Height = GridLength.Star });
             gridInactiveFee.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
+            gridInactiveFee.RowDefinitions.Add(new RowDefinition { Height = GridLength.Star });
             gridInactiveFee.RowDefinitions.Add(new RowDefinition { Height = 50 });
             gridInactiveFee.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Star }); //
             gridInactiveFee.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Star }); //GridLength.Auto 
@@ -144,14 +144,14 @@ namespace SportNow.Views
             Image akslLogoFee = new Image
             {
                 Source = "company_logo.png",
-                WidthRequest = 100,
+                WidthRequest = 100 * App.screenWidthAdapter,
                 Opacity = 0.50
             };
 
             Image fnkpLogoFee = new Image
             {
                 Source = "logo_fnkp.png",
-                WidthRequest = 100,
+                WidthRequest = 100 * App.screenWidthAdapter,
                 Opacity = 0.50
             };
 
@@ -196,25 +196,25 @@ namespace SportNow.Views
             Label historicoQuotasLabel = new Label { FontFamily = "futuracondensedmedium", BackgroundColor = Colors.Transparent, VerticalTextAlignment = TextAlignment.Center, HorizontalTextAlignment = TextAlignment.Center, FontSize = App.titleFontSize, TextColor = App.topColor, LineBreakMode = LineBreakMode.WordWrap };
             historicoQuotasLabel.Text = "HISTÓRICO QUOTAS";
 
-            gridInactiveFee.Add(historicoQuotasLabel, 0, 4);
+            gridInactiveFee.Add(historicoQuotasLabel, 0, 5);
             Microsoft.Maui.Controls.Grid.SetColumnSpan(historicoQuotasLabel, 2);
 
 
-            gridInactiveFee.Add(collectionViewPastQuotas, 0, 5);
+            gridInactiveFee.Add(collectionViewPastQuotas, 0, 6);
             Microsoft.Maui.Controls.Grid.SetColumnSpan(collectionViewPastQuotas, 2);
 
-            gridInactiveFee.Add(activateButton, 0, 6);
+            gridInactiveFee.Add(activateButton, 0, 4);
             Microsoft.Maui.Controls.Grid.SetColumnSpan(activateButton, 2);
 
             absoluteLayout.Add(gridInactiveFee);
-            absoluteLayout.SetLayoutBounds(gridInactiveFee, new Rect(10 * App.screenWidthAdapter, 10 * App.screenHeightAdapter, App.screenWidth - 20 * App.screenWidthAdapter, App.screenHeight - 110 * App.screenHeightAdapter));
+            absoluteLayout.SetLayoutBounds(gridInactiveFee, new Rect(10 * App.screenWidthAdapter, 10 * App.screenHeightAdapter, App.screenWidth - 20 * App.screenWidthAdapter, App.screenHeight - 200 * App.screenHeightAdapter));
 
         }
 
 
         public void createActiveFeeLayout()
         {
-            gridActiveFee = new Microsoft.Maui.Controls.Grid { Padding = 30, HorizontalOptions = LayoutOptions.FillAndExpand, VerticalOptions = LayoutOptions.FillAndExpand };
+            gridActiveFee = new Microsoft.Maui.Controls.Grid { Padding = 10, HorizontalOptions = LayoutOptions.FillAndExpand, VerticalOptions = LayoutOptions.FillAndExpand, RowSpacing = 10 * App.screenHeightAdapter };
             gridActiveFee.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
             gridActiveFee.RowDefinitions.Add(new RowDefinition { Height = 100 });
             gridActiveFee.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
@@ -226,39 +226,42 @@ namespace SportNow.Views
 
             Label feeYearLabel = new Label
             {
+                FontFamily = "futuracondensedmedium",
                 Text = DateTime.Now.ToString("yyyy"),
                 VerticalTextAlignment = TextAlignment.Center,
                 HorizontalTextAlignment = TextAlignment.Center,
                 TextColor = App.normalTextColor,
                 LineBreakMode = LineBreakMode.NoWrap,
-                FontSize = 50
+                FontSize = App.bigTitleFontSize
             };
 
             Image akslLogoFee = new Image
             {
                 Source = "company_logo.png",
-                WidthRequest = 100
+                WidthRequest = 100 * App.screenWidthAdapter
             };
 
             Image fnkpLogoFee = new Image
             {
                 Source = "logo_fnkp.png",
-                WidthRequest = 100
+                WidthRequest = 100 * App.screenWidthAdapter
 
             };
 
             Label feeActiveLabel = new Label
             {
+                FontFamily = "futuracondensedmedium",
                 Text = "Quotas Ativas",
                 VerticalTextAlignment = TextAlignment.Center,
                 HorizontalTextAlignment = TextAlignment.Center,
                 TextColor = App.topColor,
                 LineBreakMode = LineBreakMode.NoWrap,
-                FontSize = 40
+                FontSize = App.bigTitleFontSize
             };
 
             Label feeActiveDueDateLabel = new Label
             {
+                FontFamily = "futuracondensedmedium",
                 Text = "Válida até 31-12-" + DateTime.Now.ToString("yyyy"),
                 VerticalTextAlignment = TextAlignment.Center,
                 HorizontalTextAlignment = TextAlignment.Center,
@@ -285,7 +288,7 @@ namespace SportNow.Views
             historicoQuotasLabel.Text = "HISTÓRICO QUOTAS";
 
             gridActiveFee.Add(historicoQuotasLabel, 0, 4);
-            Microsoft.Maui.Controls.Grid.SetColumnSpan(collectionViewPastQuotas, 2);
+            Microsoft.Maui.Controls.Grid.SetColumnSpan(historicoQuotasLabel, 2);
 
             gridActiveFee.Add(collectionViewPastQuotas, 0, 5);
             Microsoft.Maui.Controls.Grid.SetColumnSpan(collectionViewPastQuotas, 2);
@@ -317,22 +320,13 @@ namespace SportNow.Views
 				}
 			};
 
-			GradientBrush gradient = new LinearGradientBrush
-			{
-				StartPoint = new Point(0, 0),
-				EndPoint = new Point(1, 1),
-			};
-
-			gradient.GradientStops.Add(new GradientStop(Color.FromRgb(180, 143, 86), Convert.ToSingle(0)));
-			gradient.GradientStops.Add(new GradientStop(Color.FromRgb(246, 220, 178), Convert.ToSingle(0.5)));
-
 			collectionViewPastQuotas.SelectionChanged += OncollectionViewFeeSelectionChangedAsync;
 
 			collectionViewPastQuotas.ItemTemplate = new DataTemplate(() =>
 			{
 				AbsoluteLayout itemabsoluteLayout = new AbsoluteLayout
 				{
-					HeightRequest= 30 * App.screenHeightAdapter,
+					HeightRequest= 40 * App.screenHeightAdapter,
                     WidthRequest = App.screenWidth
                 };
 
@@ -346,33 +340,27 @@ namespace SportNow.Views
                     },
                     Stroke = App.topColor,
 					Padding = new Thickness(2, 2, 2, 2),
-					HeightRequest = 30 * App.screenHeightAdapter,
+					HeightRequest = 40 * App.screenHeightAdapter,
 					VerticalOptions = LayoutOptions.Center,
 				};
 
 				//itemFrame.Content = itemabsoluteLayout;
 
                 itemabsoluteLayout.Add(itemFrame);
-                itemabsoluteLayout.SetLayoutBounds(itemFrame, new Rect(0, 0, App.screenWidth, 30 * App.screenHeightAdapter));
+                itemabsoluteLayout.SetLayoutBounds(itemFrame, new Rect(0, 0, App.screenWidth-40*App.screenWidthAdapter, 40 * App.screenHeightAdapter));
 
-                Label periodLabel = new Label { FontFamily = "futuracondensedmedium", BackgroundColor = Colors.Transparent, VerticalTextAlignment = TextAlignment.Center, HorizontalTextAlignment = TextAlignment.Start, FontSize = App.itemTextFontSize, TextColor = App.normalTextColor, LineBreakMode = LineBreakMode.WordWrap };
+                Label periodLabel = new Label { FontFamily = "futuracondensedmedium", BackgroundColor = Colors.Transparent, VerticalTextAlignment = TextAlignment.Center, HorizontalTextAlignment = TextAlignment.Start, FontSize = App.formLabelFontSize, TextColor = App.normalTextColor, LineBreakMode = LineBreakMode.WordWrap };
 				periodLabel.SetBinding(Label.TextProperty, "periodo");
 
 				itemabsoluteLayout.Add(periodLabel);
-				itemabsoluteLayout.SetLayoutBounds(periodLabel, new Rect(5 * App.screenWidthAdapter, 0, 30 * App.screenWidthAdapter, 30 * App.screenHeightAdapter));
+				itemabsoluteLayout.SetLayoutBounds(periodLabel, new Rect(5 * App.screenWidthAdapter, 0, 30 * App.screenWidthAdapter, 40 * App.screenHeightAdapter));
 
-				Label nameLabel = new Label { FontFamily = "futuracondensedmedium", BackgroundColor = Colors.Transparent, VerticalTextAlignment = TextAlignment.Center, HorizontalTextAlignment = TextAlignment.Start, FontSize = App.itemTextFontSize, TextColor = App.normalTextColor, LineBreakMode = LineBreakMode.WordWrap };
+				Label nameLabel = new Label { FontFamily = "futuracondensedmedium", BackgroundColor = Colors.Transparent, VerticalTextAlignment = TextAlignment.Center, HorizontalTextAlignment = TextAlignment.Start, FontSize = App.formLabelFontSize, TextColor = App.normalTextColor, LineBreakMode = LineBreakMode.WordWrap };
 				nameLabel.SetBinding(Label.TextProperty, "tipo_desc");
 
 				itemabsoluteLayout.Add(nameLabel);
-				itemabsoluteLayout.SetLayoutBounds(nameLabel, new Rect(35 * App.screenWidthAdapter, 0, App.screenWidth - 40 * App.screenWidthAdapter, 30 * App.screenHeightAdapter));
+				itemabsoluteLayout.SetLayoutBounds(nameLabel, new Rect(35 * App.screenWidthAdapter, 0, App.screenWidth - 40 * App.screenWidthAdapter, 40 * App.screenHeightAdapter));
 
-				Image participationImagem = new Image { Aspect = Aspect.AspectFill }; //, HeightRequest = 60, WidthRequest = 60
-				participationImagem.Source = "iconcheck.png";
-
-				itemabsoluteLayout.Add(participationImagem);
-				itemabsoluteLayout.SetLayoutBounds(participationImagem, new Rect(App.screenWidth - 29 * App.screenWidthAdapter, 1 * App.screenHeightAdapter, 28 * App.screenWidthAdapter, 28 * App.screenHeightAdapter));
-				
 				return itemabsoluteLayout;
 			});
 
