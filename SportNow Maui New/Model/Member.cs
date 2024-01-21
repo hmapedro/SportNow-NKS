@@ -19,7 +19,7 @@ namespace SportNow.Model
         public string dojo { get; set; }
         public string dojo_faturavel { get; set; }
         public string dojo_seguro { get; set; }
-       // public DateTime? birthdate { get; set; }
+        //public DateTime? birthdate { get; set; }
         public string birthdate { get; set; }
         public DateTime? registrationdate { get; set; }
         public string estado { get; set; }
@@ -37,9 +37,11 @@ namespace SportNow.Model
         public string name_enc1 { get; set; }
         public string mail_enc1 { get; set; }
         public string phone_enc1 { get; set; }
-        public string name_enc2 { get; set; }
-        public string mail_enc2 { get; set; }
-        public string phone_enc2 { get; set; }
+        public string fat_name { get; set; }
+        public string fat_address { get; set; }
+        public string fat_city { get; set; }
+        public string fat_postalcode { get; set; }
+        public string fat_nif { get; set; }
 
         public string member_type { get; set; }
         public string isInstructor { get; set; }
