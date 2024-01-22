@@ -177,19 +177,19 @@
 	  <BundleResource Include="Resources\Images\belt_6_kyu_kari_bloq.png" />
 	  <BundleResource Include="Resources\Images\belt_8_kyu_kari.png" />
 	  <BundleResource Include="Resources\Images\belt_2_kyu.png" />
-	  <BundleResource Include="Resources\Images\belt_3_kyu_kari_bloq.png" />
+	  <BundleResource Include="Resources\Images\belt_4_kyu_kari_bloq.png" />
 	  <BundleResource Include="Resources\Images\belt_5_kyu_kari_bloq.png" />
 	  <BundleResource Include="Resources\Images\belt_2_dan.png" />
 	  <BundleResource Include="Resources\Images\belt_3_kyu_bloq.png" />
 	  <BundleResource Include="Resources\Images\belt_4_kyu_bloq.png" />
 	  <BundleResource Include="Resources\Images\belt_5_kyu_kari.png" />
 	  <BundleResource Include="Resources\Images\belt_9_kyu.png" />
-	  <BundleResource Include="Resources\Images\belt_4_kyu_kari_bloq.png" />
+	  <BundleResource Include="Resources\Images\belt_3_kyu_kari_bloq.png" />
 	  <BundleResource Include="Resources\Images\belt_5_kyu_bloq.png" />
 	  <BundleResource Include="Resources\Images\belt_2_kyu_bloq.png" />
 	  <BundleResource Include="Resources\Images\belt_8_kyu.png" />
-	  <BundleResource Include="Resources\Images\belt_3_kyu_kari.png" />
 	  <BundleResource Include="Resources\Images\belt_4_kyu_kari.png" />
+	  <BundleResource Include="Resources\Images\belt_3_kyu_kari.png" />
 	  <BundleResource Include="Resources\Images\belt_1_kyu.png" />
 	  <BundleResource Include="Resources\Images\belt_3_dan.png" />
 	  <BundleResource Include="Resources\Images\launchscreen.storyboard" />
@@ -202,6 +202,16 @@
 	  <BundleResource Include="Resources\Images\loading.gif" />
 	  <BundleResource Include="Resources\Images\facebook.png" />
 	  <BundleResource Include="Resources\Images\www.png" />
+	  <BundleResource Include="Resources\Images\belt_6_dan.png" />
+	  <BundleResource Include="Resources\Images\belt_6_dan_bloq.png" />
+	  <BundleResource Include="Resources\Images\belt_7_dan.png" />
+	  <BundleResource Include="Resources\Images\belt_7_dan_bloq.png" />
+	  <BundleResource Include="Resources\Images\belt_8_dan.png" />
+	  <BundleResource Include="Resources\Images\belt_8_dan_bloq.png" />
+	  <BundleResource Include="Resources\Images\belt_9_dan.png" />
+	  <BundleResource Include="Resources\Images\belt_9_dan_bloq.png" />
+	  <BundleResource Include="Resources\Images\belt_10_dan.png" />
+	  <BundleResource Include="Resources\Images\belt_10_dan_bloq.png" />
 	</ItemGroup>
 	<ItemGroup>
 	  <InterfaceDefinition Include="Resources\Images\launchscreen.storyboard" />
@@ -217,5 +227,11 @@
 	  <None Remove="Resources\Splash\appicon.svg" />
 	  <None Remove="Resources\Images\facebook %281%29.png" />
 	  <None Remove="Resources\Images\world-wide-web.png" />
+	  <None Remove="Resources\Images\belt_1_dan %28copy%29.png" />
+	  <None Remove="Resources\Images\belt_1_dan_bloq %28copy%29.png" />
+	  <None Remove="Resources\Images\belt_6_dan %28copy%29.png" />
+	  <None Remove="Resources\Images\belt_6_dan_bloq %28copy%29.png" />
+	  <None Remove="Resources\Images\belt_5_dan %28copy%29.png" />
+	  <None Remove="Resources\Images\belt_5_dan_bloq %28copy%29.png" />
 	</ItemGroup>
 </Project>

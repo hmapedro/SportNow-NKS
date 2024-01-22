@@ -370,7 +370,7 @@ namespace SportNow.Views
 			{
 				try
 				{
-                    await Browser.OpenAsync("https://plataforma.ippon.pt/calendario-ippon.jpeg", BrowserLaunchMode.SystemPreferred);
+                    await Browser.OpenAsync("https://karatesangalhos.pt/planoatividades", BrowserLaunchMode.SystemPreferred);
                 }
 				catch (Exception ex)
 				{
