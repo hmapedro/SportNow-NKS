@@ -67,7 +67,7 @@ namespace SportNow.Views.Profile
 		private Microsoft.Maui.Controls.Grid gridButtons;
 
 		FormValueEdit nameValue;
-		FormValue emailValue;
+        FormValueEdit emailValue;
 		FormValueEdit phoneValue;
 		FormValueEdit addressValue;
 		FormValueEdit cityValue;
@@ -81,7 +81,9 @@ namespace SportNow.Views.Profile
         FormValueEdit CodPostalValue;
         FormValueEdit CidadeValue;
         FormValueEdit FaturaNIFValue;
-
+		FormValueEdit nifValue;
+		FormValueEdit cc_numberValue;
+        FormValueEditDate birthdateValue;
 
 
 
@@ -571,8 +573,11 @@ namespace SportNow.Views.Profile
 			gridGeral.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
 			gridGeral.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
 			gridGeral.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
-			//gridGeral.RowDefinitions.Add(new RowDefinition { Height = 1 });
-			gridGeral.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto }); //GridLength.Auto
+            gridGeral.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
+            gridGeral.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
+            gridGeral.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
+            //gridGeral.RowDefinitions.Add(new RowDefinition { Height = 1 });
+            gridGeral.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto }); //GridLength.Auto
 			gridGeral.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Star }); //GridLength.Auto 
 
 			Label number_memberLabel = new FormLabel { Text = "Nº SÓCIO" };
@@ -584,11 +589,20 @@ namespace SportNow.Views.Profile
 			FormLabel birthdateLabel = new FormLabel { Text = "NASCIMENTO"};
             //FormValue birthdateValue = new FormValueEditDate (member.birthdate?.ToString("yyyy-MM-dd"));
             //FormValue birthdateValue = new FormValue(App.member.birthdate);
-            FormValueEditDate birthdateValue = new FormValueEditDate(App.member.birthdate);
+            birthdateValue = new FormValueEditDate(App.member.birthdate);
 
             FormLabel registrationdateLabel = new FormLabel { Text = "INSCRIÇÃO"};
             //FormValueEditDate registrationdateValue = new FormValueEditDate(App.member.registrationdate?.ToString("yyyy-MM-dd"));
             FormValue registrationdateValue = new FormValue(App.member.registrationdate?.ToString("yyyy-MM-dd"));
+
+            FormLabel addressLabel = new FormLabel { Text = "MORADA" };
+            addressValue = new FormValueEdit(App.member.address);
+
+            FormLabel cityLabel = new FormLabel { Text = "CIDADE" };
+            cityValue = new FormValueEdit(App.member.city);
+
+            FormLabel postalcodeLabel = new FormLabel { Text = "CÓDIGO POSTAL" };
+            postalcodeValue = new FormValueEdit(App.member.postalcode);
 
             gridGeral.Add(number_memberLabel, 0, 0);
 			gridGeral.Add(number_memberValue, 1, 0);
@@ -601,8 +615,17 @@ namespace SportNow.Views.Profile
 
 			gridGeral.Add(registrationdateLabel, 0, 3);
 			gridGeral.Add(registrationdateValue, 1, 3);
-			
-			/*absoluteLayout.Add(gridGeral,
+
+            gridGeral.Add(addressLabel, 0, 4);
+            gridGeral.Add(addressValue, 1, 4);
+
+            gridGeral.Add(cityLabel, 0, 5);
+            gridGeral.Add(cityValue, 1, 5);
+
+            gridGeral.Add(postalcodeLabel, 0, 6);
+            gridGeral.Add(postalcodeValue, 1, 6);
+
+            /*absoluteLayout.Add(gridGeral,
 				xConstraint: )0),
 				yConstraint: )240),
 				widthConstraint: Constraint.RelativeToParent((parent) =>
@@ -614,7 +637,7 @@ namespace SportNow.Views.Profile
 					return (parent.Height) - 230; // center of image (which is 40 wide)
 				})
 			);*/
-		}
+        }
 
 		public void CreateGridIdentificacao()
 		{
@@ -628,10 +651,10 @@ namespace SportNow.Views.Profile
 			gridIdentificacao.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Star }); //GridLength.Auto 
 
 			FormLabel cc_numberLabel = new FormLabel { Text = "CC" };
-            FormValueEdit cc_numberValue = new FormValueEdit (App.member.cc_number);
+            cc_numberValue = new FormValueEdit (App.member.cc_number);
 
             FormLabel nifLabel = new FormLabel { Text = "NIF"};
-			FormValueEdit nifValue = new FormValueEdit (App.member.nif);
+			nifValue = new FormValueEdit (App.member.nif);
 
 			FormLabel fnkpLabel = new FormLabel { Text = "FNKP" };
 			FormValue fnkpValue = new FormValue (App.member.number_fnkp);
@@ -678,27 +701,16 @@ namespace SportNow.Views.Profile
             gridMorada.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
             gridMorada.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
             gridMorada.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
-            gridMorada.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
-            gridMorada.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
-            gridMorada.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
+
             gridMorada.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto }); //GridLength.Auto
 			gridMorada.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Star }); //GridLength.Auto 
 
 
 			FormLabel emailLabel = new FormLabel { Text = "EMAIL" };
-			emailValue = new FormValue(App.member.email);
+			emailValue = new FormValueEdit(App.member.email);
 
 			FormLabel phoneLabel = new FormLabel { Text = "TELEFONE" };
 			phoneValue = new FormValueEdit(App.member.phone);
-
-			FormLabel addressLabel = new FormLabel { Text = "MORADA" };
-			addressValue = new FormValueEdit(App.member.address);
-
-			FormLabel cityLabel = new FormLabel { Text = "CIDADE" };
-			cityValue = new FormValueEdit(App.member.city);
-
-			FormLabel postalcodeLabel = new FormLabel { Text = "CÓDIGO POSTAL" };
-			postalcodeValue = new FormValueEdit(App.member.postalcode);
 
             FormLabel EncEducacao1Label = new FormLabel { Text = "ENCARREGADO DE EDUCAÇÃO", FontSize = App.itemTitleFontSize };
 
@@ -718,27 +730,18 @@ namespace SportNow.Views.Profile
 			gridMorada.Add(phoneLabel, 0, 1);
 			gridMorada.Add(phoneValue, 1, 1);
 
-			gridMorada.Add(addressLabel, 0, 2);
-			gridMorada.Add(addressValue, 1, 2);
-
-			gridMorada.Add(cityLabel, 0, 3);
-			gridMorada.Add(cityValue, 1, 3);
-
-			gridMorada.Add(postalcodeLabel, 0, 4);
-			gridMorada.Add(postalcodeValue, 1, 4);
-
-            gridMorada.Add(EncEducacao1Label, 0, 5);
+            gridMorada.Add(EncEducacao1Label, 0, 2);
             Microsoft.Maui.Controls.Grid.SetColumnSpan(EncEducacao1Label, 2);
 
 
-            gridMorada.Add(EncEducacao1NomeLabel, 0, 6);
-            gridMorada.Add(EncEducacao1NomeValue, 1, 6);
+            gridMorada.Add(EncEducacao1NomeLabel, 0, 3);
+            gridMorada.Add(EncEducacao1NomeValue, 1, 3);
 
-            gridMorada.Add(EncEducacao1PhoneLabel, 0, 7);
-            gridMorada.Add(EncEducacao1PhoneValue, 1, 7);
+            gridMorada.Add(EncEducacao1PhoneLabel, 0, 4);
+            gridMorada.Add(EncEducacao1PhoneValue, 1, 4);
 
-            gridMorada.Add(EncEducacao1MailLabel, 0, 8);
-            gridMorada.Add(EncEducacao1MailValue, 1, 8);
+            gridMorada.Add(EncEducacao1MailLabel, 0, 5);
+            gridMorada.Add(EncEducacao1MailValue, 1, 5);
 
 
             /*absoluteLayout.Add(gridMorada,
@@ -771,19 +774,19 @@ namespace SportNow.Views.Profile
             gridFaturacao.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Star });
 
 			FormLabel FaturaNomeLabel = new FormLabel { Text = "NOME" };
-			FaturaNomeValue = new FormValueEdit(App.member.fat_name);
+			FaturaNomeValue = new FormValueEdit(App.member.faturacao_nome);
 
 			FormLabel FaturaMoradaLabel = new FormLabel { Text = "MORADA" };
-			FaturaMoradaValue = new FormValueEdit(App.member.fat_address);
+			FaturaMoradaValue = new FormValueEdit(App.member.faturacao_morada);
 
 			FormLabel FaturaCidadeLabel = new FormLabel { Text = "CIDADE" };
-			FaturaCidadeValue = new FormValueEdit(App.member.fat_city);
+			FaturaCidadeValue = new FormValueEdit(App.member.faturacao_cidade);
 
             FormLabel CodPostalLabel = new FormLabel { Text = "COD POSTAL" };
-            CodPostalValue = new FormValueEdit(App.member.fat_postalcode);
+            CodPostalValue = new FormValueEdit(App.member.faturacao_codpostal);
 
             FormLabel NIFLabel = new FormLabel { Text = "NIF" };
-            FaturaNIFValue = new FormValueEdit(App.member.fat_nif);
+            FaturaNIFValue = new FormValueEdit(App.member.faturacao_nif);
 
             gridFaturacao.Add(FaturaNomeLabel, 0, 1);
             gridFaturacao.Add(FaturaNomeValue, 1, 1);
@@ -833,14 +836,13 @@ namespace SportNow.Views.Profile
 			gridMorada.IsVisible = false;
 			gridFaturacao.IsVisible = false;*/
 
-			Debug.Print("AQUIIII1");
+			Debug.Print("AQUIIII1 "+ enteringPage);
 			if (enteringPage == false) {
 				await UpdateMemberInfo();
-				enteringPage = false;
-			}
-			
+            }
+            enteringPage = false;
 
-		}
+        }
 
 		async void OnIdentificacaoButtonClicked(object sender, EventArgs e)
 		{
@@ -1076,19 +1078,22 @@ namespace SportNow.Views.Profile
 				
 				Debug.WriteLine("UpdateMemberInfo "+ App.member.name);
 				App.member.name = nameValue.entry.Text;
-				App.member.email = emailValue.label.Text;
-				App.member.phone = phoneValue.entry.Text;
+				App.member.email = emailValue.entry.Text;
+                App.member.nif = nifValue.entry.Text;
+                App.member.cc_number = cc_numberValue.entry.Text;
+                App.member.birthdate = birthdateValue.entry.Text;
+                App.member.phone = phoneValue.entry.Text;
 				App.member.address = addressValue.entry.Text;
 				App.member.city = cityValue.entry.Text;
 				App.member.postalcode = postalcodeValue.entry.Text;
 				App.member.name_enc1 = EncEducacao1NomeValue.entry.Text;
 				App.member.phone_enc1 = EncEducacao1PhoneValue.entry.Text;
 				App.member.mail_enc1 = EncEducacao1MailValue.entry.Text;
-                App.member.fat_name = FaturaNomeValue.entry.Text;
-                App.member.fat_address = FaturaMoradaValue.entry.Text;
-                App.member.fat_city = FaturaCidadeValue.entry.Text;
-                App.member.fat_postalcode = CodPostalValue.entry.Text;
-                App.member.fat_nif = FaturaNIFValue.entry.Text;
+                App.member.faturacao_nome = FaturaNomeValue.entry.Text;
+                App.member.faturacao_morada = FaturaMoradaValue.entry.Text;
+                App.member.faturacao_cidade = FaturaCidadeValue.entry.Text;
+                App.member.faturacao_codpostal = CodPostalValue.entry.Text;
+                App.member.faturacao_nif = FaturaNIFValue.entry.Text;
 
 
 

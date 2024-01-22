@@ -48,18 +48,24 @@ namespace SportNow.CustomViews
         public Entry entry;
         //public string Text {get; set; }
 
+        public FormValueEdit(string Text, Keyboard keyboard, int height)
+        {
+
+            create_FormValueEdit(Text, keyboard, height);
+        }
+
         public FormValueEdit(string Text, Keyboard keyboard)
         {
 
-            create_FormValueEdit(Text, keyboard);
+            create_FormValueEdit(Text, keyboard, 45);
         }
 
         public FormValueEdit(string Text)
         {
-            create_FormValueEdit(Text, Keyboard.Default);
+            create_FormValueEdit(Text, Keyboard.Default, 45);
         }
 
-        public void create_FormValueEdit(string Text, Keyboard keyboard)
+        public void create_FormValueEdit(string Text, Keyboard keyboard, int height)
         {
 
             StrokeShape = new RoundRectangle
@@ -70,7 +76,7 @@ namespace SportNow.CustomViews
             BackgroundColor = Colors.Transparent;
             this.Padding = new Thickness(1, 2, 2, 2);
             //this.MinimumHeightRequest = 50;
-            this.HeightRequest = 45 * App.screenHeightAdapter;
+            this.HeightRequest = height * App.screenHeightAdapter;
             this.VerticalOptions = LayoutOptions.Center;
             
             entry = new Entry
@@ -85,6 +91,7 @@ namespace SportNow.CustomViews
                 FontSize = App.formValueFontSize,
                 Keyboard = keyboard,
                 FontFamily = "futuracondensedmedium",
+                ClearButtonVisibility = ClearButtonVisibility.WhileEditing,
                 //HeightRequest = 30
             };
 

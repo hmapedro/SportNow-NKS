@@ -502,13 +502,21 @@ namespace SportNow.Services.Data.JSON
 			string member_first_name = member.name.Substring(0, member.name.IndexOf(" "));
 			string member_last_name = member.name.Substring(member.name.IndexOf(" ")+1);
 
-			Debug.Print("UpdateMemberInfo");
+			Debug.Print("UpdateMemberInfo - "+ Constants.RestUrl_Update_Member_Info + "?memberid=" + member.id
+                + "&memberfirstname=" + member_first_name + "&memberlastname=" + member_last_name + "&membernif=" + member.nif + "&membercc=" + member.cc_number
+                + "&memberphone=" + member.phone + "&memberemail=" + member.email + "&memberaddress=" + member.address
+                + "&membercity=" + member.city + "&memberpostalcode=" + member.postalcode + "&birthdate=" + member.birthdate
+                + "&membernameenc1=" + member.name_enc1 + "&memberemailenc1=" + member.mail_enc1 + "&memberphoneenc1=" + member.phone_enc1
+                + "&faturacao_nome=" + member.faturacao_nome + "&faturacao_morada=" + member.faturacao_morada + "&faturacao_cidade=" + member.faturacao_cidade
+                + "&faturacao_codpostal=" + member.faturacao_codpostal + "&faturacao_nif=" + member.faturacao_nif);
+
 			Uri uri = new Uri(string.Format(Constants.RestUrl_Update_Member_Info + "?memberid=" + member.id
 				+ "&memberfirstname=" + member_first_name + "&memberlastname=" + member_last_name + "&membernif=" + member.nif + "&membercc=" + member.cc_number
 				+ "&memberphone=" + member.phone + "&memberemail=" + member.email + "&memberaddress=" + member.address
-				+ "&membercity=" + member.city + "&memberpostalcode=" + member.postalcode
-				+ "&membernameenc1=" + member.name_enc1 + "&memberemailenc1=" + member.mail_enc1 + "&memberphoneenc1=" + member.phone_enc1
-                + "&memberfaturacao_name=" + member.faturacao_nome + "&memberfaturacao_morada=" + member.faturacao_morada + "&memberfaturacao_c=" + member.phone_enc1
+				+ "&membercity=" + member.city + "&memberpostalcode=" + member.postalcode + "&birthdate=" + member.birthdate
+                + "&membernameenc1=" + member.name_enc1 + "&memberemailenc1=" + member.mail_enc1 + "&memberphoneenc1=" + member.phone_enc1
+				+ "&faturacao_nome=" + member.faturacao_nome + "&faturacao_morada=" + member.faturacao_morada + "&faturacao_cidade=" + member.faturacao_cidade
+                + "&faturacao_codpostal=" + member.faturacao_codpostal + "&faturacao_nif=" + member.faturacao_nif
                 , string.Empty));
 			try
 			{

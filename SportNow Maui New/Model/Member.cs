@@ -37,11 +37,6 @@ namespace SportNow.Model
         public string name_enc1 { get; set; }
         public string mail_enc1 { get; set; }
         public string phone_enc1 { get; set; }
-        public string fat_name { get; set; }
-        public string fat_address { get; set; }
-        public string fat_city { get; set; }
-        public string fat_postalcode { get; set; }
-        public string fat_nif { get; set; }
 
         public string member_type { get; set; }
         public string isInstructor { get; set; }
@@ -78,7 +73,6 @@ namespace SportNow.Model
         public string valor_intervalo { get; set; }
         public string personal_cv { get; set; }
         public string disponibilidade { get; set; }
-
 
         public string faturacao_nome { get; set; }
         public string faturacao_morada { get; set; }

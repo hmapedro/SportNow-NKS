@@ -732,7 +732,7 @@ namespace SportNow.Views
                 TextColor = App.normalTextColor,
                 HorizontalTextAlignment = TextAlignment.Center,
                 VerticalTextAlignment = TextAlignment.Start,
-                FontSize = App.smallTextFontSize
+                FontSize = App.itemTextFontSize
             };
             grupoFacebookLabel.GestureRecognizers.Add(grupoFacebook_tapEvent);
 
@@ -769,7 +769,7 @@ namespace SportNow.Views
                 TextColor = App.normalTextColor,
                 HorizontalTextAlignment = TextAlignment.Center,
                 VerticalTextAlignment = TextAlignment.Start,
-                FontSize = App.smallTextFontSize
+                FontSize = App.itemTextFontSize
             };
             websiteLabel.GestureRecognizers.Add(website_tapEvent);
 

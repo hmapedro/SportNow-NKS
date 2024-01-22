@@ -2,7 +2,7 @@
 using SportNow.Services.Data.JSON;
 using System.Diagnostics;
 using SportNow.CustomViews;
-
+using System.Collections.ObjectModel;
 
 namespace SportNow.Views.Profile
 {
@@ -25,10 +25,12 @@ namespace SportNow.Views.Profile
 		private Microsoft.Maui.Controls.StackLayout stackButtons;
 
 		private CollectionView collectionViewMembers, collectionViewStudents;
+		ObservableCollection<Member> studends_filtered;
+		FormValueEdit searchEntry;
 
-		//private List<Member> members;
+        //private List<Member> members;
 
-		public void initLayout()
+        public void initLayout()
 		{
 			Debug.Print("SelectStudentPageCS.initLayout");
 			Title = "ESCOLHER ALUNO";
@@ -70,7 +72,8 @@ namespace SportNow.Views.Profile
 
 			App.member.students = await GetMemberStudents();
 
-			CreateStudentsColletion();
+            CreateSearchEntry();
+            CreateStudentsColletion();
 
 			if (App.original_member.id != App.member.id)
 			{
@@ -82,18 +85,45 @@ namespace SportNow.Views.Profile
 
 			}
 		}
-
-		public void CreateStudentsColletion()
+		public void CreateSearchEntry()
 		{
-			
+            searchEntry = new FormValueEdit("",Keyboard.Text, 35);
+			searchEntry.entry.Placeholder = "Pesquisa...";
+            searchEntry.entry.TextChanged += onSearchTextChange;
+            absoluteLayout.Add(searchEntry);
+            absoluteLayout.SetLayoutBounds(searchEntry, new Rect(0, 50 * App.screenHeightAdapter, App.screenWidth, 30 * App.screenHeightAdapter));
 
-			Debug.Print("SelectMemberPageCS.CreateStudentsColletion");
+        }
+
+        async void onSearchTextChange(object sender, EventArgs e)
+        {
+            Debug.WriteLine("SelectStudentPageCS.onSearchTextChange");
+			if (searchEntry.entry.Text == "")
+			{
+				studends_filtered = new ObservableCollection<Member>(App.member.students);
+
+            }
+			else
+			{
+                studends_filtered = new ObservableCollection<Member>(App.member.students.Where(i => i.nickname.ToLower().Contains(searchEntry.entry.Text.ToLower())));
+            }
+
+			collectionViewStudents.ItemsSource = null;
+            collectionViewStudents.ItemsSource = studends_filtered;
+        }
+
+        public void CreateStudentsColletion()
+		{
+
+			studends_filtered = new ObservableCollection<Member>(App.member.students);
+
+            Debug.Print("SelectMemberPageCS.CreateStudentsColletion");
 			//COLLECTION GRADUACOES
 			collectionViewStudents = new CollectionView
 			{
 				SelectionMode = SelectionMode.Single,
-				ItemsSource = App.member.students,
-				ItemsLayout = new GridItemsLayout(1, ItemsLayoutOrientation.Vertical) { VerticalItemSpacing = 10, HorizontalItemSpacing = 5, },
+				ItemsSource = studends_filtered,
+				ItemsLayout = new GridItemsLayout(1, ItemsLayoutOrientation.Vertical) { VerticalItemSpacing = 5, HorizontalItemSpacing = 5, },
 				EmptyView = new ContentView
 				{
 					Content = new Microsoft.Maui.Controls.StackLayout
@@ -123,31 +153,31 @@ namespace SportNow.Views.Profile
 				itemabsoluteLayout.SetLayoutBounds(numberLabel, new Rect(0,0, 50 * App.screenWidthAdapter, 35 * App.screenHeightAdapter));
 
 				FormValue nicknameLabel = new FormValue("", 35 * App.screenHeightAdapter);
-				nicknameLabel.label.SetBinding(Label.TextProperty, "nickname");
+				nicknameLabel.label.SetBinding(Label.TextProperty, "name");
 
 
 				itemabsoluteLayout.Add(nicknameLabel);
-				itemabsoluteLayout.SetLayoutBounds(nicknameLabel, new Rect(55 * App.screenWidthAdapter, 0, ((App.screenWidth - (55 * App.screenWidthAdapter)) / 2) - (5 * App.screenWidthAdapter), 35 * App.screenHeightAdapter));
+				itemabsoluteLayout.SetLayoutBounds(nicknameLabel, new Rect(55 * App.screenWidthAdapter, 0, (App.screenWidth - (55 * App.screenWidthAdapter)), 35 * App.screenHeightAdapter));
 
-				FormValue dojoLabel = new FormValue("", 35 * App.screenHeightAdapter);
+/*				FormValue dojoLabel = new FormValue("", 35 * App.screenHeightAdapter);
 				dojoLabel.label.FontSize = App.formValueSmallFontSize;
 
                 dojoLabel.label.SetBinding(Label.TextProperty, "dojo");
 
 				itemabsoluteLayout.Add(dojoLabel);
 				itemabsoluteLayout.SetLayoutBounds(dojoLabel, new Rect((((App.screenWidth) - ((App.screenWidth - (55 * App.screenWidthAdapter)) / 2))), 0, ((App.screenWidth - (55 * App.screenWidthAdapter)) / 2) - (5 * App.screenWidthAdapter), 35 * App.screenHeightAdapter));
-
+*/
 				return itemabsoluteLayout;
 			});
 			if (App.original_member.id != App.member.id)
 			{
 				absoluteLayout.Add(collectionViewStudents);
-                absoluteLayout.SetLayoutBounds(collectionViewStudents, new Rect(0, 50 * App.screenHeightAdapter, App.screenWidth , App.screenHeight - 210 * App.screenHeightAdapter));
+                absoluteLayout.SetLayoutBounds(collectionViewStudents, new Rect(0, 50 * App.screenHeightAdapter, App.screenWidth , App.screenHeight - 260 * App.screenHeightAdapter));
 			}
 			else
 			{
 				absoluteLayout.Add(collectionViewStudents);
-                absoluteLayout.SetLayoutBounds(collectionViewStudents, new Rect(0, 50 * App.screenHeightAdapter, App.screenWidth, App.screenHeight - 160 * App.screenHeightAdapter));
+                absoluteLayout.SetLayoutBounds(collectionViewStudents, new Rect(0, 110 * App.screenHeightAdapter, App.screenWidth, App.screenHeight - 210 * App.screenHeightAdapter));
             }
 
 		}
