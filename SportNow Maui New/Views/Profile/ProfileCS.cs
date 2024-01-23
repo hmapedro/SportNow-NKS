@@ -1161,14 +1161,14 @@ namespace SportNow.Views.Profile
                 Stream localstream = await result.OpenReadAsync();
 
                 memberPhotoImage.Source = ImageSource.FromStream(() => localstream);
-                if (DeviceInfo.Platform != DevicePlatform.iOS)
+                if (DeviceInfo.Platform == DevicePlatform.iOS)
                 {
                     memberPhotoImage.Rotation = 0;
                     stream = RotateBitmap(stream_aux, 0);
                 }
                 else
                 {
-                    memberPhotoImage.Rotation = 90;
+                    memberPhotoImage.Rotation = 0;
                     stream = RotateBitmap(stream_aux, 90);
                 }
 
@@ -1188,8 +1188,16 @@ namespace SportNow.Views.Profile
                 Stream localstream = await result.OpenReadAsync();
 
                 memberPhotoImage.Source = ImageSource.FromStream(() => localstream);
-                memberPhotoImage.Rotation = 90;
-                stream = RotateBitmap(stream_aux, 90);
+                if (DeviceInfo.Platform == DevicePlatform.iOS)
+                {
+                    memberPhotoImage.Rotation = 90;
+                    stream = RotateBitmap(stream_aux, 90);
+                }
+                else
+                {
+                    memberPhotoImage.Rotation = 0;
+                    stream = RotateBitmap(stream_aux, 90);
+                }
                 
                 MemberManager memberManager = new MemberManager();
                 memberManager.Upload_Member_Photo(stream);
@@ -1206,6 +1214,7 @@ namespace SportNow.Views.Profile
             {
                 using (var surface = new SKCanvas(rotatedBitmap))
                 {
+                    //surface.Clear();
                     surface.Translate(rotatedBitmap.Width, 0);
                     surface.RotateDegrees(angle);
                     surface.DrawBitmap(bitmap, 0, 0);

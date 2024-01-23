@@ -88,6 +88,10 @@ namespace SportNow.Views
 		RoundButton personalClassesButton;
 		RoundButton technicalButton;
 
+		Image websiteImage, grupoFacebookImage;
+		Label websiteLabel, grupoFacebookLabel;
+		Grid gridLinks;
+
         public void CleanScreen()
 		{
 			//Debug.Print("CleanScreen");
@@ -136,9 +140,14 @@ namespace SportNow.Views
 				famousQuoteLabel = null;
 			}
 
-		}
+            if (gridLinks != null)
+            {
+                absoluteLayout.Children.Remove(gridLinks);
+                gridLinks = null;
+            }
+        }
 
-		public void initLayout()
+        public void initLayout()
 		{
 			Title = "PRINCIPAL";
 
@@ -166,7 +175,7 @@ namespace SportNow.Views
 
 			var textWelcome = "";
 
-			textWelcome = "Olá " + App.member.nickname;
+			textWelcome = "Olá " + App.member.nickname+" ";
 
 			//USERNAME LABEL
 			usernameLabel = new Label
@@ -176,9 +185,10 @@ namespace SportNow.Views
 				HorizontalTextAlignment = TextAlignment.End,
 				FontSize = App.titleFontSize,
                 FontFamily = "futuracondensedmedium",
+				WidthRequest = 190 * App.screenWidthAdapter,
             };
 			absoluteLayout.Add(usernameLabel);
-			absoluteLayout.SetLayoutBounds(usernameLabel, new Rect(App.screenWidth - 320 * App.screenWidthAdapter, 2 * App.screenHeightAdapter, 300 * App.screenWidthAdapter, 30 * App.screenHeightAdapter));
+			absoluteLayout.SetLayoutBounds(usernameLabel, new Rect(App.screenWidth - 200 * App.screenWidthAdapter, 2 * App.screenHeightAdapter, 190 * App.screenWidthAdapter, 30 * App.screenHeightAdapter));
 
 			if (App.member.students_count > 0)
             {
@@ -705,7 +715,7 @@ namespace SportNow.Views
 
 		public void createLinks()
 		{
-            Grid gridLinks = new Microsoft.Maui.Controls.Grid { Padding = 0, HorizontalOptions = LayoutOptions.FillAndExpand, RowSpacing = 5 * App.screenWidthAdapter };
+            gridLinks = new Microsoft.Maui.Controls.Grid { Padding = 0, HorizontalOptions = LayoutOptions.FillAndExpand, RowSpacing = 5 * App.screenWidthAdapter };
             gridLinks.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
             gridLinks.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
             //gridGeral.RowDefinitions.Add(new RowDefinition { Height = 1 });
@@ -713,7 +723,7 @@ namespace SportNow.Views
             gridLinks.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Star }); //GridLength.Auto 
 
 
-            Image grupoFacebookImage = new Image
+            grupoFacebookImage = new Image
             {
                 Source = "facebook.png",
                 Aspect = Aspect.AspectFit,
@@ -725,7 +735,7 @@ namespace SportNow.Views
             grupoFacebook_tapEvent.Tapped += grupoFacebookImage_Clicked;
             grupoFacebookImage.GestureRecognizers.Add(grupoFacebook_tapEvent);
 
-            Label grupoFacebookLabel = new Label
+            grupoFacebookLabel = new Label
             {
                 FontFamily = "futuracondensedmedium",
                 Text = "Grupo Facebook NKS",
@@ -748,7 +758,7 @@ namespace SportNow.Views
             absoluteLayout.Add(grupoFacebookLabel);
             absoluteLayout.SetLayoutBounds(grupoFacebookLabel, new Rect(App.screenWidth/2 - 100 * App.screenWidthAdapter, feesOrQuoteY + 35 * App.screenHeightAdapter, 60 * App.screenWidthAdapter, 20 * App.screenHeightAdapter));
 			*/
-            Image websiteImage = new Image
+            websiteImage = new Image
             {
                 Source = "www.png",
                 Aspect = Aspect.AspectFit,
@@ -762,7 +772,7 @@ namespace SportNow.Views
 
 
 
-            Label websiteLabel = new Label
+            websiteLabel = new Label
             {
                 FontFamily = "futuracondensedmedium",
                 Text = "Website NKS",
