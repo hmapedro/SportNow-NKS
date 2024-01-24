@@ -132,7 +132,7 @@ namespace SportNow.Views
 			{
 				if (monthFeeStudentCount != "0")
 				{
-
+					Debug.Print("screenHeightAdapter = " + App.screenHeightAdapter);
 					stackPresencasButtons = new Microsoft.Maui.Controls.StackLayout
 					{
 						Spacing = 20 * App.screenHeightAdapter,
@@ -140,8 +140,9 @@ namespace SportNow.Views
 						//VerticalAlignment = LayoutAlignment.Start,
 						//HorizontalOptions = LayoutOptions.FillAndExpand,
 						//VerticalOptions = LayoutOptions.FillAndExpand,
-						//HeightRequest = 550 * App.screenHeightAdapter,
-						Children =
+						HeightRequest = 450 * App.screenHeightAdapter,
+						MaximumHeightRequest = 450 * App.screenHeightAdapter,
+                        Children =
 							{
                                 presencasButton,
 								marcarAulaButton,
@@ -218,7 +219,7 @@ namespace SportNow.Views
 			}
 
             presencasabsoluteLayout.Add(stackPresencasButtons);
-            presencasabsoluteLayout.SetLayoutBounds(stackPresencasButtons, new Rect(App.screenWidth / 4, 20 * App.screenHeightAdapter, App.screenWidth / 2, App.screenHeight - 275 * App.screenHeightAdapter));
+            presencasabsoluteLayout.SetLayoutBounds(stackPresencasButtons, new Rect(App.screenWidth / 4, 10 * App.screenHeightAdapter, App.screenWidth / 2, App.screenHeight - 300 * App.screenHeightAdapter));
 
 
             Label personalClassesLabel = new Label

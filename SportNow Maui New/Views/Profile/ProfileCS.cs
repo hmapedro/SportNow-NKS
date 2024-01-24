@@ -172,7 +172,7 @@ namespace SportNow.Views.Profile
 				{
 					Uri = new Uri(Constants.images_URL + App.member.id + "_photo"),
 					CachingEnabled = false,
-					CacheValidity = new TimeSpan(0, 0, 0, 1)
+					//CacheValidity = new TimeSpan(0, 0, 0, 0)
 				};
 			}
             else
@@ -1195,7 +1195,7 @@ namespace SportNow.Views.Profile
                 }
                 else
                 {
-                    memberPhotoImage.Rotation = 0;
+                    memberPhotoImage.Rotation = 90;
                     stream = RotateBitmap(stream_aux, 90);
                 }
                 
@@ -1228,7 +1228,7 @@ namespace SportNow.Views.Profile
             using (MemoryStream memStream = new MemoryStream())
             using (SKManagedWStream wstream = new SKManagedWStream(memStream))
             {
-                rotatedBitmap.Encode(wstream, SKEncodedImageFormat.Jpeg, 40);
+                rotatedBitmap.Encode(wstream, SKEncodedImageFormat.Jpeg, 50);
                 byte[] data = memStream.ToArray();
                 streamlocal = new MemoryStream(data);
             }

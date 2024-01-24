@@ -206,11 +206,28 @@ namespace SportNow.Views
 			proximasSessoesExame = await GetFutureExaminationSessions();
 			if (proximasSessoesExame != null)
             {
+
+
+
+
+
 				foreach (Examination_Session examination_session in proximasSessoesExame)
 				{
-					examination_session.imagemSource = "company_logo_square.png";
+					//examination_session.imagemSource = "company_logo_square.png";
 
-					if (examination_session.participationconfirmed == "confirmado")
+					Debug.Print("AQUI examination_session.name = "+examination_session.name+" - examination_session.imagemNome " + examination_session.imagemNome);
+                    if ((examination_session.imagemNome == "") | (examination_session.imagemNome is null))
+                    {
+                        examination_session.imagemSource = "company_logo_square.png";
+                    }
+                    else
+                    {
+                        examination_session.imagemSource = Constants.images_URL + examination_session.id + "_imagem_c";
+                    }
+
+                    Debug.Print("AQUI examination_session.imagemSource = " + examination_session.imagemSource);
+
+                    if (examination_session.participationconfirmed == "confirmado")
 					{
 						examination_session.participationimage = "iconcheck.png";
 					}

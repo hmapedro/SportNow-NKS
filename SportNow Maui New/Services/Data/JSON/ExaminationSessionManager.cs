@@ -30,7 +30,7 @@ namespace SportNow.Services.Data.JSON
 
 		public async Task<List<Examination_Session>> GetFutureExaminationSessions(string memberid)
 		{
-			Debug.Print("GetFutureExaminationSessions");
+			Debug.Print("GetFutureExaminationSessions "+ Constants.RestUrl_Get_Future_Examination_Sessions + "?userid=" + memberid);
 			Uri uri = new Uri(string.Format(Constants.RestUrl_Get_Future_Examination_Sessions + "?userid=" + memberid, string.Empty));
 			try {
 				HttpResponseMessage response = await client.GetAsync(uri);

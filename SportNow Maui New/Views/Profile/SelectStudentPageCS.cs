@@ -91,7 +91,7 @@ namespace SportNow.Views.Profile
 			searchEntry.entry.Placeholder = "Pesquisa...";
             searchEntry.entry.TextChanged += onSearchTextChange;
             absoluteLayout.Add(searchEntry);
-            absoluteLayout.SetLayoutBounds(searchEntry, new Rect(0, 50 * App.screenHeightAdapter, App.screenWidth, 30 * App.screenHeightAdapter));
+            absoluteLayout.SetLayoutBounds(searchEntry, new Rect(0, 50 * App.screenHeightAdapter, App.screenWidth, 40 * App.screenHeightAdapter));
 
         }
 
@@ -172,12 +172,12 @@ namespace SportNow.Views.Profile
 			if (App.original_member.id != App.member.id)
 			{
 				absoluteLayout.Add(collectionViewStudents);
-                absoluteLayout.SetLayoutBounds(collectionViewStudents, new Rect(0, 50 * App.screenHeightAdapter, App.screenWidth , App.screenHeight - 260 * App.screenHeightAdapter));
+                absoluteLayout.SetLayoutBounds(collectionViewStudents, new Rect(0, 50 * App.screenHeightAdapter, App.screenWidth , App.screenHeight - 270 * App.screenHeightAdapter));
 			}
 			else
 			{
 				absoluteLayout.Add(collectionViewStudents);
-                absoluteLayout.SetLayoutBounds(collectionViewStudents, new Rect(0, 110 * App.screenHeightAdapter, App.screenWidth, App.screenHeight - 210 * App.screenHeightAdapter));
+                absoluteLayout.SetLayoutBounds(collectionViewStudents, new Rect(0, 110 * App.screenHeightAdapter, App.screenWidth, App.screenHeight - 220 * App.screenHeightAdapter));
             }
 
 		}

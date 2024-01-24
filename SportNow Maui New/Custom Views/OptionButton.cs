@@ -17,7 +17,7 @@ namespace SportNow.CustomViews
 		public OptionButton(string text, string imageSource, double width, double height)
         {
             this.WidthRequest = App.screenWidth / 2;
-            this.HeightRequest = App.screenWidth / 4;
+            this.HeightRequest = height;//App.screenWidth / 4;
 			frame = new Border
 			{
                 StrokeShape = new RoundRectangle

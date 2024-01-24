@@ -31,7 +31,7 @@ namespace SportNow.Services.Data.JSON
 
 		public async Task<List<Event>> GetFutureEventsAll(string memberid)
 		{
-			Debug.Print("GetFutureEventsAll");
+			Debug.Print("GetFutureEventsAll "+Constants.RestUrl_Get_Future_Events_All + "?userid=" + memberid);
 			Uri uri = new Uri(string.Format(Constants.RestUrl_Get_Future_Events_All + "?userid=" + memberid, string.Empty));
 			try
 			{

@@ -230,7 +230,7 @@ namespace SportNow.Views
             //absoluteLayout.SetLayoutBounds(registerButton, new Rect(10 * App.screenWidthAdapter, App.screenHeight - 160 * App.screenHeightAdapter, App.screenWidth - 20 * App.screenWidthAdapter, 50 * App.screenHeightAdapter));
 		}
 
-		public DetailEventPageCS(Event event_v)
+		public DetailEventPageCS(Event event_v )
 		{
 			App.notification = App.notification + " DetailEventPageCS ";
 			//UserDialogs.Instance.Alert(new AlertConfig() { Title = "", App.notification, "Ok" );

@@ -86,8 +86,8 @@ namespace SportNow.Views
 			gridCompetiton.RowDefinitions.Add(new RowDefinition { Height = 120 * App.screenHeightAdapter});
 			gridCompetiton.RowDefinitions.Add(new RowDefinition { Height = GridLength.Star });
 			//gridGeral.RowDefinitions.Add(new RowDefinition { Height = 1 });
-			gridCompetiton.ColumnDefinitions.Add(new ColumnDefinition { Width = App.screenWidth / 5 }); //GridLength.Auto
-			gridCompetiton.ColumnDefinitions.Add(new ColumnDefinition { Width = App.screenWidth / 5 * 4}); //GridLength.Auto 
+			gridCompetiton.ColumnDefinitions.Add(new ColumnDefinition { Width = (App.screenWidth - 10 * App.screenWidthAdapter) / 5 }); //GridLength.Auto
+			gridCompetiton.ColumnDefinitions.Add(new ColumnDefinition { Width = (App.screenWidth - 10 * App.screenWidthAdapter) / 5 * 4}); //GridLength.Auto 
 
 			Label dateLabel = new FormLabel { Text = "DATA" };
 			FormValue dateValue = new FormValue(examination_session.date);
@@ -409,7 +409,7 @@ namespace SportNow.Views
 
 
 			absoluteLayout.Add(gridCompetiton);
-            absoluteLayout.SetLayoutBounds(gridCompetiton, new Rect(0, 0, App.screenWidth - 10 * App.screenWidthAdapter, App.screenHeight - 115 * App.screenHeightAdapter));
+            absoluteLayout.SetLayoutBounds(gridCompetiton, new Rect(0, 0, App.screenWidth - 20 * App.screenWidthAdapter, App.screenHeight - 115 * App.screenHeightAdapter));
 
 		}
 
@@ -439,7 +439,17 @@ namespace SportNow.Views
 			{
 				ExaminationSessionManager examination_sessionManager = new ExaminationSessionManager();
 				examination_session = await examination_sessionManager.GetExamination_SessionByID(App.member.id, examination_session_id);
-			}
+
+                if ((examination_session.imagemNome == "") | (examination_session.imagemNome is null))
+                {
+                    examination_session.imagemSource = "company_logo_square.png";
+                }
+                else
+                {
+                    examination_session.imagemSource = Constants.images_URL + examination_session.id + "_imagem_c";
+                }
+
+            }
 			initSpecificLayout();
 		}
 
@@ -451,8 +461,18 @@ namespace SportNow.Views
             {
                 ExaminationSessionManager examination_sessionManager = new ExaminationSessionManager();
                 examination_session = await examination_sessionManager.GetExamination_SessionByID(App.member.id, examination_session_id);
+
+                if ((examination_session.imagemNome == "") | (examination_session.imagemNome is null))
+                {
+                    examination_session.imagemSource = "company_logo_square.png";
+                }
+                else
+                {
+                    examination_session.imagemSource = Constants.images_URL + examination_session.id + "_imagem_c";
+                }
+
             }
-			return examination_session;
+            return examination_session;
         }
 
         async void OnRegisterButtonClicked(object sender, EventArgs e)
