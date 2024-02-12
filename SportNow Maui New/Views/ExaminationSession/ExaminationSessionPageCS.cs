@@ -67,6 +67,8 @@ namespace SportNow.Views
 
 		public async void initSpecificLayout()
 		{
+            this.BackgroundColor = App.backgroundOppositeColor;
+
             Image eventoImage = new Image { Aspect = Aspect.AspectFill, Opacity = 0.40 };
             eventoImage.Source = examination_session.imagemSource;
 
@@ -89,14 +91,17 @@ namespace SportNow.Views
 			gridCompetiton.ColumnDefinitions.Add(new ColumnDefinition { Width = (App.screenWidth - 10 * App.screenWidthAdapter) / 5 }); //GridLength.Auto
 			gridCompetiton.ColumnDefinitions.Add(new ColumnDefinition { Width = (App.screenWidth - 10 * App.screenWidthAdapter) / 5 * 4}); //GridLength.Auto 
 
-			Label dateLabel = new FormLabel { Text = "DATA" };
+            FormLabel dateLabel = new FormLabel { Text = "DATA" };
+			dateLabel.TextColor = App.oppositeTextColor;
 			FormValue dateValue = new FormValue(examination_session.date);
 
 			FormLabel placeLabel = new FormLabel { Text = "LOCAL" };
-			FormValue placeValue = new FormValue(examination_session.place);
+            placeLabel.TextColor = App.oppositeTextColor;
+            FormValue placeValue = new FormValue(examination_session.place);
 
 			FormLabel gradeLabel = new FormLabel { Text = "EXAME PARA" };
-			FormValue gradeValue;
+            gradeLabel.TextColor = App.oppositeTextColor;
+            FormValue gradeValue;
 			if (examination_session.participationgrade != null)
 			{
 				gradeValue = new FormValue(Constants.grades[examination_session.participationgrade]);
@@ -108,8 +113,9 @@ namespace SportNow.Views
 
 
 			FormLabel valueLabel = new FormLabel { Text = "VALOR" };
+            valueLabel.TextColor = App.oppositeTextColor;
 
-			FormValue valueValue;
+            FormValue valueValue;
 			if (examination_session.participationvalue != null)
 			{
 				Debug.Print("examination_session.participationvalue = " + examination_session.participationvalue+".");
@@ -123,7 +129,8 @@ namespace SportNow.Views
 
 
 			FormLabel websiteLabel = new FormLabel { Text = "WEBSITE" };
-			FormValue websiteValue = new FormValue(examination_session.website);
+            websiteLabel.TextColor = App.oppositeTextColor;
+            FormValue websiteValue = new FormValue(examination_session.website);
 
 			websiteValue.GestureRecognizers.Add(new TapGestureRecognizer
 			{
@@ -139,8 +146,9 @@ namespace SportNow.Views
 				})
 			});
 
-			FormLabel estadoLabel = new FormLabel { Text = "ESTADO" }; ;
-			estadoValue = new FormValue("");
+			FormLabel estadoLabel = new FormLabel { Text = "ESTADO" };
+            estadoLabel.TextColor = App.oppositeTextColor;
+            estadoValue = new FormValue("");
 
 			List<Examination> examination_sessionCall = await GetExamination_SessionCall();
 
@@ -280,7 +288,7 @@ namespace SportNow.Views
 			{
                 FontFamily = "futuracondensedmedium",
                 Text = limitDateLabelText,
-				TextColor = App.topColor,
+				TextColor = App.oppositeTextColor,
 				WidthRequest = 300 * App.screenWidthAdapter,
 				HeightRequest = 50 * App.screenHeightAdapter,
 				FontSize = App.titleFontSize,
@@ -293,8 +301,8 @@ namespace SportNow.Views
 				{
                     FontFamily = "futuracondensedmedium",
                     Text = "Ainda não existe Convocatória para esta Sessão de Exames.",
-					TextColor = App.normalTextColor,
-					FontSize = 20 * App.screenHeightAdapter,
+                    TextColor = App.oppositeTextColor,
+                    FontSize = 20 * App.screenHeightAdapter,
 					VerticalTextAlignment = TextAlignment.Center,
 					HorizontalTextAlignment = TextAlignment.Center
 				};
@@ -314,7 +322,7 @@ namespace SportNow.Views
 				{
                     FontFamily = "futuracondensedmedium",
                     Text = "Convocatória",
-					TextColor = App.normalTextColor,
+					TextColor = App.oppositeTextColor,
 					FontSize = App.titleFontSize,
 					VerticalTextAlignment = TextAlignment.Center,
 					HorizontalTextAlignment = TextAlignment.Start
@@ -365,7 +373,7 @@ namespace SportNow.Views
 			gridCompetiton.Add(limitDateLabel, 0, 6);
 			Microsoft.Maui.Controls.Grid.SetColumnSpan(limitDateLabel, 2);
 
-			if (App.member.isExaminador == "1")
+		    /*if (App.member.isExaminador == "1")
 			{
 				Image examinadorImage = new Image
 				{
@@ -405,7 +413,7 @@ namespace SportNow.Views
 					Navigation.PushAsync(new ExaminationEvaluationCallPageCS(examination_session));
 				};
 				examinadorStackLayout.GestureRecognizers.Add(examinadorStackLayout_tap);
-			}
+			}*/
 
 
 			absoluteLayout.Add(gridCompetiton);

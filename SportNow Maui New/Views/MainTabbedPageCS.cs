@@ -34,7 +34,7 @@ namespace SportNow.Views
 
             //On<Xamarin.Forms.PlatformConfiguration.Android>().SetToolbarPlacement(ToolbarPlacement.Bottom);
 
-
+            this.UnselectedTabColor = App.normalTextColor;
             this.BackgroundColor = App.backgroundColor;
             this.BarBackgroundColor = App.backgroundColor;
             this.BarTextColor = App.normalTextColor;//FromRgb(75, 75, 75); ;

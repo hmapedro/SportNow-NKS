@@ -9,6 +9,7 @@ namespace SportNow.Views
 	{
         Microsoft.Maui.Controls.StackLayout stack;
         ActivityIndicator indicator;
+        bool isRunning;
         Image loading;
 
         private DeviceOrientationService _deviceOrientationService;
@@ -58,7 +59,8 @@ namespace SportNow.Views
 
         public DefaultPage()
         {
-			this.initBaseLayout();
+            isRunning = false;
+            this.initBaseLayout();
             App.screenWidth = (DeviceDisplay.MainDisplayInfo.Width / DeviceDisplay.MainDisplayInfo.Density) - 10 * App.screenWidthAdapter;
             App.screenHeight = (DeviceDisplay.MainDisplayInfo.Height / DeviceDisplay.MainDisplayInfo.Density) - 10 * App.screenWidthAdapter;
 
@@ -109,25 +111,23 @@ namespace SportNow.Views
 
         public void showActivityIndicator()
         {
-            //indicator.IsRunning = true;
-
-            /*if (absoluteLayout == null)
+            if (isRunning == false)
             {
-                initBaseLayout();
-            }*/
+                isRunning = true;
+ 
+                absoluteLayout.Add(stack);
+                absoluteLayout.SetLayoutBounds(stack, new Rect(0, 0, App.screenWidth, App.screenHeight));
 
-            absoluteLayout.Add(stack);
-            absoluteLayout.SetLayoutBounds(stack, new Rect(0, 0, App.screenWidth, App.screenHeight));
-
-            absoluteLayout.Add(loading);
-            absoluteLayout.SetLayoutBounds(loading, new Rect((App.screenWidth / 2) - 50 * App.screenWidthAdapter, (App.screenHeight / 2) - 100 * App.screenHeightAdapter - 50 * App.screenWidthAdapter, 100 * App.screenWidthAdapter, 100 * App.screenWidthAdapter));
+                absoluteLayout.Add(loading);
+                absoluteLayout.SetLayoutBounds(loading, new Rect((App.screenWidth / 2) - 50 * App.screenWidthAdapter, (App.screenHeight / 2) - 100 * App.screenHeightAdapter - 50 * App.screenWidthAdapter, 100 * App.screenWidthAdapter, 100 * App.screenWidthAdapter));
+            }
         }
 
         public void hideActivityIndicator()
         {
             absoluteLayout.Remove(stack);
             absoluteLayout.Remove(loading);
-            //indicator.IsRunning = false;
+            isRunning = false;
         }
     }
 }

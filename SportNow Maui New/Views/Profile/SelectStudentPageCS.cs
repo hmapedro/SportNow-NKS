@@ -85,13 +85,14 @@ namespace SportNow.Views.Profile
 
 			}
 		}
+
 		public void CreateSearchEntry()
 		{
-            searchEntry = new FormValueEdit("",Keyboard.Text, 35);
+            searchEntry = new FormValueEdit("",Keyboard.Text, 45);
 			searchEntry.entry.Placeholder = "Pesquisa...";
             searchEntry.entry.TextChanged += onSearchTextChange;
             absoluteLayout.Add(searchEntry);
-            absoluteLayout.SetLayoutBounds(searchEntry, new Rect(0, 50 * App.screenHeightAdapter, App.screenWidth, 40 * App.screenHeightAdapter));
+            absoluteLayout.SetLayoutBounds(searchEntry, new Rect(0, 50 * App.screenHeightAdapter, App.screenWidth, 50 * App.screenHeightAdapter));
 
         }
 

@@ -45,13 +45,16 @@ namespace SportNow.Views
 			if (stackButtons != null)
 			{
 				absoluteLayout.Remove(stackButtons);
-				//absoluteLayout.Remove(presencasrelativeLayout);
-
 				stackButtons = null;
-				//presencasrelativeLayout = null;
 			}
+			if (weekClassesCollectionView != null)
+			{
+                absoluteLayout.Remove(weekClassesCollectionView);
+                weekClassesCollectionView = null;
 
-		}
+            }
+
+        }
 
 		public async void initSpecificLayout()
 		{

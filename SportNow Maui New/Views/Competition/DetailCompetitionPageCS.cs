@@ -62,9 +62,12 @@ namespace SportNow.Views
         }
 		
 		public async void initSpecificLayout()
-		{
+		{ 
+            this.BackgroundColor = App.backgroundOppositeColor;
+
+            Debug.Print("competition.imagemSource = "+ competition.imagemSource);
 			int i;
-			Image eventoImage = new Image { Aspect = Aspect.AspectFill, Opacity = 0.40 };
+			Image eventoImage = new Image { Aspect = Aspect.AspectFill, Opacity = 0.40};
             eventoImage.Source = competition.imagemSource;
 
             absoluteLayout.Add(eventoImage);
@@ -85,19 +88,24 @@ namespace SportNow.Views
 			gridCompetiton.ColumnDefinitions.Add(new ColumnDefinition { Width = App.screenWidth / 5 * 4 }); //GridLength.Auto 
 
             Label dateLabel = new FormLabel { Text = "DATA" };
-			FormValue dateValue = new FormValue(competition.detailed_date);
+            dateLabel.TextColor = App.oppositeTextColor;
+            FormValue dateValue = new FormValue(competition.detailed_date);
 
 			FormLabel placeLabel = new FormLabel { Text = "LOCAL" };
-			FormValue placeValue = new FormValue(competition.place);
+            placeLabel.TextColor = App.oppositeTextColor;
+            FormValue placeValue = new FormValue(competition.place);
 
 			FormLabel typeLabel = new FormLabel { Text = "TIPO" };
-			FormValue typeValue = new FormValue(Constants.competition_type[competition.type]);
+            typeLabel.TextColor = App.oppositeTextColor;
+            FormValue typeValue = new FormValue(Constants.competition_type[competition.type]);
 
 			FormLabel valueLabel = new FormLabel { Text = "VALOR" };
-			FormValue valueValue = new FormValue(String.Format("{0:0.00}", competition.value + "€"));
+            valueLabel.TextColor = App.oppositeTextColor;
+            FormValue valueValue = new FormValue(String.Format("{0:0.00}", competition.value + "€"));
 
 			FormLabel websiteLabel = new FormLabel { Text = "WEBSITE" };
-			//websiteLabel.MaximumWidthRequest = App.screenWidth;
+            websiteLabel.TextColor = App.oppositeTextColor;
+            //websiteLabel.MaximumWidthRequest = App.screenWidth;
             FormValue websiteValue = new FormValue(competition.website);
 
 			websiteValue.GestureRecognizers.Add(new TapGestureRecognizer
@@ -114,8 +122,9 @@ namespace SportNow.Views
 				})
 			});
 
-			FormLabel estadoLabel = new FormLabel { Text = "ESTADO" }; ;
-			estadoValue = new FormValue("");
+			FormLabel estadoLabel = new FormLabel { Text = "ESTADO" };
+            estadoLabel.TextColor = App.oppositeTextColor;
+            estadoValue = new FormValue("");
 
 			List<Competition_Participation> competitionCall = await GetCompetitionCall();
 
@@ -234,7 +243,7 @@ namespace SportNow.Views
 			{
                 FontFamily = "futuracondensedmedium",
                 Text = limitDateLabelText,
-				TextColor = App.topColor,
+				TextColor = App.oppositeTextColor,
                 WidthRequest = 300 * App.screenWidthAdapter,
                 HeightRequest = 50 * App.screenHeightAdapter,
                 FontSize = App.titleFontSize,
@@ -247,7 +256,7 @@ namespace SportNow.Views
 				Label convocatoriaLabel = new Label
 				{
                     Text = "Ainda não existe Convocatória para esta Competição.",
-					TextColor = App.normalTextColor,
+					TextColor = App.oppositeTextColor,
 					FontSize = 20,
 					VerticalTextAlignment = TextAlignment.Center,
 					HorizontalTextAlignment = TextAlignment.Center,
@@ -268,7 +277,7 @@ namespace SportNow.Views
 				Label convocatoriaLabel = new Label
 				{
                     Text = "Convocatória",
-					TextColor = App.normalTextColor,
+					TextColor = App.oppositeTextColor,
                     FontSize = App.titleFontSize,
                     VerticalTextAlignment = TextAlignment.Center,
 					HorizontalTextAlignment = TextAlignment.Start,
@@ -324,12 +333,12 @@ namespace SportNow.Views
 			Microsoft.Maui.Controls.Grid.SetColumnSpan(limitDateLabel, 2);
 
 
-			Image competitionImage = new Image { Aspect = Aspect.AspectFill, Opacity = 0.40 };
+			/*Image competitionImage = new Image { Aspect = Aspect.AspectFill, Opacity = 0.40 };
 			Debug.Print("competition image = " + competition.imagemSource);
 			competitionImage.Source = competition.imagemSource;
 
 			absoluteLayout.Add(competitionImage);
-            absoluteLayout.SetLayoutBounds(competitionImage, new Rect(0, 0, App.screenWidth, App.screenHeight));
+            absoluteLayout.SetLayoutBounds(competitionImage, new Rect(0, 0, App.screenWidth, App.screenHeight));*/
 
 
             gridCompetiton.RowDefinitions.Add(new RowDefinition { Height = 10 });
@@ -392,12 +401,12 @@ namespace SportNow.Views
 				
 				if ((competition.imagemNome == "") | (competition.imagemNome is null))
 				{
-					competition.imagemSource = "company_logo_square.png";
+					this.competition.imagemSource = "company_logo_square.png";
 				}
 				else
 				{
-					competition.imagemSource = Constants.images_URL + competition.id + "_imagem_c";
-					Debug.Print("ANTES competition ImageSource = " + competition.imagemSource);
+                    this.competition.imagemSource = Constants.images_URL + competition.id + "_imagem_c";
+					Debug.Print("DEPOIS competition ImageSource = " + competition.imagemSource);
 				}
 			}
 			initSpecificLayout();

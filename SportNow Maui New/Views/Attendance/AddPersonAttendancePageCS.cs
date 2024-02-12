@@ -3,6 +3,7 @@ using SportNow.Model;
 using SportNow.Services.Data.JSON;
 using System.Diagnostics;
 using SportNow.CustomViews;
+using System.Collections.ObjectModel;
 
 namespace SportNow.Views
 {
@@ -27,11 +28,13 @@ namespace SportNow.Views
 		private CollectionView collectionViewMembers, collectionViewStudents;
 
 		Class_Schedule class_Schedule;
-		List<Member> students;
 
-		//private List<Member> members;
+        ObservableCollection<Member> studends_filtered;
+        FormValueEdit searchEntry;
 
-		public void initLayout()
+        //private List<Member> members;
+
+        public void initLayout()
 		{
 			Title = "ESCOLHER ALUNO";
 		}
@@ -61,19 +64,21 @@ namespace SportNow.Views
 			absoluteLayout.Add(titleLabel);
             absoluteLayout.SetLayoutBounds(titleLabel, new Rect(0,0, App.screenWidth, 40 * App.screenHeightAdapter));
 
-			CreateDojoPicker();
+            _ = await CreateDojoPicker();
+            CreateSearchEntry();
 
-			students = await GetStudentsDojo(class_Schedule.dojo);
+            App.member.students = await GetStudentsDojo(class_Schedule.dojo);
 
-			
+            studends_filtered = new ObservableCollection<Member>(App.member.students);
 
-			CreateStudentsColletion();
+
+            CreateStudentsColletion();
 
 			hideActivityIndicator();
 		}
 
-		public async void CreateDojoPicker()
-		{
+        public async Task<int> CreateDojoPicker()
+        {
 			List<string> dojoList = new List<string>();
 			List<Dojo> dojos = await GetAllDojos();
 			int selectedIndex = 0;
@@ -113,7 +118,9 @@ namespace SportNow.Views
 				showActivityIndicator();
 
 				Debug.Print("DojoPicker selectedItem = " + dojoPicker.SelectedItem.ToString());
-				students = await GetStudentsDojo(dojoPicker.SelectedItem.ToString());
+                App.member.students = await GetStudentsDojo(dojoPicker.SelectedItem.ToString());
+                onSearchTextChange(null, null);
+
 				absoluteLayout.Remove(collectionViewStudents);
 				collectionViewStudents = null;
 				CreateStudentsColletion();
@@ -124,16 +131,45 @@ namespace SportNow.Views
 
 			absoluteLayout.Add(dojoPicker);
 			absoluteLayout.SetLayoutBounds(dojoPicker, new Rect(0, 40 * App.screenHeightAdapter, App.screenWidth, 50 * App.screenHeightAdapter));
+
+			return 1;
 		}
 
-		public void CreateStudentsColletion()
+        public void CreateSearchEntry()
+        {
+            searchEntry = new FormValueEdit("", Keyboard.Text, 45);
+            searchEntry.entry.Placeholder = "Pesquisa...";
+            searchEntry.entry.TextChanged += onSearchTextChange;
+            absoluteLayout.Add(searchEntry);
+            absoluteLayout.SetLayoutBounds(searchEntry, new Rect(0, 100 * App.screenHeightAdapter, App.screenWidth, 50 * App.screenHeightAdapter));
+
+        }
+
+        async void onSearchTextChange(object sender, EventArgs e)
+        {
+            Debug.WriteLine("SelectStudentPageCS.onSearchTextChange");
+            if (searchEntry.entry.Text == "")
+            {
+                studends_filtered = new ObservableCollection<Member>(App.member.students);
+
+            }
+            else
+            {
+                studends_filtered = new ObservableCollection<Member>(App.member.students.Where(i => i.nickname.ToLower().Contains(searchEntry.entry.Text.ToLower())));
+            }
+
+            collectionViewStudents.ItemsSource = null;
+            collectionViewStudents.ItemsSource = studends_filtered;
+        }
+
+        public void CreateStudentsColletion()
 		{
 			Debug.Print("AddPersonAttendancePageCS.CreateStudentsColletion");
 			//COLLECTION GRADUACOES
 			collectionViewStudents = new CollectionView
 			{
 				SelectionMode = SelectionMode.Single,
-				ItemsSource = students,
+				ItemsSource = studends_filtered,
 				ItemsLayout = new GridItemsLayout(1, ItemsLayoutOrientation.Vertical) { VerticalItemSpacing = 10, HorizontalItemSpacing = 5, },
 				EmptyView = new ContentView
 				{
@@ -182,7 +218,7 @@ namespace SportNow.Views
 			});
 
 			absoluteLayout.Add(collectionViewStudents);
-            absoluteLayout.SetLayoutBounds(collectionViewStudents, new Rect(0, 100 * App.screenHeightAdapter, App.screenWidth, (App.screenHeight - (190 * App.screenHeightAdapter))));
+            absoluteLayout.SetLayoutBounds(collectionViewStudents, new Rect(0, 160 * App.screenHeightAdapter, App.screenWidth, (App.screenHeight - (270 * App.screenHeightAdapter))));
 		}
 
 		public AddPersonAttendancePageCS(Class_Schedule class_Schedule)

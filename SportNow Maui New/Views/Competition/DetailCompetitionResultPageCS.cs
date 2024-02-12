@@ -41,6 +41,7 @@ namespace SportNow.Views
 		public async void initSpecificLayout()
 		{
 
+            this.BackgroundColor = App.backgroundOppositeColor;
             Image eventoImage = new Image { Aspect = Aspect.AspectFill, Opacity = 0.40 };
             eventoImage.Source = competition_participation.imagemSource;
 
@@ -58,16 +59,20 @@ namespace SportNow.Views
 			gridCompetiton.ColumnDefinitions.Add(new ColumnDefinition { Width = App.screenWidth / 5 * 4 }); //GridLength.Auto 
 
 			Label dateLabel = new FormLabel { Text = "DATA" };
-			FormValue dateValue = new FormValue(competition_participation.competicao_detailed_date);
+            dateLabel.TextColor = App.oppositeTextColor;
+            FormValue dateValue = new FormValue(competition_participation.competicao_detailed_date);
 
 			FormLabel placeLabel = new FormLabel { Text = "LOCAL" };
-			FormValue placeValue = new FormValue(competition_participation.competicao_local);
+            placeLabel.TextColor = App.oppositeTextColor;
+            FormValue placeValue = new FormValue(competition_participation.competicao_local);
 
 			FormLabel typeLabel = new FormLabel { Text = "TIPO" };
-			FormValue typeValue = new FormValue(Constants.competition_type[competition_participation.competicao_tipo]);
+            typeLabel.TextColor = App.oppositeTextColor;
+            FormValue typeValue = new FormValue(Constants.competition_type[competition_participation.competicao_tipo]);
 
 			FormLabel websiteLabel = new FormLabel { Text = "WEBSITE" };
-			FormValue websiteValue = new FormValue(competition_participation.competicao_website);
+            websiteLabel.TextColor = App.oppositeTextColor;
+            FormValue websiteValue = new FormValue(competition_participation.competicao_website);
 
 
 			websiteValue.GestureRecognizers.Add(new TapGestureRecognizer
@@ -85,11 +90,13 @@ namespace SportNow.Views
 				})
 			});
 
-			FormLabel provaLabel = new FormLabel { Text = "PROVA" }; ;
-			FormValue provaValue = new FormValue(competition_participation.categoria);
+			FormLabel provaLabel = new FormLabel { Text = "PROVA" };
+            provaLabel.TextColor = App.oppositeTextColor;
+            FormValue provaValue = new FormValue(competition_participation.categoria);
 
-			FormLabel classificacaoLabel = new FormLabel { Text = "RESULTADO" }; ;
-			FormValue classificacaoValue = new FormValue(competition_participation.classificacao);
+			FormLabel classificacaoLabel = new FormLabel { Text = "RESULTADO" };
+            classificacaoLabel.TextColor = App.oppositeTextColor;
+            FormValue classificacaoValue = new FormValue(competition_participation.classificacao);
 			classificacaoValue.Padding = new Thickness(1, 1, 1, 1);
 			//classificacaoValue.BackgroundColor = competition_participation.classificacaoColor;
 			classificacaoValue.label.BackgroundColor = competition_participation.classificacaoColor;

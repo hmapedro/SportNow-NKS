@@ -188,21 +188,21 @@ namespace SportNow.Services.Data.JSON
 				{
 					//return true;
 					string content = await response.Content.ReadAsStringAsync();
-					Debug.WriteLine("content=" + content);
+					Debug.WriteLine("UpdateClass_Attendance content=" + content);
 					//member.fees = JsonConvert.DeserializeObject<List<Fee>>(content);
 					result = 1;
 				}
 				else
 				{
-					Debug.WriteLine("error updating class attendance");
+					Debug.WriteLine("UpdateClass_Attendance - error updating class attendance");
 					result = -1;
 				}
 
 				return result;
 			}
-			catch
+			catch (Exception e)
 			{
-				Debug.WriteLine("http request error");
+				Debug.WriteLine("UpdateClass_Attendance http request error " + e.Message);
 				return -2;
 			}
 		}

@@ -38,7 +38,9 @@ namespace SportNow.Views
 
 		public async void initSpecificLayout()
 		{
-			gridEvent = new Microsoft.Maui.Controls.Grid { Padding = 0, ColumnSpacing = 2 * App.screenHeightAdapter, HorizontalOptions = LayoutOptions.FillAndExpand };
+            this.BackgroundColor = App.backgroundOppositeColor;
+
+            gridEvent = new Microsoft.Maui.Controls.Grid { Padding = 0, ColumnSpacing = 2 * App.screenHeightAdapter, HorizontalOptions = LayoutOptions.FillAndExpand };
 			gridEvent.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
 			gridEvent.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
 			gridEvent.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
@@ -47,16 +49,20 @@ namespace SportNow.Views
 			gridEvent.ColumnDefinitions.Add(new ColumnDefinition { Width = App.screenWidth / 5 * 4 }); //GridLength.Auto 
 
 			Label dateLabel = new FormLabel { Text = "DATA" };
-			FormValue dateValue = new FormValue(event_participation.evento_detailed_date);
+            dateLabel.TextColor = App.oppositeTextColor;
+            FormValue dateValue = new FormValue(event_participation.evento_detailed_date);
 
 			FormLabel placeLabel = new FormLabel { Text = "LOCAL" };
-			FormValue placeValue = new FormValue(event_participation.evento_local);
+            placeLabel.TextColor = App.oppositeTextColor;
+            FormValue placeValue = new FormValue(event_participation.evento_local);
 
 			FormLabel typeLabel = new FormLabel { Text = "TIPO" };
-			FormValue typeValue = new FormValue(Constants.event_type[event_participation.evento_tipo]);
+            typeLabel.TextColor = App.oppositeTextColor;
+            FormValue typeValue = new FormValue(Constants.event_type[event_participation.evento_tipo]);
 
 			FormLabel websiteLabel = new FormLabel { Text = "WEBSITE" };
-			FormValue websiteValue = new FormValue(event_participation.evento_website);
+            websiteLabel.TextColor = App.oppositeTextColor;
+            FormValue websiteValue = new FormValue(event_participation.evento_website);
 
 
 			websiteValue.GestureRecognizers.Add(new TapGestureRecognizer

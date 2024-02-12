@@ -67,12 +67,13 @@ namespace SportNow.Views
 		public async void initSpecificLayout()
 		{
 
+            this.BackgroundColor = App.backgroundOppositeColor;
+
             eventoImage = new Image { Aspect = Aspect.AspectFill, Opacity = 0.40 };
             eventoImage.Source = event_v.imagemSource;
 
             absoluteLayout.Add(eventoImage);
             absoluteLayout.SetLayoutBounds(eventoImage, new Rect(0, 0, App.screenWidth, App.screenHeight));
-
 
             gridEvent = new Microsoft.Maui.Controls.Grid { Padding = 0, ColumnSpacing = 2 * App.screenHeightAdapter, HorizontalOptions = LayoutOptions.FillAndExpand };
 			gridEvent.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
@@ -88,19 +89,24 @@ namespace SportNow.Views
 			gridEvent.ColumnDefinitions.Add(new ColumnDefinition { Width = App.screenWidth / 5 * 4}); //GridLength.Auto 
 
 			Label dateLabel = new FormLabel { Text = "DATA" };
-			FormValue dateValue = new FormValue(event_v.detailed_date);
+            dateLabel.TextColor = App.oppositeTextColor;
+            FormValue dateValue = new FormValue(event_v.detailed_date);
 
 			FormLabel placeLabel = new FormLabel { Text = "LOCAL" };
-			FormValue placeValue = new FormValue(event_v.place);
+            placeLabel.TextColor = App.oppositeTextColor;
+            FormValue placeValue = new FormValue(event_v.place);
 
 			FormLabel typeLabel = new FormLabel { Text = "TIPO" };
-			FormValue typeValue = new FormValue(Constants.event_type[event_v.type]);
+            typeLabel.TextColor = App.oppositeTextColor;
+            FormValue typeValue = new FormValue(Constants.event_type[event_v.type]);
 
 			FormLabel valueLabel = new FormLabel { Text = "VALOR" };
-			FormValue valueValue = new FormValue(String.Format("{0:0.00}", event_v.value + "€"));
+            valueLabel.TextColor = App.oppositeTextColor;
+            FormValue valueValue = new FormValue(String.Format("{0:0.00}", event_v.value + "€"));
 
 			FormLabel websiteLabel = new FormLabel { Text = "WEBSITE" };
-			FormValue websiteValue = new FormValue(event_v.website);
+            websiteLabel.TextColor = App.oppositeTextColor;
+            FormValue websiteValue = new FormValue(event_v.website);
 
 			websiteValue.GestureRecognizers.Add(new TapGestureRecognizer
 			{
@@ -116,8 +122,9 @@ namespace SportNow.Views
 				})
 			});
 
-			FormLabel estadoLabel = new FormLabel { Text = "ESTADO" }; ;
-			estadoValue = new FormValue("");
+			FormLabel estadoLabel = new FormLabel { Text = "ESTADO" };
+            estadoLabel.TextColor = App.oppositeTextColor;
+            estadoValue = new FormValue("");
 
 			DateTime currentTime = DateTime.Now.Date;
 			DateTime registrationbegindate_datetime = new DateTime();
@@ -192,7 +199,7 @@ namespace SportNow.Views
 			Label limitDateLabel = new Label
 			{
 				Text = limitDateLabelText,
-				TextColor = App.topColor,
+				TextColor = App.oppositeTextColor,
                 WidthRequest = 300 * App.screenWidthAdapter,
                 HeightRequest = 50 * App.screenHeightAdapter,
                 FontSize = App.titleFontSize,
@@ -233,14 +240,8 @@ namespace SportNow.Views
 		public DetailEventPageCS(Event event_v )
 		{
 			App.notification = App.notification + " DetailEventPageCS ";
-			//UserDialogs.Instance.Alert(new AlertConfig() { Title = "", App.notification, "Ok" );
 			this.event_v = event_v;
-			Debug.Print("event_v.id = " + event_v.id);
-			//this.event_participation = event_participation;
-			//App.event_participation = event_participation;
-
 			this.initLayout();
-			//this.initSpecificLayout();
 		}
 
 		async void refreshEventStatus()

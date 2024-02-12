@@ -201,13 +201,13 @@ namespace SportNow.Views
 			if ((examination_session.participationconfirmed == "confirmado") | (examination_session.participationconfirmed == null) | (registrationOpened == false))
 			{
 				absoluteLayout.Add(collectionViewExaminationSessionCall);
-                absoluteLayout.SetLayoutBounds(collectionViewExaminationSessionCall, new Rect(0, 100 * App.screenHeightAdapter, App.screenWidth, App.screenHeight - 100 * App.screenHeightAdapter));
+                absoluteLayout.SetLayoutBounds(collectionViewExaminationSessionCall, new Rect(0, 100 * App.screenHeightAdapter, App.screenWidth, App.screenHeight - 220 * App.screenHeightAdapter));
 			}
 			else if (examination_session.participationconfirmed == "convocado")
 			{
 
 				absoluteLayout.Add(collectionViewExaminationSessionCall);
-                absoluteLayout.SetLayoutBounds(collectionViewExaminationSessionCall, new Rect(0, 100 * App.screenHeightAdapter, App.screenWidth, App.screenHeight - 170 * App.screenHeightAdapter));
+                absoluteLayout.SetLayoutBounds(collectionViewExaminationSessionCall, new Rect(0, 100 * App.screenHeightAdapter, App.screenWidth, App.screenHeight - 310 * App.screenHeightAdapter));
 
 
 				registerButton = new RegisterButton("INSCREVER", App.screenWidth - 20 * App.screenWidthAdapter, 50 * App.screenHeightAdapter);
