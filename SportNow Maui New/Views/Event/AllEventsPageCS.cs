@@ -4,6 +4,7 @@ using System.Diagnostics;
 using SportNow.CustomViews;
 using SportNow.Views.Profile;
 using Microsoft.Maui.Controls.Shapes;
+using System.Runtime.CompilerServices;
 
 namespace SportNow.Views
 {
@@ -12,10 +13,12 @@ namespace SportNow.Views
 
 		protected override void OnAppearing()
 		{
+			base.OnAppearing();
 			initSpecificLayout();
-		}
 
-		protected override void OnDisappearing()
+        }
+
+        protected override void OnDisappearing()
 		{
 			this.CleanScreen();
 		}

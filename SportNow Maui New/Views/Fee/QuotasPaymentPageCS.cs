@@ -8,6 +8,7 @@ namespace SportNow.Views
 
 		protected override void OnAppearing()
 		{
+            base.OnAppearing();
 			if (App.isToPop == true)
 			{
 				App.isToPop = false;

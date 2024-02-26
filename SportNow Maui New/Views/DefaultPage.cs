@@ -2,15 +2,25 @@
 using System.Diagnostics;
 using System.Windows.Input;
 using Microsoft.Maui;
+using Microsoft.Maui.Controls;
+using Microsoft.Maui.Controls.Shapes;
+using SportNow.CustomViews;
 
 namespace SportNow.Views
 {
     public class DefaultPage : ContentPage
 	{
-        Microsoft.Maui.Controls.StackLayout stack;
+        Border border;
+        Frame background_frame;
+
         ActivityIndicator indicator;
         bool isRunning;
-        Image loading;
+#if ANDROID
+        public Image loading;
+#elif IOS
+        GifImage loading;
+#endif
+
 
         private DeviceOrientationService _deviceOrientationService;
         private string _orientationLockState = "Unlocked";
@@ -19,11 +29,24 @@ namespace SportNow.Views
         public ICommand LockLandscapeCommand { get; }
         public ICommand UnlockOrientationCommand { get; }
 
+        protected override async void OnAppearing()
+        {
+            base.OnAppearing();
+#if ANDROID
+                await Task.Delay(100);
+                loading.IsAnimationPlaying = false;
+                await Task.Delay(100);
+                loading.IsAnimationPlaying = true;
+#endif
+        }
+
         public string OrientationLockState;/*
         {
             get => _orientationLockState;
             set => SetField(ref _orientationLockState, value);
         }*/
+
+
 
         private void LockOrientation(DisplayOrientation? orientation)
         {
@@ -65,7 +88,7 @@ namespace SportNow.Views
             App.screenHeight = (DeviceDisplay.MainDisplayInfo.Height / DeviceDisplay.MainDisplayInfo.Density) - 10 * App.screenWidthAdapter;
 
 
-        DeviceOrientationService deviceOrientationService = new DeviceOrientationService();
+            DeviceOrientationService deviceOrientationService = new DeviceOrientationService();
 
             deviceOrientationService.LockPortraitInterface();
 
@@ -103,31 +126,59 @@ namespace SportNow.Views
                 navigationPage.BarTextColor = App.normalTextColor;
             }
 
-            stack = new Microsoft.Maui.Controls.StackLayout() { BackgroundColor = App.backgroundColor, Opacity = 0.6 };
-            loading = new Image() { Source = "loading.gif", IsAnimationPlaying = true }; 
+            background_frame = new Frame() { BackgroundColor = App.backgroundColor, Opacity = 0.3 };
+
+            border = new Border
+            {
+                StrokeShape = new RoundRectangle
+                {
+                    CornerRadius = 5 * (float)App.screenHeightAdapter,
+                },
+                BackgroundColor = Color.FromRgb(200, 200, 200),
+                Opacity = 0.2,
+                Padding = new Thickness(0, 0, 0, 0),
+                HeightRequest = 80 * App.screenHeightAdapter,
+                WidthRequest = 160 * App.screenWidthAdapter,
+                VerticalOptions = LayoutOptions.Center,
+            };
+
+#if ANDROID
+            loading = new Image() { Source = "loading.gif", IsAnimationPlaying = true };
+#elif IOS
+            loading = new GifImage() { Asset = "loading.gif", WidthRequest = 70 * App.screenHeightAdapter, HeightRequest = 70 * App.screenHeightAdapter}; 
+#endif
+
 
             //indicator = new ActivityIndicator() { Color = App.topColor, HeightRequest = 100, WidthRequest = 100, MinimumHeightRequest = 100, MinimumWidthRequest = 100};
         }
 
         public void showActivityIndicator()
         {
+            Debug.Print("showActivityIndicator isRunning = " + isRunning);
             if (isRunning == false)
             {
                 isRunning = true;
- 
-                absoluteLayout.Add(stack);
-                absoluteLayout.SetLayoutBounds(stack, new Rect(0, 0, App.screenWidth, App.screenHeight));
+
+                absoluteLayout.Add(background_frame);
+                absoluteLayout.SetLayoutBounds(background_frame, new Rect(0, 0, App.screenWidth, App.screenHeight));
+
+                absoluteLayout.Add(border);
+                absoluteLayout.SetLayoutBounds(border, new Rect((App.screenWidth / 2) - 80 * App.screenWidthAdapter, (App.screenHeight / 2) - 140 * App.screenHeightAdapter, 160 * App.screenWidthAdapter, 80 * App.screenHeightAdapter));
 
                 absoluteLayout.Add(loading);
-                absoluteLayout.SetLayoutBounds(loading, new Rect((App.screenWidth / 2) - 50 * App.screenWidthAdapter, (App.screenHeight / 2) - 100 * App.screenHeightAdapter - 50 * App.screenWidthAdapter, 100 * App.screenWidthAdapter, 100 * App.screenWidthAdapter));
+                absoluteLayout.SetLayoutBounds(loading, new Rect((App.screenWidth / 2) - 80 * App.screenWidthAdapter, (App.screenHeight / 2) - 140 * App.screenHeightAdapter, 160 * App.screenWidthAdapter, 80 * App.screenHeightAdapter));
             }
+
         }
 
         public void hideActivityIndicator()
         {
-            absoluteLayout.Remove(stack);
+            Debug.Print("hideActivityIndicator");
+            absoluteLayout.Remove(background_frame);
+            absoluteLayout.Remove(border);
             absoluteLayout.Remove(loading);
             isRunning = false;
+            //indicator.IsRunning = false;
         }
     }
 }

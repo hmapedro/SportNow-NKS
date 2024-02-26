@@ -11,8 +11,9 @@ namespace SportNow.Views
 
 		protected override void OnAppearing()
 		{
-			
-		}
+            base.OnAppearing();
+
+        }
 
 		protected override void OnDisappearing()
 		{

@@ -16,7 +16,8 @@ namespace SportNow.Views
 
 		protected override void OnAppearing()
 		{
-            this.CleanScreen();
+            base.OnAppearing();
+			this.CleanScreen();
 			initSpecificLayout();
 		}
 
@@ -262,7 +263,7 @@ namespace SportNow.Views
 
 
 				Image premioImage= new Image {};
-				premioImage.SetBinding(Image.SourceProperty, "imagem");
+				premioImage.SetBinding(Image.SourceProperty, "imagemSource");
 
 				itemabsoluteLayout.Add(premioImage);
 				itemabsoluteLayout.SetLayoutBounds(premioImage, new Rect(10 * App.screenHeightAdapter, 0, 90 * App.screenHeightAdapter, 90 * App.screenHeightAdapter));
@@ -379,7 +380,6 @@ namespace SportNow.Views
 				else
 				{
 					event_participation.imagemSource = Constants.images_URL + event_participation.evento_id + "_imagem_c";
-
 				}
 			}
 
@@ -837,14 +837,17 @@ namespace SportNow.Views
 
 			foreach (Award award in awards)
 			{
-				if (award.tipo == "aluno_mes")
-				{
-					award.imagem = "company_logo_square.png";
+				if ((award.imagem == "") | (award.imagem is null))
+
+                {
+					award.imagemSource = "company_logo_square.png";
 				}
 				else
 				{
-					award.imagem = "company_logo_square.png";
-				}
+                    award.imagemSource = Constants.images_URL + award.id+ "_imagem_c";
+                }
+                Debug.Print("Imagem Premio  = " + award.imagem);
+                Debug.Print("Imagem Premio Source = " + award.imagemSource);
 			}
 
 			return 1;

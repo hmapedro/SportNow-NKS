@@ -11,7 +11,8 @@ namespace SportNow.Views
 
 		protected override void OnAppearing()
 		{
-			refreshCompetitionStatus(competition);
+            base.OnAppearing();
+            refreshCompetitionStatus(competition);
 		}
 
 		protected override void OnDisappearing()

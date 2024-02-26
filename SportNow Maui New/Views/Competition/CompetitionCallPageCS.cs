@@ -11,8 +11,9 @@ namespace SportNow.Views
 
 		protected override void OnAppearing()
 		{
+            base.OnAppearing();
 			//competition_participation = App.competition_participation;
-			initSpecificLayout();
+            initSpecificLayout();
 		}
 
 		protected override void OnDisappearing()

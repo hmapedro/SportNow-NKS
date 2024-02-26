@@ -3,6 +3,9 @@ using System.Diagnostics;
 using SportNow.Model;
 using Plugin.DeviceOrientation;
 using Plugin.DeviceOrientation.Abstractions;
+//using Plugin.BetterFirebasePushNotification;
+using SportNow.Services.Data.JSON;
+using Plugin.BetterFirebasePushNotification;
 
 namespace SportNow
 {
@@ -136,27 +139,30 @@ namespace SportNow
 
         protected void startNotifications()
         {
-            /*-- CrossFirebasePushNotification.Current.Subscribe("General");
+            BetterFirebasePushNotification.Current.Subscribe("General");
 
-             CrossFirebasePushNotification.Current.OnTokenRefresh += async (s, p) =>
+            Debug.Print("BetterFirebasePushNotification.Current.Token = " + BetterFirebasePushNotification.Current.Token);
+            
+            BetterFirebasePushNotification.Current.OnTokenRefresh += async (s, p) =>
              {
                  Debug.WriteLine($"TOKEN : {p.Token}");
                  Debug.Print("App.original_member = " + App.original_member + ". App.token =" + App.token + ". p.Token=" + p.Token);
                  if ((App.original_member != null) & (App.token != p.Token))
                  {
+                     Debug.Print("OLA2 " + App.token);
                      MemberManager memberManager = new MemberManager();
                      var result = await memberManager.updateToken(App.original_member.id, p.Token);
                  }
                  App.token = p.Token;
              };
 
-             CrossFirebasePushNotification.Current.OnNotificationReceived += (s, p) =>
+            BetterFirebasePushNotification.Current.OnNotificationReceived += (s, p) =>
              {
                  Debug.Print("OnNotificationReceived Cross");
                  App.notification = "OnNotificationReceived";
              };
 
-             CrossFirebasePushNotification.Current.OnNotificationOpened += async (s, p) =>
+            BetterFirebasePushNotification.Current.OnNotificationOpened += async (s, p) =>
              {
                  Debug.Print("OnNotificationOpened Cross");
 
@@ -169,8 +175,8 @@ namespace SportNow
                      System.Diagnostics.Debug.WriteLine($"ActionID: {p.Identifier}");
                  }
 
-             };*/
-            }
+             };
+         }
 
          protected override async void OnStart()
 

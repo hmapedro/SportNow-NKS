@@ -17,6 +17,8 @@ using SportNow.CustomViews;
 using SportNow.Views.Personal;
 using System.Xml;
 using Microsoft.Maui.Controls.Shapes;
+using System.Runtime.CompilerServices;
+using Plugin.BetterFirebasePushNotification;
 
 namespace SportNow.Views
 {
@@ -25,11 +27,12 @@ namespace SportNow.Views
 
 		protected async override void OnAppearing()
 		{
-			/*base.OnAppearing();
+            /*base.OnAppearing();
 			CrossDeviceOrientation.Current.LockOrientation(DeviceOrientations.Portrait);*/
 
 
-			var mainDisplayInfo = DeviceDisplay.MainDisplayInfo;
+
+            var mainDisplayInfo = DeviceDisplay.MainDisplayInfo;
 
 			Constants.ScreenWidth = mainDisplayInfo.Width;
 			Constants.ScreenHeight = mainDisplayInfo.Height;
@@ -171,14 +174,12 @@ namespace SportNow.Views
 
 		public async void initSpecificLayout()
 		{
-			//showActivityIndicator();
-
 			var textWelcome = "";
 
 			textWelcome = "Olá " + App.member.nickname+" ";
 
-			//USERNAME LABEL
-			usernameLabel = new Label
+            //USERNAME LABEL
+            usernameLabel = new Label
 			{
 				Text = textWelcome,
 				TextColor = App.normalTextColor,
@@ -209,14 +210,14 @@ namespace SportNow.Views
 			}
 
 
-			createImportantClasses();
+			_ = await createImportantClasses();
 
-			createImportantEvents();
+			_ = await createImportantEvents();
 
 			Debug.Print("App.member.students_count = " + App.member.students_count);
 			if (App.member.students_count > 0)
 			{
-				createImportantTeacherClasses();
+				_ = await createImportantTeacherClasses();
 			}
 
             if (App.member.students_count == 0)
@@ -244,8 +245,6 @@ namespace SportNow.Views
             createCurrentFee();
 
 			//createVersion();
-
-			//hideActivityIndicator();
 		}
 
 		public async void createPersonalClasses()
@@ -272,9 +271,10 @@ namespace SportNow.Views
         }
             
 
-        public async void createImportantTeacherClasses()
+        public async Task<int> createImportantTeacherClasses()
 		{
-			DateTime currentTime = DateTime.Now.Date;
+            showActivityIndicator();
+            DateTime currentTime = DateTime.Now.Date;
 			DateTime currentTime_add7 = DateTime.Now.AddDays(7).Date;
 
 			string firstDay = currentTime.ToString("yyyy-MM-dd");
@@ -297,6 +297,8 @@ namespace SportNow.Views
             absoluteLayout.SetLayoutBounds(teacherClassesLabel, new Rect(0, teacherClassesY, App.screenWidth, 30 * App.screenHeightAdapter));
 
 			CreateTeacherClassesColletion();
+			hideActivityIndicator();
+			return 1;
 		}
 
 		public void CompleteTeacherClass_Schedules()
@@ -422,9 +424,10 @@ namespace SportNow.Views
             absoluteLayout.SetLayoutBounds(teacherClassesCollectionView, new Rect(0, teacherClassesY + (30 * App.screenHeightAdapter), App.screenWidth, App.ItemHeight + (10 * App.screenHeightAdapter)));
 		}
 
-		public async void createImportantClasses()
+		public async Task<int> createImportantClasses()
 		{
-			int result = await getClass_DetailData();
+            showActivityIndicator();
+            int result = await getClass_DetailData();
 
 			//AULAS LABEL
 			attendanceLabel = new Label
@@ -441,6 +444,8 @@ namespace SportNow.Views
 			scheduleCollection = new ScheduleCollection();
 			scheduleCollection.Items = importantClass_Schedule;
 			createClassesCollection();
+			hideActivityIndicator();
+			return result;
 		}
 
 		public async Task<int> getClass_DetailData()
@@ -581,9 +586,10 @@ namespace SportNow.Views
             absoluteLayout.SetLayoutBounds(importantClassesCollectionView, new Rect(0, classesY + (30 * App.screenHeightAdapter), App.screenWidth, App.ItemHeight + (10 * App.screenHeightAdapter)));
 		}
 
-		public async void createImportantEvents()
+		public async Task<int> createImportantEvents()
 		{
-			importantEvents = await GetImportantEvents();
+            showActivityIndicator();
+            importantEvents = await GetImportantEvents();
 
 			foreach (Event event_i in importantEvents)
 			{
@@ -622,6 +628,8 @@ namespace SportNow.Views
             absoluteLayout.SetLayoutBounds(eventsLabel, new Rect(0, eventsY, App.screenWidth, 30 * App.screenHeightAdapter));
 
 			CreateProximosEventosColletion();
+			hideActivityIndicator();
+			return 1;
 		}
 
 		public void CreateProximosEventosColletion()

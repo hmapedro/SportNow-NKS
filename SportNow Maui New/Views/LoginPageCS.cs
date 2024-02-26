@@ -42,7 +42,7 @@ namespace SportNow.Views
 		{
 			createVersion();
 
-            Microsoft.Maui.Controls.Grid gridLogin = new Microsoft.Maui.Controls.Grid { Padding = 10, RowSpacing = 10 * App.screenHeightAdapter };
+            Microsoft.Maui.Controls.Grid gridLogin = new Microsoft.Maui.Controls.Grid { Padding = 10, RowSpacing = 5 * App.screenHeightAdapter };
 			gridLogin.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
 			gridLogin.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
 			gridLogin.RowDefinitions.Add(new RowDefinition { Height = 40 });
@@ -50,7 +50,7 @@ namespace SportNow.Views
 			gridLogin.RowDefinitions.Add(new RowDefinition { Height = 50 });
 			gridLogin.RowDefinitions.Add(new RowDefinition { Height = 60 });
 			gridLogin.RowDefinitions.Add(new RowDefinition { Height = 60 });
-            gridLogin.RowDefinitions.Add(new RowDefinition { Height = 60 });
+            //gridLogin.RowDefinitions.Add(new RowDefinition { Height = 60 });
             //gridLogin.RowDefinitions.Add(new RowDefinition { Height = GridLength.Star });
             gridLogin.ColumnDefinitions.Add(new ColumnDefinition { Width = App.screenWidth - 20 * App.screenWidthAdapter}); //GridLength.Auto 
 
@@ -183,7 +183,7 @@ namespace SportNow.Views
 			gridLogin.Add(passwordEntry, 0, 4);
 			gridLogin.Add(loginButton, 0, 5);
 			gridLogin.Add(recoverPasswordLabel, 0, 6);
-            gridLogin.Add(newMemberLabel, 0, 7);
+            //gridLogin.Add(newMemberLabel, 0, 7);
 
             absoluteLayout.Add(gridLogin);
             absoluteLayout.SetLayoutBounds(gridLogin, new Rect(0, 0, App.screenWidth - 10 * App.screenWidthAdapter, App.screenHeight));

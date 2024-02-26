@@ -8,12 +8,32 @@ using SportNow.Views.Profile;
 using Microsoft.Maui;
 using SportNow.Views.CompleteRegistration;
 using Microsoft.Maui.Controls.PlatformConfiguration.AndroidSpecific;
+using Plugin.BetterFirebasePushNotification;
 //using Xamarin.Forms.PlatformConfiguration.AndroidSpecific;
+#if IOS
+using Microsoft.Maui.Controls.Handlers.Compatibility;
+using Microsoft.Maui.Platform;
+#endif
 
 namespace SportNow.Views
 {
     public class MainTabbedPageCS : Microsoft.Maui.Controls.TabbedPage
     {
+
+        protected override void OnHandlerChanging(HandlerChangingEventArgs args)
+        {
+            base.OnHandlerChanging(args);
+
+#if IOS
+            if (args.NewHandler is TabbedRenderer renderer)
+            {
+                if (renderer.TabBar is not null)
+                {
+                    renderer.TabBar.TintColor = App.normalTextColor.ToPlatform();
+                }
+            }
+#endif
+        }
 
         public async void initSpecificLayout(string actiontype, string actionid) {
             On<Microsoft.Maui.Controls.PlatformConfiguration.Android>().SetIsSwipePagingEnabled(false);
@@ -34,12 +54,11 @@ namespace SportNow.Views
 
             //On<Xamarin.Forms.PlatformConfiguration.Android>().SetToolbarPlacement(ToolbarPlacement.Bottom);
 
-            this.UnselectedTabColor = App.normalTextColor;
             this.BackgroundColor = App.backgroundColor;
             this.BarBackgroundColor = App.backgroundColor;
-            this.BarTextColor = App.normalTextColor;//FromRgb(75, 75, 75); ;
+            this.BarTextColor = App.topColor;// App.normalTextColor;//FromRgb(75, 75, 75);
             this.SelectedTabColor = App.topColor;
-            this.UnselectedTabColor = App.bottomColor;
+            this.UnselectedTabColor = App.bottomColor; // App.bottomColor;
 
 
             //public static double ScreenWidth; = Application.Current.MainPage.Width;
@@ -112,10 +131,11 @@ namespace SportNow.Views
                 await checkObjectives();
 
                 //se chegou aqui é pq sabe quem é o member
-                if ((App.token != null) & (App.original_member.id == App.member.id))
+                if ((BetterFirebasePushNotification.Current.Token!= null) & (App.original_member.id == App.member.id))
                 {
+                    Debug.Print("OLA1 " + BetterFirebasePushNotification.Current.Token);
                     MemberManager memberManager = new MemberManager();
-                    var result = await memberManager.updateToken(App.original_member.id, App.token);
+                    var result = await memberManager.updateToken(App.original_member.id, BetterFirebasePushNotification.Current.Token);
 
                     LogManager logManager = new LogManager();
                     await logManager.writeLog(App.original_member.id, App.member.id, "LOGIN OK", "Login Successful");
@@ -217,10 +237,11 @@ namespace SportNow.Views
                 //App.original_member.students_count = await GetMemberStudents_Count(App.original_member.id);
                 //App.member.students_count = await GetMemberStudents_Count(App.member.id);
 
-                if ((App.token != null) & (App.original_member.id == App.member.id))
+                if ((BetterFirebasePushNotification.Current.Token != null) & (App.original_member.id == App.member.id))
                 {
+                    Debug.Print("OLA0 " + BetterFirebasePushNotification.Current.Token);
                     MemberManager memberManager = new MemberManager();
-                    var result = await memberManager.updateToken(App.original_member.id, App.token);
+                    var result = await memberManager.updateToken(App.original_member.id, BetterFirebasePushNotification.Current.Token);
                 }
                 App.notification = App.notification + " createTabs 0.1 "+actiontype;
                 if (actiontype != "")

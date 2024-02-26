@@ -10,7 +10,8 @@ namespace SportNow.Views
 
 		protected override void OnDisappearing()
 		{
-			this.CleanScreen();
+            base.OnAppearing();
+            this.CleanScreen();
 		}
 
 		protected override void OnAppearing()
