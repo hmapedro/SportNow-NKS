@@ -32,8 +32,9 @@ namespace SportNow.Views
         protected override async void OnAppearing()
         {
             base.OnAppearing();
+            Debug.Print("OnAppearing");
 #if ANDROID
-                await Task.Delay(100);
+            await Task.Delay(100);
                 loading.IsAnimationPlaying = false;
                 await Task.Delay(100);
                 loading.IsAnimationPlaying = true;
