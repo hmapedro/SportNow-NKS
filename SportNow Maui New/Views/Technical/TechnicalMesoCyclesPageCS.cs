@@ -10,6 +10,7 @@ namespace SportNow.Views.Technical
 	{
 		protected override void OnAppearing()
 		{
+            Debug.Print("OLA");
             base.OnAppearing();
         }
 
