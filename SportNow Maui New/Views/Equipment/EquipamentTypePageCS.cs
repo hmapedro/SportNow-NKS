@@ -119,7 +119,7 @@ namespace SportNow.Views
 				Orientation = StackOrientation.Vertical,
 				HorizontalOptions = LayoutOptions.FillAndExpand,
 				VerticalOptions = LayoutOptions.FillAndExpand,
-				HeightRequest = 350,
+				HeightRequest = 500 * App.screenHeightAdapter,
 				Children =
 				{
 					karategiButton,
@@ -129,7 +129,7 @@ namespace SportNow.Views
 			};
 
 			equipamentosabsoluteLayout.Add(stackEquipamentosButtons);
-			equipamentosabsoluteLayout.SetLayoutBounds(stackEquipamentosButtons, new Rect(App.screenWidth / 4, 0, App.screenWidth / 2, 400 * App.screenHeightAdapter));
+			equipamentosabsoluteLayout.SetLayoutBounds(stackEquipamentosButtons, new Rect(App.screenWidth / 4, 0, App.screenWidth / 2, 500 * App.screenHeightAdapter));
 
 		}
 

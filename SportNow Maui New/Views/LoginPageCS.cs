@@ -329,14 +329,15 @@ namespace SportNow.Views
         {
 			Label currentVersionLabel = new Label
 			{
-				Text = "Version " + App.VersionNumber + " - " + App.BuildNumber,
+                FontFamily = "futuracondensedmedium",
+                Text = "Version " + App.VersionNumber + " - " + App.BuildNumber,
                 TextColor = App.normalTextColor,
                 HorizontalTextAlignment = TextAlignment.Start,
                 FontSize = App.itemTextFontSize
             };
 
             absoluteLayout.Add(currentVersionLabel);
-            absoluteLayout.SetLayoutBounds(currentVersionLabel, new Rect(0, App.screenHeight - 140 * App.screenHeightAdapter, 100 * App.screenHeightAdapter, 30 * App.screenHeightAdapter));
+            absoluteLayout.SetLayoutBounds(currentVersionLabel, new Rect(0, App.screenHeight - 140 * App.screenHeightAdapter, 200 * App.screenWidth, 30 * App.screenHeightAdapter));
         }
     }
 }

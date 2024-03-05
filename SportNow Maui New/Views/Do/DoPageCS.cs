@@ -552,13 +552,13 @@ namespace SportNow.Views
 				categoryLabel.SetBinding(Label.TextProperty, "categoria");
 
 				itemabsoluteLayout.Add(categoryLabel);
-				itemabsoluteLayout.SetLayoutBounds(categoryLabel, new Rect(3 * App.screenWidthAdapter, (App.ItemHeight - (15 * App.screenHeightAdapter)) / 2, App.ItemWidth - (6 * App.screenWidthAdapter), (App.ItemHeight - (15 * App.screenHeightAdapter)) / 4));
+				itemabsoluteLayout.SetLayoutBounds(categoryLabel, new Rect(3 * App.screenWidthAdapter, 15 * App.screenHeightAdapter + (App.ItemHeight - (15 * App.screenHeightAdapter)) / 2, App.ItemWidth - (6 * App.screenWidthAdapter), (App.ItemHeight - (15 * App.screenHeightAdapter)) / 4));
 
 				Label dateLabel = new Label { FontFamily = "futuracondensedmedium", VerticalTextAlignment = TextAlignment.Center, HorizontalTextAlignment = TextAlignment.Center, FontSize = App.itemTextFontSize, TextColor = App.oppositeTextColor, LineBreakMode = LineBreakMode.NoWrap };
 				dateLabel.SetBinding(Label.TextProperty, "competicao_detailed_date");
 
 				itemabsoluteLayout.Add(dateLabel);
-			    itemabsoluteLayout.SetLayoutBounds(dateLabel, new Rect(3 * App.screenWidthAdapter, (App.ItemHeight - 15) - ((App.ItemHeight - 15) / 4), App.ItemWidth - (6 * App.screenWidthAdapter), (App.ItemHeight - (15 * App.screenHeightAdapter)) / 4));
+			    itemabsoluteLayout.SetLayoutBounds(dateLabel, new Rect(3 * App.screenWidthAdapter, 15 * App.screenHeightAdapter + (App.ItemHeight - (15 * App.screenHeightAdapter)) * 3 / 4, App.ItemWidth - (6 * App.screenWidthAdapter), (App.ItemHeight - (15 * App.screenHeightAdapter)) / 4));
 
 				Label classificacaoLabel = new Label { FontFamily = "futuracondensedmedium", VerticalTextAlignment = TextAlignment.Center, HorizontalTextAlignment = TextAlignment.Center, FontSize = App.itemTextFontSize, TextColor = App.oppositeTextColor, LineBreakMode = LineBreakMode.NoWrap, HeightRequest = 20 * App.screenHeightAdapter, WidthRequest = 20 * App.screenHeightAdapter,};
 				classificacaoLabel.SetBinding(Label.TextProperty, "classificacao");

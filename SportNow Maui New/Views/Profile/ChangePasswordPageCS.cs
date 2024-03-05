@@ -46,7 +46,7 @@ namespace SportNow.Views.Profile
 			grid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
 			grid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
             grid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Star });
-            grid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
+            //grid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
             //gridGeral.RowDefinitions.Add(new RowDefinition { Height = 1 });
             grid.ColumnDefinitions.Add(new ColumnDefinition { Width = App.screenWidth/2 - 10 * App.screenWidthAdapter }); //GridLength.Auto
 			grid.ColumnDefinitions.Add(new ColumnDefinition { Width = App.screenWidth/2 - 10 * App.screenWidthAdapter }); //GridLength.Auto 
@@ -93,8 +93,8 @@ namespace SportNow.Views.Profile
 
             deleteMemberButton.button.Clicked += OndeleteMemberButtonClicked;
 
-            grid.Add(deleteMemberButton, 0, 5);
-            Microsoft.Maui.Controls.Grid.SetColumnSpan(deleteMemberButton, 2);
+            //grid.Add(deleteMemberButton, 0, 5);
+            //Microsoft.Maui.Controls.Grid.SetColumnSpan(deleteMemberButton, 2);
 
 			absoluteLayout.Add(grid);
             absoluteLayout.SetLayoutBounds(grid, new Rect(10 * App.screenWidthAdapter, 0 * App.screenHeightAdapter, App.screenWidth - 10 * App.screenWidthAdapter, App.screenHeight - 110 * App.screenHeightAdapter));

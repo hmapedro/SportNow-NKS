@@ -128,7 +128,7 @@ namespace SportNow.Views
                     }
                 }
 
-                await checkObjectives();
+                //await checkObjectives();
 
                 //se chegou aqui é pq sabe quem é o member
                 if ((BetterFirebasePushNotification.Current.Token!= null) & (App.original_member.id == App.member.id))
@@ -232,7 +232,7 @@ namespace SportNow.Views
                     return;
                 }
 
-                await checkObjectives();
+                //await checkObjectives();
                 //var result = await GetCurrentFees(App.member);
                 //App.original_member.students_count = await GetMemberStudents_Count(App.original_member.id);
                 //App.member.students_count = await GetMemberStudents_Count(App.member.id);

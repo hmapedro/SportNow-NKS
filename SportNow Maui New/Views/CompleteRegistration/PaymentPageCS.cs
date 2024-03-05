@@ -165,7 +165,7 @@ namespace SportNow.Views.CompleteRegistration
             Label TermsPaymentMBLabel = new Label
             {
                 FontFamily = "futuracondensedmedium",
-                Text = "Ao valor da Quota é acrescido 1.7% e 0.22€.", // \n Total a pagar:" + CalculateMBPayment(monthFeeValue) + "€",
+                Text = "Ao valor da Quota é acrescido 1.7% e 0.22€ (+ IVA).", // \n Total a pagar:" + CalculateMBPayment(monthFeeValue) + "€",
                 VerticalTextAlignment = TextAlignment.Center,
                 HorizontalTextAlignment = TextAlignment.Center,
                 TextColor = App.normalTextColor,
@@ -194,7 +194,7 @@ namespace SportNow.Views.CompleteRegistration
             Label TermsPaymentMBWayLabel = new Label
             {
                 FontFamily = "futuracondensedmedium",
-                Text = "Ao valor da Quota é acrescido 0.7% e 0.07€.",
+                Text = "Ao valor da Quota é acrescido 0.7% e 0.07€ (+ IVA).",
                 VerticalTextAlignment = TextAlignment.Center,
                 HorizontalTextAlignment = TextAlignment.Center,
                 TextColor = App.normalTextColor,

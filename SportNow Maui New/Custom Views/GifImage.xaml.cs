@@ -6,13 +6,15 @@ namespace SportNow.CustomViews;
 
 public partial class GifImage : ContentView
 {
+
     int rawImageHeight = 0;
     int rawImageWidth = 0;
     double scalex = 1;
     double scaley = 1;
     string? htmlTemplate = null;
+
 #if !WINDOWS
-	bool useWebView = true;
+    bool useWebView = true;
 #else
     bool useWebView = false;
 #endif
@@ -65,14 +67,14 @@ public partial class GifImage : ContentView
         await OnRerenderAsync();
     }
 
-	private void GifImage_Loaded(object? sender, EventArgs e)
+    private void GifImage_Loaded(object? sender, EventArgs e)
     {
-		var webView = this.GetTemplateChild("webView") as WebView;
+        var webView = this.GetTemplateChild("webView") as WebView;
         if (webView != null)
         {
-			WebViewStartup.Initialize(webView);
-		}
-	}
+            WebViewStartup.Initialize(webView);
+        }
+    }
 
     public string Asset
     {
@@ -213,15 +215,17 @@ public partial class GifImage : ContentView
 
     private async Task<string> ExtractHtmlDocument()
     {
-        using Stream stream = await FileSystem.Current.OpenAppPackageFileAsync("gifTemplate.html");
-        using StreamReader sr = new StreamReader(stream);
-        using StringWriter sw = new StringWriter();
-        while (!sr.EndOfStream)
-        {
-            var line = sr.ReadLine();
-            if (line == null) break;
-            sw.WriteLine(line);
-        }
-        return sw.ToString();       
+         using Stream stream = await FileSystem.Current.OpenAppPackageFileAsync("gifTemplate.html");
+         using StreamReader sr = new StreamReader(stream);
+         using StringWriter sw = new StringWriter();
+         while (!sr.EndOfStream)
+         {
+             var line = sr.ReadLine();
+             if (line == null) break;
+             sw.WriteLine(line);
+         }
+         return sw.ToString();  
+        return null;
     }
+
 }

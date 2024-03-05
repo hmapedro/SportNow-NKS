@@ -174,7 +174,7 @@ namespace SportNow.Views.Profile
 			if (App.original_member.id != App.member.id)
 			{
 				absoluteLayout.Add(collectionViewStudents);
-                absoluteLayout.SetLayoutBounds(collectionViewStudents, new Rect(0, 50 * App.screenHeightAdapter, App.screenWidth , App.screenHeight - 270 * App.screenHeightAdapter));
+                absoluteLayout.SetLayoutBounds(collectionViewStudents, new Rect(0, 110 * App.screenHeightAdapter, App.screenWidth , App.screenHeight - 280 * App.screenHeightAdapter));
 			}
 			else
 			{

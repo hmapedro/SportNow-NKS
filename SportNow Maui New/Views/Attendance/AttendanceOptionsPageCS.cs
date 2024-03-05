@@ -66,7 +66,7 @@ namespace SportNow.Views
 			await CreatePresencasOptionButtonsAsync();
 
 			absoluteLayout.Add(presencasabsoluteLayout);
-            absoluteLayout.SetLayoutBounds(presencasabsoluteLayout, new Rect(0, 0 * App.screenHeightAdapter, App.screenWidth, App.screenHeight - 275 * App.screenHeightAdapter));
+            absoluteLayout.SetLayoutBounds(presencasabsoluteLayout, new Rect(0, 0 * App.screenHeightAdapter, App.screenWidth, App.screenHeight - 100 * App.screenHeightAdapter));
 			hideActivityIndicator();
 		}
 
@@ -134,13 +134,14 @@ namespace SportNow.Views
 					Debug.Print("screenHeightAdapter = " + App.screenHeightAdapter);
 					stackPresencasButtons = new Microsoft.Maui.Controls.StackLayout
 					{
+						
 						Spacing = 20 * App.screenHeightAdapter,
 						Orientation = StackOrientation.Vertical,
 						//VerticalAlignment = LayoutAlignment.Start,
 						//HorizontalOptions = LayoutOptions.FillAndExpand,
 						//VerticalOptions = LayoutOptions.FillAndExpand,
-						HeightRequest = 450 * App.screenHeightAdapter,
-						MaximumHeightRequest = 450 * App.screenHeightAdapter,
+						HeightRequest = 480 * App.screenHeightAdapter,
+						MaximumHeightRequest = 480 * App.screenHeightAdapter,
                         Children =
 							{
                                 presencasButton,
@@ -164,7 +165,7 @@ namespace SportNow.Views
 						Orientation = StackOrientation.Vertical,
 						HorizontalOptions = LayoutOptions.FillAndExpand,
 						VerticalOptions = LayoutOptions.FillAndExpand,
-						//HeightRequest = 550 * App.screenHeightAdapter,
+						HeightRequest = 380 * App.screenHeightAdapter,
 						Children =
 							{
 								presencasButton,
@@ -223,15 +224,16 @@ namespace SportNow.Views
 
             Label personalClassesLabel = new Label
             {
+				
                 Text = "Agora já podes agendar aulas pessoais com os teus treinadores preferidos!",
                 TextColor = App.topColor,
                 HorizontalTextAlignment = TextAlignment.Center,
                 VerticalTextAlignment = TextAlignment.Center,
                 FontSize = App.itemTitleFontSize,
-                FontFamily = "futuracondensedmedium",
+                FontFamily = "futuracondensedmedium",				
             };
             presencasabsoluteLayout.Add(personalClassesLabel);
-            presencasabsoluteLayout.SetLayoutBounds(personalClassesLabel, new Rect(0, App.screenHeight - 265 * App.screenHeightAdapter, App.screenWidth, 40 * App.screenHeightAdapter));
+            presencasabsoluteLayout.SetLayoutBounds(personalClassesLabel, new Rect(0, App.screenHeight - 275 * App.screenHeightAdapter, App.screenWidth, 40 * App.screenHeightAdapter));
 
             personalClassesButton = new RoundButton("SABER MAIS!", App.screenWidth - 10 * App.screenWidthAdapter, 50 * App.screenHeightAdapter);
             personalClassesButton.button.BackgroundColor = App.topColor;

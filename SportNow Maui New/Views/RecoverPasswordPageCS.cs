@@ -19,6 +19,7 @@ namespace SportNow.Views
 		Label messageLabel;
 
 		public void initBaseLayout() {
+			base.initBaseLayout();
 			Title = "RECUPERAR PASSWORD";			
 
 			/*var toolbarItem = new ToolbarItem {
@@ -150,7 +151,7 @@ namespace SportNow.Views
 				if (result == 1)
 				{
 					messageLabel.TextColor = Colors.Green;
-					messageLabel.Text = "Enviámos um email para o endereço indicado em cima com os dados para recuperar a sua password.";
+					messageLabel.Text = "Enviámos um email para o endereço indicado em cima com os dados para recuperar a tua password.";
 				}
 				else if (result == -1)
 				{
@@ -160,7 +161,7 @@ namespace SportNow.Views
 				else 
 				{
 					messageLabel.TextColor = Colors.Red;
-					messageLabel.Text = "Houve um erro. Verifique a sua ligação à Internet ou tente novamente mais tarde.";
+					messageLabel.Text = "Houve um erro. Verifica a tua ligação à Internet ou tenta novamente mais tarde.";
 				}
 			}
 			else

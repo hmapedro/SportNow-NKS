@@ -189,7 +189,7 @@ namespace SportNow.Views
             Label Label = new Label
             {
                 FontFamily = "futuracondensedmedium",
-                Text = "O valor total desta transação incluiu uma taxa de 1.7% e 0.22€ ",
+                Text = "O valor total desta transação incluiu uma taxa de 1.7% e 0.22€. (+ IVA)",
                 VerticalTextAlignment = TextAlignment.Center,
                 HorizontalTextAlignment = TextAlignment.Start,
                 TextColor = App.normalTextColor,

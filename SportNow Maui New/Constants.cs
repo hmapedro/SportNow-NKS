@@ -55,7 +55,7 @@ namespace SportNow
 
         public static string RestUrl_Create_MonthFee = Device.RuntimePlatform == Device.Android ? "https://" + server + "/services/service_create_monthfee.php" : "https://" + server + "/services/service_create_monthfee.php";
 
-        public static string RestUrl_Get_Invoice_byID = DeviceInfo.Platform == DevicePlatform.Android ? "https://" + server + "/services/service_get_invoice_byID.php" : "https://" + server + "/services/service_get_invoice_byID.php";
+        public static string RestUrl_Get_Invoice_byID = DeviceInfo.Platform == DevicePlatform.Android ? "https://" + server + "/services/jasmin/service_get_invoice_byID.php" : "https://" + server + "/services/jasmin/service_get_invoice_byID.php";
 
         public static string RestUrl_Get_Future_Competitions = DeviceInfo.Platform == DevicePlatform.Android ? "https://"+server+"/services/service_get_future_competitions.php" : "https://"+server+"/services/service_get_future_competitions.php";
 

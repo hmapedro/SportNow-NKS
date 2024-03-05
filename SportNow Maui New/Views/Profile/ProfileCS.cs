@@ -560,7 +560,7 @@ namespace SportNow.Views.Profile
 			//createApproveStudentButton();
 
             createChangePasswordButton();
-            CreateObjectivesButton();
+            //CreateObjectivesButton();
 			CreateQuotaButton();
         }
 
@@ -1190,8 +1190,8 @@ namespace SportNow.Views.Profile
                 memberPhotoImage.Source = ImageSource.FromStream(() => localstream);
                 if (DeviceInfo.Platform == DevicePlatform.iOS)
                 {
-                    memberPhotoImage.Rotation = 90;
-                    stream = RotateBitmap(stream_aux, 90);
+                    memberPhotoImage.Rotation = 0;
+                    stream = RotateBitmap(stream_aux, 0);
                 }
                 else
                 {

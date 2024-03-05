@@ -143,7 +143,7 @@ namespace SportNow.Views
             Label TermsPaymentMBLabel = new Label
             {
                 FontFamily = "futuracondensedmedium",
-                Text = "Ao valor do Evento é acrescido 1.7% e 0.22€.",
+                Text = "Ao valor do Evento é acrescido 1.7% e 0.22€ (+ IVA).",
                 VerticalTextAlignment = TextAlignment.Center,
                 HorizontalTextAlignment = TextAlignment.Center,
                 TextColor = App.normalTextColor,
@@ -173,7 +173,7 @@ namespace SportNow.Views
             Label TermsPaymentMBWayLabel = new Label
             {
                 FontFamily = "futuracondensedmedium",
-                Text = "Ao valor do Evento é acrescido 0.7% e 0.07€.",
+                Text = "Ao valor do Evento é acrescido 0.7% e 0.07€ (+ IVA).",
                 VerticalTextAlignment = TextAlignment.Center,
                 HorizontalTextAlignment = TextAlignment.Center,
                 TextColor = App.normalTextColor,

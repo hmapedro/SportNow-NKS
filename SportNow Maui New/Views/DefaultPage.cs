@@ -15,10 +15,10 @@ namespace SportNow.Views
 
         ActivityIndicator indicator;
         bool isRunning;
-#if ANDROID
-        public Image loading;
-#elif IOS
+#if IOS
         GifImage loading;
+#else
+        public Image loading;
 #endif
 
 
@@ -29,16 +29,25 @@ namespace SportNow.Views
         public ICommand LockLandscapeCommand { get; }
         public ICommand UnlockOrientationCommand { get; }
 
-        protected override async void OnAppearing()
+        protected async override void OnAppearing()
         {
-            base.OnAppearing();
-            Debug.Print("OnAppearing");
 #if ANDROID
+            var currentActivity = ActivityStateManager.Default.GetCurrentActivity();
+            if (currentActivity is not null)
+            {
+                currentActivity.RequestedOrientation = (Android.Content.PM.ScreenOrientation)DisplayOrientation.Portrait;
+
+            }
+
             await Task.Delay(100);
-                loading.IsAnimationPlaying = false;
-                await Task.Delay(100);
-                loading.IsAnimationPlaying = true;
+            loading.IsAnimationPlaying = false;
+            await Task.Delay(100);
+            loading.IsAnimationPlaying = true;
+
+#elif IOS
+            this.LockOrientation(DisplayOrientation.Portrait);
 #endif
+
         }
 
         public string OrientationLockState;/*
@@ -143,10 +152,10 @@ namespace SportNow.Views
                 VerticalOptions = LayoutOptions.Center,
             };
 
-#if ANDROID
-            loading = new Image() { Source = "loading.gif", IsAnimationPlaying = true };
-#elif IOS
+#if IOS
             loading = new GifImage() { Asset = "loading.gif", WidthRequest = 70 * App.screenHeightAdapter, HeightRequest = 70 * App.screenHeightAdapter}; 
+#else
+            loading = new Image() { Source = "loading.gif", IsAnimationPlaying = true };
 #endif
 
 

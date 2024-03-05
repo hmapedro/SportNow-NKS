@@ -17,7 +17,7 @@ namespace SportNow
         public static Member member;
 
         public static string VersionNumber = "1.0";
-        public static string BuildNumber = "8";
+        public static string BuildNumber = "12";
 
         public static Competition competition;
 
@@ -140,8 +140,6 @@ namespace SportNow
         protected void startNotifications()
         {
             BetterFirebasePushNotification.Current.Subscribe("General");
-
-            Debug.Print("BetterFirebasePushNotification.Current.Token = " + BetterFirebasePushNotification.Current.Token);
             
             BetterFirebasePushNotification.Current.OnTokenRefresh += async (s, p) =>
              {
@@ -149,7 +147,6 @@ namespace SportNow
                  Debug.Print("App.original_member = " + App.original_member + ". App.token =" + App.token + ". p.Token=" + p.Token);
                  if ((App.original_member != null) & (App.token != p.Token))
                  {
-                     Debug.Print("OLA2 " + App.token);
                      MemberManager memberManager = new MemberManager();
                      var result = await memberManager.updateToken(App.original_member.id, p.Token);
                  }
@@ -263,22 +260,50 @@ namespace SportNow
         public static void AdaptScreen()
         {
             var mainDisplayInfo = DeviceDisplay.MainDisplayInfo;
-            App.screenWidthAdapter = ((mainDisplayInfo.Width) / mainDisplayInfo.Density) / 400;
-            App.screenHeightAdapter = ((mainDisplayInfo.Height) / mainDisplayInfo.Density) / 850;
-            Debug.Print("App.screenWidthAdapter = " + App.screenWidthAdapter);
-            Debug.Print("App.screenHeightAdapter = " + App.screenHeightAdapter);
 
+            // App.screenWidth = mainDisplayInfo.Width;
+            //App.screenHeight = mainDisplayInfo.Height;
+            //Debug.Print("AQUI 1 - ScreenWidth = " + App.screenWidth + " ScreenHeight = " + App.screenHeight + "mainDisplayInfo.Density = " + mainDisplayInfo.Density);
 
-
-            App.ItemWidth = (int) (App.screenWidth / 2 - 10 * App.screenWidthAdapter); //(int)(155 * App.screenWidthAdapter);
-            App.ItemHeight = (int)(120 * App.screenHeightAdapter);
-
-            double fontresize = screenWidthAdapter;
-            if (fontresize > 2)
+            double fontresize = 0;
+            if (Application.Current.MainPage.Width > Application.Current.MainPage.Height)
             {
-                fontresize = 2;
-            }
 
+                //App.screenHeight = Application.Current.MainPage.Width;
+                //App.screenWidth = Application.Current.MainPage.Height;
+                App.screenHeightAdapter = ((mainDisplayInfo.Width) / mainDisplayInfo.Density) / 850;
+                App.screenWidthAdapter = ((mainDisplayInfo.Height) / mainDisplayInfo.Density) / 400;
+
+                App.screenWidth = (DeviceDisplay.MainDisplayInfo.Height / DeviceDisplay.MainDisplayInfo.Density) - 20 * App.screenHeightAdapter;
+                App.screenHeight = (DeviceDisplay.MainDisplayInfo.Width / DeviceDisplay.MainDisplayInfo.Density) - 20 * App.screenWidthAdapter;
+
+                App.ItemWidth = (int)(120 * App.screenHeightAdapter);
+                App.ItemHeight = (int)(App.screenWidth / 2 - 10 * App.screenWidthAdapter); //(int)(155 * App.screenWidthAdapter);
+                fontresize = screenHeightAdapter;
+                if (fontresize > 2)
+                {
+                    fontresize = 2;
+                }
+
+            }
+            else
+            {
+                //App.screenHeight = Application.Current.MainPage.Height;
+                //App.screenWidth = Application.Current.MainPage.Width;
+                App.screenWidthAdapter = ((mainDisplayInfo.Width) / mainDisplayInfo.Density) / 400;
+                App.screenHeightAdapter = ((mainDisplayInfo.Height) / mainDisplayInfo.Density) / 850;
+                App.screenWidth = (DeviceDisplay.MainDisplayInfo.Width / DeviceDisplay.MainDisplayInfo.Density) - 10 * App.screenWidthAdapter;
+                App.screenHeight = (DeviceDisplay.MainDisplayInfo.Height / DeviceDisplay.MainDisplayInfo.Density) - 10 * App.screenHeightAdapter;
+
+                App.ItemWidth = (int)(App.screenWidth / 2 - 10 * App.screenWidthAdapter); //(int)(155 * App.screenWidthAdapter);
+                App.ItemHeight = (int)(120 * App.screenHeightAdapter);
+                fontresize = screenWidthAdapter;
+                if (fontresize > 2)
+                {
+                    fontresize = 2;
+                }
+
+            }
             App.bigTitleFontSize = (int)(26 * fontresize);
             App.titleFontSize = (int)(18 * fontresize);
             App.menuButtonFontSize = (int)(14 * fontresize);

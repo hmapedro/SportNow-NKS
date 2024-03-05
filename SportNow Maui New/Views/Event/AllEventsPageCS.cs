@@ -67,8 +67,8 @@ namespace SportNow.Views
 				stackButtons = null;
 			}
 			CleanProximosEventosCollectionView();
-			CleanProximasCompeticoesCollectionView();
-			CleanProximasSessoesExameCollectionView();
+			//CleanProximasCompeticoesCollectionView();
+			//CleanProximasSessoesExameCollectionView();
 
 			if (calendarLabel != null)
 			{
@@ -360,13 +360,15 @@ namespace SportNow.Views
 				categoryLabel.SetBinding(Label.TextProperty, "participationcategory");
 
 				itemabsoluteLayout.Add(categoryLabel);
-				itemabsoluteLayout.SetLayoutBounds(categoryLabel, new Rect(3 * App.screenWidthAdapter, ((App.ItemHeight - (15 * App.screenHeightAdapter)) / 2), App.ItemWidth - (6 * App.screenWidthAdapter), ((App.ItemHeight - (15 * App.screenHeightAdapter)) / 4)));
+                itemabsoluteLayout.SetLayoutBounds(categoryLabel, new Rect(3 * App.screenWidthAdapter, 15 * App.screenHeightAdapter + (App.ItemHeight - (15 * App.screenHeightAdapter)) / 2, App.ItemWidth - (6 * App.screenWidthAdapter), (App.ItemHeight - (15 * App.screenHeightAdapter)) / 4));
+                //itemabsoluteLayout.SetLayoutBounds(categoryLabel, new Rect(3 * App.screenWidthAdapter, ((App.ItemHeight - (15 * App.screenHeightAdapter)) / 2), App.ItemWidth - (6 * App.screenWidthAdapter), ((App.ItemHeight - (15 * App.screenHeightAdapter)) / 4)));
 
-				Label dateLabel = new Label { FontFamily = "futuracondensedmedium", VerticalTextAlignment = TextAlignment.Start, HorizontalTextAlignment = TextAlignment.Center, FontSize = 12 * App.screenWidthAdapter, TextColor = App.oppositeTextColor, LineBreakMode = LineBreakMode.NoWrap };
+                Label dateLabel = new Label { FontFamily = "futuracondensedmedium", VerticalTextAlignment = TextAlignment.Start, HorizontalTextAlignment = TextAlignment.Center, FontSize = 12 * App.screenWidthAdapter, TextColor = App.oppositeTextColor, LineBreakMode = LineBreakMode.NoWrap };
 				dateLabel.SetBinding(Label.TextProperty, "detailed_date");
 
 				itemabsoluteLayout.Add(dateLabel);
-				itemabsoluteLayout.SetLayoutBounds(dateLabel, new Rect(5 * App.screenHeightAdapter, ((App.ItemHeight - 15) - ((App.ItemHeight - 15) / 4)), itemWidth - (10 * App.screenHeightAdapter), ((App.ItemHeight - (15 * App.screenHeightAdapter)) / 4)));
+                itemabsoluteLayout.SetLayoutBounds(dateLabel, new Rect(3 * App.screenWidthAdapter, 15 * App.screenHeightAdapter + (App.ItemHeight - (15 * App.screenHeightAdapter)) * 3 / 4, App.ItemWidth - (6 * App.screenWidthAdapter), (App.ItemHeight - (15 * App.screenHeightAdapter)) / 4));
+                //itemabsoluteLayout.SetLayoutBounds(dateLabel, new Rect(5 * App.screenHeightAdapter, ((App.ItemHeight - 15) - ((App.ItemHeight - 15) / 4)), itemWidth - (10 * App.screenHeightAdapter), ((App.ItemHeight - (15 * App.screenHeightAdapter)) / 4)));
 
 				Image participationImagem = new Image { Aspect = Aspect.AspectFill }; //, HeightRequest = 60, WidthRequest = 60
 				participationImagem.SetBinding(Image.SourceProperty, "participationimage");

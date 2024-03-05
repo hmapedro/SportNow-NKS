@@ -137,7 +137,7 @@ namespace SportNow.Views
             Label TermsPaymentMBWayLabel = new Label
             {
                 FontFamily = "futuracondensedmedium",
-                Text = "Ao valor da Competição é acrescido 0.7% e 0.07€.",
+                Text = "Ao valor da Competição é acrescido 0.7% e 0.07€ (+ IVA).",
                 VerticalTextAlignment = TextAlignment.Center,
                 HorizontalTextAlignment = TextAlignment.Center,
                 TextColor = App.normalTextColor,

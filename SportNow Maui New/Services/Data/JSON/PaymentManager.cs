@@ -48,7 +48,7 @@ namespace SportNow.Services.Data.JSON
 
 		public async Task<string> CreateMbWayPayment(string memberid, string paymentid, string orderid, string phonenumber, string value, string email)
 		{
-			Debug.WriteLine("CreateMbWayPayment begin");
+			Debug.WriteLine("CreateMbWayPayment begin "+ Constants.RestUrl_Create_MbWay_Payment + "?userid=" + memberid + "&paymentid=" + paymentid + "&phonenumber=" + phonenumber + "&value=" + value + "&email=" + email + "&orderid=" + orderid);
 			Debug.WriteLine("paymentid = "+ paymentid);
 			Debug.WriteLine("phonenumber = " + phonenumber);
 			Debug.WriteLine("value = " + value);
