@@ -14,12 +14,16 @@ namespace SportNow
         {
             if (UIDevice.CurrentDevice.CheckSystemVersion(16, 0))
             {
+                Debug.Print("Versão 17");
                 if (MauiUIApplicationDelegate.Current is AppDelegateEx orientationServiceDelegate)
                     _applicationDelegate = orientationServiceDelegate;
                 else
                     throw new NotImplementedException($"AppDelegate must be derived from {nameof(AppDelegateEx)} to use this implementation!");
             }
-
+            else
+            {
+                Debug.Print("Não é Versão 17");
+            }
         }
 
         public DisplayOrientation CurrentOrientation => DeviceDisplay.Current.MainDisplayInfo.Orientation;
@@ -43,7 +47,7 @@ namespace SportNow
             rootWindowScene.RequestGeometryUpdate(new UIWindowSceneGeometryPreferencesIOS(uiInterfaceOrientationMask),
             error =>
             {
-                Debug.Print("Error while attempting to lock orientation: {Error}", error.LocalizedDescription);
+                //Debug.Print("Error while attempting to lock orientation: {Error}", error.ToString());//.LocalizedDescription);
             });
             
             rootViewController.SetNeedsUpdateOfSupportedInterfaceOrientations();

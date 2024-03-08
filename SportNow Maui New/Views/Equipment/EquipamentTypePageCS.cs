@@ -85,7 +85,7 @@ namespace SportNow.Views
 			var buttonWidth = (width) / 2;
 
 
-			karategiButton = new OptionButton("KARATE GIs", "fotokarategis.png", buttonWidth, 100 * App.screenHeightAdapter);
+			karategiButton = new OptionButton("KARATE GIs", "karategis.png", buttonWidth, 100 * App.screenHeightAdapter);
 			//minhasGraduacoesButton.button.Clicked += OnMinhasGraduacoesButtonClicked;
 			var karategiButton_tap = new TapGestureRecognizer();
 			karategiButton_tap.Tapped += (s, e) =>
@@ -94,7 +94,7 @@ namespace SportNow.Views
 			};
 			karategiButton.GestureRecognizers.Add(karategiButton_tap);
 
-			protecoescintosButton = new OptionButton("PROTEÇÕES E CINTOS", "fotoprotecoescintos.png", buttonWidth, 100 * App.screenHeightAdapter);
+			protecoescintosButton = new OptionButton("PROTEÇÕES E CINTOS", "protecoescintos.png", buttonWidth, 100 * App.screenHeightAdapter);
 			var protecoescintosButton_tap = new TapGestureRecognizer();
 			protecoescintosButton_tap.Tapped += (s, e) =>
 			{
@@ -102,7 +102,7 @@ namespace SportNow.Views
 			};
 			protecoescintosButton.GestureRecognizers.Add(protecoescintosButton_tap);
 
-			merchandisingButton = new OptionButton("MERCHANDISING", "fotomerchandisingaksl.png", buttonWidth, 100 * App.screenHeightAdapter);
+			merchandisingButton = new OptionButton("MERCHANDISING", "merchandising.png", buttonWidth, 100 * App.screenHeightAdapter);
 			var merchandisingButton_tap = new TapGestureRecognizer();
 			merchandisingButton_tap.Tapped += (s, e) =>
 			{

@@ -17,7 +17,7 @@ namespace SportNow
         public static Member member;
 
         public static string VersionNumber = "1.0";
-        public static string BuildNumber = "12";
+        public static string BuildNumber = "15";
 
         public static Competition competition;
 

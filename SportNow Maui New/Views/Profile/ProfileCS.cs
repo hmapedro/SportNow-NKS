@@ -15,7 +15,8 @@ namespace SportNow.Views.Profile
 
 		protected async override void OnAppearing()
 		{
-			var result = await GetCurrentFees(App.member);
+            base.OnAppearing();
+            var result = await GetCurrentFees(App.member);
 
 			if (quotaImage == null)
 			{
@@ -103,28 +104,29 @@ namespace SportNow.Views.Profile
 		{
 			Title = "PERFIL";
 
-
 			var toolbarItem = new ToolbarItem
 			{
 				IconImageSource = "exit.png",
 			};
 			toolbarItem.Clicked += OnLogoutButtonClicked;
 			ToolbarItems.Add(toolbarItem);
-
 		}
 
 
 		public async void initSpecificLayout()
 		{
             LogManager logManager = new LogManager();
-            await logManager.writeLog(App.original_member.id, App.member.id, "PROFILE VISIT", "Visit Profile Page");
+            _= await logManager.writeLog(App.original_member.id, App.member.id, "PROFILE VISIT", "Visit Profile Page");
 
-			scrollView = new ScrollView { Orientation = ScrollOrientation.Vertical };
+            Debug.Print("OLAAAAA");
+            
+            scrollView = new ScrollView { Orientation = ScrollOrientation.Vertical, MaximumHeightRequest = (App.screenHeight) - 340 * App.screenHeightAdapter, MaximumWidthRequest = App.screenWidth - 10 * App.screenWidthAdapter};
 
 			absoluteLayout.Add(scrollView);
-            absoluteLayout.SetLayoutBounds(scrollView, new Rect(0, 325 * App.screenHeightAdapter, App.screenWidth, (App.screenHeight) - 310 * App.screenHeightAdapter));
+            absoluteLayout.SetLayoutBounds(scrollView, new Rect(0, 325 * App.screenHeightAdapter, App.screenWidth, (App.screenHeight) - 325 * App.screenHeightAdapter));
 
-			int countStudents = App.original_member.students_count;
+
+            int countStudents = App.original_member.students_count;
 
 			CreatePhoto();			
 			CreateGraduacao();
@@ -135,13 +137,10 @@ namespace SportNow.Views.Profile
 			CreateGridFaturacao();
 			CreateGridButtons();
 
-			/*gridIdentificacao.IsVisible = false;
-			gridMorada.IsVisible = false;
-			gridFaturacao.IsVisible = false;*/
-			OnGeralButtonClicked(null, null);
-		}
+            OnGeralButtonClicked(null, null);
+        }
 
-		public void CreatePhoto()
+        public void CreatePhoto()
 		{
             //memberPhotoImage = new RoundImage();
 
@@ -183,7 +182,6 @@ namespace SportNow.Views.Profile
             var memberPhotoImage_tap = new TapGestureRecognizer();
             memberPhotoImage_tap.Tapped += memberPhotoImageTappedAsync;
             memberPhotoImage.GestureRecognizers.Add(memberPhotoImage_tap);
-
 
 			absoluteLayout.Add(memberPhotoImage);
             absoluteLayout.SetLayoutBounds(memberPhotoImage, new Rect((App.screenWidth/2) - (90 * App.screenHeightAdapter), 0, 180 * App.screenHeightAdapter, 180 * App.screenHeightAdapter));
@@ -281,10 +279,8 @@ namespace SportNow.Views.Profile
         }
 
 
-        public async void CreateGraduacao()
+        public async Task<int> CreateGraduacao()
 		{
-
-
 			string gradeBeltFileName = "belt_" + App.member.grade.ToLower() + ".png";
 
 			Image gradeBeltImage = new Image
@@ -313,6 +309,8 @@ namespace SportNow.Views.Profile
 			};
 			absoluteLayout.Add(gradeLabel);
             absoluteLayout.SetLayoutBounds(gradeLabel, new Rect((App.screenWidth / 2) - (50 * App.screenHeightAdapter), 230 * App.screenHeightAdapter, 100 * App.screenHeightAdapter, 30 * App.screenHeightAdapter));
+
+            return 1;
 		}
 		
 
@@ -804,8 +802,6 @@ namespace SportNow.Views.Profile
             gridFaturacao.Add(NIFLabel, 0, 5);
             gridFaturacao.Add(FaturaNIFValue, 1, 5);
 
-
-
             /*absoluteLayout.Add(gridFaturacao,
 				xConstraint: )0),
 				yConstraint: )230),
@@ -823,7 +819,7 @@ namespace SportNow.Views.Profile
 
 		async void OnGeralButtonClicked(object sender, EventArgs e)
 		{
-			Debug.WriteLine("OnLoginButtonClicked");
+			Debug.WriteLine("OnGeralButtonClicked");
 			geralButton.activate();
 			identificacaoButton.deactivate();
 			moradaButton.deactivate();
@@ -831,12 +827,6 @@ namespace SportNow.Views.Profile
 
 			scrollView.Content = gridGeral;
 
-			/*gridGeral.IsVisible = true;
-			gridIdentificacao.IsVisible = false;
-			gridMorada.IsVisible = false;
-			gridFaturacao.IsVisible = false;*/
-
-			Debug.Print("AQUIIII1 "+ enteringPage);
 			if (enteringPage == false) {
 				await UpdateMemberInfo();
             }
@@ -854,11 +844,6 @@ namespace SportNow.Views.Profile
 
 			scrollView.Content = gridIdentificacao;
 
-			/*gridGeral.IsVisible = false;
-			gridIdentificacao.IsVisible = true;
-			gridMorada.IsVisible = false;
-			gridFaturacao.IsVisible = false;*/
-
 			await UpdateMemberInfo();
 		}
 
@@ -874,11 +859,6 @@ namespace SportNow.Views.Profile
 
 			scrollView.Content = gridMorada;
 
-			/*gridGeral.IsVisible = false;
-			gridIdentificacao.IsVisible = false;
-			gridMorada.IsVisible = true;
-			gridFaturacao.IsVisible = false;*/
-
 			await UpdateMemberInfo();
 		}
 
@@ -893,11 +873,6 @@ namespace SportNow.Views.Profile
 
             scrollView.Content = gridFaturacao;
 
-			/*gridGeral.IsVisible = false;
-			gridIdentificacao.IsVisible = false;
-			gridMorada.IsVisible = false;
-			gridEncEducacao.IsVisible = true;*/
-
 			await UpdateMemberInfo();
 		}
 
@@ -910,8 +885,6 @@ namespace SportNow.Views.Profile
             Preferences.Default.Remove("SELECTEDUSER");
 			App.member = null;
 			App.members = null;
-
-
 
 			Application.Current.MainPage = new NavigationPage(new LoginPageCS(""))
 			{

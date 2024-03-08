@@ -45,11 +45,11 @@ namespace SportNow.Views
             Microsoft.Maui.Controls.Grid gridLogin = new Microsoft.Maui.Controls.Grid { Padding = 10, RowSpacing = 5 * App.screenHeightAdapter };
 			gridLogin.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
 			gridLogin.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
-			gridLogin.RowDefinitions.Add(new RowDefinition { Height = 40 });
-			gridLogin.RowDefinitions.Add(new RowDefinition { Height = 50 });
-			gridLogin.RowDefinitions.Add(new RowDefinition { Height = 50 });
-			gridLogin.RowDefinitions.Add(new RowDefinition { Height = 60 });
-			gridLogin.RowDefinitions.Add(new RowDefinition { Height = 60 });
+			gridLogin.RowDefinitions.Add(new RowDefinition { Height = 40 * App.screenHeightAdapter });
+			gridLogin.RowDefinitions.Add(new RowDefinition { Height = 50 * App.screenHeightAdapter });
+			gridLogin.RowDefinitions.Add(new RowDefinition { Height = 50 * App.screenHeightAdapter });
+			gridLogin.RowDefinitions.Add(new RowDefinition { Height = 60 * App.screenHeightAdapter });
+			gridLogin.RowDefinitions.Add(new RowDefinition { Height = 60 * App.screenHeightAdapter });
             //gridLogin.RowDefinitions.Add(new RowDefinition { Height = 60 });
             //gridLogin.RowDefinitions.Add(new RowDefinition { Height = GridLength.Star });
             gridLogin.ColumnDefinitions.Add(new ColumnDefinition { Width = App.screenWidth - 20 * App.screenWidthAdapter}); //GridLength.Auto 

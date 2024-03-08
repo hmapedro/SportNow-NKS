@@ -13,7 +13,6 @@ namespace SportNow.Views
         Border border;
         Frame background_frame;
 
-        ActivityIndicator indicator;
         bool isRunning;
 #if IOS
         GifImage loading;
@@ -36,7 +35,6 @@ namespace SportNow.Views
             if (currentActivity is not null)
             {
                 currentActivity.RequestedOrientation = (Android.Content.PM.ScreenOrientation)DisplayOrientation.Portrait;
-
             }
 
             await Task.Delay(100);
@@ -94,12 +92,9 @@ namespace SportNow.Views
         {
             isRunning = false;
             this.initBaseLayout();
-            App.screenWidth = (DeviceDisplay.MainDisplayInfo.Width / DeviceDisplay.MainDisplayInfo.Density) - 10 * App.screenWidthAdapter;
-            App.screenHeight = (DeviceDisplay.MainDisplayInfo.Height / DeviceDisplay.MainDisplayInfo.Density) - 10 * App.screenWidthAdapter;
-
 
             DeviceOrientationService deviceOrientationService = new DeviceOrientationService();
-
+            _deviceOrientationService = deviceOrientationService;
             deviceOrientationService.LockPortraitInterface();
 
 #if ANDROID
