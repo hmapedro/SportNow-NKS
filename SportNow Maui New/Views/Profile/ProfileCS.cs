@@ -120,7 +120,7 @@ namespace SportNow.Views.Profile
 
             Debug.Print("OLAAAAA");
             
-            scrollView = new ScrollView { Orientation = ScrollOrientation.Vertical, MaximumHeightRequest = (App.screenHeight) - 340 * App.screenHeightAdapter, MaximumWidthRequest = App.screenWidth - 10 * App.screenWidthAdapter};
+            scrollView = new ScrollView { Orientation = ScrollOrientation.Vertical, MaximumHeightRequest = (App.screenHeight) - 350 * App.screenHeightAdapter, MaximumWidthRequest = App.screenWidth - 20 * App.screenWidthAdapter};
 
 			absoluteLayout.Add(scrollView);
             absoluteLayout.SetLayoutBounds(scrollView, new Rect(0, 325 * App.screenHeightAdapter, App.screenWidth, (App.screenHeight) - 325 * App.screenHeightAdapter));
@@ -564,7 +564,7 @@ namespace SportNow.Views.Profile
 
 		public void CreateGridGeral() {
 
-			gridGeral = new Microsoft.Maui.Controls.Grid { Padding = 0, HorizontalOptions = LayoutOptions.FillAndExpand, RowSpacing = 5 * App.screenWidthAdapter };
+			gridGeral = new Microsoft.Maui.Controls.Grid { Padding = 0, ColumnSpacing = 5 * App.screenWidthAdapter, HorizontalOptions = LayoutOptions.FillAndExpand, RowSpacing = 5 * App.screenWidthAdapter };
 			gridGeral.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
 			gridGeral.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
 			gridGeral.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
@@ -640,7 +640,7 @@ namespace SportNow.Views.Profile
 		public void CreateGridIdentificacao()
 		{
 
-			gridIdentificacao = new Microsoft.Maui.Controls.Grid { Padding = 0, RowSpacing = 5 * App.screenWidthAdapter };
+			gridIdentificacao = new Microsoft.Maui.Controls.Grid { Padding = 0, ColumnSpacing = 5 * App.screenWidthAdapter, RowSpacing = 5 * App.screenWidthAdapter };
 			gridIdentificacao.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
 			gridIdentificacao.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
 			gridIdentificacao.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
@@ -688,7 +688,7 @@ namespace SportNow.Views.Profile
 		public void CreateGridMorada()
 		{
 
-			gridMorada = new Microsoft.Maui.Controls.Grid { Padding = 0, RowSpacing = 5 * App.screenWidthAdapter };
+			gridMorada = new Microsoft.Maui.Controls.Grid { Padding = 0, ColumnSpacing = 5 * App.screenWidthAdapter, RowSpacing = 5 * App.screenWidthAdapter };
 			gridMorada.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
 			gridMorada.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
 			gridMorada.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
@@ -759,7 +759,7 @@ namespace SportNow.Views.Profile
         public void CreateGridFaturacao()
 		{
 
-			gridFaturacao = new Microsoft.Maui.Controls.Grid { Padding = 0, RowSpacing = 5 * App.screenWidthAdapter };
+			gridFaturacao = new Microsoft.Maui.Controls.Grid { Padding = 0, ColumnSpacing = 5 * App.screenWidthAdapter, RowSpacing = 5 * App.screenWidthAdapter };
             gridFaturacao.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
             gridFaturacao.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
             gridFaturacao.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
