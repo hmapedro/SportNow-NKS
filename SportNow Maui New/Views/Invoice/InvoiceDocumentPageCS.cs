@@ -16,7 +16,7 @@ namespace SportNow.Views
 
 		public List<MainMenuItem> MainMenuItems { get; set; }
 
-		private Payment payment;
+		string invoiceid;
 
 		public void initLayout()
 		{
@@ -54,7 +54,7 @@ namespace SportNow.Views
 			browser.Navigated += OnNavigated;
 
 
-			var pdfUrl = Constants.RestUrl_Get_Invoice_byID + "?invoiceid=" + payment.invoiceid;
+			var pdfUrl = Constants.RestUrl_Get_Invoice_byID + "?invoiceid=" + this.invoiceid;
 			var androidUrl = "https://docs.google.com/gview?url=" + pdfUrl + "&embedded=true";
 			Debug.Print("pdfUrl=" + pdfUrl);
 			Debug.Print("androidUrl="+androidUrl);
@@ -96,7 +96,7 @@ namespace SportNow.Views
 
 		public InvoiceDocumentPageCS(Payment payment)
 		{
-			this.payment = payment;
+			this.invoiceid = payment.invoiceid;
 			this.initLayout();
 			this.initSpecificLayout();
 			//CreateDiploma(member, examination);
@@ -104,7 +104,17 @@ namespace SportNow.Views
 			
 		}
 
-		public void OnNavigating(object sender, WebNavigatingEventArgs e)
+        public InvoiceDocumentPageCS(string invoiceid)
+        {
+            this.invoiceid = invoiceid;
+            this.initLayout();
+            this.initSpecificLayout();
+            //CreateDiploma(member, examination);
+
+
+        }
+
+        public void OnNavigating(object sender, WebNavigatingEventArgs e)
 		{
 			showActivityIndicator();
 
@@ -124,7 +134,7 @@ namespace SportNow.Views
 			await Share.RequestAsync(new ShareTextRequest
 			{
 				//Uri = "https://plataforma.nksl.org/diploma_1.jpg",
-				Uri = Constants.RestUrl_Get_Invoice_byID + "?invoiceid=" + payment.invoiceid,
+				Uri = Constants.RestUrl_Get_Invoice_byID + "?invoiceid=" + invoiceid,
 				Title = "Partilha Fatura"
 			});
 		}

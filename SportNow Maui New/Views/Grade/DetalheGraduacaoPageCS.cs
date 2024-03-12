@@ -65,7 +65,7 @@ namespace SportNow.Views
 			gridGrade.RowDefinitions.Add(new RowDefinition { Height = 50 * App.screenHeightAdapter });
 			gridGrade.RowDefinitions.Add(new RowDefinition { Height = 250 * App.screenHeightAdapter });
 			
-			gridGrade.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto }); //GridLength.Auto 
+			gridGrade.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Star }); //GridLength.Auto 
 
 			Label gradeLabel = new Label
 			{
@@ -142,7 +142,7 @@ namespace SportNow.Views
 
 			gridGrade.Add(dategradeLabel, 0, 3);
 
-			gridGrade.Add(browser, 0, 4);
+			//gridGrade.Add(browser, 0, 4);
 
 			List<Payment> payments = await GetExamination_Payment(examination.id);
 
@@ -166,12 +166,12 @@ namespace SportNow.Views
 					};
 					invoiceLabel.GestureRecognizers.Add(invoiceLabel_tap);
 					gridGrade.RowDefinitions.Add(new RowDefinition { Height = 80 * App.screenHeightAdapter });
-					gridGrade.Add(invoiceLabel, 0, 5);
+					gridGrade.Add(invoiceLabel, 0, 4);
 				}
 			}
 
 			absoluteLayout.Add(gridGrade);
-            absoluteLayout.SetLayoutBounds(gridGrade, new Rect((App.screenWidth/ 2) - 143.5 * App.screenHeightAdapter, 0, App.screenWidth, App.screenHeight));
+            absoluteLayout.SetLayoutBounds(gridGrade, new Rect(0, 0, App.screenWidth, App.screenHeight));
 		}
 
 		public DetalheGraduacaoPageCS(Member member, Examination examination)

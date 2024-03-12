@@ -53,6 +53,8 @@ namespace SportNow
 
         public static string RestUrl_Get_MonthFeePayment = DeviceInfo.Platform == DevicePlatform.Android ? "https://" + server + "/services/service_get_monthfee_payment.php" : "https://" + server + "/services/service_get_monthfee_payment.php";
 
+        public static string Get_Has_DelayedMonthFees = Device.RuntimePlatform == Device.Android ? "https://" + server + "/services/service_has_delayedmonthfee.php" : "https://" + server + "/services/service_has_delayedmonthfee.php";
+
         public static string RestUrl_Create_MonthFee = Device.RuntimePlatform == Device.Android ? "https://" + server + "/services/service_create_monthfee.php" : "https://" + server + "/services/service_create_monthfee.php";
 
         public static string RestUrl_Get_Invoice_byID = DeviceInfo.Platform == DevicePlatform.Android ? "https://" + server + "/services/jasmin/service_get_invoice_byID.php" : "https://" + server + "/services/jasmin/service_get_invoice_byID.php";
@@ -211,6 +213,8 @@ namespace SportNow
         public static string RestUrl_Create_ClassProgram = DeviceInfo.Platform == DevicePlatform.Android ? "https://" + server + "/services/service_create_class_program.php" : "https://" + server + "/services/service_create_class_program.php";
 
         public static string RestUrl_Get_Class_Program_byId = DeviceInfo.Platform == DevicePlatform.Android ? "https://" + server + "/services/service_get_class_program_byID.php" : "https://" + server + "/services/service_get_class_program_byID.php";
+
+        public static string RestUrl_Get_AllPayments_byUserId = DeviceInfo.Platform == DevicePlatform.Android ? "https://" + server + "/services/service_get_all_payments_userid.php" : "https://" + server + "/services/service_get_all_payments_userid.php";
 
         //public static string RestUrl_Get_Objectives_bySeason = DeviceInfo.Platform == DevicePlatform.Android ? "https://" + server + "/services/service_get_objectives_bySeason.php" : "https://" + server + "/services/service_get_objectives_bySeason.php";
 

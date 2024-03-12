@@ -214,7 +214,39 @@ namespace SportNow.Services.Data.JSON
 			}
 		}
 
-		public async Task<List<Payment>> GetMonthFee_Payment(string monthFeeId)
+        public async Task<string> Get_Has_DelayedMonthFees(string userid)
+        {
+            Debug.WriteLine("Get_Has_DelayedMonthFees " + Constants.Get_Has_DelayedMonthFees + "?userid=" + userid);
+            Uri uri = new Uri(string.Format(Constants.Get_Has_DelayedMonthFees + "?userid=" + userid));
+            try
+            {
+                HttpResponseMessage response = await client.GetAsync(uri);
+                var result = "0";
+                if (response.IsSuccessStatusCode)
+                {
+                    //return true;
+                    string content = await response.Content.ReadAsStringAsync();
+                    Debug.WriteLine("content=" + content);
+                    List<Result> createResultList = JsonConvert.DeserializeObject<List<Result>>(content);
+
+                    return createResultList[0].result;
+                }
+                else
+                {
+                    Debug.WriteLine("error getting has month fees student");
+                    result = "-1";
+                }
+
+                return result;
+            }
+            catch
+            {
+                Debug.WriteLine("http request error");
+                return "-2";
+            }
+        }
+
+        public async Task<List<Payment>> GetMonthFee_Payment(string monthFeeId)
 		{
 			Debug.Print("GetMonthFee_Payment - "+Constants.RestUrl_Get_MonthFee_Payment+"?monthfeeid=" + monthFeeId);
             Uri uri = new Uri(string.Format(Constants.RestUrl_Get_MonthFee_Payment + "?monthfeeid=" + monthFeeId, string.Empty));

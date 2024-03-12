@@ -37,14 +37,14 @@ namespace SportNow.Views
 		{
 			Title = "QUOTAS";
 
-			var toolbarItem = new ToolbarItem
+			/*var toolbarItem = new ToolbarItem
 			{
 				//Text = "Logout",
 				IconImageSource = "perfil.png",
 
 			};
 			toolbarItem.Clicked += OnPerfilButtonClicked;
-			ToolbarItems.Add(toolbarItem);
+			ToolbarItems.Add(toolbarItem);*/
 		}
 
 
@@ -55,7 +55,6 @@ namespace SportNow.Views
 			if (stackButtons != null)
 			{
 				absoluteLayout.Remove(stackButtons);
-				absoluteLayout.Remove(quotasabsoluteLayout);
 
 				stackButtons = null;
 				collectionViewPastQuotas = null;
@@ -73,22 +72,11 @@ namespace SportNow.Views
 
 
 		public async void CreateQuotas() {
-            quotasabsoluteLayout = new AbsoluteLayout
-			{
-				Margin = new Thickness(0)
-			};
-
             _ = await CreatePastQuotas();
-			CreateCurrentQuota(quotasabsoluteLayout);
-            
-			
-			
+			CreateCurrentQuota();
+  		}
 
-			absoluteLayout.Add(quotasabsoluteLayout);
-			absoluteLayout.SetLayoutBounds(quotasabsoluteLayout, new Rect(0, 10 * App.screenHeightAdapter, App.screenWidth, App.screenHeight - 80 * App.screenHeightAdapter));
-		}
-
-        public async void CreateCurrentQuota(AbsoluteLayout quotasabsoluteLayout)
+        public async void CreateCurrentQuota()
 		{
 			if (App.member.currentFee == null)
 			{
@@ -126,8 +114,7 @@ namespace SportNow.Views
             gridInactiveFee.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
             gridInactiveFee.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
             gridInactiveFee.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
-            gridInactiveFee.RowDefinitions.Add(new RowDefinition { Height = GridLength.Star });
-            gridInactiveFee.RowDefinitions.Add(new RowDefinition { Height = 50 });
+            gridInactiveFee.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
             gridInactiveFee.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Star }); //
             gridInactiveFee.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Star }); //GridLength.Auto 
 
@@ -193,6 +180,8 @@ namespace SportNow.Views
             gridInactiveFee.Add(feeInactiveCommentLabel, 0, 3);
             Microsoft.Maui.Controls.Grid.SetColumnSpan(feeInactiveCommentLabel, 2);
 
+            /*gridInactiveFee.Add(activateButton, 0, 4);
+            Microsoft.Maui.Controls.Grid.SetColumnSpan(activateButton, 2);*/
 
             Label historicoQuotasLabel = new Label { FontFamily = "futuracondensedmedium", BackgroundColor = Colors.Transparent, VerticalTextAlignment = TextAlignment.Center, HorizontalTextAlignment = TextAlignment.Center, FontSize = App.titleFontSize, TextColor = App.topColor, LineBreakMode = LineBreakMode.WordWrap };
             historicoQuotasLabel.Text = "HISTÓRICO QUOTAS";
@@ -204,11 +193,13 @@ namespace SportNow.Views
             gridInactiveFee.Add(collectionViewPastQuotas, 0, 6);
             Microsoft.Maui.Controls.Grid.SetColumnSpan(collectionViewPastQuotas, 2);
 
-            gridInactiveFee.Add(activateButton, 0, 4);
-            Microsoft.Maui.Controls.Grid.SetColumnSpan(activateButton, 2);
+
 
             absoluteLayout.Add(gridInactiveFee);
             absoluteLayout.SetLayoutBounds(gridInactiveFee, new Rect(10 * App.screenWidthAdapter, 10 * App.screenHeightAdapter, App.screenWidth - 20 * App.screenWidthAdapter, App.screenHeight - 200 * App.screenHeightAdapter));
+
+            absoluteLayout.Add(activateButton);
+            absoluteLayout.SetLayoutBounds(activateButton, new Rect(0, App.screenHeight - 160 * App.screenHeightAdapter, App.screenWidth, 50 * App.screenHeightAdapter));
 
         }
 
@@ -220,7 +211,7 @@ namespace SportNow.Views
             gridActiveFee.RowDefinitions.Add(new RowDefinition { Height = 100 });
             gridActiveFee.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
             gridActiveFee.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
-            gridActiveFee.RowDefinitions.Add(new RowDefinition { Height = GridLength.Star });
+            gridActiveFee.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
             gridActiveFee.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
             gridActiveFee.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Star }); //GridLength.Auto
             gridActiveFee.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Star }); //GridLength.Auto 
@@ -350,17 +341,11 @@ namespace SportNow.Views
                 itemabsoluteLayout.Add(itemFrame);
                 itemabsoluteLayout.SetLayoutBounds(itemFrame, new Rect(0, 0, App.screenWidth-40*App.screenWidthAdapter, 40 * App.screenHeightAdapter));
 
-                Label periodLabel = new Label { FontFamily = "futuracondensedmedium", BackgroundColor = Colors.Transparent, VerticalTextAlignment = TextAlignment.Center, HorizontalTextAlignment = TextAlignment.Start, FontSize = App.formLabelFontSize, TextColor = App.normalTextColor, LineBreakMode = LineBreakMode.WordWrap };
-				periodLabel.SetBinding(Label.TextProperty, "periodo");
-
-				itemabsoluteLayout.Add(periodLabel);
-				itemabsoluteLayout.SetLayoutBounds(periodLabel, new Rect(5 * App.screenWidthAdapter, 0, 30 * App.screenWidthAdapter, 40 * App.screenHeightAdapter));
-
 				Label nameLabel = new Label { FontFamily = "futuracondensedmedium", BackgroundColor = Colors.Transparent, VerticalTextAlignment = TextAlignment.Center, HorizontalTextAlignment = TextAlignment.Start, FontSize = App.formLabelFontSize, TextColor = App.normalTextColor, LineBreakMode = LineBreakMode.WordWrap };
 				nameLabel.SetBinding(Label.TextProperty, "tipo_desc");
 
 				itemabsoluteLayout.Add(nameLabel);
-				itemabsoluteLayout.SetLayoutBounds(nameLabel, new Rect(35 * App.screenWidthAdapter, 0, App.screenWidth - 40 * App.screenWidthAdapter, 40 * App.screenHeightAdapter));
+				itemabsoluteLayout.SetLayoutBounds(nameLabel, new Rect(5 * App.screenWidthAdapter, 0, App.screenWidth - 50 * App.screenWidthAdapter, 40 * App.screenHeightAdapter));
 
 				return itemabsoluteLayout;
 			});

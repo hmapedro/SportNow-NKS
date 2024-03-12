@@ -30,6 +30,8 @@ namespace SportNow.Views
 
         protected async override void OnAppearing()
         {
+
+            App.AdaptScreen();
 #if ANDROID
             var currentActivity = ActivityStateManager.Default.GetCurrentActivity();
             if (currentActivity is not null)

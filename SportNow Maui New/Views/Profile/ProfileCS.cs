@@ -117,8 +117,6 @@ namespace SportNow.Views.Profile
 		{
             LogManager logManager = new LogManager();
             _= await logManager.writeLog(App.original_member.id, App.member.id, "PROFILE VISIT", "Visit Profile Page");
-
-            Debug.Print("OLAAAAA");
             
             scrollView = new ScrollView { Orientation = ScrollOrientation.Vertical, MaximumHeightRequest = (App.screenHeight) - 350 * App.screenHeightAdapter, MaximumWidthRequest = App.screenWidth - 20 * App.screenWidthAdapter};
 
@@ -239,6 +237,53 @@ namespace SportNow.Views.Profile
             y_button_right = y_button_right + 60;
 
 
+        }
+
+        public async void CreatePaymentsButton()
+        {
+            PaymentManager paymentManager = new PaymentManager();
+            App.member.payments = await paymentManager.GetAllPayments_byUserId(App.member.id);
+
+            if ((App.member.payments != null) & (App.member.payments.Count>0))
+            {
+
+                Image paymentsImage = new Image
+                {
+                    Aspect = Aspect.AspectFit
+                };
+
+                paymentsImage.Source = "iconconsentimentos.png";
+                TapGestureRecognizer paymentsImage_tapEvent = new TapGestureRecognizer();
+                paymentsImage_tapEvent.Tapped += OnPaymentsButtonClicked;
+                paymentsImage.GestureRecognizers.Add(paymentsImage_tapEvent);
+
+                absoluteLayout.Add(paymentsImage);
+                absoluteLayout.SetLayoutBounds(paymentsImage, new Rect((App.screenWidth) - (47.5 * App.screenHeightAdapter), y_button_right * App.screenHeightAdapter, 35 * App.screenHeightAdapter, 35 * App.screenHeightAdapter));
+
+                Label pagamentosLabel = new Label
+                {
+                    FontFamily = "futuracondensedmedium",
+                    Text = "Pagamentos",
+                    TextColor = App.normalTextColor,
+                    HorizontalTextAlignment = TextAlignment.Center,
+                    VerticalTextAlignment = TextAlignment.Start,
+                    FontSize = App.smallTextFontSize
+                };
+
+                TapGestureRecognizer pagamentosLabel_tapEvent = new TapGestureRecognizer();
+                pagamentosLabel_tapEvent.Tapped += OnPaymentsButtonClicked;
+                pagamentosLabel.GestureRecognizers.Add(pagamentosLabel_tapEvent);
+
+                absoluteLayout.Add(pagamentosLabel);
+                absoluteLayout.SetLayoutBounds(pagamentosLabel, new Rect((App.screenWidth) - (60 * App.screenHeightAdapter), (y_button_right + 37) * App.screenHeightAdapter, 60 * App.screenHeightAdapter, 15 * App.screenHeightAdapter));
+
+                y_button_right = y_button_right + 60;
+
+            }
+            else
+            {
+                return;
+            }
         }
 
         public async void CreateObjectivesButton()
@@ -560,6 +605,7 @@ namespace SportNow.Views.Profile
             createChangePasswordButton();
             //CreateObjectivesButton();
 			CreateQuotaButton();
+            CreatePaymentsButton();
         }
 
 		public void CreateGridGeral() {
@@ -988,6 +1034,11 @@ namespace SportNow.Views.Profile
 
 		}
 
+        async void OnPaymentsButtonClicked(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new AllPaymentsPageCS());
+        }
+
         async void OnObjectivesButtonClicked(object sender, EventArgs e)
         {
             await Navigation.PushAsync(new ObjectivesPageCS());   
@@ -1153,7 +1204,16 @@ namespace SportNow.Views.Profile
 
         async void TakeAPhotoTapped()
         {
-            var result = await MediaPicker.CapturePhotoAsync();
+            FileResult result = null;
+            try
+            {
+                result = await MediaPicker.CapturePhotoAsync();
+            }
+            catch (Microsoft.Maui.ApplicationModel.PermissionException e)
+            {
+                await DisplayAlert("ACESSO À CÂMERA", "Para poder tirar uma foto tem de autorizar o acesso à câmera indo às definições no seu telefone.", "Ok");
+                return;
+            }
 
             if (result != null)
             {

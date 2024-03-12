@@ -26,6 +26,8 @@ namespace SportNow.Model
         public string referencia { get; set; }
         public double valor { get; set; }
         public string numero_acompanhantes { get; set; }
+        public string faturaid { get; set; }
+        
 
     }
 

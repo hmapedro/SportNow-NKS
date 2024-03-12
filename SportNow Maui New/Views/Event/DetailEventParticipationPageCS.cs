@@ -99,7 +99,32 @@ namespace SportNow.Views
 			gridEvent.Add(websiteLabel, 0, 3);
 			gridEvent.Add(websiteValue, 1, 3);
 
-			absoluteLayout.Add(gridEvent);
+
+			if ((event_participation.faturaid != null) & (event_participation.faturaid != ""))
+			{
+                Label invoiceLabel = new Label
+                {
+                    FontFamily = "futuracondensedmedium",
+                    Text = "Obter fatura",
+                    TextColor = App.oppositeTextColor,
+                    HorizontalTextAlignment = TextAlignment.Center,
+                    FontSize = App.titleFontSize
+                };
+
+                var invoiceLabel_tap = new TapGestureRecognizer();
+                invoiceLabel_tap.Tapped += async (s, e) =>
+                {
+                    await Navigation.PushAsync(new InvoiceDocumentPageCS(event_participation.faturaid));
+                };
+                invoiceLabel.GestureRecognizers.Add(invoiceLabel_tap);
+                gridEvent.RowDefinitions.Add(new RowDefinition { Height = 200 * App.screenHeightAdapter });
+                gridEvent.Add(invoiceLabel, 0, 4);
+                Microsoft.Maui.Controls.Grid.SetColumnSpan(invoiceLabel, 2);
+            } 
+
+
+
+            absoluteLayout.Add(gridEvent);
             absoluteLayout.SetLayoutBounds(gridEvent, new Rect(0, 0, App.screenWidth - 10 * App.screenWidthAdapter, App.screenHeight));
 		}
 

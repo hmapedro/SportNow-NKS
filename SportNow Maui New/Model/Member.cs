@@ -80,6 +80,8 @@ namespace SportNow.Model
         public string faturacao_codpostal { get; set; }
         public string faturacao_nif { get; set; }
 
+        public List<Payment> payments { get; set; }
+
 
         public object imagesourceObject { get; set; }
 

@@ -113,6 +113,35 @@ namespace SportNow.Services.Data.JSON
             }
         }
 
+        public async Task<List<Payment>> GetAllPayments_byUserId(string userid)
+        {
+            Debug.WriteLine("GetPayment " + Constants.RestUrl_Get_AllPayments_byUserId + "?userid=" + userid);
+            Uri uri = new Uri(string.Format(Constants.RestUrl_Get_AllPayments_byUserId + "?userid=" + userid, string.Empty));
+            try
+            {
+                HttpResponseMessage response = await client.GetAsync(uri);
+                if (response.IsSuccessStatusCode)
+                {
+                    //return true;
+                    string content = await response.Content.ReadAsStringAsync();
+                    List<Payment> paymentsTemp = JsonConvert.DeserializeObject<List<Payment>>(content);
+                    return paymentsTemp;
+                }
+                else
+                {
+                    Debug.WriteLine("GetAllPayments_byUserId - Error getting payments");
+                    return null;
+                }
+
+                return null;
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine("PaymentManager.GetAllPayments_byUserId http request error " + e.ToString());
+                return null;
+            }
+        }
+
 
         public async Task<string> Update_Payment_Status(string paymentid, string status)
         {

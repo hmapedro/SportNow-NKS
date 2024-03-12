@@ -81,11 +81,10 @@ namespace SportNow.Views
 
 		public void CreateEquipamentosOptionButtons()
 		{
-			var width = Constants.ScreenWidth;
+			var width = App.screenWidth;
 			var buttonWidth = (width) / 2;
 
-
-			karategiButton = new OptionButton("KARATE GIs", "karategis.png", buttonWidth, 100 * App.screenHeightAdapter);
+            karategiButton = new OptionButton("KARATE GIs", "karategis.png", buttonWidth, 100 * App.screenHeightAdapter);
 			//minhasGraduacoesButton.button.Clicked += OnMinhasGraduacoesButtonClicked;
 			var karategiButton_tap = new TapGestureRecognizer();
 			karategiButton_tap.Tapped += (s, e) =>
@@ -94,7 +93,7 @@ namespace SportNow.Views
 			};
 			karategiButton.GestureRecognizers.Add(karategiButton_tap);
 
-			protecoescintosButton = new OptionButton("PROTEÇÕES E CINTOS", "protecoescintos.png", buttonWidth, 100 * App.screenHeightAdapter);
+            protecoescintosButton = new OptionButton("PROTEÇÕES E CINTOS", "protecoescintos.png", buttonWidth, 100 * App.screenHeightAdapter);
 			var protecoescintosButton_tap = new TapGestureRecognizer();
 			protecoescintosButton_tap.Tapped += (s, e) =>
 			{
@@ -103,22 +102,21 @@ namespace SportNow.Views
 			protecoescintosButton.GestureRecognizers.Add(protecoescintosButton_tap);
 
 			merchandisingButton = new OptionButton("MERCHANDISING", "merchandising.png", buttonWidth, 100 * App.screenHeightAdapter);
-			var merchandisingButton_tap = new TapGestureRecognizer();
+            var merchandisingButton_tap = new TapGestureRecognizer();
 			merchandisingButton_tap.Tapped += (s, e) =>
 			{
 				Navigation.PushAsync(new EquipamentsPageCS("merchandising"));
 			};
 			merchandisingButton.GestureRecognizers.Add(merchandisingButton_tap);
 
-
-			Microsoft.Maui.Controls.StackLayout stackEquipamentosButtons = new Microsoft.Maui.Controls.StackLayout
+            Microsoft.Maui.Controls.StackLayout stackEquipamentosButtons = new Microsoft.Maui.Controls.StackLayout
 			{
 				//WidthRequest = 370,
 				Margin = new Thickness(0),
 				Spacing = 50,
 				Orientation = StackOrientation.Vertical,
-				HorizontalOptions = LayoutOptions.FillAndExpand,
-				VerticalOptions = LayoutOptions.FillAndExpand,
+				//HorizontalOptions = LayoutOptions.FillAndExpand,
+				//VerticalOptions = LayoutOptions.FillAndExpand,
 				HeightRequest = 500 * App.screenHeightAdapter,
 				Children =
 				{

@@ -27,29 +27,9 @@ namespace SportNow.Views
 
 		protected async override void OnAppearing()
 		{
-            /*base.OnAppearing();
-			CrossDeviceOrientation.Current.LockOrientation(DeviceOrientations.Portrait);*/
-
-
-
-            var mainDisplayInfo = DeviceDisplay.MainDisplayInfo;
-
-			Constants.ScreenWidth = mainDisplayInfo.Width;
-			Constants.ScreenHeight = mainDisplayInfo.Height;
-			//Debug.Print("AQUI 1 - ScreenWidth = " + Constants.ScreenWidth + " ScreenHeight = " + Constants.ScreenHeight + "mainDisplayInfo.Density = " + mainDisplayInfo.Density);
-
-			Constants.ScreenWidth = Application.Current.MainPage.Width;
-			Constants.ScreenHeight = Application.Current.MainPage.Height;
-			//Debug.Print("AQUI 0 - ScreenWidth = " + Constants.ScreenWidth + " ScreenHeight = " + Constants.ScreenHeight);
-
-			Debug.Print("AQUI showActivityIndicator!!!");
-            showActivityIndicator();
-
-            App.AdaptScreen();
-
+            base.OnAppearing();
+            
 			initSpecificLayout();
-
-			hideActivityIndicator();
 		}
 
 		protected override void OnDisappearing()
@@ -209,15 +189,42 @@ namespace SportNow.Views
                 feesOrQuoteY = (int) ((personalClassesY + 150) + (50 * App.screenHeightAdapter));
 			}
 
+            showActivityIndicator();
 
-			_ = await createImportantClasses();
+            int result = await getClass_DetailData();
+            importantEvents = await GetImportantEvents();
 
-			_ = await createImportantEvents();
+            DateTime currentTime = DateTime.Now.Date;
+            DateTime currentTime_add7 = DateTime.Now.AddDays(7).Date;
+
+            string firstDay = currentTime.ToString("yyyy-MM-dd");
+            string lastday = currentTime_add7.AddDays(6).ToString("yyyy-MM-dd");
+
+            teacherClass_Schedules = await GetAllClass_Schedules(firstDay, lastday);
+            CompleteTeacherClass_Schedules();
+
+            if (App.member.currentFee == null)
+            {
+                Debug.Print("Current Fee NULL não devia acontecer!");
+                if (App.member.currentFee == null)
+                {
+                    Debug.Print("Current Fee NULL não devia acontecer!");
+                    int result1 = await GetCurrentFees(App.member);
+                }
+                await GetCurrentFees(App.member);
+            }
+
+
+            hideActivityIndicator();
+
+            createImportantClasses();
+
+			createImportantEvents();
 
 			Debug.Print("App.member.students_count = " + App.member.students_count);
 			if (App.member.students_count > 0)
 			{
-				_ = await createImportantTeacherClasses();
+				createImportantTeacherClasses();
 			}
 
             if (App.member.students_count == 0)
@@ -244,8 +251,10 @@ namespace SportNow.Views
 
             createCurrentFee();
 
-			//createVersion();
-		}
+            createDelayedMonthFee();
+
+            //createVersion();
+        }
 
 		public async void createPersonalClasses()
 		{
@@ -271,17 +280,8 @@ namespace SportNow.Views
         }
             
 
-        public async Task<int> createImportantTeacherClasses()
+        public void createImportantTeacherClasses()
 		{
-            showActivityIndicator();
-            DateTime currentTime = DateTime.Now.Date;
-			DateTime currentTime_add7 = DateTime.Now.AddDays(7).Date;
-
-			string firstDay = currentTime.ToString("yyyy-MM-dd");
-			string lastday = currentTime_add7.AddDays(6).ToString("yyyy-MM-dd");
-
-			teacherClass_Schedules = await GetAllClass_Schedules(firstDay, lastday);
-			CompleteTeacherClass_Schedules();
 
 			//AULAS LABEL
 			teacherClassesLabel = new Label
@@ -297,8 +297,6 @@ namespace SportNow.Views
             absoluteLayout.SetLayoutBounds(teacherClassesLabel, new Rect(0, teacherClassesY, App.screenWidth, 30 * App.screenHeightAdapter));
 
 			CreateTeacherClassesColletion();
-			hideActivityIndicator();
-			return 1;
 		}
 
 		public void CompleteTeacherClass_Schedules()
@@ -424,10 +422,9 @@ namespace SportNow.Views
             absoluteLayout.SetLayoutBounds(teacherClassesCollectionView, new Rect(0, teacherClassesY + (30 * App.screenHeightAdapter), App.screenWidth, App.ItemHeight + (10 * App.screenHeightAdapter)));
 		}
 
-		public async Task<int> createImportantClasses()
+		public void createImportantClasses()
 		{
-            showActivityIndicator();
-            int result = await getClass_DetailData();
+
 
 			//AULAS LABEL
 			attendanceLabel = new Label
@@ -444,8 +441,6 @@ namespace SportNow.Views
 			scheduleCollection = new ScheduleCollection();
 			scheduleCollection.Items = importantClass_Schedule;
 			createClassesCollection();
-			hideActivityIndicator();
-			return result;
 		}
 
 		public async Task<int> getClass_DetailData()
@@ -586,11 +581,8 @@ namespace SportNow.Views
             absoluteLayout.SetLayoutBounds(importantClassesCollectionView, new Rect(0, classesY + (30 * App.screenHeightAdapter), App.screenWidth, App.ItemHeight + (10 * App.screenHeightAdapter)));
 		}
 
-		public async Task<int> createImportantEvents()
+		public void createImportantEvents()
 		{
-            showActivityIndicator();
-            importantEvents = await GetImportantEvents();
-
 			foreach (Event event_i in importantEvents)
 			{
 				if ((event_i.imagemNome == "") | (event_i.imagemNome is null))
@@ -628,8 +620,6 @@ namespace SportNow.Views
             absoluteLayout.SetLayoutBounds(eventsLabel, new Rect(0, eventsY, App.screenWidth, 30 * App.screenHeightAdapter));
 
 			CreateProximosEventosColletion();
-			hideActivityIndicator();
-			return 1;
 		}
 
 		public void CreateProximosEventosColletion()
@@ -723,13 +713,12 @@ namespace SportNow.Views
 
 		public void createLinks()
 		{
-            gridLinks = new Microsoft.Maui.Controls.Grid { Padding = 0, HorizontalOptions = LayoutOptions.FillAndExpand, RowSpacing = 5 * App.screenWidthAdapter };
-            gridLinks.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
-            gridLinks.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
+            gridLinks = new Microsoft.Maui.Controls.Grid { Padding = 0, HorizontalOptions = LayoutOptions.FillAndExpand, RowSpacing = 5 * App.screenHeightAdapter};
+            gridLinks.RowDefinitions.Add(new RowDefinition { Height = 35 * App.screenWidthAdapter });
+            gridLinks.RowDefinitions.Add(new RowDefinition { Height = 35 * App.screenWidthAdapter });
             //gridGeral.RowDefinitions.Add(new RowDefinition { Height = 1 });
             gridLinks.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Star }); //GridLength.Auto
             gridLinks.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Star }); //GridLength.Auto 
-
 
             grupoFacebookImage = new Image
             {
@@ -758,14 +747,6 @@ namespace SportNow.Views
             gridLinks.Add(grupoFacebookImage, 0, 0);
             gridLinks.Add(grupoFacebookLabel, 0, 1);
 
-
-            /*absoluteLayout.Add(grupoFacebookImage);
-            absoluteLayout.SetLayoutBounds(grupoFacebookImage, new Rect(App.screenWidth / 2 - 87.5 * App.screenWidthAdapter, feesOrQuoteY, 35 * App.screenHeightAdapter, 35 * App.screenHeightAdapter));
-
-
-            absoluteLayout.Add(grupoFacebookLabel);
-            absoluteLayout.SetLayoutBounds(grupoFacebookLabel, new Rect(App.screenWidth/2 - 100 * App.screenWidthAdapter, feesOrQuoteY + 35 * App.screenHeightAdapter, 60 * App.screenWidthAdapter, 20 * App.screenHeightAdapter));
-			*/
             websiteImage = new Image
             {
                 Source = "www.png",
@@ -795,7 +776,7 @@ namespace SportNow.Views
             gridLinks.Add(websiteLabel, 1, 1);
 
             absoluteLayout.Add(gridLinks);
-            absoluteLayout.SetLayoutBounds(gridLinks, new Rect(0, feesOrQuoteY + 20 * App.screenHeightAdapter, App.screenWidth, 80 * App.screenHeightAdapter));
+            absoluteLayout.SetLayoutBounds(gridLinks, new Rect(0, App.screenHeight - 235 * App.screenHeightAdapter, App.screenWidth, 75 * App.screenHeightAdapter));
 
 
             /*absoluteLayout.Add(websiteImage);
@@ -830,12 +811,6 @@ namespace SportNow.Views
 
         public async void createCurrentFee()
 		{
-
-			if (App.member.currentFee == null)
-			{
-				Debug.Print("Current Fee NULL não devia acontecer!");
-				var result = await GetCurrentFees(App.member);
-			}
 
 			bool hasQuotaPayed = false;
 
@@ -884,10 +859,24 @@ namespace SportNow.Views
         public async void createDelayedMonthFee()
         {
 
+            string delayedMonthFeeCount = await Get_Has_DelayedMonthFees();
+            if (delayedMonthFeeCount == "1")
+            {
+                bool answer = await DisplayAlert("MENSALIDADE A PAGAMENTO", "Tem uma mensalidade em pagamento. Para proceder ao pagamento, clique em 'Pagar'", "Pagar", "Mais tarde");
+                if (answer == true)
+                {
+                    await Navigation.PushAsync(new MonthFeeStudentListPageCS());
+                }
 
-            bool answer = await DisplayAlert("A TUA QUOTA NÃO ESTÁ ATIVA.", "A tua quota para este ano não está ativa. Queres efetuar o pagamento?", "Sim", "Não");
-            Debug.WriteLine("Answer: " + answer);
-                
+            }
+            else if (delayedMonthFeeCount != "0")
+            {
+                bool answer = await DisplayAlert("MENSALIDADES A PAGAMENTO", "Tem mensalidades em pagamento. Para proceder ao pagamento, clique em 'Pagar'", "Pagar", "Mais tarde");
+                if (answer == true)
+                {
+                    await Navigation.PushAsync(new MonthFeeStudentListPageCS());
+                }
+            }
         }
 
         public async void createVersion()
@@ -1012,9 +1001,28 @@ namespace SportNow.Views
 			return class_schedules_i;
 		}
 
-		async void OnClassScheduleCollectionViewSelectionChanged(object sender, SelectionChangedEventArgs e)
+
+        async Task<string> Get_Has_DelayedMonthFees()
+        {
+            Debug.WriteLine("Get_Has_DelayedMonthFees");
+            MonthFeeManager monthFeeManager = new MonthFeeManager();
+            string count = await monthFeeManager.Get_Has_DelayedMonthFees(App.member.id);
+            if (count == null)
+            {
+                Application.Current.MainPage = new NavigationPage(new LoginPageCS("Verifique a sua ligação à Internet e tente novamente."))
+                {
+                    BarBackgroundColor = App.backgroundColor,
+                    BarTextColor = App.normalTextColor
+                };
+                return null;
+            }
+            return count;
+        }
+
+        async void OnClassScheduleCollectionViewSelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
 			showActivityIndicator();
+
 			Debug.WriteLine("MainPageCS.OnClassScheduleCollectionViewSelectionChanged");
 
 			if ((sender as CollectionView).SelectedItems.Count != 0)
