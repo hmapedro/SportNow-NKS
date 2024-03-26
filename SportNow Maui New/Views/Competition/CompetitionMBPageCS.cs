@@ -133,7 +133,7 @@ namespace SportNow.Views
                 VerticalTextAlignment = TextAlignment.Center,
                 HorizontalTextAlignment = TextAlignment.Center,
                 TextColor = App.normalTextColor,
-                FontSize = App.itemTextFontSize
+                FontSize = App.formLabelFontSize
             };
 
             gridMBPayment.RowDefinitions.Add(new RowDefinition { Height = 20 * App.screenHeightAdapter });

@@ -19,12 +19,12 @@
 		<ApplicationIdGuid>2dc29652-0b88-4207-b1a3-293d65980583</ApplicationIdGuid>
 
 		<!-- Versions -->
-		<ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
-		<ApplicationVersion>17</ApplicationVersion>
+		<ApplicationDisplayVersion>1.0.2</ApplicationDisplayVersion>
+		<ApplicationVersion>20</ApplicationVersion>
 		<SkipValidateMauiImplicitPackageReferences>true</SkipValidateMauiImplicitPackageReferences>
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">11.0</SupportedOSPlatformVersion>
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'maccatalyst'">13.1</SupportedOSPlatformVersion>
-		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">31.0</SupportedOSPlatformVersion>
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">30.0</SupportedOSPlatformVersion>
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</SupportedOSPlatformVersion>
 		<TargetPlatformMinVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</TargetPlatformMinVersion>
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'tizen'">6.5</SupportedOSPlatformVersion>
@@ -70,9 +70,11 @@
 	  <CreatePackage>false</CreatePackage>
 	  <MtouchDebug>true</MtouchDebug>
 	</PropertyGroup>
+
+
 	<ItemGroup>
-		<!-- App Icon -->
 		<MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appicon.svg" Color="#FFFFFF" />
+
 		<MauiSplashScreen Include="Resources\Splash\splash_logo.svg" Color="#ffffff" />
 		
 		<!-- Images -->
@@ -98,6 +100,7 @@
 		<PackageReference Include="Syncfusion.Maui.Core" Version="24.2.9" />
 		<PackageReference Include="Syncfusion.Maui.Expander" Version="24.2.9" />
 		<PackageReference Include="Plugin.BetterFirebasePushNotification" Version="3.2.1" />
+		<PackageReference Include="Syncfusion.Maui.PdfViewer" Version="24.2.9" />
 	</ItemGroup>
 
 	
@@ -228,6 +231,7 @@
 	  <BundleResource Include="Resources\Images\belt_10_dan_bloq.png" />
 	  <BundleResource Include="Resources\Raw\gifTemplate.html" />
 	  <BundleResource Include="GoogleService-Info.plist" />
+	  <BundleResource Include="Resources\AppIcon\appicon.svg" />
 	</ItemGroup>	
 	<ItemGroup>
 	  <MauiXaml Update="Custom Views\GifImage.xaml">

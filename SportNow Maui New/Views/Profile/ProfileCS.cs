@@ -82,8 +82,8 @@ namespace SportNow.Views.Profile
         FormValueEdit CodPostalValue;
         FormValueEdit CidadeValue;
         FormValueEdit FaturaNIFValue;
-		FormValueEdit nifValue;
-		FormValueEdit cc_numberValue;
+        FormValue nifValue;
+        FormValue cc_numberValue;
         FormValueEditDate birthdateValue;
 
 
@@ -185,7 +185,7 @@ namespace SportNow.Views.Profile
             absoluteLayout.SetLayoutBounds(memberPhotoImage, new Rect((App.screenWidth/2) - (90 * App.screenHeightAdapter), 0, 180 * App.screenHeightAdapter, 180 * App.screenHeightAdapter));
         }
 
-		public async void CreateQuotaButton()
+		public async Task<int> CreateQuotaButton()
 		{
 
             quotaImage = new Image
@@ -236,6 +236,7 @@ namespace SportNow.Views.Profile
 
             y_button_right = y_button_right + 60;
 
+            return 0;
 
         }
 
@@ -592,7 +593,7 @@ namespace SportNow.Views.Profile
             y_button_left = y_button_left + 60;
         }
 
-        public void CreateGridButtons()
+        public async void CreateGridButtons()
 		{
 			//createDocumentsNKSButton();
 
@@ -604,7 +605,7 @@ namespace SportNow.Views.Profile
 
             createChangePasswordButton();
             //CreateObjectivesButton();
-			CreateQuotaButton();
+			_ = await CreateQuotaButton();
             CreatePaymentsButton();
         }
 
@@ -695,10 +696,10 @@ namespace SportNow.Views.Profile
 			gridIdentificacao.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Star }); //GridLength.Auto 
 
 			FormLabel cc_numberLabel = new FormLabel { Text = "CC" };
-            cc_numberValue = new FormValueEdit (App.member.cc_number);
+            cc_numberValue = new FormValue(App.member.cc_number);
 
             FormLabel nifLabel = new FormLabel { Text = "NIF"};
-			nifValue = new FormValueEdit (App.member.nif);
+			nifValue = new FormValue(App.member.nif);
 
 			FormLabel fnkpLabel = new FormLabel { Text = "FNKP" };
 			FormValue fnkpValue = new FormValue (App.member.number_fnkp);
@@ -1103,8 +1104,8 @@ namespace SportNow.Views.Profile
 				Debug.WriteLine("UpdateMemberInfo "+ App.member.name);
 				App.member.name = nameValue.entry.Text;
 				App.member.email = emailValue.entry.Text;
-                App.member.nif = nifValue.entry.Text;
-                App.member.cc_number = cc_numberValue.entry.Text;
+               // App.member.nif = nifValue.entry.Text;
+                //App.member.cc_number = cc_numberValue.entry.Text;
                 App.member.birthdate = birthdateValue.entry.Text;
                 App.member.phone = phoneValue.entry.Text;
 				App.member.address = addressValue.entry.Text;

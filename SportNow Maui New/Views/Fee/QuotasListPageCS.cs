@@ -319,7 +319,7 @@ namespace SportNow.Views
 				AbsoluteLayout itemabsoluteLayout = new AbsoluteLayout
 				{
 					HeightRequest= 40 * App.screenHeightAdapter,
-                    WidthRequest = App.screenWidth
+                    WidthRequest = App.screenWidth - 40 * App.screenWidthAdapter
                 };
 
 				Border itemFrame = new Border

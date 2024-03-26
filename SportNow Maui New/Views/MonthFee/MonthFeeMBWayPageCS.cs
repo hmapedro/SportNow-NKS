@@ -62,7 +62,7 @@ namespace SportNow.Views
 			Label eventParticipationNameLabel = new Label
 			{
                 FontFamily = "futuracondensedmedium",
-                Text = "Para efetuares o pagamento da tua " + monthFee.name + " - " + payments[0].value + "€ confirma os dados indicados em baixo.",
+                Text = "Para efetuares o pagamento da tua " + monthFee.name + " - " + String.Format("{0:0.00}", payments[0].value) + "€ confirma os dados indicados em baixo.",
 				VerticalTextAlignment = TextAlignment.Center,
 				HorizontalTextAlignment = TextAlignment.Center,
 				TextColor = App.normalTextColor,
@@ -103,7 +103,7 @@ namespace SportNow.Views
                 VerticalTextAlignment = TextAlignment.Center,
                 HorizontalTextAlignment = TextAlignment.Start,
                 TextColor = App.normalTextColor,
-                FontSize = App.titleFontSize
+                FontSize = App.formLabelFontSize
             };
 
 
@@ -117,7 +117,7 @@ namespace SportNow.Views
 
 			absoluteLayout.Add(phoneValueEdit);
             absoluteLayout.SetLayoutBounds(phoneValueEdit, new Rect(5, 340 * App.screenHeightAdapter, App.screenWidth - 10 * App.screenWidthAdapter, 40 * App.screenHeightAdapter));
-
+			
             payButton = new RegisterButton("PAGAR", App.screenWidth - 20 * App.screenWidthAdapter, 50 * App.screenHeightAdapter);
 			payButton.button.Clicked += OnPayButtonClicked;
 
@@ -126,7 +126,7 @@ namespace SportNow.Views
             absoluteLayout.SetLayoutBounds(payButton, new Rect(0, App.screenHeight - 160 * App.screenHeightAdapter, App.screenWidth, 50 * App.screenHeightAdapter));
 
             absoluteLayout.Add(Label);
-            absoluteLayout.SetLayoutBounds(Label, new Rect(22, -10 * App.screenHeightAdapter, App.screenWidth, App.screenHeight - 10 * App.screenHeightAdapter));
+            absoluteLayout.SetLayoutBounds(Label, new Rect(22, 390 * App.screenHeightAdapter, App.screenWidth, 40 * App.screenHeightAdapter));
 
         }
 	

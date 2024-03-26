@@ -69,7 +69,7 @@ namespace SportNow.Views.Profile
 			searchEntry.entry.Placeholder = "Pesquisa...";
             searchEntry.entry.TextChanged += onSearchTextChange;
             absoluteLayout.Add(searchEntry);
-            absoluteLayout.SetLayoutBounds(searchEntry, new Rect(0, 50 * App.screenHeightAdapter, App.screenWidth, 50 * App.screenHeightAdapter));
+            absoluteLayout.SetLayoutBounds(searchEntry, new Rect(0, 50 * App.screenHeightAdapter, App.screenWidth - 5 * App.screenWidthAdapter, 50 * App.screenHeightAdapter));
 
         }
 

@@ -1,9 +1,7 @@
 ﻿
-using Microsoft.Maui;
 using SportNow.Model;
-using SportNow.Services.Data.JSON;
+using Syncfusion.Maui.PdfViewer;
 using System.Diagnostics;
-
 
 namespace SportNow.Views
 {
@@ -34,71 +32,55 @@ namespace SportNow.Views
 		}
 
 
+
+/* Unmerged change from project 'NK Sangalhos (net8.0-ios)'
+Before:
 		public void initSpecificLayout()
+After:
+		public void initSpecificLayoutAsync()
+*/
+
+/* Unmerged change from project 'NK Sangalhos (net8.0-maccatalyst)'
+Before:
+		public void initSpecificLayout()
+After:
+		public void initSpecificLayoutAsync()
+*/
+		public async Task initSpecificLayoutAsync()
 		{
 
 			gridGrade= new Microsoft.Maui.Controls.Grid { Padding = 0, HorizontalOptions = LayoutOptions.FillAndExpand };
 			gridGrade.RowDefinitions.Add(new RowDefinition { Height = GridLength.Star});
 			gridGrade.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto }); //GridLength.Auto 
 
-			var browser = new WebView
-			{
-				BackgroundColor = App.backgroundColor,
-                HeightRequest = App.screenHeight,
-				WidthRequest = App.screenWidth,
-				VerticalOptions = LayoutOptions.FillAndExpand,
-				HorizontalOptions = LayoutOptions.Fill,
-			};
-
-			browser.Navigating += OnNavigating;
-			browser.Navigated += OnNavigated;
+			
 
 
 			var pdfUrl = Constants.RestUrl_Get_Invoice_byID + "?invoiceid=" + this.invoiceid;
-			var androidUrl = "https://docs.google.com/gview?url=" + pdfUrl + "&embedded=true";
-			Debug.Print("pdfUrl=" + pdfUrl);
-			Debug.Print("androidUrl="+androidUrl);
-            browser.Source = pdfUrl;
 
-            /*if (DeviceInfo.Platform != DevicePlatform.iOS)
-			{
-				browser.Source = pdfUrl;
-			}
-			else if (DeviceInfo.Platform == DevicePlatform.Android)
-			{
-				browser.Source = new UrlWebViewSource() { Url = androidUrl };
-			}
+			SfPdfViewer browser1 = new SfPdfViewer();
 
-			if (browser.Source == null)
-			{
-				Debug.Print("browser.Source = null");
-			}
-			else {
-				Debug.Print("browser.Source != null");
-			}*/
+            HttpClient httpClient = new HttpClient();
 
-			gridGrade.Add(browser, 0, 0);
+            showActivityIndicator();
+            HttpResponseMessage response = await httpClient.GetAsync(pdfUrl);
+            Stream PdfDocumentStream = await response.Content.ReadAsStreamAsync();
+			hideActivityIndicator();
 
-			absoluteLayout.Add(gridGrade);
-            absoluteLayout.SetLayoutBounds(gridGrade, new Rect(0, 0, App.screenWidth, App.screenHeight));
+			browser1.DocumentSource = PdfDocumentStream;
+			browser1.WidthRequest = App.screenWidth;
+            browser1.HeightRequest = App.screenHeight - 100 * App.screenHeightAdapter;
 
-			/*Image diplomaImage = new Image
-			{
-				Source = new UriImageSource
-				{
-					Uri = new Uri("https://www.nksl.org/services/PDF/create_PDF_diploma_ByID.php?exameid=" + examination.id),
-					CachingEnabled = false,
-					CacheValidity = new TimeSpan(5, 0, 0, 0)
-				}
-			};*/
-
-			}
+            gridGrade.Add(browser1, 0, 0);
+            absoluteLayout.Add(gridGrade);
+            absoluteLayout.SetLayoutBounds(gridGrade, new Rect(0, 0, App.screenWidth, App.screenHeight - 100 * App.screenHeightAdapter));
+        }
 
 		public InvoiceDocumentPageCS(Payment payment)
 		{
 			this.invoiceid = payment.invoiceid;
 			this.initLayout();
-			this.initSpecificLayout();
+			this.initSpecificLayoutAsync();
 			//CreateDiploma(member, examination);
 
 			
@@ -108,7 +90,7 @@ namespace SportNow.Views
         {
             this.invoiceid = invoiceid;
             this.initLayout();
-            this.initSpecificLayout();
+            this.initSpecificLayoutAsync();
             //CreateDiploma(member, examination);
 
 
@@ -116,7 +98,7 @@ namespace SportNow.Views
 
         public void OnNavigating(object sender, WebNavigatingEventArgs e)
 		{
-			showActivityIndicator();
+			//showActivityIndicator();
 
 
 		}
@@ -124,7 +106,7 @@ namespace SportNow.Views
 		public void OnNavigated(object sender, WebNavigatedEventArgs e)
 		{
 
-			hideActivityIndicator();
+			//hideActivityIndicator();
 
 		}
 

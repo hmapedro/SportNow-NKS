@@ -17,12 +17,6 @@ namespace SportNow.Views
 		protected async override void OnAppearing()
 		{
 			base.OnAppearing();
-			//CrossDeviceOrientation.Current.LockOrientation(DeviceOrientations.Portrait);
-
-			var mainDisplayInfo = DeviceDisplay.MainDisplayInfo;
-			Constants.ScreenWidth = mainDisplayInfo.Width;
-			Constants.ScreenHeight = mainDisplayInfo.Height;
-			//Debug.Print("AQUI Login - ScreenWidth = " + Constants.ScreenWidth + " ScreenHeight = " + Constants.ScreenHeight + "mainDisplayInfo.Density = " + mainDisplayInfo.Density);
 
 			App.AdaptScreen();
 			this.initSpecificLayout();
@@ -54,33 +48,29 @@ namespace SportNow.Views
             //gridLogin.RowDefinitions.Add(new RowDefinition { Height = GridLength.Star });
             gridLogin.ColumnDefinitions.Add(new ColumnDefinition { Width = App.screenWidth - 20 * App.screenWidthAdapter}); //GridLength.Auto 
 
-
 			welcomeLabel = new Label
 			{
 				Text = "BEM VINDO",
 				TextColor = App.normalTextColor,
 				FontSize = 30 * App.screenHeightAdapter,
 				HorizontalOptions = LayoutOptions.Center,
-				WidthRequest = (Constants.ScreenWidth / DeviceDisplay.MainDisplayInfo.Density)-20,
+				WidthRequest = App.screenWidth,
 				HorizontalTextAlignment = TextAlignment.Center,
                 FontFamily = "futuracondensedmedium",
                 //BackgroundColor = Color.FromRgb(255, 0, 0)
             };
 
-			
 			Image logo_aksl = new Image
 			{
 				Source = "company_logo.png",
 				HorizontalOptions = LayoutOptions.Center,
 				HeightRequest = 224 * App.screenHeightAdapter
 			};
-
             
             if (Preferences.Default.Get("EMAIL", "") != "")
 			{
 				username = Preferences.Default.Get("EMAIL", "");
             }
-
 
 			//USERNAME ENTRY
 			usernameEntry = new FormEntry(username, "EMAIL", Keyboard.Email, App.screenWidth - 20 * App.screenWidthAdapter );
@@ -290,8 +280,9 @@ namespace SportNow.Views
 				{
 					Debug.WriteLine("Ocorreu um erro. Volte a tentar mais tarde.");
 					messageLabel.Text = "Ocorreu um erro. Volte a tentar mais tarde.";
-					await DisplayAlert("Erro Login", loginResult, "Ok" );
-				}
+                    //await DisplayAlert("Erro Login", loginResult, "Ok" );
+                    await DisplayAlert("Erro Login", "Ocorreu um erro. Volte a tentar mais tarde.", "Ok");
+                }
 
 				this.saveUserPassword(user.Username, user.Password);
 			}

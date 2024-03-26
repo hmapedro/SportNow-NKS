@@ -102,7 +102,7 @@ namespace SportNow.Views
                 VerticalTextAlignment = TextAlignment.Center,
                 HorizontalTextAlignment = TextAlignment.Center,
                 TextColor = App.normalTextColor,
-                FontSize = App.itemTextFontSize
+                FontSize = App.formLabelFontSize
             };
 
             absoluteLayout.Add(phoneNumberLabel);
