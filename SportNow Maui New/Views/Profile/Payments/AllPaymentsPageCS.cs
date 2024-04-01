@@ -4,7 +4,7 @@ using System.Diagnostics;
 using SportNow.CustomViews;
 using System.Collections.ObjectModel;
 
-namespace SportNow.Views.Profile
+namespace SportNow.Views.Profile.AllPayments
 {
 	public class AllPaymentsPageCS : DefaultPage
 	{
@@ -61,9 +61,9 @@ namespace SportNow.Views.Profile
 			CompletePayments();
             CreateSearchEntry();
             CreatePaymentsColletion();
-		}
+        }
 
-		public void CreateSearchEntry()
+        public void CreateSearchEntry()
 		{
             searchEntry = new FormValueEdit("",Keyboard.Text, 45);
 			searchEntry.entry.Placeholder = "Pesquisa...";
@@ -185,14 +185,31 @@ namespace SportNow.Views.Profile
 			{
 				Payment payment = (sender as CollectionView).SelectedItem as Payment;
 
-                Debug.WriteLine("AllPaymentsPageCS.OnCollectionViewPaymentsSelectionChanged payment.id="+payment.invoiceid);
-                if ((payment.invoiceid != "") & (payment.invoiceid != null))
+                Debug.WriteLine("AllPaymentsPageCS.OnCollectionViewPaymentsSelectionChanged payment.id="+payment.id);
+				if (payment.status == "aberto")
 				{
-                    await Navigation.PushAsync(new InvoiceDocumentPageCS(payment.invoiceid));
+                    await Navigation.PushAsync(new PaymentPageCS(payment));
+					
                 }
-                
-			}
+                else if ((payment.status == "confirmado") | (payment.status == "fechado"))
+                {
+					if ((payment.invoiceid != "") & (payment.invoiceid != null))
+					{
+						await Navigation.PushAsync(new InvoiceDocumentPageCS(payment.invoiceid));
+					}
+					else
+					{
+                        await DisplayAlert("Fatura não emitida", "Apesar de estar pago, este pagamento ainda não tem fatura emitida.", "Ok");
+                    }
 
-		}
+                }
+                else if (payment.status == "recebido")
+                {
+					await DisplayAlert("Fatura não emitida", "Apesar de estar pago, este pagamento ainda não tem fatura emitida.", "Ok");
+                }
+
+            }
+
+        }
     }
 }

@@ -78,7 +78,7 @@ namespace SportNow.Views.CompleteRegistration
 			confirmButton.button.Clicked += OnConfirmButtonClicked;
 
             absoluteLayout.Add(confirmButton);
-            absoluteLayout.SetLayoutBounds(confirmButton, new Rect(5 * App.screenWidthAdapter, App.screenHeight - 160 * App.screenHeightAdapter, App.screenWidth - 10 * App.screenWidthAdapter, 50 * App.screenHeightAdapter));
+            absoluteLayout.SetLayoutBounds(confirmButton, new Rect(5 * App.screenWidthAdapter, App.screenHeight - 100 - 60 * App.screenHeightAdapter, App.screenWidth - 10 * App.screenWidthAdapter, 50 * App.screenHeightAdapter));
 		}
 
 		public BeginPageCS()

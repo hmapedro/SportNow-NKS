@@ -426,7 +426,17 @@ namespace SportNow.Views
 
             MinimumVersion minimumVersion = await appManager.GetMinimumVersion();
 
-            if (Convert.ToInt32(minimumVersion.build) > Convert.ToInt32(App.BuildNumber))
+            if (minimumVersion == null)
+            {
+                Microsoft.Maui.Controls.Application.Current.MainPage = new NavigationPage(new LoginPageCS("Verifique a sua ligação à Internet e tente novamente."))
+                {
+                    BarBackgroundColor = App.backgroundColor,
+                    BarTextColor = App.normalTextColor
+                };
+                return 0;
+
+            }
+            else if (Convert.ToInt32(minimumVersion.build) > Convert.ToInt32(App.BuildNumber))
             {
                 await DisplayAlert("ATUALIZAR APP", "Para continuar a utilizar a nossa App deverá efetuar a atualização para uma versão mais recente.", "Ok");
 

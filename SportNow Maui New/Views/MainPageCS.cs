@@ -275,7 +275,7 @@ namespace SportNow.Views
             personalClassesButton.button.Clicked += OnPersonalClassesButtonClicked;
 
             absoluteLayout.Add(personalClassesButton);
-            absoluteLayout.SetLayoutBounds(personalClassesButton, new Rect(0, personalClassesY + (60 * App.screenWidthAdapter), App.screenWidth, 60 * App.screenHeightAdapter));
+            absoluteLayout.SetLayoutBounds(personalClassesButton, new Rect(0, personalClassesY + (60 * App.screenHeightAdapter), App.screenWidth, 60 * App.screenHeightAdapter));
             
         }
             
@@ -714,8 +714,8 @@ namespace SportNow.Views
 		public void createLinks()
 		{
             gridLinks = new Microsoft.Maui.Controls.Grid { Padding = 0, HorizontalOptions = LayoutOptions.FillAndExpand, RowSpacing = 5 * App.screenHeightAdapter};
-            gridLinks.RowDefinitions.Add(new RowDefinition { Height = 35 * App.screenWidthAdapter });
-            gridLinks.RowDefinitions.Add(new RowDefinition { Height = 35 * App.screenWidthAdapter });
+            gridLinks.RowDefinitions.Add(new RowDefinition { Height = 35 * App.screenHeightAdapter });
+            gridLinks.RowDefinitions.Add(new RowDefinition { Height = 35 * App.screenHeightAdapter });
             //gridGeral.RowDefinitions.Add(new RowDefinition { Height = 1 });
             gridLinks.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Star }); //GridLength.Auto
             gridLinks.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Star }); //GridLength.Auto 
@@ -724,8 +724,8 @@ namespace SportNow.Views
             {
                 Source = "facebook.png",
                 Aspect = Aspect.AspectFit,
-                HeightRequest = 35 * App.screenWidthAdapter,
-                WidthRequest = 35 * App.screenWidthAdapter
+                HeightRequest = 35 * App.screenHeightAdapter,
+                WidthRequest = 35 * App.screenHeightAdapter
             };
 
             TapGestureRecognizer grupoFacebook_tapEvent = new TapGestureRecognizer();
@@ -751,8 +751,8 @@ namespace SportNow.Views
             {
                 Source = "www.png",
                 Aspect = Aspect.AspectFit,
-				HeightRequest = 35*App.screenWidthAdapter,
-                WidthRequest = 35 * App.screenWidthAdapter
+				HeightRequest = 35 *App.screenHeightAdapter,
+                WidthRequest = 35 * App.screenHeightAdapter
             };
 
             TapGestureRecognizer website_tapEvent = new TapGestureRecognizer();
@@ -776,8 +776,9 @@ namespace SportNow.Views
             gridLinks.Add(websiteLabel, 1, 1);
 
             absoluteLayout.Add(gridLinks);
-            absoluteLayout.SetLayoutBounds(gridLinks, new Rect(0, App.screenHeight - 235 * App.screenHeightAdapter, App.screenWidth, 75 * App.screenHeightAdapter));
-
+            //absoluteLayout.SetLayoutBounds(gridLinks, new Rect(0, App.screenHeight - 110 - (125 * App.screenHeightAdapter), App.screenWidth, 75 * App.screenHeightAdapter));
+            absoluteLayout.SetLayoutBounds(gridLinks, new Rect(0, feesOrQuoteY, App.screenWidth, 75 * App.screenHeightAdapter));
+            
 
             /*absoluteLayout.Add(websiteImage);
             absoluteLayout.SetLayoutBounds(websiteImage, new Rect(App.screenWidth / 2 + 47.5 * App.screenWidthAdapter, feesOrQuoteY, 35 * App.screenHeightAdapter, 35 * App.screenHeightAdapter));

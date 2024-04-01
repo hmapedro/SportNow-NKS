@@ -40,10 +40,10 @@ namespace SportNow.Views
 			gridLogin.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
 			gridLogin.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
 			gridLogin.RowDefinitions.Add(new RowDefinition { Height = 40 * App.screenHeightAdapter });
-			gridLogin.RowDefinitions.Add(new RowDefinition { Height = 50 * App.screenHeightAdapter });
-			gridLogin.RowDefinitions.Add(new RowDefinition { Height = 50 * App.screenHeightAdapter });
-			gridLogin.RowDefinitions.Add(new RowDefinition { Height = 60 * App.screenHeightAdapter });
-			gridLogin.RowDefinitions.Add(new RowDefinition { Height = 60 * App.screenHeightAdapter });
+			gridLogin.RowDefinitions.Add(new RowDefinition { Height = 50 * App.entryHeightAdapter });
+            gridLogin.RowDefinitions.Add(new RowDefinition { Height = 50 * App.entryHeightAdapter });
+            gridLogin.RowDefinitions.Add(new RowDefinition { Height = 60 * App.screenHeightAdapter });
+            gridLogin.RowDefinitions.Add(new RowDefinition { Height = 60 * App.screenHeightAdapter });
             //gridLogin.RowDefinitions.Add(new RowDefinition { Height = 60 });
             //gridLogin.RowDefinitions.Add(new RowDefinition { Height = GridLength.Star });
             gridLogin.ColumnDefinitions.Add(new ColumnDefinition { Width = App.screenWidth - 20 * App.screenWidthAdapter}); //GridLength.Auto 
@@ -328,7 +328,7 @@ namespace SportNow.Views
             };
 
             absoluteLayout.Add(currentVersionLabel);
-            absoluteLayout.SetLayoutBounds(currentVersionLabel, new Rect(0, App.screenHeight - 140 * App.screenHeightAdapter, 200 * App.screenWidth, 30 * App.screenHeightAdapter));
+            absoluteLayout.SetLayoutBounds(currentVersionLabel, new Rect(0, App.screenHeight - 100 - 40 * App.screenHeightAdapter, 200 * App.screenWidth, 30 * App.screenHeightAdapter));
         }
     }
 }

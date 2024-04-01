@@ -209,7 +209,7 @@ namespace SportNow.Views
             absoluteLayout.SetLayoutBounds(periodLabel, new Rect(0, 0, App.screenWidth, 40 * App.screenHeightAdapter));
 
 			absoluteLayout.Add(periodPicker);
-            absoluteLayout.SetLayoutBounds(periodPicker, new Rect(0, 40 * App.screenHeightAdapter, App.screenWidth, 40 * App.screenHeightAdapter));
+            absoluteLayout.SetLayoutBounds(periodPicker, new Rect(0, 40 * App.screenHeightAdapter, App.screenWidth, 40 * App.entryHeightAdapter));
 
 		}
 
@@ -219,7 +219,7 @@ namespace SportNow.Views
 			//chart.BackgroundColor = Colors.Red;
 
             absoluteLayout.Add(chart);
-            absoluteLayout.SetLayoutBounds(chart, new Rect(0 * App.screenWidthAdapter, 80 * App.screenHeightAdapter, App.screenWidth - 0 * App.screenWidthAdapter, (App.screenHeight - 210 * App.screenHeightAdapter) * 3 / 5));
+            absoluteLayout.SetLayoutBounds(chart, new Rect(0 * App.screenWidthAdapter, 85 * App.screenHeightAdapter, App.screenWidth - 0 * App.screenWidthAdapter, (App.screenHeight - 100 - 115 * App.screenHeightAdapter) * 3 / 5));
 
 			BoxView separator = new BoxView()
 			{
@@ -231,7 +231,7 @@ namespace SportNow.Views
             };
 
             absoluteLayout.Add(separator);
-            absoluteLayout.SetLayoutBounds(separator, new Rect(0 * App.screenWidthAdapter, 75 * App.screenHeightAdapter + (App.screenHeight - 190 * App.screenHeightAdapter) * 3 / 5, App.screenWidth - 0 * App.screenWidthAdapter, 3 * App.screenHeightAdapter));
+            absoluteLayout.SetLayoutBounds(separator, new Rect(0 * App.screenWidthAdapter, 75 * App.screenHeightAdapter + (App.screenHeight - 100 - 90 * App.screenHeightAdapter) * 3 / 5, App.screenWidth - 0 * App.screenWidthAdapter, 3 * App.screenHeightAdapter));
 
 		}
 
@@ -475,13 +475,13 @@ namespace SportNow.Views
 				itemabsoluteLayout.Add(itemFrame);
 				itemabsoluteLayout.SetLayoutBounds(itemFrame, new Rect(0, 0, App.ItemWidth, App.ItemHeight));
 
-				Label dateLabel = new Label { FontFamily = "futuracondensedmedium", VerticalTextAlignment = TextAlignment.Center, HorizontalTextAlignment = TextAlignment.Center, FontSize = 15 * App.screenWidthAdapter, TextColor = App.oppositeTextColor };
+				Label dateLabel = new Label { FontFamily = "futuracondensedmedium", VerticalTextAlignment = TextAlignment.Center, HorizontalTextAlignment = TextAlignment.Center, FontSize = App.itemTextFontSize, TextColor = App.oppositeTextColor };
 				dateLabel.SetBinding(Label.TextProperty, "datestring");
 
 				itemabsoluteLayout.Add(dateLabel);
 		        itemabsoluteLayout.SetLayoutBounds(dateLabel, new Rect(3 * App.screenWidthAdapter, App.ItemHeight - (45 * App.screenHeightAdapter), App.ItemWidth - 6 * App.screenWidthAdapter, 40 * App.screenHeightAdapter));
 
-				Label nameLabel = new Label { FontFamily = "futuracondensedmedium", BackgroundColor = Colors.Transparent, VerticalTextAlignment = TextAlignment.Center, HorizontalTextAlignment = TextAlignment.Center, FontSize = 20 * App.screenWidthAdapter, TextColor = App.oppositeTextColor };
+				Label nameLabel = new Label { FontFamily = "futuracondensedmedium", BackgroundColor = Colors.Transparent, VerticalTextAlignment = TextAlignment.Center, HorizontalTextAlignment = TextAlignment.Center, FontSize = App.itemTitleFontSize, TextColor = App.oppositeTextColor };
 				nameLabel.SetBinding(Label.TextProperty, "name");
 
 				itemabsoluteLayout.Add(nameLabel);
@@ -497,7 +497,7 @@ namespace SportNow.Views
                 return itemabsoluteLayout;
 			});
 			absoluteLayout.Add(classesCollectionView);
-            absoluteLayout.SetLayoutBounds(classesCollectionView, new Rect(3 * App.screenWidthAdapter, 80 * App.screenHeightAdapter + ((App.screenHeight - 180 * App.screenHeightAdapter) * 3 / 5), App.screenWidth - (0 * App.screenWidthAdapter), ((App.screenHeight - 180 * App.screenHeightAdapter) * 2 / 5)));
+            absoluteLayout.SetLayoutBounds(classesCollectionView, new Rect(3 * App.screenWidthAdapter, 80 * App.screenHeightAdapter + ((App.screenHeight - 100 - 80 * App.screenHeightAdapter) * 3 / 5), App.screenWidth - (0 * App.screenWidthAdapter), ((App.screenHeight - 100 - 80 * App.screenHeightAdapter) * 2 / 5) ));
 		}
 
 		public AttendanceStatsPageCS()

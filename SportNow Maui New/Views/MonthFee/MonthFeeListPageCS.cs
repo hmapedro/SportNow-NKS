@@ -118,7 +118,7 @@ namespace SportNow.Views
 			};
 
 			absoluteLayout.Add(dojoPicker);
-            absoluteLayout.SetLayoutBounds(dojoPicker, new Rect(0, 0, App.screenWidth, 40 * App.screenHeightAdapter));
+            absoluteLayout.SetLayoutBounds(dojoPicker, new Rect(0, 0, App.screenWidth, 45 * App.entryHeightAdapter));
 
 			return 1;
 		}
@@ -141,6 +141,7 @@ namespace SportNow.Views
                 FontSize = App.titleFontSize,
                 TextColor = App.topColor,
                 BackgroundColor = App.backgroundColor,
+                HeightRequest = 50 * App.entryHeightAdapter,
                 VerticalOptions = LayoutOptions.Center
             };
             previousMonthButton.Clicked += OnPreviousButtonClicked;
@@ -151,8 +152,9 @@ namespace SportNow.Views
                 Text = selectedTime.Year + " - " + selectedTime.Month,
 				FontSize = App.titleFontSize,
 				TextColor = App.topColor,
-				WidthRequest = 150,
-				VerticalTextAlignment = TextAlignment.Center,
+				WidthRequest = 150 * App.screenWidthAdapter,
+                HeightRequest = 50 * App.entryHeightAdapter,
+                VerticalTextAlignment = TextAlignment.Center,
 				HorizontalTextAlignment = TextAlignment.Center
 			};
 
@@ -163,6 +165,7 @@ namespace SportNow.Views
                 FontSize = App.titleFontSize,
                 TextColor = App.topColor,
                 BackgroundColor = App.backgroundColor,
+                HeightRequest = 50 * App.entryHeightAdapter,
                 VerticalOptions = LayoutOptions.Center
             };
 
@@ -176,7 +179,7 @@ namespace SportNow.Views
 				Orientation = StackOrientation.Horizontal,
 				HorizontalOptions = LayoutOptions.Center,
 				VerticalOptions = LayoutOptions.FillAndExpand,
-				HeightRequest = 40 * App.screenHeightAdapter,
+				HeightRequest = 50 * App.entryHeightAdapter,
 				Children =
 				{
 					previousMonthButton,
@@ -186,7 +189,7 @@ namespace SportNow.Views
 			};
 
 			absoluteLayout.Add(stackMonthSelector);
-            absoluteLayout.SetLayoutBounds(stackMonthSelector, new Rect(0, 40 * App.screenHeightAdapter, App.screenWidth, 40 * App.screenHeightAdapter));
+            absoluteLayout.SetLayoutBounds(stackMonthSelector, new Rect(0, 40 * App.entryHeightAdapter, App.screenWidth, 50 * App.entryHeightAdapter));
 		}
 
 		public void CreateMonthFeesColletion()
@@ -260,7 +263,7 @@ namespace SportNow.Views
 			});
 
 			absoluteLayout.Add(monthFeesCollectionView);
-            absoluteLayout.SetLayoutBounds(monthFeesCollectionView, new Rect(0, 100 * App.screenHeightAdapter, App.screenWidth, App.screenHeight - 270 * App.screenHeightAdapter));
+            absoluteLayout.SetLayoutBounds(monthFeesCollectionView, new Rect(0, 110 * App.screenHeightAdapter, App.screenWidth, App.screenHeight - 100 - 180 * App.screenHeightAdapter));
 		}
 
 		public void createApproveButtons()
@@ -307,7 +310,7 @@ namespace SportNow.Views
 
 
             absoluteLayout.Add(approveAllButton);
-            absoluteLayout.SetLayoutBounds(approveAllButton, new Rect(0, App.screenHeight - 160 * App.screenHeightAdapter, App.screenWidth, 50 * App.screenHeightAdapter));
+            absoluteLayout.SetLayoutBounds(approveAllButton, new Rect(0, App.screenHeight - 100 - 60 * App.screenHeightAdapter, App.screenWidth, 50 * App.screenHeightAdapter));
         }
 
         public MonthFeeListPageCS()

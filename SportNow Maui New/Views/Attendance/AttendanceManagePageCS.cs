@@ -94,7 +94,8 @@ namespace SportNow.Views
                 FontSize = App.titleFontSize,
                 TextColor = App.topColor,
                 BackgroundColor = App.backgroundColor,
-				VerticalOptions = LayoutOptions.Center
+				VerticalOptions = LayoutOptions.Center,
+                HeightRequest = 50 * App.screenHeightAdapter,
             };
 
 			previousWeekButton.Clicked += OnPreviousButtonClicked;
@@ -105,10 +106,11 @@ namespace SportNow.Views
                 Text = firstDayWeek + " - " + lastdayLastWeek,
 				FontSize = App.titleFontSize,
 				TextColor = App.topColor,
-				WidthRequest = 150,
+				WidthRequest = 150 * App.screenWidthAdapter,
 				VerticalTextAlignment = TextAlignment.Center,
-				HorizontalTextAlignment = TextAlignment.Center
-			};
+				HorizontalTextAlignment = TextAlignment.Center,
+                HeightRequest = 50 * App.screenHeightAdapter,
+            };
 
             nextWeekButton = new Button()
             {
@@ -117,7 +119,8 @@ namespace SportNow.Views
                 FontSize = App.titleFontSize,
                 TextColor = App.topColor,
                 BackgroundColor = App.backgroundColor,
-                VerticalOptions = LayoutOptions.Center
+                VerticalOptions = LayoutOptions.Center,
+                HeightRequest = 50 * App.screenHeightAdapter,
             };
 
 			nextWeekButton.Clicked += OnNextButtonClicked;
@@ -130,17 +133,17 @@ namespace SportNow.Views
 				Orientation = StackOrientation.Horizontal,
 				HorizontalOptions = LayoutOptions.Center,
 				VerticalOptions = LayoutOptions.FillAndExpand,
-				HeightRequest = 40 * App.screenHeightAdapter,
+				HeightRequest = 50 * App.screenHeightAdapter,
 				Children =
 				{
-					previousWeekButton,
+                    previousWeekButton,
 					currentWeek,
 					nextWeekButton
 				}
 			};
 
 			absoluteLayout.Add(stackWeekSelector);
-            absoluteLayout.SetLayoutBounds(stackWeekSelector, new Rect(0, 0, App.screenWidth, 40 * App.screenHeightAdapter));
+            absoluteLayout.SetLayoutBounds(stackWeekSelector, new Rect(0, 0, App.screenWidth, 50 * App.screenHeightAdapter));
 
 		}
 
@@ -224,13 +227,13 @@ namespace SportNow.Views
 				itemabsoluteLayout.Add(itemFrame);
 				itemabsoluteLayout.SetLayoutBounds(itemFrame, new Rect(0, 0, App.ItemWidth, App.ItemHeight));
             
-				Label dateLabel = new Label { FontFamily = "futuracondensedmedium", VerticalTextAlignment = TextAlignment.Center, HorizontalTextAlignment = TextAlignment.Center, FontSize = 15 * App.screenWidthAdapter, TextColor = App.oppositeTextColor };
+				Label dateLabel = new Label { FontFamily = "futuracondensedmedium", VerticalTextAlignment = TextAlignment.Center, HorizontalTextAlignment = TextAlignment.Center, FontSize = App.itemTextFontSize, TextColor = App.oppositeTextColor };
 				dateLabel.SetBinding(Label.TextProperty, "datestring");
 
 				itemabsoluteLayout.Add(dateLabel);
 				itemabsoluteLayout.SetLayoutBounds(dateLabel, new Rect(3 * App.screenWidthAdapter, App.ItemHeight - (45 * App.screenHeightAdapter), App.ItemWidth - 6 * App.screenWidthAdapter, 40 * App.screenHeightAdapter));
 
-				Label nameLabel = new Label { FontFamily = "futuracondensedmedium", BackgroundColor = Colors.Transparent, VerticalTextAlignment = TextAlignment.Center, HorizontalTextAlignment = TextAlignment.Center, FontSize = 20 * App.screenWidthAdapter, TextColor = App.oppositeTextColor };
+				Label nameLabel = new Label { FontFamily = "futuracondensedmedium", BackgroundColor = Colors.Transparent, VerticalTextAlignment = TextAlignment.Center, HorizontalTextAlignment = TextAlignment.Center, FontSize = App.itemTitleFontSize, TextColor = App.oppositeTextColor };
 				nameLabel.SetBinding(Label.TextProperty, "name");
 
 				itemabsoluteLayout.Add(nameLabel);

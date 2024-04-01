@@ -48,8 +48,8 @@ namespace SportNow.CustomViews
             };
             Stroke = App.topColor;
             this.Padding = new Thickness(2,2,2,2);
-            
-            this.HeightRequest = 45 * App.screenHeightAdapter;
+
+            this.HeightRequest = 45 * App.entryHeightAdapter;
 
             //USERNAME ENTRY
             entry = new Entry

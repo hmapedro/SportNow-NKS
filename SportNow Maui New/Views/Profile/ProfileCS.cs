@@ -7,6 +7,7 @@ using System.Net;
 
 using SkiaSharp;
 using Syncfusion.Maui.Core;
+using SportNow.Views.Profile.AllPayments;
 
 namespace SportNow.Views.Profile
 {
@@ -118,10 +119,10 @@ namespace SportNow.Views.Profile
             LogManager logManager = new LogManager();
             _= await logManager.writeLog(App.original_member.id, App.member.id, "PROFILE VISIT", "Visit Profile Page");
             
-            scrollView = new ScrollView { Orientation = ScrollOrientation.Vertical, MaximumHeightRequest = (App.screenHeight) - 350 * App.screenHeightAdapter, MaximumWidthRequest = App.screenWidth - 20 * App.screenWidthAdapter};
+            scrollView = new ScrollView { Orientation = ScrollOrientation.Vertical, MaximumHeightRequest = (App.screenHeight) - 100 - 350 * App.screenHeightAdapter, MaximumWidthRequest = App.screenWidth - 20 * App.screenWidthAdapter};
 
 			absoluteLayout.Add(scrollView);
-            absoluteLayout.SetLayoutBounds(scrollView, new Rect(0, 325 * App.screenHeightAdapter, App.screenWidth, (App.screenHeight) - 325 * App.screenHeightAdapter));
+            absoluteLayout.SetLayoutBounds(scrollView, new Rect(0, 325 * App.screenHeightAdapter, App.screenWidth, (App.screenHeight) - 100 - 325 * App.screenHeightAdapter));
 
 
             int countStudents = App.original_member.students_count;
@@ -1006,8 +1007,11 @@ namespace SportNow.Views.Profile
 
 			if (App.member.currentFee is null)
 			{
+
+                showActivityIndicator();
 				var result_create = await memberManager.CreateFee(App.member.id, App.member.member_type, DateTime.Now.ToString("yyyy"));
-				if (result_create == "-1")
+                hideActivityIndicator();
+                if (result_create == "-1")
 				{
 					Application.Current.MainPage = new NavigationPage(new LoginPageCS("Verifique a sua ligação à Internet e tente novamente."))
 					{

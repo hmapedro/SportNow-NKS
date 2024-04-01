@@ -23,7 +23,7 @@ public static class MauiProgram
         builder.Logging.AddDebug();
 
 #endif
-        Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("Mjk4MzIzN0AzMjM0MmUzMDJlMzBLSEZ0a3U0Rlk3UVNjZWxBWmNtclJkOW5jVG1tWm52aGlUNng2THJsWkhnPQ==");
+        Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("MzE4OTkwN0AzMjM1MmUzMDJlMzBQVWp6TUNFNEllMG9FQjRMK1Y0TEQ2SHgyRWwwbCtOVmZzc3BUTGpwL3BzPQ==\n");
 
         //RegisterFirebase(builder);
         

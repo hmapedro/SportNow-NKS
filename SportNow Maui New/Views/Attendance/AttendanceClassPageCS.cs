@@ -289,8 +289,8 @@ namespace SportNow.Views
 			gridCount.Add(confirmadosLabel, 2, 0);
 
 			absoluteLayout.Add(gridCount);
-            absoluteLayout.SetLayoutBounds(gridCount, new Rect(0, App.screenHeight - 210 * App.screenHeightAdapter, App.screenWidth - 20 * App.screenWidthAdapter, 50 * App.screenHeightAdapter));
-            absoluteLayout.SetLayoutBounds(gridCount, new Rect(0, App.screenHeight - 210 * App.screenHeightAdapter, App.screenWidth - 20 * App.screenWidthAdapter, 50 * App.screenHeightAdapter));
+            //absoluteLayout.SetLayoutBounds(gridCount, new Rect(0, App.screenHeight - 210 * App.screenHeightAdapter, App.screenWidth - 20 * App.screenWidthAdapter, 50 * App.screenHeightAdapter));
+            absoluteLayout.SetLayoutBounds(gridCount, new Rect(0, App.screenHeight - 100 - 110 * App.screenHeightAdapter, App.screenWidth - 20 * App.screenWidthAdapter, 50 * App.screenHeightAdapter));
 		}
 
 

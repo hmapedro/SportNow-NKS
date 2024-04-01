@@ -118,7 +118,7 @@ namespace SportNow.Views.CompleteRegistration
 			payButton.button.Clicked += OnPayButtonClicked;
 
             absoluteLayout.Add(payButton);
-            absoluteLayout.SetLayoutBounds(payButton, new Rect(10 * App.screenWidthAdapter, (App.screenHeight) - (160 * App.screenHeightAdapter), (App.screenWidth - 20 * App.screenHeightAdapter), 50 * App.screenHeightAdapter));
+            absoluteLayout.SetLayoutBounds(payButton, new Rect(10 * App.screenWidthAdapter, (App.screenHeight) - 100 - 60 * App.screenHeightAdapter, (App.screenWidth - 20 * App.screenHeightAdapter), 50 * App.screenHeightAdapter));
 
             Label Label = new Label
             {

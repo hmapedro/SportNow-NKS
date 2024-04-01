@@ -15,6 +15,7 @@ namespace SportNow.Model
         public string status { get; set; }
         public string statusText { get; set; }
         public string participationid { get; set; }
+        public string type { get; set; }
 
     }
 

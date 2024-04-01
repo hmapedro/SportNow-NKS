@@ -52,12 +52,9 @@ namespace SportNow.Views.Profile
 		{
 			Debug.Print("SelectMemberPageCS.CleanScreen");
 			//valida se os objetos já foram criados antes de os remover
-			if (stackButtons != null)
+			if (collectionViewMembers != null)
             {
-				absoluteLayout.Remove(stackButtons);
 				absoluteLayout.Remove(collectionViewMembers);
-
-				stackButtons = null;
 				collectionViewMembers = null;
 			}
 
@@ -82,7 +79,7 @@ namespace SportNow.Views.Profile
 				confirmButton.button.Clicked += OnVoltarOriginalButtonClicked;
 
 				absoluteLayout.Add(confirmButton);
-				absoluteLayout.SetLayoutBounds(confirmButton, new Rect(10 * App.screenHeightAdapter, App.screenHeight - 160 * App.screenHeightAdapter, App.screenWidth - 20 * App.screenWidthAdapter, 50 * App.screenHeightAdapter));
+				absoluteLayout.SetLayoutBounds(confirmButton, new Rect(10 * App.screenHeightAdapter, App.screenHeight - 100 - (60 * App.screenHeightAdapter), App.screenWidth - 20 * App.screenWidthAdapter, 50 * App.screenHeightAdapter));
 
 			}
 		}
@@ -174,12 +171,12 @@ namespace SportNow.Views.Profile
 			if (App.original_member.id != App.member.id)
 			{
 				absoluteLayout.Add(collectionViewStudents);
-                absoluteLayout.SetLayoutBounds(collectionViewStudents, new Rect(0, 110 * App.screenHeightAdapter, App.screenWidth , App.screenHeight - 280 * App.screenHeightAdapter));
+                absoluteLayout.SetLayoutBounds(collectionViewStudents, new Rect(0, 110 * App.screenHeightAdapter, App.screenWidth , App.screenHeight -100 - (180 * App.screenHeightAdapter)));
 			}
 			else
 			{
 				absoluteLayout.Add(collectionViewStudents);
-                absoluteLayout.SetLayoutBounds(collectionViewStudents, new Rect(0, 110 * App.screenHeightAdapter, App.screenWidth, App.screenHeight - 220 * App.screenHeightAdapter));
+                absoluteLayout.SetLayoutBounds(collectionViewStudents, new Rect(0, 110 * App.screenHeightAdapter, App.screenWidth, App.screenHeight - 100 - (120 * App.screenHeightAdapter)));
             }
 
 		}

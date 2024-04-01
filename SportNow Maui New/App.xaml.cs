@@ -16,15 +16,15 @@ namespace SportNow
         public static Member original_member;
         public static Member member;
 
-        public static string VersionNumber = "1.0.2";
-        public static string BuildNumber = "20";
+        public static string VersionNumber = "1.0.7";
+        public static string BuildNumber = "25";
 
         public static Competition competition;
 
          public static Competition_Participation competition_participation;
          public static Event_Participation event_participation;
 
-        public static double screenWidthAdapter = 1, screenHeightAdapter = 1;
+        public static double screenWidthAdapter = 1, screenHeightAdapter = 1, entryHeightAdapter = 1;
          public static int consentFontSize = 0, bigTitleFontSize = 0, titleFontSize = 0, menuButtonFontSize = 0, formLabelFontSize = 0, formValueFontSize = 0, itemTitleFontSize = 0, itemTextFontSize = 0, smallTextFontSize = 0, formValueSmallFontSize = 0;
 
          public static int ItemWidth = 0, ItemHeight = 0;
@@ -304,6 +304,28 @@ namespace SportNow
                 }
 
             }
+
+            if (App.screenHeightAdapter < 1)
+            {
+                App.entryHeightAdapter = 1;
+            }
+            else
+            {
+                App.entryHeightAdapter = App.screenHeightAdapter;
+            }
+
+
+            Debug.Print("((mainDisplayInfo.Width) / mainDisplayInfo.Density) = " + ((mainDisplayInfo.Width) / mainDisplayInfo.Density));
+            Debug.Print("((mainDisplayInfo.Height) / mainDisplayInfo.Density)  = " + ((mainDisplayInfo.Height) / mainDisplayInfo.Density));
+
+            Debug.Print("App.screenWidthAdapter = " + App.screenWidthAdapter);
+            Debug.Print("App.screenHeightAdapter = " + App.screenHeightAdapter);
+
+            /*if (App.screenHeightAdapter < 1 )
+            {
+                App.screenHeightAdapter = 1;
+            }*/
+
             App.bigTitleFontSize = (int)(26 * fontresize);
             App.titleFontSize = (int)(18 * fontresize);
             App.menuButtonFontSize = (int)(14 * fontresize);

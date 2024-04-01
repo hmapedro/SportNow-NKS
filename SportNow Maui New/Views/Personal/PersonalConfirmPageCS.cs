@@ -67,13 +67,13 @@ namespace SportNow.Views.Personal
                 FontSize = App.titleFontSize
             };
             absoluteLayout.Add(objetivosExplicacaoLabel);
-            absoluteLayout.SetLayoutBounds(objetivosExplicacaoLabel, new Rect(10 * App.screenWidthAdapter, 40 * App.screenHeightAdapter, App.screenWidth, 20 * App.screenHeightAdapter));
+            absoluteLayout.SetLayoutBounds(objetivosExplicacaoLabel, new Rect(10 * App.screenWidthAdapter, 40 * App.screenHeightAdapter, App.screenWidth, 30 * App.screenHeightAdapter));
 
 
             objetivosEntry = new FormValueEditLongText("", Keyboard.Chat, 100);
 
             absoluteLayout.Add(objetivosEntry);
-            absoluteLayout.SetLayoutBounds(objetivosEntry, new Rect(10 * App.screenWidthAdapter, 65 * App.screenHeightAdapter, App.screenWidth - (20 * App.screenWidthAdapter), 100 * App.screenHeightAdapter));
+            absoluteLayout.SetLayoutBounds(objetivosEntry, new Rect(10 * App.screenWidthAdapter, 90 * App.screenHeightAdapter, App.screenWidth - (20 * App.screenWidthAdapter), 100 * App.screenHeightAdapter));
 
 
             Label numeroAulasLabel = new Label
@@ -86,7 +86,7 @@ namespace SportNow.Views.Personal
                 FontSize = App.titleFontSize
             };
             absoluteLayout.Add(numeroAulasLabel);
-            absoluteLayout.SetLayoutBounds(numeroAulasLabel, new Rect(10 * App.screenWidthAdapter, 180 * App.screenHeightAdapter, 170 * App.screenWidthAdapter, 40 * App.screenHeightAdapter));
+            absoluteLayout.SetLayoutBounds(numeroAulasLabel, new Rect(10 * App.screenWidthAdapter, 210 * App.screenHeightAdapter, 170 * App.screenWidthAdapter, 40 * App.screenHeightAdapter));
 
             valoresLabel = new Label
             {
@@ -97,7 +97,7 @@ namespace SportNow.Views.Personal
                 FontSize = App.itemTitleFontSize
             };
             absoluteLayout.Add(valoresLabel);
-            absoluteLayout.SetLayoutBounds(valoresLabel, new Rect(240 * App.screenWidthAdapter, 180 * App.screenHeightAdapter, App.screenWidth - (240 * App.screenWidthAdapter), 40 * App.screenHeightAdapter));
+            absoluteLayout.SetLayoutBounds(valoresLabel, new Rect(240 * App.screenWidthAdapter, 210 * App.screenHeightAdapter, App.screenWidth - (240 * App.screenWidthAdapter), 40 * App.screenHeightAdapter));
 
             List<string> numeroAulasList = new List<string>();
             numeroAulasList.Add("1");
@@ -137,7 +137,7 @@ namespace SportNow.Views.Personal
             numeroAulasPicker.SelectedIndex = 0;
 
             absoluteLayout.Add(numeroAulasPicker);
-            absoluteLayout.SetLayoutBounds(numeroAulasPicker, new Rect(185 * App.screenWidthAdapter, 180 * App.screenHeightAdapter, 30 * App.screenWidthAdapter, 40 * App.screenHeightAdapter));
+            absoluteLayout.SetLayoutBounds(numeroAulasPicker, new Rect(185 * App.screenWidthAdapter, 210 * App.screenHeightAdapter, 30 * App.screenWidthAdapter, 40 * App.entryHeightAdapter));
 
             Label disponibilidadeLabel = new Label
             {
@@ -148,7 +148,7 @@ namespace SportNow.Views.Personal
                 FontSize = App.bigTitleFontSize
             };
             absoluteLayout.Add(disponibilidadeLabel);
-            absoluteLayout.SetLayoutBounds(disponibilidadeLabel, new Rect(10 * App.screenWidthAdapter, 240 * App.screenHeightAdapter,App.screenWidth, 40 * App.screenHeightAdapter));
+            absoluteLayout.SetLayoutBounds(disponibilidadeLabel, new Rect(10 * App.screenWidthAdapter, 270 * App.screenHeightAdapter,App.screenWidth, 40 * App.screenHeightAdapter));
 
             Label disponibilidadeExplicacaoLabel = new Label
             {
@@ -159,21 +159,21 @@ namespace SportNow.Views.Personal
                 FontSize = App.itemTitleFontSize
             };
             absoluteLayout.Add(disponibilidadeExplicacaoLabel);
-            absoluteLayout.SetLayoutBounds(disponibilidadeExplicacaoLabel, new Rect(10 * App.screenWidthAdapter, 280 * App.screenHeightAdapter, App.screenWidth, 20 * App.screenHeightAdapter));
+            absoluteLayout.SetLayoutBounds(disponibilidadeExplicacaoLabel, new Rect(10 * App.screenWidthAdapter, 310 * App.screenHeightAdapter, App.screenWidth, 40 * App.screenHeightAdapter));
 
 
 
             disponibilidadeEntry = new FormValueEditLongText("", Keyboard.Chat, 100);
 
             absoluteLayout.Add(disponibilidadeEntry);
-            absoluteLayout.SetLayoutBounds(disponibilidadeEntry, new Rect(10 * App.screenWidthAdapter, 305 * App.screenHeightAdapter, App.screenWidth - (20 * App.screenWidthAdapter), 100 * App.screenHeightAdapter));
+            absoluteLayout.SetLayoutBounds(disponibilidadeEntry, new Rect(10 * App.screenWidthAdapter, 350 * App.screenHeightAdapter, App.screenWidth - (20 * App.screenWidthAdapter), 100 * App.screenHeightAdapter));
 
             RegisterButton personalClassesButton = new RegisterButton("ENVIAR PEDIDO", App.screenWidth - 20 * App.screenWidthAdapter, 50 * App.screenHeightAdapter);
             //personalClassesButton.button.BackgroundColor = App.topColor;
             personalClassesButton.button.Clicked += OnPersonalClassesButtonClicked;
 
             absoluteLayout.Add(personalClassesButton);
-            absoluteLayout.SetLayoutBounds(personalClassesButton, new Rect(0, App.screenHeight - 160 * App.screenHeightAdapter, App.screenWidth, 50 * App.screenHeightAdapter));
+            absoluteLayout.SetLayoutBounds(personalClassesButton, new Rect(0, App.screenHeight - 100 - 60 * App.screenHeightAdapter, App.screenWidth, 50 * App.screenHeightAdapter));
 
             hideActivityIndicator();
         }

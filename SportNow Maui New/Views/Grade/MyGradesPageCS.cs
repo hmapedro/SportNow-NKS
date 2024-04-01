@@ -54,7 +54,7 @@ namespace SportNow.Views
 
             CreateStackButtons(type);
 			CreateMinhasGraduacoesColletion();
-			CreateGraduacoesTiming();
+			//CreateGraduacoesTiming();
 			CreateProgramasExame();
 			//CreateParticipacoesEventosColletion();
 

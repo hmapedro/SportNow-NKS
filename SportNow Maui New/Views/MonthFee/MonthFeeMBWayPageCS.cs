@@ -123,7 +123,7 @@ namespace SportNow.Views
 
 
 			absoluteLayout.Add(payButton);
-            absoluteLayout.SetLayoutBounds(payButton, new Rect(0, App.screenHeight - 160 * App.screenHeightAdapter, App.screenWidth, 50 * App.screenHeightAdapter));
+            absoluteLayout.SetLayoutBounds(payButton, new Rect(0, App.screenHeight - 100 - 60 * App.screenHeightAdapter, App.screenWidth, 50 * App.screenHeightAdapter));
 
             absoluteLayout.Add(Label);
             absoluteLayout.SetLayoutBounds(Label, new Rect(22, 390 * App.screenHeightAdapter, App.screenWidth, 40 * App.screenHeightAdapter));

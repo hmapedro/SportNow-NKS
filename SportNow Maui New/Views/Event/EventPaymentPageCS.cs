@@ -186,6 +186,12 @@ namespace SportNow.Views
             absoluteLayout.Add(TermsPaymentMBWayLabel);
             absoluteLayout.SetLayoutBounds(TermsPaymentMBWayLabel, new Rect(0, 380 * App.screenHeightAdapter, App.screenWidth - 20 * App.screenHeightAdapter, 115 * App.screenHeightAdapter));
 
+            Label ifthenpayLabel = new Label { FontFamily = "futuracondensedmedium", BackgroundColor = Colors.Transparent, VerticalTextAlignment = TextAlignment.Center, HorizontalTextAlignment = TextAlignment.Center, FontSize = App.itemTitleFontSize, TextColor = Colors.Blue, LineBreakMode = LineBreakMode.WordWrap };
+            ifthenpayLabel.Text = "O valor acrescido corresponde à taxa de pagamento que a Ifthenpay cobra pela utilização e sincronização do seu serviço com a App.";
+
+            absoluteLayout.Add(ifthenpayLabel);
+            absoluteLayout.SetLayoutBounds(ifthenpayLabel, new Rect(0, 550 * App.screenHeightAdapter, App.screenWidth, 60 * App.screenHeightAdapter));
+
         }
 
         public EventPaymentPageCS(Event event_v, Event_Participation event_participation)

@@ -23,7 +23,7 @@ namespace SportNow.CustomViews
             Stroke = App.topColor; BackgroundColor = Colors.Transparent;
             this.Padding = new Thickness(1, 2, 2, 2);
             //this.MinimumHeightRequest = 50;
-            this.HeightRequest = 45 * App.screenHeightAdapter;
+            this.HeightRequest = 45 * App.entryHeightAdapter;
             this.VerticalOptions = LayoutOptions.Center;
 
             int selectedIndex_temp = 0;
