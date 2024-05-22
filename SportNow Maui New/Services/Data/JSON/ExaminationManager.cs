@@ -29,7 +29,7 @@ namespace SportNow.Services.Data.JSON
 
 		public async Task<List<Examination_Program>> GetExaminationProgramAll()
 		{
-			Debug.Print("GetExaminationProgramAll");
+			Debug.Print("GetExaminationProgramAll "+ Constants.RestUrl_Get_Examination_Program_All);
 			Uri uri = new Uri(string.Format(Constants.RestUrl_Get_Examination_Program_All, string.Empty));
 			try { 
 				HttpResponseMessage response = await client.GetAsync(uri);
@@ -39,9 +39,9 @@ namespace SportNow.Services.Data.JSON
 					//return true;
 					string content = await response.Content.ReadAsStringAsync();
 					examination_programs = JsonConvert.DeserializeObject<List<Examination_Program>>(content);
+                    Debug.Print("GetExaminationProgramAll content = " + content);
 
-
-				}
+                }
 
 				for (int i = 0; i < examination_programs.Count; i++)
 				{

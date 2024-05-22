@@ -352,9 +352,17 @@ namespace SportNow.Views
                     class_attendance.colorImage = "green.png";
 
                     alunosMarcados--;
-					marcadosLabel.Text = "Marcados - " + alunosMarcados;
+					if (marcadosLabel != null)
+					{
+                        marcadosLabel.Text = "Marcados - " + alunosMarcados;
+                    }
+					
 					alunosConfirmados++;
-					confirmadosLabel.Text = "Confirmados - " + alunosConfirmados;
+                    if (confirmadosLabel != null)
+                    {
+                        confirmadosLabel.Text = "Confirmados - " + alunosConfirmados;
+                    }
+                    
 				}
 				else if ((class_attendance.classattendanceid != null) &
 					((class_attendance.statuschanged == true) | ((class_attendance.statuschanged == false) & (class_attendance.status == "confirmada"))))
@@ -367,9 +375,16 @@ namespace SportNow.Views
 						class_attendance.colorImage = "green.png";
 
                         alunosMarcados--;
-						marcadosLabel.Text = "Marcados - " + alunosMarcados;
+                        if (marcadosLabel != null)
+                        {
+                            marcadosLabel.Text = "Marcados - " + alunosMarcados;
+                        }
 						alunosConfirmados++;
-						confirmadosLabel.Text = "Confirmados - " + alunosConfirmados;
+                        if (confirmadosLabel != null)
+                        {
+                            confirmadosLabel.Text = "Confirmados - " + alunosConfirmados;
+                        }
+                        
 
 					}
 					/*else if (class_attendance.status == "anulada")

@@ -71,8 +71,8 @@ namespace SportNow.Views
 		RoundButton personalClassesButton;
 		RoundButton technicalButton;
 
-		Image websiteImage, grupoFacebookImage;
-		Label websiteLabel, grupoFacebookLabel;
+		Image websiteImage, grupoFacebookImage, whatsappImage, documentosImage, manualNKSKidsImage;
+		Label websiteLabel, grupoFacebookLabel, whatsappLabel, documentosLabel, manualNKSKidsLabel;
 		Grid gridLinks;
 
         public void CleanScreen()
@@ -718,6 +718,9 @@ namespace SportNow.Views
             gridLinks.RowDefinitions.Add(new RowDefinition { Height = 35 * App.screenHeightAdapter });
             //gridGeral.RowDefinitions.Add(new RowDefinition { Height = 1 });
             gridLinks.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Star }); //GridLength.Auto
+            gridLinks.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Star }); //GridLength.Auto
+            gridLinks.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Star }); //GridLength.Auto
+            gridLinks.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Star }); //GridLength.Auto
             gridLinks.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Star }); //GridLength.Auto 
 
             grupoFacebookImage = new Image
@@ -775,6 +778,87 @@ namespace SportNow.Views
             gridLinks.Add(websiteImage, 1, 0);
             gridLinks.Add(websiteLabel, 1, 1);
 
+            whatsappImage = new Image
+            {
+                Source = "whatapp.png",
+                Aspect = Aspect.AspectFit,
+                HeightRequest = 35 * App.screenHeightAdapter,
+                WidthRequest = 35 * App.screenHeightAdapter
+            };
+
+            TapGestureRecognizer whatsapp_tapEvent = new TapGestureRecognizer();
+            whatsapp_tapEvent.Tapped += WhatsAppImage_Clicked;
+            whatsappImage.GestureRecognizers.Add(whatsapp_tapEvent);
+
+            whatsappLabel = new Label
+            {
+                FontFamily = "futuracondensedmedium",
+                Text = "WhatsApp NKS",
+                TextColor = App.normalTextColor,
+                HorizontalTextAlignment = TextAlignment.Center,
+                VerticalTextAlignment = TextAlignment.Start,
+                FontSize = App.itemTextFontSize
+            };
+            whatsappLabel.GestureRecognizers.Add(whatsapp_tapEvent);
+
+
+            gridLinks.Add(whatsappImage, 2, 0);
+            gridLinks.Add(whatsappLabel, 2, 1);
+
+            documentosImage = new Image
+            {
+                Source = "documentos.png",
+                Aspect = Aspect.AspectFit,
+                HeightRequest = 35 * App.screenHeightAdapter,
+                WidthRequest = 35 * App.screenHeightAdapter
+            };
+
+            TapGestureRecognizer documentos_tapEvent = new TapGestureRecognizer();
+            documentos_tapEvent.Tapped += documentosImage_Clicked;
+            documentosImage.GestureRecognizers.Add(documentos_tapEvent);
+
+            documentosLabel = new Label
+            {
+                FontFamily = "futuracondensedmedium",
+                Text = "Documentos NKS",
+                TextColor = App.normalTextColor,
+                HorizontalTextAlignment = TextAlignment.Center,
+                VerticalTextAlignment = TextAlignment.Start,
+                FontSize = App.itemTextFontSize
+            };
+            documentosLabel.GestureRecognizers.Add(documentos_tapEvent);
+
+
+            gridLinks.Add(documentosImage, 3, 0);
+            gridLinks.Add(documentosLabel, 3, 1);
+
+		 	manualNKSKidsImage= new Image
+            {
+                Source = "manual_nks_kids.png",
+                Aspect = Aspect.AspectFit,
+                HeightRequest = 35 * App.screenHeightAdapter,
+                WidthRequest = 35 * App.screenHeightAdapter
+            };
+
+            TapGestureRecognizer manualNKSKids_tapEvent = new TapGestureRecognizer();
+            manualNKSKids_tapEvent.Tapped += manualNKSKidsImage_Clicked;
+            manualNKSKidsImage.GestureRecognizers.Add(manualNKSKids_tapEvent);
+
+            manualNKSKidsLabel = new Label
+            {
+                FontFamily = "futuracondensedmedium",
+                Text = "Manual NKS Kids",
+                TextColor = App.normalTextColor,
+                HorizontalTextAlignment = TextAlignment.Center,
+                VerticalTextAlignment = TextAlignment.Start,
+                FontSize = App.itemTextFontSize
+            };
+            manualNKSKidsLabel.GestureRecognizers.Add(manualNKSKids_tapEvent);
+
+
+            gridLinks.Add(manualNKSKidsImage, 4, 0);
+            gridLinks.Add(manualNKSKidsLabel, 4, 1);
+
             absoluteLayout.Add(gridLinks);
             //absoluteLayout.SetLayoutBounds(gridLinks, new Rect(0, App.screenHeight - 110 - (125 * App.screenHeightAdapter), App.screenWidth, 75 * App.screenHeightAdapter));
             absoluteLayout.SetLayoutBounds(gridLinks, new Rect(0, feesOrQuoteY, App.screenWidth, 75 * App.screenHeightAdapter));
@@ -804,6 +888,39 @@ namespace SportNow.Views
             try
             {
                 await Browser.OpenAsync("https://karatesangalhos.pt/", BrowserLaunchMode.SystemPreferred);
+            }
+            catch (Exception ex)
+            {
+            }
+        }
+
+        async void WhatsAppImage_Clicked(object sender, EventArgs e)
+        {
+            try
+            {
+                await Browser.OpenAsync("https://chat.whatsapp.com/LQa034akZ2p1WIfcWNnR7n", BrowserLaunchMode.SystemPreferred);
+            }
+            catch (Exception ex)
+            {
+            }
+        }
+
+        async void documentosImage_Clicked(object sender, EventArgs e)
+        {
+            try
+            {
+                await Browser.OpenAsync("https://nks-server.synology.me:5011/d/s/xzxkmvCFKAV4v9B4829wBMzIYg28Crdd/3L8uf_sjAZuCFk2dH90A5ofBL25sRKyF-qLdA0X6TRQs", BrowserLaunchMode.SystemPreferred);
+            }
+            catch (Exception ex)
+            {
+            }
+        }
+
+        async void manualNKSKidsImage_Clicked(object sender, EventArgs e)
+        {
+            try
+            {
+                await Browser.OpenAsync("https://karatesangalhos.pt/files/MANUAL_NKS_KIDS%20_21_Nov_2023.pdf", BrowserLaunchMode.SystemPreferred);
             }
             catch (Exception ex)
             {
@@ -1033,12 +1150,15 @@ namespace SportNow.Views
 				Class_Schedule class_schedule = (sender as CollectionView).SelectedItems[0] as Class_Schedule;
 				if (class_schedule.classattendanceid == null)
 				{
+                    string class_attendance_id = await classmanager.CreateClass_Attendance(App.member.id, class_schedule.classid, "confirmada", class_schedule.date);
+                    class_schedule.classattendanceid = class_attendance_id;
+					/*
                     Task.Run(async () =>
                     {
                         string class_attendance_id = await classmanager.CreateClass_Attendance(App.member.id, class_schedule.classid, "confirmada", class_schedule.date);
                         class_schedule.classattendanceid = class_attendance_id;
                         return true;
-                    });
+                    });*/
                     //string class_attendance_id = await classmanager.CreateClass_Attendance(App.member.id, class_schedule.classid, "confirmada", class_schedule.date);
                     /*                    string class_attendance_id =  classmanager.CreateClass_Attendance_sync(App.member.id, class_schedule.classid, "confirmada", class_schedule.date);
                                         */

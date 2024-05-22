@@ -403,7 +403,7 @@ namespace SportNow.Views
 			List<Examination_Program> programasExameAll = await examinationManager.GetExaminationProgramAll();
 			if (programasExameAll == null)
 			{
-								Application.Current.MainPage = new NavigationPage(new LoginPageCS("Verifique a sua ligação à Internet e tente novamente."))
+				Application.Current.MainPage = new NavigationPage(new LoginPageCS("Verifique a sua ligação à Internet e tente novamente."))
 				{
 					BarBackgroundColor = App.backgroundColor,
 					BarTextColor = App.normalTextColor

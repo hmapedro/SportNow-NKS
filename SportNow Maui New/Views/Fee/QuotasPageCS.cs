@@ -89,7 +89,8 @@ namespace SportNow.Views
 			gridInactiveFee.RowDefinitions.Add(new RowDefinition { Height = GridLength.Star });
 			gridInactiveFee.RowDefinitions.Add(new RowDefinition { Height = 50 });
 			gridInactiveFee.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Star }); //
-			gridInactiveFee.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Star }); //GridLength.Auto 
+            gridInactiveFee.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Star }); //
+            gridInactiveFee.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Star }); //GridLength.Auto 
 
 			Label feeYearLabel = new Label
 			{
@@ -105,14 +106,21 @@ namespace SportNow.Views
 			Image akslLogoFee = new Image
 			{
 				Source = "company_logo.png",
-				WidthRequest = 100,
+				WidthRequest = 80,
                 Opacity = 0.50
             };
 
-			Image fnkpLogoFee = new Image
+            Image awikpLogoFee = new Image
+            {
+                Source = "logo_awikp.png",
+                WidthRequest = 80,
+                Opacity = 0.50
+            };
+
+            Image fnkpLogoFee = new Image
 			{
 				Source = "logo_fnkp.png",
-				WidthRequest = 100,
+				WidthRequest = 80,
                 Opacity = 0.50
             };
 
@@ -142,19 +150,20 @@ namespace SportNow.Views
 
 
             gridInactiveFee.Add(feeYearLabel, 0, 0);
-			Microsoft.Maui.Controls.Grid.SetColumnSpan(feeYearLabel, 2);
+			Microsoft.Maui.Controls.Grid.SetColumnSpan(feeYearLabel, 3);
 
 			gridInactiveFee.Add(fnkpLogoFee, 0, 1);
-			gridInactiveFee.Add(akslLogoFee, 1, 1);
+            gridInactiveFee.Add(awikpLogoFee, 1, 1);
+            gridInactiveFee.Add(akslLogoFee, 2, 1);
 
 			gridInactiveFee.Add(feeInactiveLabel, 0, 2);
-			Microsoft.Maui.Controls.Grid.SetColumnSpan(feeInactiveLabel, 2);
+			Microsoft.Maui.Controls.Grid.SetColumnSpan(feeInactiveLabel, 3);
 
 			gridInactiveFee.Add(feeInactiveCommentLabel, 0, 3);
-			Microsoft.Maui.Controls.Grid.SetColumnSpan(feeInactiveCommentLabel, 2);
+			Microsoft.Maui.Controls.Grid.SetColumnSpan(feeInactiveCommentLabel, 3);
 
 			gridInactiveFee.Add(activateButton, 0, 5);
-			Microsoft.Maui.Controls.Grid.SetColumnSpan(activateButton, 2);
+			Microsoft.Maui.Controls.Grid.SetColumnSpan(activateButton, 3);
 
 
 			absoluteLayout.Add(gridInactiveFee);
@@ -173,8 +182,9 @@ namespace SportNow.Views
 			gridActiveFee.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
 			gridActiveFee.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Star }); //GridLength.Auto
 			gridActiveFee.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Star }); //GridLength.Auto 
+            gridInactiveFee.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Star }); //GridLength.Auto
 
-			Label feeYearLabel = new Label
+            Label feeYearLabel = new Label
 			{
 				Text = DateTime.Now.ToString("yyyy"),
 				VerticalTextAlignment = TextAlignment.Center,
@@ -187,13 +197,20 @@ namespace SportNow.Views
 			Image akslLogoFee = new Image
 			{
 				Source = "company_logo.png",
-				WidthRequest = 100
+				WidthRequest = 80
 			};
 
-			Image fnkpLogoFee = new Image
+
+            Image awikpLogoFee = new Image
+            {
+                Source = "logo_awikp.png",
+                WidthRequest = 80,
+            };
+
+            Image fnkpLogoFee = new Image
 			{
 				Source = "logo_fnkp.png",
-				WidthRequest = 100
+				WidthRequest = 80
 
 			};
 
@@ -204,7 +221,7 @@ namespace SportNow.Views
 				HorizontalTextAlignment = TextAlignment.Center,
 				TextColor = App.topColor,
 				LineBreakMode = LineBreakMode.NoWrap,
-				FontSize = 40
+				FontSize = App.bigTitleFontSize
 			};
 
 			Label feeActiveDueDateLabel = new Label
@@ -214,21 +231,22 @@ namespace SportNow.Views
 				HorizontalTextAlignment = TextAlignment.Center,
 				TextColor = App.normalTextColor,
 				LineBreakMode = LineBreakMode.NoWrap,
-				FontSize = 35
+				FontSize = App.bigTitleFontSize
 			};
 
 
 			gridActiveFee.Add(feeYearLabel, 0, 0);
-			Microsoft.Maui.Controls.Grid.SetColumnSpan(feeYearLabel, 2);
+			Microsoft.Maui.Controls.Grid.SetColumnSpan(feeYearLabel, 3);
 
 			gridActiveFee.Add(fnkpLogoFee, 0, 1);
-			gridActiveFee.Add(akslLogoFee, 1, 1);
+			gridActiveFee.Add(awikpLogoFee, 1, 1);
+            gridActiveFee.Add(akslLogoFee, 2, 1);
 
-			gridActiveFee.Add(feeActiveLabel, 0, 2);
-			Microsoft.Maui.Controls.Grid.SetColumnSpan(feeActiveLabel, 2);
+            gridActiveFee.Add(feeActiveLabel, 0, 2);
+			Microsoft.Maui.Controls.Grid.SetColumnSpan(feeActiveLabel, 3);
 
 			gridActiveFee.Add(feeActiveDueDateLabel, 0, 3);
-			Microsoft.Maui.Controls.Grid.SetColumnSpan(feeActiveDueDateLabel, 2);
+			Microsoft.Maui.Controls.Grid.SetColumnSpan(feeActiveDueDateLabel, 3);
 
 			absoluteLayout.Add(gridActiveFee);
             absoluteLayout.SetLayoutBounds(gridActiveFee, new Rect(0, 10 * App.screenHeightAdapter, App.screenWidth, App.screenHeight - 10 * App.screenHeightAdapter));

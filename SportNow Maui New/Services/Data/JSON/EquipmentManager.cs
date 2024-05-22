@@ -50,7 +50,7 @@ namespace SportNow.Services.Data.JSON
 
 		public async Task<string> CreateEquipmentOrder(string userid, string username, string equipmentid, string equipmentname)
 		{
-			Debug.Print("CreateEquipmentOrder");
+			Debug.Print("CreateEquipmentOrder "+ Constants.RestUrl_Create_EquipmentOrder + "?userid=" + userid + "&username=" + username + "&equipmentid=" + equipmentid + "&equipmentname=" + equipmentname);
 			Uri uri = new Uri(string.Format(Constants.RestUrl_Create_EquipmentOrder + "?userid="+userid + "&username="+username+"&equipmentid="+equipmentid+"&equipmentname="+ equipmentname, string.Empty));
 			try
 			{

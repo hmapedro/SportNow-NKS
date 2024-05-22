@@ -8,6 +8,7 @@ using System.Net;
 using SkiaSharp;
 using Syncfusion.Maui.Core;
 using SportNow.Views.Profile.AllPayments;
+using Microsoft.Maui.Graphics.Platform;
 
 namespace SportNow.Views.Profile
 {
@@ -195,8 +196,8 @@ namespace SportNow.Views.Profile
             };
 
             var result = await GetCurrentFees(App.member);
-
-			bool hasQuotaPayed = false;
+            Debug.Print("member.currentFee = " + App.member.currentFee.name);
+            bool hasQuotaPayed = false;
 
 			if (App.member.currentFee != null)
 			{
@@ -241,7 +242,7 @@ namespace SportNow.Views.Profile
 
         }
 
-        public async void CreatePaymentsButton()
+        public async Task<int> CreatePaymentsButton()
         {
             PaymentManager paymentManager = new PaymentManager();
             App.member.payments = await paymentManager.GetAllPayments_byUserId(App.member.id);
@@ -280,11 +281,11 @@ namespace SportNow.Views.Profile
                 absoluteLayout.SetLayoutBounds(pagamentosLabel, new Rect((App.screenWidth) - (60 * App.screenHeightAdapter), (y_button_right + 37) * App.screenHeightAdapter, 60 * App.screenHeightAdapter, 15 * App.screenHeightAdapter));
 
                 y_button_right = y_button_right + 60;
-
+                return 1;
             }
             else
             {
-                return;
+                return 0;
             }
         }
 
@@ -607,7 +608,7 @@ namespace SportNow.Views.Profile
             createChangePasswordButton();
             //CreateObjectivesButton();
 			_ = await CreateQuotaButton();
-            CreatePaymentsButton();
+            _ = await CreatePaymentsButton();
         }
 
 		public void CreateGridGeral() {
@@ -1050,7 +1051,7 @@ namespace SportNow.Views.Profile
         }
 
 
-        async Task<int> GetCurrentFees(Member member)
+        async Task<int> GetCurrentFees(Model.Member member)
 		{
 			Debug.WriteLine("GetCurrentFees");
 			MemberManager memberManager = new MemberManager();
@@ -1066,44 +1067,53 @@ namespace SportNow.Views.Profile
 				return -1;
 			}
 			return result;
-		}
+        }
 
 
-		async Task<string> UpdateMemberInfo()
+        public async Task<string> ValidateMemberData()
+        {
+            if (string.IsNullOrEmpty(postalcodeValue.entry.Text))
+            {
+                postalcodeValue.entry.Text = "";
+            }
+
+            Debug.WriteLine("ValidateMemberData " + nameValue.entry.Text);
+            if (nameValue.entry.Text == "")
+            {
+                nameValue.entry.Text = App.member.name;
+                await DisplayAlert("DADOS INVÁLIDOS", "O nome introduzido não é válido.", "Ok");
+                return "-1";
+            }
+
+            else if (phoneValue.entry.Text == null)
+            {
+                phoneValue.entry.Text = App.member.phone;
+                await DisplayAlert("DADOS INVÁLIDOS", "Tem de introduzir o telefone.", "Ok");
+                return "-1";
+            }
+            else if (!Regex.IsMatch(phoneValue.entry.Text, @"^\+?(\d[\d-. ]+)?(\([\d-. ]+\))?[\d-. ]+\d$"))
+            {
+                phoneValue.entry.Text = App.member.phone;
+                await DisplayAlert("DADOS INVÁLIDOS", "O telefone introduzido não é válido.", "Ok");
+                return "-1";
+            }
+            else if (!Regex.IsMatch((postalcodeValue.entry.Text), @"^\d{4}-\d{3}$"))
+            {
+                postalcodeValue.entry.Text = App.member.postalcode;
+                await DisplayAlert("DADOS INVÁLIDOS", "O código postal introduzido não é válido.", "Ok");
+                return "-1";
+            }
+            return "0";
+        }
+        
+
+async Task<string> UpdateMemberInfo()
 		{
 			Debug.Print("AQUIIII UpdateMemberInfo");
 
 			if (App.member != null)
 			{
-                if (string.IsNullOrEmpty(postalcodeValue.entry.Text)) {
-					postalcodeValue.entry.Text = "";
-				}
-
-				Debug.WriteLine("UpdateMemberInfo " + nameValue.entry.Text);
-				if (nameValue.entry.Text == "")
-				{
-					nameValue.entry.Text = App.member.name;
-                    await DisplayAlert("DADOS INVÁLIDOS", "O nome introduzido não é válido.", "Ok" );
-					return "-1";
-				}
-				else if (phoneValue.entry.Text == null)
-                {
-                    phoneValue.entry.Text = App.member.phone;
-                    await DisplayAlert("DADOS INVÁLIDOS", "Tem de introduzir o telefone.", "Ok" );
-                    return "-1";
-                }
-                else if (!Regex.IsMatch(phoneValue.entry.Text, @"^\+?(\d[\d-. ]+)?(\([\d-. ]+\))?[\d-. ]+\d$"))
-				{
-					phoneValue.entry.Text = App.member.phone;
-                    await DisplayAlert("DADOS INVÁLIDOS", "O telefone introduzido não é válido.", "Ok" );
-					return "-1";
-				}
-				else if (!Regex.IsMatch((postalcodeValue.entry.Text), @"^\d{4}-\d{3}$"))
-				{
-					postalcodeValue.entry.Text = App.member.postalcode;
-                    await DisplayAlert("DADOS INVÁLIDOS", "O código postal introduzido não é válido.", "Ok" );
-					return "-1";
-				}
+                ValidateMemberData();
 				
 				Debug.WriteLine("UpdateMemberInfo "+ App.member.name);
 				App.member.name = nameValue.entry.Text;
@@ -1123,9 +1133,6 @@ namespace SportNow.Views.Profile
                 App.member.faturacao_cidade = FaturaCidadeValue.entry.Text;
                 App.member.faturacao_codpostal = CodPostalValue.entry.Text;
                 App.member.faturacao_nif = FaturaNIFValue.entry.Text;
-
-
-
 
                 //App.member.faturacao_nome = EncEducacao2MailValue.entry.Text;
 
@@ -1155,8 +1162,6 @@ namespace SportNow.Views.Profile
         async Task<string> displayMemberPhotoImageActionSheet()
         {
             var actionSheet = await DisplayActionSheet("Fotografia Sócio", "Cancel", null, "Tirar Foto", "Galeria de Imagens");
-            MemberManager memberManager = new MemberManager();
-            string result = "";
             switch (actionSheet)
             {
                 case "Cancel":
@@ -1168,110 +1173,53 @@ namespace SportNow.Views.Profile
                     OpenGalleryTapped();
                     break;
             }
-            /*Device.BeginInvokeOnMainThread(() =>
-			{
-				var fileName = SetImageFileName();
-				DependencyService.Get<CameraInterface>().LaunchCamera(FileFormatEnum.JPEG, fileName);
-			});*/
-
             return "";
         }
 
+
         async void OpenGalleryTapped()
         {
-            var result = await MediaPicker.PickPhotoAsync(new MediaPickerOptions
-            {
-                Title = "Por favor escolha uma foto"
-            });
+            showActivityIndicator();
 
+            ImageService imageService = new ImageService();
+            var result = await imageService.PickPhotoAsync();
+
+            
             if (result != null)
             {
-                Stream stream_aux = await result.OpenReadAsync();
-                Stream localstream = await result.OpenReadAsync();
+                stream = await Constants.ResizePhotoStream(result); //result.OpenReadAsync();
+                Stream localstream = await Constants.ResizePhotoStream(result);  //await result.OpenReadAsync();
 
                 memberPhotoImage.Source = ImageSource.FromStream(() => localstream);
-                if (DeviceInfo.Platform == DevicePlatform.iOS)
-                {
-                    memberPhotoImage.Rotation = 0;
-                    stream = RotateBitmap(stream_aux, 0);
-                }
-                else
-                {
-                    memberPhotoImage.Rotation = 0;
-                    stream = RotateBitmap(stream_aux, 90);
-                }
-
                 MemberManager memberManager = new MemberManager();
-                memberManager.Upload_Member_Photo(stream);
-            }
+                await memberManager.Upload_Member_Photo(stream);
 
+            }
+            hideActivityIndicator();
         }
+
 
         async void TakeAPhotoTapped()
         {
-            FileResult result = null;
-            try
-            {
-                result = await MediaPicker.CapturePhotoAsync();
-            }
-            catch (Microsoft.Maui.ApplicationModel.PermissionException e)
-            {
-                await DisplayAlert("ACESSO À CÂMERA", "Para poder tirar uma foto tem de autorizar o acesso à câmera indo às definições no seu telefone.", "Ok");
-                return;
-            }
+            showActivityIndicator();
+            ImageService imageService = new ImageService();
+            var result = await imageService.CapturePhotoAsync();
 
+            
             if (result != null)
             {
-                Stream stream_aux = await result.OpenReadAsync();
-                Stream localstream = await result.OpenReadAsync();
+                stream = await Constants.ResizePhotoStream(result); //result.OpenReadAsync();
+                Stream localstream = await Constants.ResizePhotoStream(result);  //await result.OpenReadAsync();
 
                 memberPhotoImage.Source = ImageSource.FromStream(() => localstream);
-                if (DeviceInfo.Platform == DevicePlatform.iOS)
-                {
-                    memberPhotoImage.Rotation = 0;
-                    stream = RotateBitmap(stream_aux, 0);
-                }
-                else
-                {
-                    memberPhotoImage.Rotation = 90;
-                    stream = RotateBitmap(stream_aux, 90);
-                }
-                
+
                 MemberManager memberManager = new MemberManager();
-                memberManager.Upload_Member_Photo(stream);
+                await memberManager.Upload_Member_Photo(stream);
             }
+
+            hideActivityIndicator();
 
         }
 
-        public Stream RotateBitmap(Stream _stream, int angle)
-        {
-            Stream streamlocal = null;
-            SKBitmap bitmap = SKBitmap.Decode(_stream);
-            SKBitmap rotatedBitmap = new SKBitmap(bitmap.Height, bitmap.Width);
-            if (angle != 0)
-            {
-                using (var surface = new SKCanvas(rotatedBitmap))
-                {
-                    //surface.Clear();
-                    surface.Translate(rotatedBitmap.Width, 0);
-                    surface.RotateDegrees(angle);
-                    surface.DrawBitmap(bitmap, 0, 0);
-                }
-            }
-            else
-            {
-                rotatedBitmap = bitmap;
-            }
-
-            using (MemoryStream memStream = new MemoryStream())
-            using (SKManagedWStream wstream = new SKManagedWStream(memStream))
-            {
-                rotatedBitmap.Encode(wstream, SKEncodedImageFormat.Jpeg, 50);
-                byte[] data = memStream.ToArray();
-                streamlocal = new MemoryStream(data);
-            }
-            return streamlocal;
-
-        }
     }
 }

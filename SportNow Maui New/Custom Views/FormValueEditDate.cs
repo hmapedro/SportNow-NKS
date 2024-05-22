@@ -1,5 +1,6 @@
 ﻿/*--using CommunityToolkit.Maui.Markup;
 using CommunityToolkit.Maui.Behaviors;*/
+using CommunityToolkit.Maui.Behaviors;
 
 
 using Microsoft.Maui.Controls.Shapes;
@@ -82,6 +83,25 @@ public class FormValueEditDate : Border
 
             /*--MaskedBehavior maskedBehavior = new MaskedBehavior() { Mask = "XXXX-XX-XX" };
             entry.Behaviors.Add(maskedBehavior);*/
+
+            var behavior = new MaskedBehavior
+            {
+                UnmaskedCharacter = 'X',
+                Mask = "XXXX-XX-XX"
+            };
+#if ANDROID
+            entry.TextChanged += OnTextChanged;
+#endif
+            entry.Behaviors.Add(behavior);
+            this.Content = entry;
+
+
         }
-     }
+#if ANDROID
+        protected void OnTextChanged(object sender, EventArgs e)
+        {
+            (sender as Entry).CursorPosition = (sender as Entry).Text.Length;
+        }
+#endif
+    }
 }

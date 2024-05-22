@@ -16,8 +16,8 @@ namespace SportNow
         public static Member original_member;
         public static Member member;
 
-        public static string VersionNumber = "1.0.7";
-        public static string BuildNumber = "25";
+        public static string VersionNumber = "1.0.15";
+        public static string BuildNumber = "33";
 
         public static Competition competition;
 
@@ -50,6 +50,15 @@ namespace SportNow
         public static double screenWidth = (DeviceDisplay.MainDisplayInfo.Width / DeviceDisplay.MainDisplayInfo.Density) - 10 * App.screenWidthAdapter;
         public static double screenHeight = (DeviceDisplay.MainDisplayInfo.Height / DeviceDisplay.MainDisplayInfo.Density) - 10 * App.screenWidthAdapter;
 
+        protected override Window CreateWindow(IActivationState activationState)
+        {
+            if (this.MainPage == null)
+            {
+                this.MainPage = new MainPage();
+            }
+
+            return base.CreateWindow(activationState);
+        }
 
         public App(bool hasNotification = false, object notificationData = null)
          {
@@ -388,18 +397,6 @@ namespace SportNow
             }
             //return "";
         }
-
-        /*protected override Window CreateWindow(IActivationState activationState)
-        {
-            Debug.Print("OLAAAA");
-            if (this.MainPage == null)
-            {
-                this.MainPage = new MainTabbedPageCS(null,null);
-            }
-
-                return base.CreateWindow(activationState);
-        }*/
-
     }
 
 }

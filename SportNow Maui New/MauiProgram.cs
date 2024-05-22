@@ -1,4 +1,7 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using System.Diagnostics;
+using CommunityToolkit.Maui;
+using CommunityToolkit.Maui.Markup;
+using Microsoft.Extensions.Logging;
 using Microsoft.Maui.LifecycleEvents;
 using Plugin.BetterFirebasePushNotification;
 using Syncfusion.Maui.Core.Hosting;
@@ -11,13 +14,28 @@ public static class MauiProgram
 	{
         Microsoft.Maui.Hosting.MauiAppBuilder builder = Microsoft.Maui.Hosting.MauiApp.CreateBuilder();
 		builder
-			.UseMauiApp<App>()
+#if DEBUG
+            .UseMauiCommunityToolkit(options =>
+            {
+                options.SetShouldEnableSnackbarOnWindows(true);
+            })
+#else
+			.UseMauiCommunityToolkit(options =>
+			{
+				options.SetShouldEnableSnackbarOnWindows(true);
+				options.SetShouldSuppressExceptionsInConverters(true);
+				options.SetShouldSuppressExceptionsInBehaviors(true);
+				options.SetShouldSuppressExceptionsInAnimations(true);
+			})
+#endif
+            .UseMauiCommunityToolkitMarkup()//.UseMauiCommunityToolkitMarkup()
+            .UseMauiApp<App>()
             .ConfigureSyncfusionCore()
             .ConfigureFonts(fonts =>
-			{
+            {
                 fonts.AddFont("futura medium condensed bt.ttf", "futuracondensedmedium");
-				fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
-			});
+                //fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
+            });
 
 #if DEBUG
         builder.Logging.AddDebug();
@@ -68,7 +86,8 @@ public static class MauiProgram
 #endif
         });
         builder.Services.AddSingleton<IPushNotificationHandler, DefaultPushNotificationHandler>();
-        
+
+        builder.Services.AddTransient<IImageService, ImageService>();
 
         return builder.Build();
 	}
@@ -88,6 +107,8 @@ public static class MauiProgram
             }));
 #endif
         });
+
+        
 
         return builder;
     }

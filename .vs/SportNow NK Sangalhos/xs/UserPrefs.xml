@@ -1,31 +1,31 @@
-﻿<Properties StartupConfiguration="{EC5D49C5-D33B-48B6-8C2F-E6E270563ECA}|Default">
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Release" />
+﻿<Properties GitUserInfo="UsingGIT" StartupConfiguration="{EC5D49C5-D33B-48B6-8C2F-E6E270563ECA}|Default">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.MonoDroid LastDeploySdkVersion="34.0.95" />
   <MultiItemStartupConfigurations />
+  <Xamarin.Addins.Core.Project ActiveDebugTarget="MyAppleMacCatalystID" />
+  <Debugger.DebugSourceFolders>
+    <String>/Users/hugopedro/Library/Caches/VisualStudio/17.0/Symbols/raw.githubusercontent.com/xamarin/xamarin-android/f68622cf6b97fa23cc3d3105a52ef5b2e31d52a1</String>
+  </Debugger.DebugSourceFolders>
+  <MonoDevelop.Ide.ItemProperties.NK_220Sangalhos PreferredExecutionTarget="MyAppleMacCatalystID" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
-  <Xamarin.Addins.Core.Project ActiveDebugTarget="Android.R9PT714NKXR" />
-  <MonoDevelop.MonoDroid LastDeploySdkVersion="34.0.0-preview.7.382" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="SportNow Maui New/NK Sangalhos.csproj">
+  <MonoDevelop.Ide.Workbench ActiveDocument="SportNow Maui New/Platforms/iOS/Info.plist">
     <Files>
-      <File FileName="SportNow Maui New/Views/MainTabbedPageCS.cs" />
-      <File FileName="SportNow Maui New/Views/CompleteRegistration/CompleteRegistration_Begin_PageCS.cs" />
-      <File FileName="SportNow Maui New/Views/CompleteRegistration/ConsentPageCS.cs" />
-      <File FileName="SportNow Maui New/Views/Event/AllEventsPageCS.cs" />
-      <File FileName="SportNow Maui New/Views/CompleteRegistration/CompleteRegistration_Documents_PageCS.cs" Line="142" Column="5" />
-      <File FileName="SportNow Maui New/Platforms/iOS/Program.cs" />
-      <File FileName="../SportNow ADCPN/SportNow/Views/CompleteRegistration/CompleteRegistration_Documents_PageCS.cs" />
-      <File FileName="SportNow Maui New/NK Sangalhos.csproj" Line="69" Column="17" />
+      <File FileName="SportNow Maui New/Platforms/Android/MainActivity.cs" />
+      <File FileName="SportNow Maui New/App.xaml.cs" />
+      <File FileName="SportNow Maui New/Constants.cs" Line="104" Column="60" />
+      <File FileName="SportNow Maui New/Platforms/iOS/Info.plist" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="SportNow NK Sangalhos" expanded="True">
-            <Node name="NK Sangalhos" selected="True">
-              <Node name="Resources" expanded="True" />
-              <Node name="Views" expanded="True">
-                <Node name="CompleteRegistration" expanded="True" />
-                <Node name="Event" expanded="True" />
+            <Node name="NK Sangalhos">
+              <Node name="Platforms">
+                <Node name="iOS" expanded="True">
+                  <Node name="Info.plist" selected="True" />
+                </Node>
               </Node>
             </Node>
           </Node>
@@ -33,6 +33,5 @@
       </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>
-  <MonoDevelop.Ide.ItemProperties.NK_220Sangalhos PreferredExecutionTarget="Android.R9PT714NKXR" />
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
 </Properties>
