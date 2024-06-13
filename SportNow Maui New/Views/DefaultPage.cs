@@ -119,7 +119,7 @@ namespace SportNow.Views
 
             absoluteLayout = new AbsoluteLayout
             {
-				Margin = new Thickness(5 * App.screenWidthAdapter)
+				Margin = new Thickness(5 * App.screenWidthAdapter),
 			};
 			Content = absoluteLayout;
 

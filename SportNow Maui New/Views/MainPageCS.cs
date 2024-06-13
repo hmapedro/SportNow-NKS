@@ -28,9 +28,11 @@ namespace SportNow.Views
 		protected async override void OnAppearing()
 		{
             base.OnAppearing();
-            
-			initSpecificLayout();
-		}
+            if (gridMain == null)
+			{
+                initSpecificLayout();
+            }
+        }
 
 		protected override void OnDisappearing()
 		{
@@ -40,6 +42,8 @@ namespace SportNow.Views
 		public List<MainMenuItem> MainMenuItems { get; set; }
 
 		Label msg;
+
+		Grid gridMain, gridPersonal, gridTeacherClasses, gridClasses, gridEvents;
 
 		private ObservableCollection<Class_Schedule> cleanClass_Schedule, importantClass_Schedule;
 
@@ -77,11 +81,15 @@ namespace SportNow.Views
 
         public void CleanScreen()
 		{
-			//Debug.Print("CleanScreen");
 			//valida se os objetos já foram criados antes de os remover
-			if (usernameLabel != null)
+			if (gridMain != null)
 			{
-				absoluteLayout.Remove(usernameLabel);
+				gridMain = null;
+			}
+
+            if (usernameLabel != null)
+			{
+				//absoluteLayout.Remove(usernameLabel);
 				usernameLabel = null;
 			}
 
@@ -89,10 +97,6 @@ namespace SportNow.Views
 			{
 				//absoluteLayout.Clear();
 				
-				absoluteLayout.Children.Remove(importantClassesCollectionView);
-				absoluteLayout.Children.Remove(attendanceLabel);
-				absoluteLayout.Children.Remove(importantEventsCollectionView);
-				absoluteLayout.Children.Remove(eventsLabel);
 
 				importantClassesCollectionView = null;
 				importantEventsCollectionView = null;
@@ -101,31 +105,25 @@ namespace SportNow.Views
 			}
 			if (teacherClassesCollectionView != null) {
 
-				absoluteLayout.Children.Remove(teacherClassesCollectionView);
-				absoluteLayout.Children.Remove(teacherClassesLabel);
 				teacherClassesCollectionView = null;
 				teacherClassesLabel = null;
 			}
 			if (currentFeeLabel != null)
 			{
-				absoluteLayout.Children.Remove(currentFeeLabel);
 				currentFeeLabel = null;
 			}
 			if (currentVersionLabel != null)
 			{
-				absoluteLayout.Children.Remove(currentVersionLabel);
 				currentVersionLabel = null;
 			}
 
 			if (famousQuoteLabel != null)
 			{
-				absoluteLayout.Children.Remove(famousQuoteLabel);
 				famousQuoteLabel = null;
 			}
 
             if (gridLinks != null)
             {
-                absoluteLayout.Children.Remove(gridLinks);
                 gridLinks = null;
             }
         }
@@ -149,116 +147,143 @@ namespace SportNow.Views
             toolbarItem.Clicked += OnPerfilButtonClicked;
 			ToolbarItems.Add(toolbarItem);
 
-		}
+        }
 
 
 		public async void initSpecificLayout()
 		{
+			gridMain = new Grid { Padding = 0, HorizontalOptions = LayoutOptions.FillAndExpand, BackgroundColor = Colors.Transparent, WidthRequest = App.screenWidth, RowSpacing = 10 * App.screenHeightAdapter };
+			gridMain.RowDefinitions.Add(new RowDefinition { Height = 50 * App.screenHeightAdapter });
+			gridMain.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Star });
+
 			var textWelcome = "";
 
-			textWelcome = "Olá " + App.member.nickname+" ";
+			textWelcome = "Olá " + App.member.nickname + " ";
 
-            //USERNAME LABEL
-            usernameLabel = new Label
+			//USERNAME LABEL
+			usernameLabel = new Label
 			{
 				Text = textWelcome,
 				TextColor = App.normalTextColor,
 				HorizontalTextAlignment = TextAlignment.End,
 				FontSize = App.titleFontSize,
-                FontFamily = "futuracondensedmedium",
-				WidthRequest = 190 * App.screenWidthAdapter,
-            };
-			absoluteLayout.Add(usernameLabel);
-			absoluteLayout.SetLayoutBounds(usernameLabel, new Rect(App.screenWidth - 200 * App.screenWidthAdapter, 2 * App.screenHeightAdapter, 190 * App.screenWidthAdapter, 30 * App.screenHeightAdapter));
+				FontFamily = "futuracondensedmedium",
+				WidthRequest = App.screenWidth,
+			};
+            //absoluteLayout.Add(usernameLabel);
+            //absoluteLayout.SetLayoutBounds(usernameLabel, new Rect(App.screenWidth - 200 * App.screenWidthAdapter, 2 * App.screenHeightAdapter, 190 * App.screenWidthAdapter, 30 * App.screenHeightAdapter));
 
-			if (App.member.students_count > 0)
-            {
-				teacherClassesY = (int) (40 * App.screenHeightAdapter);
-				classesY = (int) ((teacherClassesY + App.ItemHeight ) + (50 * App.screenHeightAdapter));
-				eventsY = (int) ((classesY + App.ItemHeight) + (50 * App.screenHeightAdapter));
-				eventsHeight = (int)(App.ItemHeight  + 10);
-				feesOrQuoteY = (int)((eventsY + eventsHeight) + (50 * App.screenHeightAdapter));
-			}
+            gridMain.Add(usernameLabel, 0, 0);
+
+            if (App.member.students_count > 0)
+			{
+                gridMain.RowDefinitions.Add(new RowDefinition { Height = 150 * App.screenHeightAdapter });
+                gridMain.RowDefinitions.Add(new RowDefinition { Height = 150 * App.screenHeightAdapter });
+                gridMain.RowDefinitions.Add(new RowDefinition { Height = 150 * App.screenHeightAdapter });
+                gridMain.RowDefinitions.Add(new RowDefinition { Height = 80 * App.screenHeightAdapter });
+
+
+                /*                teacherClassesY = (int) (40 * App.screenHeightAdapter);
+								classesY = (int) ((teacherClassesY + App.ItemHeight ) + (50 * App.screenHeightAdapter));
+								eventsY = (int) ((classesY + App.ItemHeight) + (50 * App.screenHeightAdapter));
+								eventsHeight = (int)(App.ItemHeight  + 10);
+								feesOrQuoteY = (int)((eventsY + eventsHeight) + (50 * App.screenHeightAdapter));*/
+            }
 			else if (App.member.students_count == 0)
 			{
-				classesY = (int) (40 * App.screenHeightAdapter);
+                gridMain.RowDefinitions.Add(new RowDefinition { Height = 150 * App.screenHeightAdapter });
+                gridMain.RowDefinitions.Add(new RowDefinition { Height = 150 * App.screenHeightAdapter });
+                gridMain.RowDefinitions.Add(new RowDefinition { Height = 150 * App.screenHeightAdapter });
+                gridMain.RowDefinitions.Add(new RowDefinition { Height = 80 * App.screenHeightAdapter });
+                /*classesY = (int) (40 * App.screenHeightAdapter);
 				eventsY = (int) ((classesY + App.ItemHeight) + (50 * App.screenHeightAdapter));
 				//eventsHeight = (int)(2 * (App.ItemHeight  + 10));
                 eventsHeight = (int) (App.ItemHeight + 10);
                 personalClassesY = (int)((eventsY + eventsHeight) + (50 * App.screenHeightAdapter));
-                feesOrQuoteY = (int) ((personalClassesY + 150) + (50 * App.screenHeightAdapter));
-			}
+                feesOrQuoteY = (int) ((personalClassesY + 150) + (50 * App.screenHeightAdapter));*/
+            }
 
             showActivityIndicator();
 
-            int result = await getClass_DetailData();
-            importantEvents = await GetImportantEvents();
+			int result = await getClass_DetailData();
+			importantEvents = await GetImportantEvents();
 
-            DateTime currentTime = DateTime.Now.Date;
-            DateTime currentTime_add7 = DateTime.Now.AddDays(7).Date;
+			DateTime currentTime = DateTime.Now.Date;
+			DateTime currentTime_add7 = DateTime.Now.AddDays(7).Date;
 
-            string firstDay = currentTime.ToString("yyyy-MM-dd");
-            string lastday = currentTime_add7.AddDays(6).ToString("yyyy-MM-dd");
+			string firstDay = currentTime.ToString("yyyy-MM-dd");
+			string lastday = currentTime_add7.AddDays(6).ToString("yyyy-MM-dd");
 
-            teacherClass_Schedules = await GetAllClass_Schedules(firstDay, lastday);
-            CompleteTeacherClass_Schedules();
+			teacherClass_Schedules = await GetAllClass_Schedules(firstDay, lastday);
+			CompleteTeacherClass_Schedules();
 
-            if (App.member.currentFee == null)
-            {
-                Debug.Print("Current Fee NULL não devia acontecer!");
-                if (App.member.currentFee == null)
-                {
-                    Debug.Print("Current Fee NULL não devia acontecer!");
-                    int result1 = await GetCurrentFees(App.member);
-                }
-                await GetCurrentFees(App.member);
-            }
+			if (App.member.currentFee == null)
+			{
+				Debug.Print("Current Fee NULL não devia acontecer!");
+				if (App.member.currentFee == null)
+				{
+					Debug.Print("Current Fee NULL não devia acontecer!");
+					int result1 = await GetCurrentFees(App.member);
+				}
+				await GetCurrentFees(App.member);
+			}
 
 
-            hideActivityIndicator();
+			hideActivityIndicator();
 
-            createImportantClasses();
-
-			createImportantEvents();
-
+			createImportantClasses();
 			Debug.Print("App.member.students_count = " + App.member.students_count);
 			if (App.member.students_count > 0)
 			{
 				createImportantTeacherClasses();
-			}
+				createImportantEvents();
+                gridMain.Add(gridTeacherClasses, 0, 1);
+                gridMain.Add(gridClasses, 0, 2);
+                gridMain.Add(gridEvents, 0, 3);
 
-            if (App.member.students_count == 0)
-            {
-                createPersonalClasses();
             }
+			else
+			{
+                createImportantEvents();
+                createPersonalClasses();
+                gridMain.Add(gridClasses, 0, 1);
+                gridMain.Add(gridEvents, 0, 2);
+                gridMain.Add(gridPersonal, 0, 3);
+            }
+            
 
 
             /*technicalButton = new RoundButton("Tecnico", 100, 40);
             technicalButton.button.BackgroundColor = App.topColor;
             technicalButton.button.Clicked += OnTechnicalButtonClicked;
-
-            absoluteLayout.Children.Add(technicalButton);
-            absoluteLayout.SetLayoutBounds(, new Rect(, , , ));)0),
-                yConstraint: Constraint.RelativeToParent((parent) =>
-                {
-                    return (parent.Height - 60); // center of image (which is 40 wide)
-                }),
-                widthConstraint: Constraint.RelativeToParent((parent) =>
-                {
-                    return (parent.Width); // center of image (which is 40 wide)
-                }),
-                heightConstraint: )60));*/
+			*/
 
             createCurrentFee();
 
             createDelayedMonthFee();
 
             //createVersion();
+
+
+			
+            //gridMain.Add(usernameLabel, 0, 0);
+
+
+            absoluteLayout.Add(gridMain);
+            absoluteLayout.SetLayoutBounds(gridMain, new Rect(0, 0, App.screenWidth, App.screenHeight - 132 * App.screenHeightAdapter));
+
         }
 
-		public async void createPersonalClasses()
+        public async void createPersonalClasses()
 		{
-			Label personalClassesLabel = new Label
+
+            gridPersonal = new Grid { Padding = 0, HorizontalOptions = LayoutOptions.FillAndExpand };
+            gridPersonal.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
+            gridPersonal.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
+            gridPersonal.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Star });
+
+
+            Label personalClassesLabel = new Label
 			{
 				Text = "SABIAS QUE AGORA JÁ PODES MARCAR AULAS INDIVIDUAIS COM OS TEUS TREINADORES FAVORITOS!",
 				TextColor = Color.FromRgb(96, 182, 89),
@@ -267,24 +292,33 @@ namespace SportNow.Views
                 FontFamily = "futuracondensedmedium",
             };
 
-            absoluteLayout.Add(personalClassesLabel);
-            absoluteLayout.SetLayoutBounds(personalClassesLabel, new Rect(0, personalClassesY, App.screenWidth, 60 * App.screenHeightAdapter));
+
+
+  //          absoluteLayout.Add(personalClassesLabel);
+  //          absoluteLayout.SetLayoutBounds(personalClassesLabel, new Rect(0, personalClassesY, App.screenWidth, 60 * App.screenHeightAdapter));
 
             personalClassesButton = new RoundButton("SABER MAIS!", App.screenWidth, 50 * App.screenHeightAdapter);
 			personalClassesButton.button.BackgroundColor = App.topColor;
             personalClassesButton.button.Clicked += OnPersonalClassesButtonClicked;
 
-            absoluteLayout.Add(personalClassesButton);
-            absoluteLayout.SetLayoutBounds(personalClassesButton, new Rect(0, personalClassesY + (60 * App.screenHeightAdapter), App.screenWidth, 60 * App.screenHeightAdapter));
+            gridPersonal.Add(personalClassesLabel, 0, 0);
+            gridPersonal.Add(personalClassesButton, 0, 1);
+
+//			absoluteLayout.Add(personalClassesButton);
+//            absoluteLayout.SetLayoutBounds(personalClassesButton, new Rect(0, personalClassesY + (60 * App.screenHeightAdapter), App.screenWidth, 60 * App.screenHeightAdapter));
             
         }
             
 
         public void createImportantTeacherClasses()
 		{
+            gridTeacherClasses = new Grid { Padding = 0, HorizontalOptions = LayoutOptions.FillAndExpand };
+            gridTeacherClasses.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
+            gridTeacherClasses.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
+            gridTeacherClasses.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Star });
 
-			//AULAS LABEL
-			teacherClassesLabel = new Label
+            //AULAS LABEL
+            teacherClassesLabel = new Label
 			{
 				Text = "PRÓXIMAS AULAS COMO INSTRUTOR/MONITOR",
 				TextColor = App.topColor,
@@ -293,8 +327,10 @@ namespace SportNow.Views
                 FontFamily = "futuracondensedmedium",
             };
 
-            absoluteLayout.Add(teacherClassesLabel);
-            absoluteLayout.SetLayoutBounds(teacherClassesLabel, new Rect(0, teacherClassesY, App.screenWidth, 30 * App.screenHeightAdapter));
+            gridTeacherClasses.Add(teacherClassesLabel, 0, 0);
+
+            //absoluteLayout.Add(teacherClassesLabel);
+            //absoluteLayout.SetLayoutBounds(teacherClassesLabel, new Rect(0, teacherClassesY, App.screenWidth, 30 * App.screenHeightAdapter));
 
 			CreateTeacherClassesColletion();
 		}
@@ -412,22 +448,22 @@ namespace SportNow.Views
 				return itemabsoluteLayout;
 			});
 
-			//teacherClassesCollectionView.ScrollTo(5);
+            gridTeacherClasses.Add(teacherClassesCollectionView, 0, 1);
 
-			Debug.Print("teacherClassesY = " + teacherClassesY);
-            Debug.Print("App.screenWidth = " + App.screenWidth);
-            Debug.Print("App.ItemHeight = " + App.ItemHeight);
-            
-            absoluteLayout.Add(teacherClassesCollectionView);
-            absoluteLayout.SetLayoutBounds(teacherClassesCollectionView, new Rect(0, teacherClassesY + (30 * App.screenHeightAdapter), App.screenWidth, App.ItemHeight + (10 * App.screenHeightAdapter)));
+//            absoluteLayout.Add(teacherClassesCollectionView);
+//            absoluteLayout.SetLayoutBounds(teacherClassesCollectionView, new Rect(0, teacherClassesY + (30 * App.screenHeightAdapter), App.screenWidth, App.ItemHeight + (10 * App.screenHeightAdapter)));
 		}
 
 		public void createImportantClasses()
 		{
 
+            gridClasses = new Grid { Padding = 0, HorizontalOptions = LayoutOptions.FillAndExpand };
+            gridClasses.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
+            gridClasses.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
+            gridClasses.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Star});
 
-			//AULAS LABEL
-			attendanceLabel = new Label
+            //AULAS LABEL
+            attendanceLabel = new Label
 			{
 				Text = "PRÓXIMAS AULAS COMO ALUNO(A)",
 				TextColor = App.topColor,
@@ -435,8 +471,11 @@ namespace SportNow.Views
                 FontSize = App.titleFontSize,
                 FontFamily = "futuracondensedmedium",
             };
-			absoluteLayout.Add(attendanceLabel);
-			absoluteLayout.SetLayoutBounds(attendanceLabel, new Rect(0, classesY, App.screenWidth, 30 * App.screenHeightAdapter));
+
+            gridClasses.Add(attendanceLabel, 0, 0);
+
+            //absoluteLayout.Add(attendanceLabel);
+			//absoluteLayout.SetLayoutBounds(attendanceLabel, new Rect(0, classesY, App.screenWidth, 30 * App.screenHeightAdapter));
 
 			scheduleCollection = new ScheduleCollection();
 			scheduleCollection.Items = importantClass_Schedule;
@@ -577,13 +616,22 @@ namespace SportNow.Views
 				return itemabsoluteLayout;
 			});
 
-            absoluteLayout.Add(importantClassesCollectionView);
-            absoluteLayout.SetLayoutBounds(importantClassesCollectionView, new Rect(0, classesY + (30 * App.screenHeightAdapter), App.screenWidth, App.ItemHeight + (10 * App.screenHeightAdapter)));
+            gridClasses.Add(importantClassesCollectionView, 0, 1);
+
+            //absoluteLayout.Add(importantClassesCollectionView);
+            //absoluteLayout.SetLayoutBounds(importantClassesCollectionView, new Rect(0, classesY + (30 * App.screenHeightAdapter), App.screenWidth, App.ItemHeight + (10 * App.screenHeightAdapter)));
 		}
 
 		public void createImportantEvents()
 		{
-			foreach (Event event_i in importantEvents)
+
+            gridEvents = new Grid { Padding = 0, HorizontalOptions = LayoutOptions.FillAndExpand };
+            gridEvents.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
+            gridEvents.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
+            gridEvents.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Star });
+
+
+            foreach (Event event_i in importantEvents)
 			{
 				if ((event_i.imagemNome == "") | (event_i.imagemNome is null))
 				{
@@ -616,8 +664,7 @@ namespace SportNow.Views
                 FontFamily = "futuracondensedmedium",
             };
 
-            absoluteLayout.Add(eventsLabel);
-            absoluteLayout.SetLayoutBounds(eventsLabel, new Rect(0, eventsY, App.screenWidth, 30 * App.screenHeightAdapter));
+            gridEvents.Add(eventsLabel, 0, 0);
 
 			CreateProximosEventosColletion();
 		}
@@ -704,8 +751,10 @@ namespace SportNow.Views
                 return itemabsoluteLayout;
 			});
 
-            absoluteLayout.Add(importantEventsCollectionView);
-            absoluteLayout.SetLayoutBounds(importantEventsCollectionView, new Rect(0, eventsY + (35 * App.screenHeightAdapter), App.screenWidth, eventsHeight));
+            gridEvents.Add(importantEventsCollectionView, 0, 1);
+
+            //absoluteLayout.Add(importantEventsCollectionView);
+            //absoluteLayout.SetLayoutBounds(importantEventsCollectionView, new Rect(0, eventsY + (35 * App.screenHeightAdapter), App.screenWidth, eventsHeight));
 		}
 
 
@@ -713,7 +762,7 @@ namespace SportNow.Views
 
 		public void createLinks()
 		{
-            gridLinks = new Microsoft.Maui.Controls.Grid { Padding = 0, HorizontalOptions = LayoutOptions.FillAndExpand, RowSpacing = 5 * App.screenHeightAdapter};
+            gridLinks = new Microsoft.Maui.Controls.Grid { Padding = 0, HorizontalOptions = LayoutOptions.FillAndExpand, RowSpacing = 5 * App.screenHeightAdapter, WidthRequest = App.screenWidth};
             gridLinks.RowDefinitions.Add(new RowDefinition { Height = 35 * App.screenHeightAdapter });
             gridLinks.RowDefinitions.Add(new RowDefinition { Height = 35 * App.screenHeightAdapter });
             //gridGeral.RowDefinitions.Add(new RowDefinition { Height = 1 });
@@ -859,9 +908,9 @@ namespace SportNow.Views
             gridLinks.Add(manualNKSKidsImage, 4, 0);
             gridLinks.Add(manualNKSKidsLabel, 4, 1);
 
-            absoluteLayout.Add(gridLinks);
+            //absoluteLayout.Add(gridLinks);
             //absoluteLayout.SetLayoutBounds(gridLinks, new Rect(0, App.screenHeight - 110 - (125 * App.screenHeightAdapter), App.screenWidth, 75 * App.screenHeightAdapter));
-            absoluteLayout.SetLayoutBounds(gridLinks, new Rect(0, feesOrQuoteY, App.screenWidth, 75 * App.screenHeightAdapter));
+            //absoluteLayout.SetLayoutBounds(gridLinks, new Rect(0, feesOrQuoteY, App.screenWidth, 75 * App.screenHeightAdapter));
             
 
             /*absoluteLayout.Add(websiteImage);
@@ -938,7 +987,8 @@ namespace SportNow.Views
 				{
 					hasQuotaPayed = true;
 					createLinks();
-					return;
+                    gridMain.Add(gridLinks, 0, 4);
+                    return;
 				}
 			}
 
@@ -951,26 +1001,28 @@ namespace SportNow.Views
 				{
                     await Navigation.PushAsync(new QuotasPageCS());
                 }
-
-                currentFeeLabel = new Label
+				else
 				{
-					Text = "A TUA QUOTA PARA ESTE ANO NÃO ESTÁ ATIVA. \n DESTA FORMA NÃO PODERÁS PARTICIPAR NOS NOSSOS EVENTOS :(. \n ATIVA AQUI A TUA QUOTA.",
-					TextColor = Colors.Red,
-					HorizontalTextAlignment = TextAlignment.Center,
-					FontSize = App.itemTextFontSize,
-                    FontFamily = "futuracondensedmedium",
-                };
+                    currentFeeLabel = new Label
+                    {
+                        Text = "A TUA QUOTA PARA ESTE ANO NÃO ESTÁ ATIVA. \n DESTA FORMA NÃO PODERÁS PARTICIPAR NOS NOSSOS EVENTOS :(. \n ATIVA AQUI A TUA QUOTA.",
+                        TextColor = Colors.Red,
+                        HorizontalTextAlignment = TextAlignment.Center,
+                        FontSize = App.itemTextFontSize,
+                        FontFamily = "futuracondensedmedium",
+                    };
 
-				var currentFeeLabel_tap = new TapGestureRecognizer();
-				currentFeeLabel_tap.Tapped += async (s, e) =>
-				{
-					await Navigation.PushAsync(new QuotasPageCS());
-				};
-				currentFeeLabel.GestureRecognizers.Add(currentFeeLabel_tap);
+                    var currentFeeLabel_tap = new TapGestureRecognizer();
+                    currentFeeLabel_tap.Tapped += async (s, e) =>
+                    {
+                        await Navigation.PushAsync(new QuotasPageCS());
+                    };
+                    currentFeeLabel.GestureRecognizers.Add(currentFeeLabel_tap);
 
+                    gridMain.Add(currentFeeLabel, 0, 4);
+                }
+                
 
-				absoluteLayout.Add(currentFeeLabel);
-                absoluteLayout.SetLayoutBounds(currentFeeLabel, new Rect(0, feesOrQuoteY, App.screenWidth, 60 * App.screenHeightAdapter));
 			}
 		}
 

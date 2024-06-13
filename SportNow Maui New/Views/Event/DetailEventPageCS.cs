@@ -83,7 +83,8 @@ namespace SportNow.Views
 			gridEvent.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
 			gridEvent.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
 			gridEvent.RowDefinitions.Add(new RowDefinition { Height = 60 * App.screenHeightAdapter });
-			gridEvent.RowDefinitions.Add(new RowDefinition { Height = GridLength.Star });
+            gridEvent.RowDefinitions.Add(new RowDefinition { Height = 60 * App.screenHeightAdapter });
+            gridEvent.RowDefinitions.Add(new RowDefinition { Height = GridLength.Star });
 			//gridGeral.RowDefinitions.Add(new RowDefinition { Height = 1 });
 			gridEvent.ColumnDefinitions.Add(new ColumnDefinition { Width = App.screenWidth / 5 }); //GridLength.Auto
 			gridEvent.ColumnDefinitions.Add(new ColumnDefinition { Width = App.screenWidth / 5 * 4}); //GridLength.Auto 
@@ -230,11 +231,48 @@ namespace SportNow.Views
 			gridEvent.Add(limitDateLabel, 0, 6);
 			Microsoft.Maui.Controls.Grid.SetColumnSpan(limitDateLabel, 2);
 
-			absoluteLayout.Add(gridEvent);
-            absoluteLayout.SetLayoutBounds(gridEvent, new Rect(0 * App.screenWidthAdapter, 5 * App.screenHeightAdapter, App.screenWidth - 20 * App.screenWidthAdapter, App.screenHeight - 160 * App.screenHeightAdapter));
+            Image convocatoriaImage = new Image
+            {
+                Source = "iconconvocatoria.png",
+                HorizontalOptions = LayoutOptions.Start,
+                HeightRequest = 50 * App.screenHeightAdapter,
+            };
 
-			//absoluteLayout.Add(registerButton);
-            //absoluteLayout.SetLayoutBounds(registerButton, new Rect(10 * App.screenWidthAdapter, App.screenHeight - 160 * App.screenHeightAdapter, App.screenWidth - 20 * App.screenWidthAdapter, 50 * App.screenHeightAdapter));
+            Label convocatoriaLabel = new Label
+            {
+                FontFamily = "futuracondensedmedium",
+                Text = "Inscritos",
+                TextColor = App.oppositeTextColor,
+                FontSize = App.titleFontSize,
+                VerticalTextAlignment = TextAlignment.Center,
+                HorizontalTextAlignment = TextAlignment.Start
+            };
+
+            StackLayout convocatoriaStackLayout = new StackLayout
+            {
+                //BackgroundColor = Colors.Green,
+                Orientation = StackOrientation.Horizontal,
+                HorizontalOptions = LayoutOptions.Center,
+                VerticalOptions = LayoutOptions.Center,
+                Spacing = 20 * App.screenHeightAdapter,
+                Children =
+                    {
+                        convocatoriaImage,
+                        convocatoriaLabel
+                    }
+            };
+            gridEvent.Add(convocatoriaStackLayout, 0, 7);
+            Grid.SetColumnSpan(convocatoriaStackLayout, 2);
+
+            var convocatoriaStackLayout_tap = new TapGestureRecognizer();
+            convocatoriaStackLayout_tap.Tapped += (s, e) =>
+            {
+                Navigation.PushAsync(new EventParticipationsPageCS(event_v));
+            };
+            convocatoriaStackLayout.GestureRecognizers.Add(convocatoriaStackLayout_tap);
+
+            absoluteLayout.Add(gridEvent);
+            absoluteLayout.SetLayoutBounds(gridEvent, new Rect(0 * App.screenWidthAdapter, 5 * App.screenHeightAdapter, App.screenWidth - 20 * App.screenWidthAdapter, App.screenHeight - 160 * App.screenHeightAdapter));
 		}
 
 		public DetailEventPageCS(Event event_v )

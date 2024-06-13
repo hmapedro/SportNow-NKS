@@ -142,11 +142,11 @@ namespace SportNow.Services.Data.JSON
 				Debug.WriteLine("http request error");
 				return null;
 			}
-}
+		}
 
 		public async Task<Event_Participation> GetEventParticipation(string eventparticipationid)
 		{
-			Debug.Print("GetEventParticipation");
+			Debug.Print("GetEventParticipation "+ Constants.RestUrl_Get_EventParticipation + "?eventparticipationid=" + eventparticipationid);
 			Uri uri = new Uri(string.Format(Constants.RestUrl_Get_EventParticipation + "?eventparticipationid=" + eventparticipationid, string.Empty));
 			try
 			{ 
@@ -165,9 +165,32 @@ namespace SportNow.Services.Data.JSON
 				Debug.WriteLine("http request error");
 				return null;
 			}
-}
+		}
 
-		public async Task<string> CreateEventParticipation(string memberid, string eventid)
+        public async Task<List<Event_Participation>> GetEventParticipationAll(string eventid)
+        {
+            Debug.Print("GetEventParticipation "+ Constants.RestUrl_Get_EventParticipation_All + "?eventid=" + eventid);
+            Uri uri = new Uri(string.Format(Constants.RestUrl_Get_EventParticipation_All + "?eventid=" + eventid, string.Empty));
+            try
+            {
+                HttpResponseMessage response = await client.GetAsync(uri);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    //return true;
+                    string content = await response.Content.ReadAsStringAsync();
+                    event_participations = JsonConvert.DeserializeObject<List<Event_Participation>>(content);
+                }
+                return event_participations;
+            }
+            catch
+            {
+                Debug.WriteLine("http request error");
+                return null;
+            }
+        }
+
+        public async Task<string> CreateEventParticipation(string memberid, string eventid)
 		{
 			Debug.Print("CreateEventParticipation");
 			Uri uri = new Uri(string.Format(Constants.RestUrl_Create_EventParticipation + "?userid=" + memberid + "&eventid="+eventid, string.Empty));

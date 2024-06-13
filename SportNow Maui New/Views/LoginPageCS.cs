@@ -23,6 +23,7 @@ namespace SportNow.Views
 		}
 
 		Label welcomeLabel;
+        Label currentVersionLabel;
         RoundButton loginButton;
 		FormEntry usernameEntry;
 		FormEntryPassword passwordEntry;
@@ -34,21 +35,26 @@ namespace SportNow.Views
 
 		public void initSpecificLayout()
 		{
-			createVersion();
+            NavigationPage.SetHasNavigationBar(this, false);
 
-            Microsoft.Maui.Controls.Grid gridLogin = new Microsoft.Maui.Controls.Grid { Padding = 10, RowSpacing = 5 * App.screenHeightAdapter };
+            createVersion();
+
+            Microsoft.Maui.Controls.Grid gridLogin = new Microsoft.Maui.Controls.Grid {  Padding = 0, RowSpacing = 5 * App.screenHeightAdapter, BackgroundColor = Colors.Transparent  };
 			gridLogin.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
 			gridLogin.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
 			gridLogin.RowDefinitions.Add(new RowDefinition { Height = 40 * App.screenHeightAdapter });
 			gridLogin.RowDefinitions.Add(new RowDefinition { Height = 50 * App.entryHeightAdapter });
             gridLogin.RowDefinitions.Add(new RowDefinition { Height = 50 * App.entryHeightAdapter });
+            gridLogin.RowDefinitions.Add(new RowDefinition { Height = 70 * App.screenHeightAdapter });
             gridLogin.RowDefinitions.Add(new RowDefinition { Height = 60 * App.screenHeightAdapter });
+            gridLogin.RowDefinitions.Add(new RowDefinition { Height = GridLength.Star }); //GridLength.Star });
             gridLogin.RowDefinitions.Add(new RowDefinition { Height = 60 * App.screenHeightAdapter });
             //gridLogin.RowDefinitions.Add(new RowDefinition { Height = 60 });
             //gridLogin.RowDefinitions.Add(new RowDefinition { Height = GridLength.Star });
-            gridLogin.ColumnDefinitions.Add(new ColumnDefinition { Width = App.screenWidth - 20 * App.screenWidthAdapter}); //GridLength.Auto 
+            gridLogin.ColumnDefinitions.Add(new ColumnDefinition { Width = 80 * App.screenWidthAdapter});
+            gridLogin.ColumnDefinitions.Add(new ColumnDefinition { Width = App.screenWidth - 85 * App.screenWidthAdapter });
 
-			welcomeLabel = new Label
+            welcomeLabel = new Label
 			{
 				Text = "BEM VINDO",
 				TextColor = App.normalTextColor,
@@ -132,7 +138,7 @@ namespace SportNow.Views
             {
                 Text = "Recuperar palavra-passe",
                 TextColor = App.normalTextColor,
-                FontSize = 20,
+                FontSize = App.formLabelFontSize,
                 HorizontalTextAlignment = TextAlignment.Center,
                 VerticalTextAlignment = TextAlignment.Center,
                 FontFamily = "futuracondensedmedium"
@@ -154,7 +160,7 @@ namespace SportNow.Views
             {
                 Text = "Novo Sócio",
                 TextColor = App.normalTextColor,
-                FontSize = 20,
+                FontSize = App.formLabelFontSize,
                 HorizontalTextAlignment = TextAlignment.Center,
                 VerticalTextAlignment = TextAlignment.Center,
                 FontFamily = "futuracondensedmedium"
@@ -166,27 +172,47 @@ namespace SportNow.Views
             };
             newMemberLabel.GestureRecognizers.Add(newMemberLabel_tap);
 
-            gridLogin.Add(welcomeLabel, 0, 0);
-			gridLogin.Add(logo_aksl, 0, 1);
-			gridLogin.Add(messageLabel, 0, 2);
-			gridLogin.Add(usernameEntry, 0, 3);
-			gridLogin.Add(passwordEntry, 0, 4);
-			gridLogin.Add(loginButton, 0, 5);
-			gridLogin.Add(recoverPasswordLabel, 0, 6);
-            //gridLogin.Add(newMemberLabel, 0, 7);
-
-            absoluteLayout.Add(gridLogin);
-            absoluteLayout.SetLayoutBounds(gridLogin, new Rect(0, 0, App.screenWidth - 10 * App.screenWidthAdapter, App.screenHeight));
-
-            BoxView separator = new BoxView()
+            Image anadiaImage = new Image
             {
-                HeightRequest = 10,
-                BackgroundColor = Color.FromRgb(255, 0, 0),
-                Color = Color.FromRgb(255, 0, 0),
+                Source = "anadia.png",
+                HorizontalOptions = LayoutOptions.Center,
+                HeightRequest = 50 * App.screenHeightAdapter
             };
 
-            //absoluteLayout.Add(separator);
-            //absoluteLayout.SetLayoutBounds(separator, new Rect(0, App.screenHeight - 100 * App.screenHeightAdapter, App.screenWidth, 10 * App.screenHeightAdapter));
+            //RECOVER PASSWORD LABEL
+            Label anadiaLabel = new Label
+            {
+                Text = "Aplicação apoiada no âmbito do incentivo à digitalização pelo Município de Anadia.",
+                TextColor = App.normalTextColor,
+                FontSize = App.formLabelFontSize,
+                HorizontalTextAlignment = TextAlignment.Start,
+                VerticalTextAlignment = TextAlignment.Center,
+                FontFamily = "futuracondensedmedium"
+            };
+            
+
+            gridLogin.Add(welcomeLabel, 0, 0);
+            Grid.SetColumnSpan(welcomeLabel, 2);
+            gridLogin.Add(logo_aksl, 0, 1);
+            Grid.SetColumnSpan(logo_aksl, 2);
+            gridLogin.Add(messageLabel, 0, 2);
+            Grid.SetColumnSpan(messageLabel, 2);
+            gridLogin.Add(usernameEntry, 0, 3);
+            Grid.SetColumnSpan(usernameEntry, 2);
+            gridLogin.Add(passwordEntry, 0, 4);
+            Grid.SetColumnSpan(passwordEntry, 2);
+            gridLogin.Add(loginButton, 0, 5);
+            Grid.SetColumnSpan(loginButton, 2);
+            gridLogin.Add(recoverPasswordLabel, 0, 6);
+            Grid.SetColumnSpan(recoverPasswordLabel, 2);
+            //gridLogin.Add(newMemberLabel, 0, 7);
+            gridLogin.Add(anadiaImage, 0, 7);
+            gridLogin.Add(anadiaLabel, 1, 7);
+            gridLogin.Add(currentVersionLabel, 0, 8);
+            Grid.SetColumnSpan(currentVersionLabel, 2);
+
+            absoluteLayout.Add(gridLogin);
+            absoluteLayout.SetLayoutBounds(gridLogin, new Rect(0, 0, App.screenWidth, App.screenHeight - 30));
         }
 
 
@@ -318,7 +344,7 @@ namespace SportNow.Views
 
         public async void createVersion()
         {
-			Label currentVersionLabel = new Label
+			currentVersionLabel = new Label
 			{
                 FontFamily = "futuracondensedmedium",
                 Text = "Version " + App.VersionNumber + " - " + App.BuildNumber,
@@ -327,8 +353,6 @@ namespace SportNow.Views
                 FontSize = App.itemTextFontSize
             };
 
-            absoluteLayout.Add(currentVersionLabel);
-            absoluteLayout.SetLayoutBounds(currentVersionLabel, new Rect(0, App.screenHeight - 100 - 50 * App.screenHeightAdapter, 200 * App.screenWidth, 30 * App.screenHeightAdapter));
         }
     }
 }

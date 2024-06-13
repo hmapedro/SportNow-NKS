@@ -148,13 +148,13 @@ namespace SportNow.Services.Data.JSON
 				}
 				else
 				{
-					Debug.WriteLine("login not ok");
+					Debug.WriteLine("GetMembers - login not ok");
 				}
 				return members;
 			}
 			catch (Exception e)
 			{
-				Debug.WriteLine("http request error");
+				Debug.WriteLine("GetMembers - http request error");
 				Debug.Print(e.StackTrace);
 				return null;
 			}

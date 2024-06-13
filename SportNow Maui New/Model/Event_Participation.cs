@@ -21,6 +21,7 @@ namespace SportNow.Model
         public string imagemNome { get; set; }
         public string imagemSource { get; set; }
         public string estado { get; set; }
+        public string estadoText { get; set; }
         public Color estadoTextColor { get; set; } = Colors.White;
         public string entidade { get; set; }
         public string referencia { get; set; }

@@ -282,7 +282,6 @@ namespace SportNow.Views
 			};
 
 			absoluteLayout.Add(stackButtons);
-			
             absoluteLayout.SetLayoutBounds(stackButtons, new Rect(0, 0, App.screenWidth, 60 * App.screenHeightAdapter));
 
 
@@ -309,7 +308,8 @@ namespace SportNow.Views
 								new Label { FontFamily = "futuracondensedmedium", Text = "Não existem Eventos deste tipo agendados", HorizontalTextAlignment = TextAlignment.Center, TextColor = App.normalTextColor, FontSize = 20 },
 							}
 					}
-				}
+				},
+				//BackgroundColor = Colors.Blue
 			};
 
 			proximosEventosCollectionView.SelectionChanged += OnProximosEventosCollectionViewSelectionChanged;
@@ -379,7 +379,7 @@ namespace SportNow.Views
 				return itemabsoluteLayout;
 			});
 			absoluteLayout.Add(proximosEventosCollectionView);
-            absoluteLayout.SetLayoutBounds(proximosEventosCollectionView, new Rect(5 * App.screenWidthAdapter, 80 * App.screenHeightAdapter, App.screenWidth - 10 * App.screenWidthAdapter, App.screenHeight - 100 - 180 * App.screenHeightAdapter));
+            absoluteLayout.SetLayoutBounds(proximosEventosCollectionView, new Rect(5 * App.screenWidthAdapter, 80 * App.screenHeightAdapter, App.screenWidth - 10 * App.screenWidthAdapter, App.screenHeight - 150 * App.screenHeightAdapter - 80 * App.screenHeightAdapter));
 
 		}
 
@@ -406,8 +406,22 @@ namespace SportNow.Views
             calendarLabel.GestureRecognizers.Add(calendarLabel_tap);
 
 
-			absoluteLayout.Add(calendarLabel);
-            absoluteLayout.SetLayoutBounds(calendarLabel, new Rect(0, App.screenHeight - 100 - 95 * App.screenHeightAdapter, App.screenWidth, 20 * App.screenHeightAdapter));
+
+            /*
+                        var statusid = Platform.CurrentActivity.ApplicationContext.Resources.GetIdentifier("status_bar_height", "dimen", "android");
+                        var statusbarheight = Platform.CurrentActivity.ApplicationContext.Resources.GetDimensionPixelSize(statusid);
+                        // this is the status bar height
+                        var navid = Platform.CurrentActivity.ApplicationContext.Resources.GetIdentifier("navigation_bar_height", "dimen", "android");
+                        var navbarheight = Platform.CurrentActivity.ApplicationContext.Resources.GetDimensionPixelSize(navid);
+                        // this is the navigation bar height
+
+                        Debug.Print("DeviceDisplay.MainDisplayInfo.Density = " + DeviceDisplay.MainDisplayInfo.Density);
+                        Debug.Print("statusbarheight = " + statusbarheight);
+                        Debug.Print("navbarheight = " + navbarheight);
+            */
+
+            absoluteLayout.Add(calendarLabel);
+            absoluteLayout.SetLayoutBounds(calendarLabel, new Rect(0, App.screenHeight - 150 * App.screenHeightAdapter - 95 * App.screenHeightAdapter, App.screenWidth, 20 * App.screenHeightAdapter));
 		}
 
 		public AllEventsPageCS()

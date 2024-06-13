@@ -37,7 +37,7 @@ namespace SportNow.Views
 
 			Microsoft.Maui.Controls.Grid gridLogin = new Microsoft.Maui.Controls.Grid { Padding = 0 };
 			gridLogin.RowDefinitions.Add(new RowDefinition { Height = 60 * App.screenHeightAdapter });
-			gridLogin.RowDefinitions.Add(new RowDefinition { Height = 50 * App.screenHeightAdapter });
+			gridLogin.RowDefinitions.Add(new RowDefinition { Height = 50 * App.entryHeightAdapter });
 			gridLogin.RowDefinitions.Add(new RowDefinition { Height = 50 * App.screenHeightAdapter });
 			gridLogin.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
 			gridLogin.ColumnDefinitions.Add(new ColumnDefinition { Width = App.screenWidth}); //GridLength.Auto 
@@ -73,7 +73,7 @@ namespace SportNow.Views
             gradient.GradientStops.Add(new GradientStop(App.bottomColor, Convert.ToSingle(0.5)));
 
 
-            recoverPasswordButton = new RoundButton("ENVIAR EMAIL", App.screenWidth - 20 * App.screenWidthAdapter, 50);
+            recoverPasswordButton = new RoundButton("ENVIAR EMAIL", App.screenWidth - 20 * App.screenWidthAdapter, 50 * App.screenHeightAdapter);
             recoverPasswordButton.button.Clicked += OnrecoverPasswordButtonClicked;
 
             /*            recoverPasswordButton = new Button

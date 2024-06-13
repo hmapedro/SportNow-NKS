@@ -81,7 +81,7 @@ namespace SportNow.Views.Profile
 			grid.Add(newPasswordConfirmEntry, 1, 2);
 
 			grid.Add(changePasswordButton, 0, 3);
-			Microsoft.Maui.Controls.Grid.SetColumnSpan(changePasswordButton, 2);
+			Grid.SetColumnSpan(changePasswordButton, 2);
 
 			grid.Add(messageLabel, 0, 4);
 			Microsoft.Maui.Controls.Grid.SetColumnSpan(messageLabel, 2);

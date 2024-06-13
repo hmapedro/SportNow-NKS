@@ -18,8 +18,8 @@
 		<ApplicationIdGuid>2dc29652-0b88-4207-b1a3-293d65980583</ApplicationIdGuid>
 
 		<!-- Versions -->
-		<ApplicationDisplayVersion>1.0.15</ApplicationDisplayVersion>
-		<ApplicationVersion>33</ApplicationVersion>
+		<ApplicationDisplayVersion>1.0.19</ApplicationDisplayVersion>
+		<ApplicationVersion>37</ApplicationVersion>
 		<SkipValidateMauiImplicitPackageReferences>true</SkipValidateMauiImplicitPackageReferences>
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">11.0</SupportedOSPlatformVersion>
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'maccatalyst'">13.1</SupportedOSPlatformVersion>
@@ -248,6 +248,7 @@
 	  <BundleResource Include="Resources\Images\manual_nks_kids.png" />
 	  <BundleResource Include="Resources\Images\whatapp.png" />
 	  <BundleResource Include="Resources\Images\logo_awikp.png" />
+	  <BundleResource Include="Resources\Images\anadia.png" />
 	</ItemGroup>	
 	<ItemGroup>
 	  <MauiXaml Update="Custom Views\GifImage.xaml">
@@ -382,6 +383,7 @@
 	  <None Remove="Resources\Images\manual_nks_kids.png" />
 	  <None Remove="Resources\Images\whatapp.png" />
 	  <None Remove="Resources\Images\logo-awikp.png" />
+	  <None Remove="Resources\Images\anadia.png" />
 	</ItemGroup>
 	<ItemGroup>
 	  <None Update="Platforms\iOS\PrivacyInfo.xcprivacy">

@@ -99,6 +99,8 @@ namespace SportNow
 
         public static string RestUrl_Get_EventParticipation = DeviceInfo.Platform == DevicePlatform.Android ? "https://"+server+"/services/service_get_event_participation.php" : "https://"+server+"/services/service_get_event_participation.php";
 
+        public static string RestUrl_Get_EventParticipation_All = DeviceInfo.Platform == DevicePlatform.Android ? "https://" + server + "/services/service_get_event_participation_all.php" : "https://" + server + "/services/service_get_event_participation_all.php";
+
         public static string RestUrl_Get_Examination_Timing = DeviceInfo.Platform == DevicePlatform.Android ? "https://" + server + "/services/service_get_examination_timing.php" : "https://" + server + "/services/service_get_examination_timing.php";
 
         public static string RestUrl_Get_Examination_Program_All = DeviceInfo.Platform == DevicePlatform.Android ? "https://"+server+"/services/service_get_examinationprogram_all.php" : "https://"+server+"/services/service_get_examinationprogram_all.php";
