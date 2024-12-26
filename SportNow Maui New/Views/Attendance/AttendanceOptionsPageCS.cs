@@ -46,11 +46,11 @@ namespace SportNow.Views
 		{
 			Debug.Print("CleanScreen");
 			//valida se os objetos já foram criados antes de os remover
-			if (presencasabsoluteLayout != null)
+			if (absoluteLayout.Contains(presencasabsoluteLayout) == true)
 			{
 				absoluteLayout.Remove(presencasabsoluteLayout);
 
-                presencasabsoluteLayout = null;
+                //presencasabsoluteLayout = null;
 			}
 
 		}

@@ -379,7 +379,7 @@ namespace SportNow.Views
 				return itemabsoluteLayout;
 			});
 			absoluteLayout.Add(proximosEventosCollectionView);
-            absoluteLayout.SetLayoutBounds(proximosEventosCollectionView, new Rect(5 * App.screenWidthAdapter, 80 * App.screenHeightAdapter, App.screenWidth - 10 * App.screenWidthAdapter, App.screenHeight - 150 * App.screenHeightAdapter - 80 * App.screenHeightAdapter));
+            absoluteLayout.SetLayoutBounds(proximosEventosCollectionView, new Rect(5 * App.screenWidthAdapter, 80 * App.screenHeightAdapter, App.screenWidth - 10 * App.screenWidthAdapter, App.screenHeight - 150 - 80 * App.screenHeightAdapter));
 
 		}
 
@@ -421,7 +421,7 @@ namespace SportNow.Views
             */
 
             absoluteLayout.Add(calendarLabel);
-            absoluteLayout.SetLayoutBounds(calendarLabel, new Rect(0, App.screenHeight - 150 * App.screenHeightAdapter - 95 * App.screenHeightAdapter, App.screenWidth, 20 * App.screenHeightAdapter));
+            absoluteLayout.SetLayoutBounds(calendarLabel, new Rect(0, App.screenHeight - 150, App.screenWidth, 20 * App.screenHeightAdapter));
 		}
 
 		public AllEventsPageCS()

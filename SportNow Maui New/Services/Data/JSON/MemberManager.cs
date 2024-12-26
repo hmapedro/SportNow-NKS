@@ -358,9 +358,62 @@ namespace SportNow.Services.Data.JSON
 					string content = await response.Content.ReadAsStringAsync();
 					List<Fee> feesTemp = JsonConvert.DeserializeObject<List<Fee>>(content);
 					if ((feesTemp != null) & (feesTemp.Count > 0))
-
 					{
-						member.currentFee = feesTemp[0];
+						foreach(Fee fee in feesTemp) 
+						{
+							if (fee.periodo == DateTime.Now.ToString("yyyy")) 
+							{
+								member.currentFee = fee;
+							}
+							else if (fee.periodo == DateTime.Now.AddYears(1).ToString("yyyy")) 
+							{
+								member.nextPeriodFee = fee;
+							}
+						}
+						
+					}
+					result = 1;
+				}
+				else
+				{
+					Debug.WriteLine("error getting fees");
+					result = -1;
+				}
+
+				return result;
+			}
+			catch (Exception e)
+			{
+				Debug.WriteLine("MemberManager.GetCurrentFees http request error "+e.ToString());
+				return -1;
+			}
+		}
+
+		public async Task<int> GetNextYearFee(Member member)
+		{
+			Debug.WriteLine("GetNextYearFee begin "+ Constants.RestUrl_Get_NextYearFee + "?userid=" + member.id);
+			Uri uri = new Uri(string.Format(Constants.RestUrl_Get_NextYearFee + "?userid=" + member.id, string.Empty));
+			try
+            {
+
+            
+				HttpResponseMessage response = await client.GetAsync(uri);
+				var result = 0;
+				if (response.IsSuccessStatusCode)
+				{
+					//return true;
+					string content = await response.Content.ReadAsStringAsync();
+					List<Fee> feesTemp = JsonConvert.DeserializeObject<List<Fee>>(content);
+					if ((feesTemp != null) & (feesTemp.Count > 0))
+					{
+						foreach(Fee fee in feesTemp) 
+						{
+							if (fee.periodo == DateTime.Now.AddYears(1).ToString("yyyy")) 
+							{
+								member.nextPeriodFee = fee;
+							}
+						}
+						
 					}
 					result = 1;
 				}
@@ -913,6 +966,70 @@ namespace SportNow.Services.Data.JSON
 
         }
 
+        public async Task<string> sendMailSeason(string membername, string memberemail, string haspastfees)
+        {
+            Debug.WriteLine("sendMailSeason begin " + Constants.RestUrl_Send_Mail_Season + "?membername=" + membername + "&memberemail=" + memberemail + "&haspastfees=" + haspastfees);
+            Uri uri = new Uri(string.Format(Constants.RestUrl_Send_Mail_Season + "?membername=" + membername + "&memberemail=" + memberemail + "&haspastfees=" + haspastfees, string.Empty));
+            try
+            {
+                HttpResponseMessage response = await client.GetAsync(uri);
+                var result = "0";
+                if (response.IsSuccessStatusCode)
+                {
+                    //return true;
+                    string content = await response.Content.ReadAsStringAsync();
+                    Debug.WriteLine("content=" + content);
+                    List<Result> createResultList = JsonConvert.DeserializeObject<List<Result>>(content);
+                    return createResultList[0].result;
+                }
+                else
+                {
+                    Debug.WriteLine("sendMailSeason - error sending email");
+                    result = "-1";
+                }
+
+                return result;
+            }
+            catch
+            {
+                Debug.WriteLine("sendMailSeason - http request error");
+                return "-1";
+            }
+        }
+
+        public async Task<List<MedicalExam>> Get_MedicalExam_byUserId(string memberid)
+        {
+            Debug.WriteLine("Get_MedicalExam_byUserId - " + Constants.RestUrl_Get_MedicalExam_byUserId + "?memberid=" + memberid);
+            Uri uri = new Uri(string.Format(Constants.RestUrl_Get_MedicalExam_byUserId + "?memberid=" + memberid));
+
+            List<MedicalExam> medicalExams = new List<MedicalExam>();
+            try
+            {
+                HttpResponseMessage response = await client.GetAsync(uri);
+
+
+                if (response.IsSuccessStatusCode)
+                {
+                    string content = await response.Content.ReadAsStringAsync();
+                    Debug.WriteLine("Get_MedicalExam_byUserId - content = " + content);
+                    medicalExams = JsonConvert.DeserializeObject<List<MedicalExam>>(content);
+
+                }
+                else
+                {
+                    Debug.WriteLine("Get_MedicalExam_byUserId - not ok");
+                }
+                return medicalExams;
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine("Get_MedicalExam_byUserId - http request error");
+                Debug.Print(e.StackTrace);
+                return null;
+            }
+
+        }
+        
 
 
     }

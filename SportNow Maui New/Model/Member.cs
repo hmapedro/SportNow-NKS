@@ -61,6 +61,7 @@ namespace SportNow.Model
         public List<Examination> examinations { get; set; }
 
         public Fee currentFee { get; set; }
+        public Fee nextPeriodFee { get; set; }
 
         public List<Fee> pastFees { get; set; }
 
@@ -88,6 +89,8 @@ namespace SportNow.Model
         public int students_count { get; set; }
 
         public List<Objective> objectives { get; set; }
+
+        public List<MedicalExam> medicalExams { get; set; }
 
         public override string ToString()
             {

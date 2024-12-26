@@ -24,6 +24,8 @@ namespace SportNow.Views
 
 		private Member member;
 
+		bool isNextYearFee;
+
 		private Microsoft.Maui.Controls.Grid gridPaymentOptions;
 
 		public void initLayout()
@@ -125,7 +127,19 @@ namespace SportNow.Views
 		{
 
 			this.member = member;
+			this.isNextYearFee = false;
+			//App.event_participation = event_participation;
 
+			this.initLayout();
+			this.initSpecificLayout();
+
+		}
+		 public QuotasPaymentPageCS(Member member, bool isNextYearFee)
+		{
+
+
+			this.member = member;
+			this.isNextYearFee = isNextYearFee;
 			//App.event_participation = event_participation;
 
 			this.initLayout();
@@ -136,13 +150,13 @@ namespace SportNow.Views
 
 		async void OnMBButtonClicked(object sender, EventArgs e)
 		{
-			await Navigation.PushAsync(new QuotasMBPageCS(member));
+			await Navigation.PushAsync(new QuotasMBPageCS(member, isNextYearFee));
 		}
 
 
 		async void OnMBWayButtonClicked(object sender, EventArgs e)
 		{
-			await Navigation.PushAsync(new QuotasMBWayPageCS(member));
+			await Navigation.PushAsync(new QuotasMBWayPageCS(member, isNextYearFee));
 		}
 
 	}

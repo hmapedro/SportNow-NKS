@@ -18,6 +18,7 @@ namespace SportNow.Views
 		}
 
 		private Member member;
+		bool isNextYearFee;
 
 		private List<Payment> payments;
 
@@ -61,7 +62,7 @@ namespace SportNow.Views
 			Label eventParticipationNameLabel = new Label
 			{
                 FontFamily = "futuracondensedmedium",
-                Text = "Para ativares a tua Quota - " + member.currentFee.name + " efetua o pagamento de " + String.Format("{0:0.00}", payments[0].value) + "€",
+                //Text = "Para ativares a tua Quota - " + member.currentFee.name + " efetua o pagamento de " + String.Format("{0:0.00}", payments[0].value) + "€",
 				VerticalTextAlignment = TextAlignment.Center,
 				HorizontalTextAlignment = TextAlignment.Center,
 				TextColor = App.normalTextColor,
@@ -69,6 +70,14 @@ namespace SportNow.Views
 				FontSize = App.bigTitleFontSize
 			};
 
+			if (this.isNextYearFee) 
+			{
+				eventParticipationNameLabel.Text = "Para ativares a tua Quota \n " + member.nextPeriodFee.name + "\n efetua o pagamento MB com os dados apresentados em baixo:";
+			}
+            else 
+			{
+				eventParticipationNameLabel.Text = "Para ativares a tua Quota \n " + member.currentFee.name + "\n efetua o pagamento MB com os dados apresentados em baixo:";
+			}
 			absoluteLayout.Add(eventParticipationNameLabel);
             absoluteLayout.SetLayoutBounds(eventParticipationNameLabel, new Rect(0, 10 * App.screenHeightAdapter, App.screenWidth - 10 * App.screenWidthAdapter, 160 * App.screenHeightAdapter));
 
@@ -127,10 +136,11 @@ namespace SportNow.Views
         }
 
 
-        public QuotasMBWayPageCS(Member member)
+        public QuotasMBWayPageCS(Member member, bool isNextYearFee)
 		{
 
 			this.member = member;
+			this.isNextYearFee = isNextYearFee;
 			//App.event_participation = event_participation;
 
 			this.initLayout();
@@ -154,7 +164,15 @@ namespace SportNow.Views
 			Debug.WriteLine("GetFeePayment");
 			MemberManager memberManager = new MemberManager();
 
-			payments = await memberManager.GetFeePayment(member.currentFee.id);
+			if (this.isNextYearFee) 
+			{
+				payments = await memberManager.GetFeePayment(member.nextPeriodFee.id);
+			}
+            else 
+			{
+				payments = await memberManager.GetFeePayment(member.currentFee.id);
+			}
+
 			Debug.Print("OLA");
 			if (payments == null)
 			{

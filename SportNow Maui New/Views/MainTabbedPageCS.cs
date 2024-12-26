@@ -20,6 +20,8 @@ namespace SportNow.Views
     public class MainTabbedPageCS : Microsoft.Maui.Controls.TabbedPage
     {
 
+        bool needCheckObjectives;
+
         protected override void OnHandlerChanging(HandlerChangingEventArgs args)
         {
             base.OnHandlerChanging(args);
@@ -128,7 +130,7 @@ namespace SportNow.Views
                     }
                 }
 
-                //await checkObjectives();
+                await checkObjectives();
 
                 //se chegou aqui é pq sabe quem é o member
                 if ((BetterFirebasePushNotification.Current.Token!= null) & (App.original_member.id == App.member.id))
@@ -232,7 +234,7 @@ namespace SportNow.Views
                     return;
                 }
 
-                //await checkObjectives();
+                await checkObjectives();
                 //var result = await GetCurrentFees(App.member);
                 //App.original_member.students_count = await GetMemberStudents_Count(App.original_member.id);
                 //App.member.students_count = await GetMemberStudents_Count(App.member.id);
@@ -295,9 +297,17 @@ namespace SportNow.Views
         public MainTabbedPageCS(string actiontype, string actionid)
         {
             Debug.Print("MainTabbedPageCS");
-
+            this.needCheckObjectives = true;
             initSpecificLayout(actiontype, actionid);
         }
+
+        public MainTabbedPageCS(string actiontype, string actionid, bool needCheckObjectives)
+        {
+            Debug.Print("MainTabbedPageCS");
+            this.needCheckObjectives = needCheckObjectives;
+            initSpecificLayout(actiontype, actionid);
+        }
+        
 
         private async Task<int> navigateToPageAsync(string actiontype, string actionid)
         {
@@ -452,14 +462,22 @@ namespace SportNow.Views
 
         async Task<int> checkObjectives()
         {
-            Debug.Print("MainTabbedPageCS.checkObjectives");
-            MemberManager memberManager = new MemberManager();
-
-            App.member.objectives = await memberManager.GetObjectives_bySeason(App.member.id, App.getSeason());
-
-            if (App.member.objectives.Count == 0)
+            if (needCheckObjectives)
             {
-                await Navigation.PushAsync(new ObjectivesPageCS());
+                Debug.Print("MainTabbedPageCS.checkObjectives");
+                MemberManager memberManager = new MemberManager();
+
+                App.member.objectives = await memberManager.GetObjectives_bySeason(App.member.id, App.getSeason());
+
+                if (App.member.objectives.Count == 0)
+                {
+                    //await Navigation.PushAsync(new ObjectivesPageCS());
+                    Microsoft.Maui.Controls.Application.Current.MainPage = new NavigationPage(new ObjectivesPageCS())
+                    {
+                        BarBackgroundColor = App.backgroundColor,
+                        BarTextColor = App.normalTextColor
+                    };
+                }
             }
             return 1;
         }

@@ -29,8 +29,11 @@ namespace SportNow.Views
 		DateTime selectedTime;
 
 		ObservableCollection<MonthFee> monthFees;
+        ObservableCollection<MonthFee> monthFees_filtered;
 
-		Picker dojoPicker;
+        FormValueEdit searchEntry;
+
+        Picker dojoPicker;
 
 		RoundButton approveAllButton;
 
@@ -50,6 +53,7 @@ namespace SportNow.Views
 
 				absoluteLayout.Remove(dojoPicker);
 				absoluteLayout.Remove(stackMonthSelector);
+                absoluteLayout.Remove(searchEntry);
             }
         }
 
@@ -60,7 +64,11 @@ namespace SportNow.Views
 			CreateMonthSelector();
 			_ = await CreateDojoPicker();
 			monthFees = await GetMonthFeesbyDojo();
-			CreateMonthFeesColletion();
+
+			CreateSearchEntry();
+
+
+            CreateMonthFeesColletion();
 
 			hideActivityIndicator();
 		}
@@ -192,7 +200,35 @@ namespace SportNow.Views
             absoluteLayout.SetLayoutBounds(stackMonthSelector, new Rect(0, 40 * App.entryHeightAdapter, App.screenWidth, 50 * App.entryHeightAdapter));
 		}
 
-		public void CreateMonthFeesColletion()
+        public void CreateSearchEntry()
+        {
+            searchEntry = new FormValueEdit("", Keyboard.Text, 45);
+            searchEntry.entry.Placeholder = "Pesquisa...";
+            searchEntry.entry.TextChanged += onSearchTextChange;
+            absoluteLayout.Add(searchEntry);
+            absoluteLayout.SetLayoutBounds(searchEntry, new Rect(0, 100 * App.screenHeightAdapter, App.screenWidth, 50 * App.screenHeightAdapter));
+
+        }
+
+        async void onSearchTextChange(object sender, EventArgs e)
+        {
+            Debug.WriteLine("SelectStudentPageCS.onSearchTextChange");
+            if (searchEntry.entry.Text == "")
+            {
+                monthFees_filtered = new ObservableCollection<MonthFee>(monthFees);
+
+            }
+            else
+            {
+                monthFees_filtered = new ObservableCollection<MonthFee>(monthFees.Where(i => i.membernickname.ToLower().Contains(searchEntry.entry.Text.ToLower())));
+            }
+
+            monthFeesCollectionView.ItemsSource = null;
+            monthFeesCollectionView.ItemsSource = monthFees_filtered;
+        }
+
+
+        public void CreateMonthFeesColletion()
 		{
 			//COLLECTION GRADUACOES
 			monthFeesCollectionView = new CollectionView
@@ -263,7 +299,7 @@ namespace SportNow.Views
 			});
 
 			absoluteLayout.Add(monthFeesCollectionView);
-            absoluteLayout.SetLayoutBounds(monthFeesCollectionView, new Rect(0, 110 * App.screenHeightAdapter, App.screenWidth, App.screenHeight - 100 - 180 * App.screenHeightAdapter));
+            absoluteLayout.SetLayoutBounds(monthFeesCollectionView, new Rect(0, 160 * App.screenHeightAdapter, App.screenWidth, App.screenHeight - 100 - 230 * App.screenHeightAdapter));
 		}
 
 		public void createApproveButtons()
@@ -519,10 +555,11 @@ namespace SportNow.Views
 			{
 				MonthFeeManager monthFeeManager = new MonthFeeManager();
 				int i = await monthFeeManager.Update_MonthFee_Status_byID(monthFee.id, "paga");
-				monthFee.selectedColor = Colors.LightGreen;
+				monthFee.selectedColor = Colors.DarkGreen;
 				monthFee.status = "Paga";
 				absoluteLayout.Remove(monthFeesCollectionView);
 				monthFeesCollectionView = null;
+				searchEntry.entry.Text = "";
 				CreateMonthFeesColletion();
 			}
 			else

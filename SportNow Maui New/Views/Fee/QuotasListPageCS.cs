@@ -33,6 +33,8 @@ namespace SportNow.Views
         private Microsoft.Maui.Controls.Grid gridInactiveFee, gridActiveFee;
         RegisterButton activateButton;
 
+        bool hasNextYearFeePayed = false;
+
         public void initLayout()
 		{
 			Title = "QUOTAS";
@@ -78,11 +80,9 @@ namespace SportNow.Views
 
         public async void CreateCurrentQuota()
 		{
-			if (App.member.currentFee == null)
-			{
-				var result = await GetCurrentFees(App.member);
-			}
-			
+            var result = 0;
+            result = await GetCurrentFees(App.member);
+            result = await GetNextYearFee(App.member);
 
 			bool hasQuotaPayed = false;
 
@@ -94,6 +94,15 @@ namespace SportNow.Views
 				}
 			}
 
+
+			if (App.member.nextPeriodFee != null)
+			{
+				if ((App.member.nextPeriodFee.estado == "fechado") | (App.member.nextPeriodFee.estado == "recebido") | (App.member.nextPeriodFee.estado == "confirmado"))
+				{
+					hasQuotaPayed = true;
+					hasNextYearFeePayed = true;
+				}
+			}
 
             if (hasQuotaPayed)
             {
@@ -229,13 +238,21 @@ namespace SportNow.Views
             Label feeYearLabel = new Label
             {
                 FontFamily = "futuracondensedmedium",
-                Text = DateTime.Now.ToString("yyyy"),
                 VerticalTextAlignment = TextAlignment.Center,
                 HorizontalTextAlignment = TextAlignment.Center,
                 TextColor = App.normalTextColor,
                 LineBreakMode = LineBreakMode.NoWrap,
                 FontSize = App.bigTitleFontSize
             };
+
+			if (hasNextYearFeePayed == true) 
+			{
+				feeYearLabel.Text = DateTime.Now.AddYears(1).ToString("yyyy");
+			}
+			else 
+			{
+				feeYearLabel.Text = DateTime.Now.ToString("yyyy");
+			}
 
             Image akslLogoFee = new Image
             {
@@ -270,7 +287,7 @@ namespace SportNow.Views
             Label feeActiveDueDateLabel = new Label
             {
                 FontFamily = "futuracondensedmedium",
-                Text = "Válida até 31-12-" + DateTime.Now.ToString("yyyy"),
+                //Text = "Válida até 31-12-" + DateTime.Now.ToString("yyyy"),
                 VerticalTextAlignment = TextAlignment.Center,
                 HorizontalTextAlignment = TextAlignment.Center,
                 TextColor = App.normalTextColor,
@@ -278,6 +295,14 @@ namespace SportNow.Views
                 FontSize = App.bigTitleFontSize
             };
 
+			if (hasNextYearFeePayed == true) 
+			{
+				feeActiveDueDateLabel.Text = "Válida até 31-12-"+DateTime.Now.AddYears(1).ToString("yyyy");
+			}
+			else 
+			{
+				feeActiveDueDateLabel.Text = "Válida até 31-12-"+DateTime.Now.ToString("yyyy");
+			}
 
             gridActiveFee.Add(feeYearLabel, 0, 0);
             Microsoft.Maui.Controls.Grid.SetColumnSpan(feeYearLabel, 3);
@@ -507,6 +532,24 @@ namespace SportNow.Views
             await Navigation.PushAsync(new QuotasPaymentPageCS(App.member));
             hideActivityIndicator();
         }
+
+        async Task<int> GetNextYearFee(Member member)
+		{
+			Debug.WriteLine("GetNextYearFee");
+			MemberManager memberManager = new MemberManager();
+
+			var result = await memberManager.GetNextYearFee(member);
+			if (result == -1)
+			{
+				Application.Current.MainPage = new NavigationPage(new LoginPageCS("Verifique a sua ligação à Internet e tente novamente."))
+				{
+					BarBackgroundColor = App.backgroundColor,
+					BarTextColor = App.normalTextColor
+				};
+				return result;
+			}
+			return result;
+		}
 
     }
 }

@@ -66,6 +66,7 @@ namespace SportNow.Views
 
 		public async void initSpecificLayout()
 		{
+			Debug.Print("event_v.type = " + event_v.type);
 
             this.BackgroundColor = App.backgroundOppositeColor;
 
@@ -84,7 +85,8 @@ namespace SportNow.Views
 			gridEvent.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
 			gridEvent.RowDefinitions.Add(new RowDefinition { Height = 60 * App.screenHeightAdapter });
             gridEvent.RowDefinitions.Add(new RowDefinition { Height = 60 * App.screenHeightAdapter });
-            gridEvent.RowDefinitions.Add(new RowDefinition { Height = GridLength.Star });
+            gridEvent.RowDefinitions.Add(new RowDefinition { Height = 60 * App.screenHeightAdapter });
+			gridEvent.RowDefinitions.Add(new RowDefinition { Height = 60 * App.screenHeightAdapter });
 			//gridGeral.RowDefinitions.Add(new RowDefinition { Height = 1 });
 			gridEvent.ColumnDefinitions.Add(new ColumnDefinition { Width = App.screenWidth / 5 }); //GridLength.Auto
 			gridEvent.ColumnDefinitions.Add(new ColumnDefinition { Width = App.screenWidth / 5 * 4}); //GridLength.Auto 
@@ -187,9 +189,12 @@ namespace SportNow.Views
 
 					registerButton.button.Clicked += OnRegisterButtonClicked;
 
-                    absoluteLayout.Add(registerButton);
+					gridEvent.Add(registerButton, 0, 8);
+					Microsoft.Maui.Controls.Grid.SetColumnSpan(registerButton, 2);
+					
+                    /*absoluteLayout.Add(registerButton);
                     absoluteLayout.SetLayoutBounds(registerButton, new Rect(0 * App.screenWidthAdapter, App.screenHeight - 100 - 60 * App.screenHeightAdapter, App.screenWidth, 50 * App.screenHeightAdapter));
-
+*/
 
                     /*gridEvent.RowDefinitions.Add(new RowDefinition { Height = GridLength.Star });
 					gridEvent.Add(registerButton, 0, 7);

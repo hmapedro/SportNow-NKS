@@ -20,16 +20,15 @@ namespace SportNow.Views
 
         double quotaOriginalValue = 0;
 
+		bool isNextYearFee = false;
+
         public void initLayout()
 		{
-			Title = "QUOTA - PAGAMENTO MB";
-			
+			Title = "QUOTA - PAGAMENTO MB";	
 		}
-
 
 		public async void initSpecificLayout()
 		{
-
 			member = App.member;
 
 			showActivityIndicator();
@@ -45,7 +44,6 @@ namespace SportNow.Views
 
             payments = await GetFeePayment(this.member);
             hideActivityIndicator();
-
 
             createMBPaymentLayout();
 		}
@@ -64,13 +62,22 @@ namespace SportNow.Views
 			Label feeYearLabel = new Label
 			{
                 FontFamily = "futuracondensedmedium",
-                Text = "Para ativares a tua Quota \n " + member.currentFee.name + "\n efetua o pagamento MB com os dados apresentados em baixo:",
+                //Text = "Para ativares a tua Quota \n " + member.currentFee.name + "\n efetua o pagamento MB com os dados apresentados em baixo:",
                 VerticalTextAlignment = TextAlignment.Center,
 				HorizontalTextAlignment = TextAlignment.Center,
 				TextColor = App.normalTextColor,
 				//LineBreakMode = LineBreakMode.NoWrap,
 				FontSize = App.bigTitleFontSize
 			};
+
+			if (this.isNextYearFee) 
+			{
+				feeYearLabel.Text = "Para ativares a tua Quota \n " + member.nextPeriodFee.name + "\n efetua o pagamento MB com os dados apresentados em baixo:";
+			}
+            else 
+			{
+				feeYearLabel.Text = "Para ativares a tua Quota \n " + member.currentFee.name + "\n efetua o pagamento MB com os dados apresentados em baixo:";
+			}
 
 			Image MBLogoImage = new Image
 			{
@@ -129,7 +136,7 @@ namespace SportNow.Views
 			Label entityValue = new Label
 			{
                 FontFamily = "futuracondensedmedium",
-                Text = App.member.currentFee.entidade,
+                Text = payments[0].entity,
 				VerticalTextAlignment = TextAlignment.Center,
 				HorizontalTextAlignment = TextAlignment.End,
 				TextColor = App.normalTextColor,
@@ -138,7 +145,7 @@ namespace SportNow.Views
 			Label referenceValue = new Label
 			{
                 FontFamily = "futuracondensedmedium",
-                Text = App.member.currentFee.referencia,
+                Text = payments[0].reference,
 				VerticalTextAlignment = TextAlignment.Center,
 				HorizontalTextAlignment = TextAlignment.End,
 				TextColor = App.normalTextColor,
@@ -201,15 +208,18 @@ namespace SportNow.Views
         
 		}
 
-		public QuotasMBPageCS(Member member)
+		public QuotasMBPageCS(Member member, bool isNextYearFee)
 		{
 
 			this.member = member;
+			this.isNextYearFee = isNextYearFee;
 
 			this.initLayout();
 			this.initSpecificLayout();
 
 		}
+
+
 
 		async void OnPerfilButtonClicked(object sender, EventArgs e)
 		{
@@ -222,8 +232,14 @@ namespace SportNow.Views
             Debug.WriteLine("GetFeePayment");
             MemberManager memberManager = new MemberManager();
 
-            payments = await memberManager.GetFeePayment(member.currentFee.id);
-            Debug.Print("OLA");
+			if (this.isNextYearFee) 
+			{
+				payments = await memberManager.GetFeePayment(member.nextPeriodFee.id);
+			}
+            else 
+			{
+				payments = await memberManager.GetFeePayment(member.currentFee.id);
+			}
             if (payments == null)
             {
                 Application.Current.MainPage = new NavigationPage(new LoginPageCS("Verifique a sua ligação à Internet e tente novamente."))

@@ -4,11 +4,7 @@ using System.Diagnostics;
 using SportNow.CustomViews;
 using System.Text.RegularExpressions;
 using System.Net;
-
-using SkiaSharp;
-using Syncfusion.Maui.Core;
 using SportNow.Views.Profile.AllPayments;
-using Microsoft.Maui.Graphics.Platform;
 
 namespace SportNow.Views.Profile
 {
@@ -196,16 +192,25 @@ namespace SportNow.Views.Profile
             };
 
             var result = await GetCurrentFees(App.member);
-            Debug.Print("member.currentFee = " + App.member.currentFee.name);
+            
             bool hasQuotaPayed = false;
 
 			if (App.member.currentFee != null)
 			{
-				if ((App.member.currentFee.estado == "fechado") | (App.member.currentFee.estado == "recebido"))
+				if ((App.member.currentFee.estado == "fechado") | (App.member.currentFee.estado == "recebido") | (App.member.currentFee.estado == "confirmado"))
 				{
 					hasQuotaPayed = true;
 				}
 			}
+
+			if (App.member.nextPeriodFee != null)
+			{
+				if ((App.member.nextPeriodFee.estado == "fechado") | (App.member.nextPeriodFee.estado == "recebido") | (App.member.nextPeriodFee.estado == "confirmado"))
+				{
+					hasQuotaPayed = true;
+				}
+			}
+
 
 			if (hasQuotaPayed == true)
 			{
@@ -285,6 +290,85 @@ namespace SportNow.Views.Profile
             }
             else
             {
+                return 0;
+            }
+        }
+
+
+        public async Task<int> CreateMedicalExamButton()
+        {
+            MemberManager memberManager = new MemberManager();
+            App.member.medicalExams = await memberManager.Get_MedicalExam_byUserId(App.member.id);
+
+            Image medicalExamsImage = new Image
+            {
+                Aspect = Aspect.AspectFit
+            };
+
+            
+            TapGestureRecognizer medicalExamsImage_tapEvent = new TapGestureRecognizer();
+            medicalExamsImage_tapEvent.Tapped += OnMedicalExamButtonClicked;
+            medicalExamsImage.GestureRecognizers.Add(medicalExamsImage_tapEvent);
+
+            absoluteLayout.Add(medicalExamsImage);
+            absoluteLayout.SetLayoutBounds(medicalExamsImage, new Rect((12.5 * App.screenHeightAdapter), y_button_left * App.screenHeightAdapter, 35 * App.screenHeightAdapter, 35 * App.screenHeightAdapter));
+
+            Label medicalExamsLabel = new Label
+            {
+                FontFamily = "futuracondensedmedium",
+                Text = "Exame Médico",
+                TextColor = App.normalTextColor,
+                HorizontalTextAlignment = TextAlignment.Center,
+                VerticalTextAlignment = TextAlignment.Start,
+                FontSize = App.smallTextFontSize
+            };
+
+            TapGestureRecognizer medicalExamsLabel_tapEvent = new TapGestureRecognizer();
+            medicalExamsLabel_tapEvent.Tapped += OnMedicalExamButtonClicked;
+            medicalExamsLabel.GestureRecognizers.Add(medicalExamsLabel_tapEvent);
+
+            absoluteLayout.Add(medicalExamsLabel);
+            absoluteLayout.SetLayoutBounds(medicalExamsLabel, new Rect(0, (y_button_left + 37) * App.screenHeightAdapter, 60 * App.screenHeightAdapter, 15 * App.screenHeightAdapter));
+
+            y_button_left = y_button_left + 60;
+
+            if ((App.member.medicalExams == null) & (App.member.medicalExams.Count == 0))
+            {
+                medicalExamsImage.Source = "emd_vermelho.png";
+                return 1;
+            }
+            else
+            {
+                bool isExpired = true;
+                bool isAlmostExpired = false;
+                foreach (MedicalExam medicalExam in App.member.medicalExams)
+                {
+                    if (medicalExam.status == "Aprovado")
+                    {
+                        isExpired = false;
+                        DateTime currentTime = DateTime.Now.Date;
+                        DateTime expireDate_datetime = DateTime.Parse(medicalExam.expireDate).Date;
+                        Debug.Print("(expireDate_datetime - currentTime).Days = " + (expireDate_datetime - currentTime).Days);
+                        if ((expireDate_datetime - currentTime).Days < 30)
+                        {
+                            isAlmostExpired = true;
+                        }
+                    }
+                }
+
+                if (isExpired)
+                {
+                    medicalExamsImage.Source = "emd_vermelho.png";
+                }
+                else if (isAlmostExpired)
+                {
+                    medicalExamsImage.Source = "emd_amarelo.png";
+                }
+                else
+                {
+                    medicalExamsImage.Source = "emd_verde.png";
+                }
+
                 return 0;
             }
         }
@@ -609,6 +693,7 @@ namespace SportNow.Views.Profile
             //CreateObjectivesButton();
 			_ = await CreateQuotaButton();
             _ = await CreatePaymentsButton();
+            _ = await CreateMedicalExamButton();
         }
 
 		public void CreateGridGeral() {
@@ -1044,6 +1129,12 @@ namespace SportNow.Views.Profile
         {
             await Navigation.PushAsync(new AllPaymentsPageCS());
         }
+
+        async void OnMedicalExamButtonClicked(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new MedicalExamPageCS());
+        }
+
 
         async void OnObjectivesButtonClicked(object sender, EventArgs e)
         {

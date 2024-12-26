@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using Microsoft.Maui;
-using SportNow.Model;
+﻿using SportNow.Model;
 using SportNow.Services.Data.JSON;
-using System.Threading.Tasks;
 using System.Diagnostics;
 using SportNow.Views.Profile;
 using SportNow.CustomViews;
@@ -31,6 +27,7 @@ namespace SportNow.Views
 
         RegisterButton activateButton;
 
+		bool hasNextYearFeePayed = false;
 
 		public void initLayout()
 		{
@@ -57,10 +54,10 @@ namespace SportNow.Views
 
 		public async void initSpecificLayout()
 		{
-
 			member = App.member;
 
 			var result = await GetCurrentFees(member);
+			result = await GetNextYearFee(member);
 
 			bool hasQuotaPayed = false;
 
@@ -69,6 +66,15 @@ namespace SportNow.Views
 				if ((App.member.currentFee.estado == "fechado") | (App.member.currentFee.estado == "recebido") | (App.member.currentFee.estado == "confirmado"))
 				{
 					hasQuotaPayed = true;
+				}
+			}
+
+			if (App.member.nextPeriodFee != null)
+			{
+				if ((App.member.nextPeriodFee.estado == "fechado") | (App.member.nextPeriodFee.estado == "recebido") | (App.member.nextPeriodFee.estado == "confirmado"))
+				{
+					hasQuotaPayed = true;
+					hasNextYearFeePayed = true;
 				}
 			}
 
@@ -182,7 +188,7 @@ namespace SportNow.Views
 			gridActiveFee.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
 			gridActiveFee.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Star }); //GridLength.Auto
 			gridActiveFee.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Star }); //GridLength.Auto 
-            gridInactiveFee.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Star }); //GridLength.Auto
+            gridActiveFee.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Star }); //GridLength.Auto
 
             Label feeYearLabel = new Label
 			{
@@ -194,12 +200,20 @@ namespace SportNow.Views
 				FontSize = 50
 			};
 
-			Image akslLogoFee = new Image
+			if (hasNextYearFeePayed == true) 
+			{
+				feeYearLabel.Text = DateTime.Now.AddYears(1).ToString("yyyy");
+			}
+			else 
+			{
+				feeYearLabel.Text = DateTime.Now.ToString("yyyy");
+			}
+
+ 			Image akslLogoFee = new Image
 			{
 				Source = "company_logo.png",
 				WidthRequest = 80
 			};
-
 
             Image awikpLogoFee = new Image
             {
@@ -234,6 +248,14 @@ namespace SportNow.Views
 				FontSize = App.bigTitleFontSize
 			};
 
+			if (hasNextYearFeePayed == true) 
+			{
+				feeActiveDueDateLabel.Text = "Válida até 31-12-"+DateTime.Now.AddYears(1).ToString("yyyy");
+			}
+			else 
+			{
+				feeActiveDueDateLabel.Text = "Válida até 31-12-"+DateTime.Now.ToString("yyyy");
+			}
 
 			gridActiveFee.Add(feeYearLabel, 0, 0);
 			Microsoft.Maui.Controls.Grid.SetColumnSpan(feeYearLabel, 3);
@@ -255,13 +277,7 @@ namespace SportNow.Views
 
 		public QuotasPageCS()
 		{
-			Debug.Print("App.member.dojo_faturavel = " + App.member.dojo_faturavel);
-			Debug.Print("App.member.dojo_seguro = " + App.member.dojo_seguro);
-			Debug.Print("App.member.member_type = " + App.member.member_type);
-
 			this.initLayout();
-			//this.initSpecificLayout();
-
 		}
 
 		async void OnPerfilButtonClicked(object sender, EventArgs e)
@@ -296,11 +312,11 @@ namespace SportNow.Views
 				var result_get = await GetCurrentFees(member);
 				if (result_create == "-1")
 				{
-				Application.Current.MainPage = new NavigationPage(new LoginPageCS("Verifique a sua ligação à Internet e tente novamente."))
-				{
-					BarBackgroundColor = App.backgroundColor,
-					BarTextColor = App.normalTextColor
-				};
+					Application.Current.MainPage = new NavigationPage(new LoginPageCS("Verifique a sua ligação à Internet e tente novamente."))
+					{
+						BarBackgroundColor = App.backgroundColor,
+						BarTextColor = App.normalTextColor
+					};
 				}
 			}
 			
@@ -309,12 +325,32 @@ namespace SportNow.Views
 		}
 		
 
+	
+
 		async Task<int> GetCurrentFees(Member member)
 		{
 			Debug.WriteLine("GetCurrentFees");
 			MemberManager memberManager = new MemberManager();
 
 			var result = await memberManager.GetCurrentFees(member);
+			if (result == -1)
+			{
+				Application.Current.MainPage = new NavigationPage(new LoginPageCS("Verifique a sua ligação à Internet e tente novamente."))
+				{
+					BarBackgroundColor = App.backgroundColor,
+					BarTextColor = App.normalTextColor
+				};
+				return result;
+			}
+			return result;
+		}
+
+		async Task<int> GetNextYearFee(Member member)
+		{
+			Debug.WriteLine("GetNextYearFee");
+			MemberManager memberManager = new MemberManager();
+
+			var result = await memberManager.GetNextYearFee(member);
 			if (result == -1)
 			{
 				Application.Current.MainPage = new NavigationPage(new LoginPageCS("Verifique a sua ligação à Internet e tente novamente."))

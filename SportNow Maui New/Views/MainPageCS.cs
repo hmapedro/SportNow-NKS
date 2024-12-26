@@ -19,6 +19,7 @@ using System.Xml;
 using Microsoft.Maui.Controls.Shapes;
 using System.Runtime.CompilerServices;
 using Plugin.BetterFirebasePushNotification;
+using Syncfusion.Pdf;
 
 namespace SportNow.Views
 {
@@ -28,7 +29,7 @@ namespace SportNow.Views
 		protected async override void OnAppearing()
 		{
             base.OnAppearing();
-            if (gridMain == null)
+            if (absoluteLayout.Contains(gridMain) == false)
 			{
                 initSpecificLayout();
             }
@@ -82,10 +83,6 @@ namespace SportNow.Views
         public void CleanScreen()
 		{
 			//valida se os objetos já foram criados antes de os remover
-			if (gridMain != null)
-			{
-				gridMain = null;
-			}
 
             if (usernameLabel != null)
 			{
@@ -125,6 +122,12 @@ namespace SportNow.Views
             if (gridLinks != null)
             {
                 gridLinks = null;
+            }
+
+            if (gridMain != null)
+            {
+                absoluteLayout.Remove(gridMain);
+                //gridMain = null;
             }
         }
 
@@ -217,16 +220,25 @@ namespace SportNow.Views
 			teacherClass_Schedules = await GetAllClass_Schedules(firstDay, lastday);
 			CompleteTeacherClass_Schedules();
 
-			if (App.member.currentFee == null)
+			/*string currentMonth = currentTime.ToString("MM");
+
+			if (currentMonth == "11") 
 			{
-				Debug.Print("Current Fee NULL não devia acontecer!");
-				if (App.member.currentFee == null)
+				Debug.Print("Month is December");
+				MemberManager memberManager = new MemberManager();
+				int hasNextYearFee = await(memberManager.hasNextYearFee(App.member));
+				Debug.Print("hasNextYearFee = "+hasNextYearFee);
+				if (hasNextYearFee != 1) 
 				{
-					Debug.Print("Current Fee NULL não devia acontecer!");
-					int result1 = await GetCurrentFees(App.member);
+					bool answer = await DisplayAlert("A QUOTA DO PRÓXIMO ANO NÃO ESTÁ ATIVA.", "A tua quota para o próximo ano não está ativa. Queres efetuar o pagamento?", "Sim", "Não");
+                	Debug.Print("Answer: " + answer);
+					if (answer == true)
+					{
+						await Navigation.PushAsync(new QuotasPageCS());
+					}
 				}
-				await GetCurrentFees(App.member);
-			}
+			}*/
+
 
 
 			hideActivityIndicator();
@@ -237,6 +249,17 @@ namespace SportNow.Views
 			{
 				createImportantTeacherClasses();
 				createImportantEvents();
+
+                if (gridMain == null)
+                {
+                    Debug.Print("gridMain = NULL");
+                }
+
+                if (gridTeacherClasses == null)
+				{
+					Debug.Print("gridTeacherClasses = NULL");
+				}
+
                 gridMain.Add(gridTeacherClasses, 0, 1);
                 gridMain.Add(gridClasses, 0, 2);
                 gridMain.Add(gridEvents, 0, 3);
@@ -258,10 +281,13 @@ namespace SportNow.Views
             technicalButton.button.Clicked += OnTechnicalButtonClicked;
 			*/
 
-            createCurrentFee();
+            await createCurrentFee();
 
-            createDelayedMonthFee();
+            await createDelayedMonthFee();
 
+			await createNextYearFee();
+
+			
             //createVersion();
 
 
@@ -969,16 +995,17 @@ namespace SportNow.Views
         {
             try
             {
-                await Browser.OpenAsync("https://karatesangalhos.pt/files/MANUAL_NKS_KIDS%20_21_Nov_2023.pdf", BrowserLaunchMode.SystemPreferred);
+                await Browser.OpenAsync("https://nks-server.synology.me:5011/d/s/zMS60GBKASud9S77iBzsUT2qbRzagbrz/0AOGWHDtZGiECx2gTPXdEcMoUY3Ya1Sl-X7MgsWPynws", BrowserLaunchMode.SystemPreferred);
             }
             catch (Exception ex)
             {
             }
         }
 
-        public async void createCurrentFee()
+        public async Task<int> createCurrentFee()
 		{
 
+			await GetCurrentFees(App.member);
 			bool hasQuotaPayed = false;
 
 			if (App.member.currentFee != null)
@@ -988,7 +1015,7 @@ namespace SportNow.Views
 					hasQuotaPayed = true;
 					createLinks();
                     gridMain.Add(gridLinks, 0, 4);
-                    return;
+                    return 0;
 				}
 			}
 
@@ -999,7 +1026,7 @@ namespace SportNow.Views
                 Debug.WriteLine("Answer: " + answer);
 				if (answer == true)
 				{
-                    await Navigation.PushAsync(new QuotasPageCS());
+                    await Navigation.PushAsync(new QuotasListPageCS());
                 }
 				else
 				{
@@ -1015,7 +1042,7 @@ namespace SportNow.Views
                     var currentFeeLabel_tap = new TapGestureRecognizer();
                     currentFeeLabel_tap.Tapped += async (s, e) =>
                     {
-                        await Navigation.PushAsync(new QuotasPageCS());
+                        await Navigation.PushAsync(new QuotasListPageCS());
                     };
                     currentFeeLabel.GestureRecognizers.Add(currentFeeLabel_tap);
 
@@ -1024,9 +1051,10 @@ namespace SportNow.Views
                 
 
 			}
+			return 0;
 		}
 
-        public async void createDelayedMonthFee()
+        public async Task<int> createDelayedMonthFee()
         {
 
             string delayedMonthFeeCount = await Get_Has_DelayedMonthFees();
@@ -1047,7 +1075,68 @@ namespace SportNow.Views
                     await Navigation.PushAsync(new MonthFeeStudentListPageCS());
                 }
             }
+			return 0;
         }
+
+		public async Task<int> createNextYearFee()
+        {
+			MemberManager memberManager = new MemberManager();
+			int res = await memberManager.GetNextYearFee(App.member);
+
+			bool hasNextPeriodFee = true;
+
+            if ((DateTime.Now.Date.ToString("MM") == "11") | (DateTime.Now.Date.ToString("MM") == "12"))
+			{
+				Debug.Print("Month is December");
+				if (App.member.nextPeriodFee == null) 
+				{
+					hasNextPeriodFee = false;
+				}
+				else if ((App.member.nextPeriodFee.estado != "fechado") & (App.member.nextPeriodFee.estado != "recebido") & (App.member.nextPeriodFee.estado != "confirmado")) 
+				{
+					hasNextPeriodFee = false;
+				}
+
+				if (hasNextPeriodFee == false) 
+				{
+					bool answer = await DisplayAlert("A QUOTA DO PRÓXIMO ANO NÃO ESTÁ ATIVA.", "A tua quota para o próximo ano não está ativa. Queres efetuar o pagamento?", "Sim", "Não");
+					Debug.Print("Answer: " + answer);
+					if (answer == true)
+					{
+						if (App.member.nextPeriodFee is null) {
+
+							var result_create = "0";
+
+							showActivityIndicator();
+
+							result_create = await memberManager.CreateFee(App.member.id, App.member.member_type, DateTime.Now.AddYears(1).ToString("yyyy"));
+							if (result_create == "-1")
+							{
+								Application.Current.MainPage = new NavigationPage(new LoginPageCS("Verifique a sua ligação à Internet e tente novamente."))
+								{
+									BarBackgroundColor = App.backgroundColor,
+									BarTextColor = App.normalTextColor
+								};
+							}
+
+							var result_get = await memberManager.GetNextYearFee(App.member);
+							if (result_create == "-1")
+							{
+								Application.Current.MainPage = new NavigationPage(new LoginPageCS("Verifique a sua ligação à Internet e tente novamente."))
+								{
+									BarBackgroundColor = App.backgroundColor,
+									BarTextColor = App.normalTextColor
+								};
+							}
+							hideActivityIndicator();
+						}
+						await Navigation.PushAsync(new QuotasPaymentPageCS(App.member, true));
+					}
+				}
+			}
+			return 0;
+        }
+		
 
         public async void createVersion()
 		{
@@ -1256,11 +1345,8 @@ namespace SportNow.Views
 			{
 				Event event_v = (sender as CollectionView).SelectedItem as Event;
 
-				if (event_v.type == "estagio")
-				{
-					await Navigation.PushAsync(new DetailEventPageCS(event_v));
-				}
-				else if (event_v.type == "competicao")
+
+				if (event_v.type == "competicao")
 				{
 
 					if (event_v.participationid == null)
@@ -1277,8 +1363,12 @@ namespace SportNow.Views
 				{
 					await Navigation.PushAsync(new ExaminationSessionPageCS(event_v.id));
 				}
+                else //if (event_v.type == "estagio")
+                {
+                    await Navigation.PushAsync(new DetailEventPageCS(event_v));
+                }
 
-			}
+            }
 		}
 
 		async void OnTeacherClassesCollectionViewSelectionChanged(object sender, SelectionChangedEventArgs e)

@@ -37,11 +37,15 @@ namespace SportNow
 
         public static string RestUrl_Create_New_Member = DeviceInfo.Platform == DevicePlatform.Android ? "https://" + server + "/services/service_create_new_member.php" : "https://" + server + "/services/service_create_new_member.php";
 
+        public static string RestUrl_Send_Mail_Season = DeviceInfo.Platform == DevicePlatform.Android ? "https://" + server + "/services/service_send_seasonemail.php" : "https://" + server + "/services/service_send_seasonemail.php";
+
         public static string RestUrl_Get_Examinations = DeviceInfo.Platform == DevicePlatform.Android ? "https://"+server+"/services/service_get_examinations.php" : "https://"+server+"/services/service_get_examinations.php";
 
         public static string RestUrl_Get_Fees= DeviceInfo.Platform == DevicePlatform.Android ? "https://"+server+"/services/service_get_fees.php" : "https://"+server+"/services/service_get_fees.php";
 
         public static string RestUrl_Get_Current_Fees = DeviceInfo.Platform == DevicePlatform.Android ? "https://"+server+"/services/service_get_current_fees.php" : "https://"+server+"/services/service_get_current_fees.php";
+
+        public static string RestUrl_Get_NextYearFee = DeviceInfo.Platform == DevicePlatform.Android ? "https://"+server+"/services/service_get_nextyearfee.php" : "https://"+server+"/services/service_get_nextyearfee.php";
 
         public static string RestUrl_Get_Past_Fees = DeviceInfo.Platform == DevicePlatform.Android ? "https://"+server+"/services/service_get_past_fees.php" : "https://"+server+"/services/service_get_past_fees.php";
 
@@ -219,6 +223,9 @@ namespace SportNow
         public static string RestUrl_Get_Class_Program_byId = DeviceInfo.Platform == DevicePlatform.Android ? "https://" + server + "/services/service_get_class_program_byID.php" : "https://" + server + "/services/service_get_class_program_byID.php";
 
         public static string RestUrl_Get_AllPayments_byUserId = DeviceInfo.Platform == DevicePlatform.Android ? "https://" + server + "/services/service_get_all_payments_userid.php" : "https://" + server + "/services/service_get_all_payments_userid.php";
+
+        public static string RestUrl_Get_MedicalExam_byUserId = DeviceInfo.Platform == DevicePlatform.Android ? "https://" + server + "/services/service_get_medicalexam_byuserid.php" : "https://" + server + "/services/service_get_medicalexam_byuserid.php";
+        
 
         //public static string RestUrl_Get_Objectives_bySeason = DeviceInfo.Platform == DevicePlatform.Android ? "https://" + server + "/services/service_get_objectives_bySeason.php" : "https://" + server + "/services/service_get_objectives_bySeason.php";
 

@@ -20,8 +20,8 @@ namespace SportNow.Views
 		{
 			Title = "Fatura";
 
-			var toolbarItem = new ToolbarItem
-			{
+			var toolbarItem = new Microsoft.Maui.Controls.ToolbarItem
+            {
 				//Text = "Logout",
 				IconImageSource = "iconshare.png",
 			
@@ -57,6 +57,8 @@ After:
 
 
 			var pdfUrl = Constants.RestUrl_Get_Invoice_byID + "?invoiceid=" + this.invoiceid;
+
+			Debug.Print("Constants.RestUrl_Get_Invoice_byID = "+ Constants.RestUrl_Get_Invoice_byID + "?invoiceid=" + this.invoiceid);
 
 			SfPdfViewer browser1 = new SfPdfViewer();
 

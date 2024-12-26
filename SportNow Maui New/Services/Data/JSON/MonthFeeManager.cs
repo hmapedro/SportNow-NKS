@@ -29,7 +29,7 @@ namespace SportNow.Services.Data.JSON
 
 		public async Task<int> Update_MonthFee_Status_byID(string monthFeeId, string status)
 		{
-			Debug.WriteLine("MonthFeeManager.Update_MonthFee_Status_byID " + monthFeeId + " "+ status);
+			Debug.WriteLine("MonthFeeManager.Update_MonthFee_Status_byID " + Constants.RestUrl_Update_MonthFee_Status_byID + "?userid=" + App.original_member.id + "&monthfeeid=" + monthFeeId + "&status=" + status);
 
 			Uri uri = new Uri(string.Format(Constants.RestUrl_Update_MonthFee_Status_byID + "?userid="+App.original_member.id+"&monthfeeid=" + monthFeeId + "&status=" + status, string.Empty));
 			try
